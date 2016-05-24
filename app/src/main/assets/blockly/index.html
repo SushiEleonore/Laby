@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Blockly Demo: Fixed Blockly</title>
+  <script type="text/javascript" src="blockly_compressed.js"></script>
+  <script type="text/javascript" src="blocks_compressed.js"></script>
+  <script type="text/javascript" src="javascript_compressed.js"></script>
+  <script type="text/javascript" src="msg/js/en.js"></script>
+  <script type="text/javascript" src="blocks_lambda.js"></script>
+
+  <style>
+    body {
+      background-color: #fff;
+      font-family: sans-serif;
+    }
+    h1 {
+      font-weight: normal;
+      font-size: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="blocklyDiv" style="height: 100vh; width: 100vw;"></div>
+
+  <xml id="toolbox" style="display: none">
+    <block type="var"></block>
+    <block type="lambda"></block>
+    <block type="apply"></block>
+  </xml>
+
+  <script>
+    var workspace = Blockly.inject('blocklyDiv',
+        {media: 'media/',
+        zoom : { control: false,
+                 wheel: false,
+                 startScale : 1.0
+                 },
+         trashcan: true,
+         toolbox: document.getElementById('toolbox')});
+  </script>
+
+</body>
+</html>
