@@ -297,13 +297,13 @@ public class Level {
 
     public String printMaze () {
         String s = "";
-        for (int i = 0; i<cells.length; i++) {
-            for (int j = 0; j<cells[0].length; j++) {
-                if (i == this.p.getX() && j == this.p.getY()) {s = s + "p";}
-                else if (cells[i][j] == null) {s = s + "+";}
-                else if (cells[i][j].getType() == (Cell.Type.WALL)) { s= s+"o"; }
-                else if (cells[i][j].getType() == (Cell.Type.START)) {s = s + "s";}
-                else if (cells[i][j].getType() == (Cell.Type.END)) {s = s + "e";}
+        for (int i = 0; i<cells[0].length; i++) {
+            for (int j = 0; j<cells.length; j++) {
+                if (j == this.p.getX() && i == this.p.getY()) {s = s + "p";}
+                else if (cells[j][i] == null) {s = s + "+";}
+                else if (cells[j][i].getType() == (Cell.Type.WALL)) { s= s+"o"; }
+                else if (cells[j][i].getType() == (Cell.Type.START)) {s = s + "s";}
+                else if (cells[j][i].getType() == (Cell.Type.END)) {s = s + "e";}
                 else s = s + "-";
             }
             s = s + "\n";
