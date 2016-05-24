@@ -1,8 +1,10 @@
-package fr.upsud.sushi.laby;
+package fr.upsud.sushi.laby.maze;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import fr.upsud.sushi.laby.R;
 
 public class MainActivity extends AppCompatActivity {
 

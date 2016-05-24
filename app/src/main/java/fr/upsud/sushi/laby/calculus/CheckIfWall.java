@@ -1,7 +1,7 @@
 package fr.upsud.sushi.laby.calculus;
 
-import fr.upsud.sushi.laby.Level;
-import fr.upsud.sushi.laby.Player;
+import fr.upsud.sushi.laby.maze.Level;
+import fr.upsud.sushi.laby.maze.Player;
 
 /**
  * Created by proval on 5/24/16.

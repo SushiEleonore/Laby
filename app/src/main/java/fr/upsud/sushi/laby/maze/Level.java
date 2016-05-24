@@ -1,6 +1,4 @@
-package fr.upsud.sushi.laby;
-
-import java.util.ArrayList;
+package fr.upsud.sushi.laby.maze;
 
 /**
  * Created by proval on 5/23/16.

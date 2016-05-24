@@ -1,4 +1,4 @@
-package fr.upsud.sushi.laby;
+package fr.upsud.sushi.laby.maze;
 
 /**
  * Created by proval on 5/23/16.
