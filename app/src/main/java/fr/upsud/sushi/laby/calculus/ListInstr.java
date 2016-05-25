@@ -13,6 +13,12 @@ public class ListInstr {
         this.instr = instr;
 
     }
+    public void add(Instr i){
+        instr.add(i);
+    }
+    public Instr getLastInstr(){
+        return instr.get(instr.size()-1);
+    }
 
     //Evaluates the instructions one by one
     public void eval(){

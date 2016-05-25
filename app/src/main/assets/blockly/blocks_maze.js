@@ -84,23 +84,23 @@ Blockly.Blocks['ifelse'] = {
 //Term Builders
 Blockly.JavaScript['turn'] = function(block) {
   var dropdown_name = block.getFieldValue('NAME');
-  // TODO: Assemble JavaScript into code variable.
-  var code = '...;\n';
+   var code = 'JavaTermBuilder.pushTurnRL("' + dropdown_name + '");\n';
   return code;
 };
 
 
 Blockly.JavaScript['move'] = function(block) {
   // TODO: Assemble JavaScript into code variable.
-  var code = '...;\n';
+  var code = 'JavaTermBuilder.pushMove();\n';
   return code;
 };
 
 Blockly.JavaScript['ifpath'] = function(block) {
   var dropdown_name = block.getFieldValue('NAME');
   var statements_name = Blockly.JavaScript.statementToCode(block, 'NAME');
-  // TODO: Assemble JavaScript into code variable.
-  var code = '...;\n';
+  var code = dropdown_name +
+                           statements_name +
+                           'JavaTermBuilder.pushIfThen();\n';
   return code;
 };
 
@@ -109,8 +109,7 @@ Blockly.JavaScript['ifpath'] = function(block) {
 
 Blockly.JavaScript['while'] = function(block) {
   var statements_name = Blockly.JavaScript.statementToCode(block, 'NAME');
-  // TODO: Assemble JavaScript into code variable.
-  var code = '...;\n';
+  var code = 'JavaTermBuilder.pushWhile();\n';
   return code;
 
 Blockly.JavaScript['ifelse'] = function(block) {
@@ -118,7 +117,7 @@ Blockly.JavaScript['ifelse'] = function(block) {
   var statements_then = Blockly.JavaScript.statementToCode(block, 'then');
   var statements_else = Blockly.JavaScript.statementToCode(block, 'else');
   // TODO: Assemble JavaScript into code variable.
-  var code = '...;\n';
+  var code ='JavaTermBuilder.pushIfThenElse();\n';
   return code;
 };
 
@@ -150,7 +149,7 @@ Blockly.JavaScript['apply'] = function(block) {
   return code;
 };
 
-
+*/
 function evalBlock () {
    var code = Blockly.JavaScript.workspaceToCode(Blockly.mainWorkspace);
    JavaTermBuilder.reset();
@@ -158,4 +157,3 @@ function evalBlock () {
    eval(code);
    JavaTermBuilder.eval();
 };
-*/
