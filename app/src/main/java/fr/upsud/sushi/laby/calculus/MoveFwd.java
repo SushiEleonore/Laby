@@ -14,6 +14,6 @@ public class MoveFwd extends Instr {
     }
 
     @Override
-    public void  eval(){ this.l.getPlayer().move(); }
+    public void  eval(){ this.l.getPlayer().move(this.l); }
 
 }

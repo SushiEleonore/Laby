@@ -46,17 +46,17 @@ public class Player {
     }
 
 
-    //The player moves forward by one step. Doesn't check
-    //if there's a wall or
-    public void move (){
+    //The player moves forward by one step.  checks
+    //if there's a wall
+    public void move (Level l){
         if (this.dir == (Dir.E)) {
-            this.x+=1;
+            if (!l.isWall(this.x+1, this.y)) this.x+=1;
         } else if (this.dir == (Dir.W)) {
-            this.x-=1;
+            if (!l.isWall(this.x-1, this.y)) this.x-=1;
         } else if (this.dir == (Dir.S)){
-            this.y-=1;
+            if (!l.isWall(this.x, this.y-1)) this.y-=1;
         } else {
-            this.y+=1;
+            if (!l.isWall(this.x, this.y+1)) this.y+=1;
         }
     }
 
