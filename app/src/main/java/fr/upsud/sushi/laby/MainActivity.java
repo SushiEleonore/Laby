@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Level l = new Level(1);
+        l.getPlayer().move(l);
 
         TextView t=new TextView(this);
         t = (TextView) findViewById(R.id.print);
