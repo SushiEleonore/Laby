@@ -6,7 +6,7 @@ import fr.upsud.sushi.laby.maze.Player;
 /**
  * Created by proval on 5/24/16.
  */
-public class CheckIfWall {
+public class CheckIfWall extends Bool {
     private Level l;
     private Sens s;
 
@@ -18,6 +18,7 @@ public class CheckIfWall {
         this.s = s;
     }
 
+    @Override
     public boolean  eval(){
         if (this.s == (Sens.R)) return this.l.getPlayer().wallOnTheR(this.l);
         if (this.s == (Sens.L)) return this.l.getPlayer().wallOnTheL(this.l);
