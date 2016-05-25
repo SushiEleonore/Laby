@@ -14,8 +14,7 @@ public class InstrWhile extends Instr {
 
     @Override
     public void  eval(){
-        boolean b = this.cond.eval();
-        if (b) {
+        while (this.cond.eval()) {
             instr.eval();
         }
 
