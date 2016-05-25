@@ -289,6 +289,7 @@ public class Level {
 
     //Checks if there's a wall at [i][j]
     public boolean isWall(int i, int j) {
+        if (cells[i][j] == null) {return false;}
         if (cells[i][j].getType() == (Cell.Type.WALL)) { return true;}
         else {return false;}
     }
