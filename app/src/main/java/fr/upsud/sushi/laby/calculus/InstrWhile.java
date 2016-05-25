@@ -4,11 +4,20 @@ package fr.upsud.sushi.laby.calculus;
  * Created by proval on 5/23/16.
  */
 public class InstrWhile extends Instr {
-    Bool bool;
-    Instr instr;
+    Bool cond;
+    ListInstr instr;
 
-    InstrWhile (Bool c, Instr i) {
-        this.bool = c;
+    InstrWhile (Bool c, ListInstr i) {
+        this.cond = c;
         this.instr = i;
+    }
+
+    @Override
+    public void  eval(){
+        boolean b = this.cond.eval();
+        if (b) {
+            instr.eval();
+        }
+
     }
 }

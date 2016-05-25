@@ -1,6 +1,6 @@
-package fr.upsud.sushi.laby;
+package fr.upsud.sushi.laby.maze;
 
-import java.util.ArrayList;
+import fr.upsud.sushi.laby.calculus.Dir;
 
 /**
  * Created by proval on 5/23/16.
@@ -16,7 +16,7 @@ public class Level {
     //Replaced the arraylist by an array
     public Level (int lvl) {
         if (lvl == 1) {
-            this.p = new Player(2, 2, Player.Dir.S);
+            this.p = new Player(2, 2, Dir.S);
             //this.cells = new ArrayList<Cell>();
             cells = new Cell[20][14];
 
