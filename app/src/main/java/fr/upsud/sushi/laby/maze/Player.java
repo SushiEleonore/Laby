@@ -11,7 +11,7 @@ public class Player {
     //Should be equal to the wall size
     //public final float step = 10;
 
-
+    //TODO : change the coordinates so the player moves the right way
 
     //Position of the player.
     //Top left corresponds to (0,0)
