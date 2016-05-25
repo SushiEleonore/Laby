@@ -24,10 +24,6 @@ public class PrintMazeTest extends SurfaceView implements SurfaceHolder.Callback
 
         SurfaceHolder mSurfaceHolder;
         DrawingThread mThread;
-
-
-
-
         Paint mPaint;
 
 
