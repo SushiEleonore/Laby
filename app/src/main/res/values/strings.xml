@@ -2,9 +2,6 @@
         <string name="app_name">Laby</string>
         <string name="action_blocks">Blocks</string>
         <string name="action_code">Code</string>
-
         <string name="variable_name">Variable Name</string>
         <string name="variable_name_title">Enter a name for the variable</string>
-
-
 </resources>
