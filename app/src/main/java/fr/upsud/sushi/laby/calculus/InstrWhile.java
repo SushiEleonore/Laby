@@ -3,12 +3,19 @@ package fr.upsud.sushi.laby.calculus;
 /**
  * Created by proval on 5/23/16.
  */
-public class InstrWhile extends Instr {
-    Bool bool;
-    Instr instr;
+public class InstrWhile  {
+    boolean bool;
+    ListInstr instr;
 
-    InstrWhile (Bool c, Instr i) {
+    InstrWhile (boolean c, ListInstr i) {
         this.bool = c;
         this.instr = i;
+    }
+
+    public void  eval(){
+        if (this.bool) {
+            //Instr.eval();
+        }
+
     }
 }

@@ -6,7 +6,7 @@ import fr.upsud.sushi.laby.maze.Level;
 /**
  * Created by proval on 5/24/16.
  */
-public class MoveFwd { //Implements ITerm ?
+public class MoveFwd extends Instr { //Implements ITerm ?
     private Level l;
 
     public MoveFwd(Level l) {

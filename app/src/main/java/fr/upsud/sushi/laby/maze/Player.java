@@ -1,5 +1,8 @@
 package fr.upsud.sushi.laby.maze;
 
+import fr.upsud.sushi.laby.calculus.Dir;
+import fr.upsud.sushi.laby.calculus.Sens;
+
 /**
  * Created by proval on 5/23/16.
  */
@@ -8,11 +11,7 @@ public class Player {
     //Should be equal to the wall size
     //public final float step = 10;
 
-    enum Dir { N, S, E, W };
 
-    // ! move that somewhere else
-    //F for front
-    public enum Sens {L, R, F};
 
     //Position of the player.
     //Top left corresponds to (0,0)
