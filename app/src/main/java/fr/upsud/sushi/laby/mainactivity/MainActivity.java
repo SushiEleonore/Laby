@@ -1,4 +1,4 @@
-package fr.upsud.sushi.laby;
+package fr.upsud.sushi.laby.mainactivity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
