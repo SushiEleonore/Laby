@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+ <!-- "Mark Favorite", should appear as action button if possible -->
+        <item
+            android:id="@+id/action_blocks"
+            android:icon="@drawable/ic_extension_black_24dp"
+            android:title="@string/action_blocks"
+            android:onClick="actionBlocks"
+            app:showAsAction="always"/>
+    <item
+        android:id="@+id/action_code"
+        android:icon="@drawable/ic_insert_chart_black_24dp"
+        android:title="@string/action_code"
+        android:onClick="actionCode"
+        app:showAsAction="always"/>
+
+</menu>

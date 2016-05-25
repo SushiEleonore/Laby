@@ -130,6 +130,12 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         mWebView.setVisibility(View.GONE);
         mCodeView.setVisibility(View.VISIBLE);
     }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
 
 }
 
