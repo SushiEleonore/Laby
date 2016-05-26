@@ -1,12 +1,11 @@
 Blockly.Blocks['turn'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("tourner")
-        .appendField(new Blockly.FieldDropdown([["à gauche", "OPTIONNAME"], ["à droite", "OPTIONNAME"]]), "NAME");
-    this.setInputsInline(false);
+        .appendField("tourner à")
+        .appendField(new Blockly.FieldDropdown([["gauche", "OPTIONGAUCHE"], ["droite", "OPTIONDROITE"]]), "NAME");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(160);
+    this.setColour(290);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -57,18 +56,19 @@ Blockly.Blocks['while'] = {
     this.setHelpUrl('http://www.example.com/');
   }
 };
+
+
 Blockly.Blocks['ifelse'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("S'il y a un chemin")
-        .appendField(new Blockly.FieldDropdown([["devant", "OPTIONNAME1"], ["à droite", "OPTIONNAME2"], ["à gauche", "OPTIONNAME"]]), "NAME");
+        .appendField("Si il y a un chemin")
+        .appendField(new Blockly.FieldDropdown([["devant", "OPTIONDEVANT"], ["à gauche", "OPTIONNAME"], ["à droite", "OPTIONNAME"]]), "NAME");
     this.appendStatementInput("then")
         .setCheck(null)
         .appendField("faire");
     this.appendStatementInput("else")
         .setCheck(null)
-        .appendField("sinon");
-    this.setInputsInline(false);
+        .appendField("else");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(290);
