@@ -43,7 +43,7 @@ public class TermBuilder {
     }
 
     @JavascriptInterface
-    public void pushWhile() {
+    public void push() {
         //TODO: ne pas mettre n'importe quoi
         //lInstr.add(new IfThen(,n));
     }
@@ -51,7 +51,7 @@ public class TermBuilder {
     @JavascriptInterface
     public void pushIfThenElse() {
         //TODO: ne pas mettre n'importe quoi
-        //lInstr.add(new IfThen(,n));
+       // lInstr.add(new IfThen());
     }
 
     @JavascriptInterface

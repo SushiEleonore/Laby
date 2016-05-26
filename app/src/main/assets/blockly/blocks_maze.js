@@ -90,7 +90,7 @@ Blockly.JavaScript['turn'] = function(block) {
 
 
 Blockly.JavaScript['move'] = function(block) {
-  // TODO: Assemble JavaScript into code variable.
+
   var code = 'JavaTermBuilder.pushMove();\n';
   return code;
 };
@@ -98,9 +98,7 @@ Blockly.JavaScript['move'] = function(block) {
 Blockly.JavaScript['ifpath'] = function(block) {
   var dropdown_name = block.getFieldValue('NAME');
   var statements_name = Blockly.JavaScript.statementToCode(block, 'NAME');
-  var code = dropdown_name +
-                           statements_name +
-                           'JavaTermBuilder.pushIfThen();\n';
+  var code ='JavaTermBuilder.pushIfThen();\n';
   return code;
 };
 
@@ -112,6 +110,7 @@ Blockly.JavaScript['while'] = function(block) {
   var code = 'JavaTermBuilder.pushWhile();\n';
   return code;
 
+};
 Blockly.JavaScript['ifelse'] = function(block) {
   var dropdown_name = block.getFieldValue('NAME');
   var statements_then = Blockly.JavaScript.statementToCode(block, 'then');
@@ -120,36 +119,6 @@ Blockly.JavaScript['ifelse'] = function(block) {
   var code ='JavaTermBuilder.pushIfThenElse();\n';
   return code;
 };
-
-/*
-
-
-Blockly.JavaScript['var'] = function(block) {
-  var text_name = block.getFieldValue('NAME');
-  var code = 'JavaTermBuilder.pushVar("' + text_name + '");\n';
-  return code;
-};
-
-Blockly.JavaScript['lambda'] = function(block) {
-  var text_param = block.getFieldValue('PARAM');
-  var statements_body = Blockly.JavaScript.statementToCode(block, 'BODY');
-  var code = statements_body +
-            'JavaTermBuilder.pushLambda("' + text_param + '");\n';
-  return code;
-};
-
-
-
-Blockly.JavaScript['apply'] = function(block) {
-  var statements_fun = Blockly.JavaScript.statementToCode(block, 'FUN');
-  var statements_arg = Blockly.JavaScript.statementToCode(block, 'ARG');
-  var code = statements_fun +
-             statements_arg +
-             'JavaTermBuilder.pushApply();\n';
-  return code;
-};
-
-*/
 function evalBlock () {
    var code = Blockly.JavaScript.workspaceToCode(Blockly.mainWorkspace);
    JavaTermBuilder.reset();
@@ -157,3 +126,5 @@ function evalBlock () {
    eval(code);
    JavaTermBuilder.eval();
 };
+
+
