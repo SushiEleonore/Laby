@@ -25,33 +25,34 @@ Blockly.Blocks['move'] = {
   }
 };
 
+
+
+
 Blockly.Blocks['ifpath'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("S'il y a un chemin")
-        .appendField(new Blockly.FieldDropdown([["devant", "OPTIONNAME"], ["à droite", "OPTIONNAME"], ["à gauche", "OPTIONNAME"]]), "NAME");
+        .appendField("Si il y a un chemin")
+        .appendField(new Blockly.FieldDropdown([["devant", "OPTIONDEVANT"], ["à gauche", "OPTIONGAUCHE"], ["à droite", "OPTIONDROITE"]]), "NAME");
     this.appendStatementInput("NAME")
         .setCheck(null)
         .appendField("faire");
-    this.setInputsInline(false);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(290);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
-};
+ };
+
 
 Blockly.Blocks['while'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Répéter jusqu'à la fin :");
+        .appendField("Tant que le niveau n'est pas fini,");
     this.appendStatementInput("NAME")
-        .setCheck(null);
-    this.setInputsInline(false);
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(290);
+        .setCheck(null)
+        .appendField("faire");
+    this.setColour(330);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -59,8 +60,8 @@ Blockly.Blocks['while'] = {
 Blockly.Blocks['ifelse'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("S'il y a un mur")
-        .appendField(new Blockly.FieldDropdown([["devant", "OPTIONNAME"], ["à droite", "OPTIONNAME"], ["à gauche", "OPTIONNAME"]]), "NAME");
+        .appendField("S'il y a un chemin")
+        .appendField(new Blockly.FieldDropdown([["devant", "OPTIONNAME1"], ["à droite", "OPTIONNAME2"], ["à gauche", "OPTIONNAME"]]), "NAME");
     this.appendStatementInput("then")
         .setCheck(null)
         .appendField("faire");
@@ -90,7 +91,7 @@ Blockly.JavaScript['move'] = function(block) {
 
 Blockly.JavaScript['ifpath'] = function(block) {
   var dropdown_name = block.getFieldValue('NAME');
-  var statements_name = Blockly.JavaScript.statementToCode(block, 'NAME');
+   var statements_name = Blockly.JavaScript.statementToCode(block, 'NAME');
   var code ='JavaTermBuilder.pushIfThen();\n';
   return code;
 };
