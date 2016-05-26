@@ -20,9 +20,9 @@ public class TermBuilder {
     private Deque<ITerm> stack;
 
 
-    public TermBuilder(Observer<String> gui) {
+    public TermBuilder(Observer<String> gui, Level l) {
         stack = new ArrayDeque<>();
-        Level l = new Level(1);
+        this.l=l;
         this.gui = gui;
     }
 
@@ -34,7 +34,7 @@ public class TermBuilder {
     }
 
     @JavascriptInterface
-    public void pushTurnRl(String v) {
+    public void pushTurnRL(String v) {
         stack.push(new TurnRL(l, v));
     }
 
@@ -60,7 +60,7 @@ public class TermBuilder {
             whileDo.add((Instr)t);
         }
         //MAY PROVOKE A LOT OF BUGS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        whileDo.remove(whileDo.size()-1);
+        whileDo.remove(whileDo.size());
         CheckIfEnd cond = (new CheckIfEnd(l));
         stack.add(new InstrWhile( cond, whileDo));
     }
@@ -74,7 +74,7 @@ public class TermBuilder {
             elseBlock.add((Instr)t);
         }
         //MAY PROVOKE A LOT OF BUGS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        elseBlock.remove(elseBlock.size()-1);
+        elseBlock.remove(elseBlock.size());
 
         ArrayList<Instr> thenBlock = new ArrayList<Instr>();
         t = null;
@@ -83,7 +83,7 @@ public class TermBuilder {
             thenBlock.add((Instr)t);
         }
         //MAY PROVOKE A LOT OF BUGS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        thenBlock.remove(elseBlock.size()-1);
+        thenBlock.remove(elseBlock.size());
         CheckIfPath cond = (new CheckIfPath(l,v));
         stack.add(new IfPathThen( cond, thenBlock, elseBlock));
     }
@@ -108,7 +108,7 @@ public class TermBuilder {
         Instr t = getInstr();
         if (t != null) {
             t.eval();
-            gui.notify();
+            gui.notify(l.printMaze());
         }
     }
 

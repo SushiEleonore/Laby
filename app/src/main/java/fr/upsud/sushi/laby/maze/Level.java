@@ -20,7 +20,7 @@ public class Level {
     //Replaced the arraylist by an array
     public Level (int lvl) {
         if (lvl == 1) {
-            this.p = new Player(2, 2, Dir.S);
+            this.p = new Player(2, 2, Dir.N);
             //this.cells = new ArrayList<Cell>();
             cells = new Cell[20][14];
 

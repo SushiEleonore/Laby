@@ -96,26 +96,38 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
     private WebView mWebView;
     private View mCodeView;
+    private Level l;
+    TextView t;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        l = new Level(1);
         mWebView = (WebView) findViewById(R.id.webView);
         mWebView.setWebChromeClient(new CustomWebChromeClient(this));
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.loadUrl("file:///android_asset/blockly/index.html");
-        mWebView.addJavascriptInterface(new TermBuilder(this), "JavaTermBuilder");
+        mWebView.addJavascriptInterface(new TermBuilder(this, l), "JavaTermBuilder");
+
+        //l.getPlayer().move(l);
+
+
+        t = (TextView) findViewById(R.id.print);
+        String hello = l.printMaze();
+        t.setText( hello);
 
     }
 
     public void notify(String data) {
         TextView t = (TextView) findViewById(R.id.print);
-        t.setText(data);
+        t.clearComposingText();
+        t.setText(l.printMaze());
     }
 
     public void evalBlock(View v) {
         mWebView.loadUrl("javascript:evalBlock()");
+
+
     }
 
     public void actionBlocks(MenuItem m) {

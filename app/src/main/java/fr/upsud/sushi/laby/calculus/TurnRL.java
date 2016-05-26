@@ -16,7 +16,7 @@ public class TurnRL extends Instr {
     }
     public TurnRL(Level l, String dir){
         this.l=l;
-        if(dir.equals("droite")){
+        if(dir.equals("OPTIONGAUCHE")){
             this.s= Sens.R;
         }
         else{
