@@ -23,7 +23,6 @@ import fr.upsud.sushi.laby.utils.Observer;
 import fr.upsud.sushi.laby.R;
 import fr.upsud.sushi.laby.maze.Level;
 
-
 class CustomWebChromeClient extends WebChromeClient {
 
     private Context mContext;
@@ -102,13 +101,11 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         mWebView = (WebView) findViewById(R.id.webView);
         mWebView.setWebChromeClient(new CustomWebChromeClient(this));
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.loadUrl("file:///android_asset/blockly/index.html");
         mWebView.addJavascriptInterface(new TermBuilder(this), "JavaTermBuilder");
-
 
     }
 
@@ -135,7 +132,6 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         inflater.inflate(R.menu.main_menu, menu);
         return true;
     }
-
 
 }
 
@@ -187,7 +183,6 @@ public class MainActivity extends AppCompatActivity {
         mView = new PrintMazeTest(this, l);
         setContentView(mView);
 
-
     }
 
 }
@@ -206,5 +201,3 @@ protected void onCreate savedInstanceState) {
     String hello = l.printMaze();
     t.setText( hello);
 }*/
-
-
