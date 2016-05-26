@@ -1,13 +1,15 @@
 package fr.upsud.sushi.laby.calculus;
 
+import java.util.ArrayList;
+
 /**
  * Created by proval on 5/23/16.
  */
 public class InstrWhile extends Instr {
     Bool cond;
-    ListInstr instr;
+    ArrayList<Instr> instr;
 
-    InstrWhile (Bool c, ListInstr i) {
+    InstrWhile (Bool c,ArrayList<Instr> i) {
         this.cond = c;
         this.instr = i;
     }
@@ -15,7 +17,8 @@ public class InstrWhile extends Instr {
     @Override
     public void  eval(){
         while (this.cond.eval()) {
-            instr.eval();
+            for(Instr i : instr)
+                i.eval();
         }
 
     }

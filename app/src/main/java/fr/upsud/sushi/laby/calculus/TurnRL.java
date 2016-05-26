@@ -14,6 +14,15 @@ public class TurnRL extends Instr {
         this.l = l;
         this.s = s;
     }
+    public TurnRL(Level l, String dir){
+        this.l=l;
+        if(dir.equals("droite")){
+            this.s= Sens.R;
+        }
+        else{
+            this.s=Sens.L;
+        }
+    }
 
     @Override
     public void eval (){

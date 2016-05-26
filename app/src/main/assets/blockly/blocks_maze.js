@@ -31,8 +31,8 @@ Blockly.Blocks['ifpath'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Si il y a un chemin")
-        .appendField(new Blockly.FieldDropdown([["devant", "OPTIONDEVANT"], ["à gauche", "OPTIONGAUCHE"], ["à droite", "OPTIONDROITE"]]), "NAME");
-    this.appendStatementInput("NAME")
+        .appendField(new Blockly.FieldDropdown([["devant", "OPTIONDEVANT"], ["à gauche", "OPTIONGAUCHE"], ["à droite", "OPTIONDROITE"]]), "DIR");
+    this.appendStatementInput("THEN")
         .setCheck(null)
         .appendField("faire");
     this.setPreviousStatement(true, null);
@@ -90,24 +90,24 @@ Blockly.JavaScript['move'] = function(block) {
 };
 
 Blockly.JavaScript['ifpath'] = function(block) {
-  var dropdown_name = block.getFieldValue('NAME');
-   var statements_name = Blockly.JavaScript.statementToCode(block, 'NAME');
-  var code ='JavaTermBuilder.pushIfThen();\n';
+  var dropdown_name = block.getFieldValue('DIR');
+  var statements_name = Blockly.JavaScript.statementToCode(block, 'THEN');
+  var code ='JavaTermBuilder.pushBegin();' + statements_name + 'JavaTermBuilder.pushIfThen('+dropdown_name+');\n';
   return code;
 };
 
 Blockly.JavaScript['while'] = function(block) {
   var statements_name = Blockly.JavaScript.statementToCode(block, 'NAME');
-  var code = 'JavaTermBuilder.pushWhile();\n';
+  var code = 'JavaTermBuilder.pushBegin();' + statements_name + 'JavaTermBuilder.pushWhile();\n';
   return code;
-
 };
+
 Blockly.JavaScript['ifelse'] = function(block) {
   var dropdown_name = block.getFieldValue('NAME');
   var statements_then = Blockly.JavaScript.statementToCode(block, 'then');
   var statements_else = Blockly.JavaScript.statementToCode(block, 'else');
-  // TODO: Assemble JavaScript into code variable.
-  var code ='JavaTermBuilder.pushIfThenElse();\n';
+  // MAY RAISE AN ERROR !
+  var code ='JavaTermBuilder.pushBegin();' + statements_else+'JavaTermBuilder.pushBegin();' + statements_then +'JavaTermBuilder.pushIfThenElse('+dropdown_name+');\n';
   return code;
 };
 function evalBlock () {

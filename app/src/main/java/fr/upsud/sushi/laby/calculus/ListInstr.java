@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Created by proval on 5/25/16.
  */
-public class ListInstr {
+public class ListInstr extends ITerm{
 
     private ArrayList<Instr> instr;
 

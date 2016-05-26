@@ -11,6 +11,10 @@ public class Level {
     //Player ?
     private Player p;
 
+    private int xEnd;
+    private int yEnd;
+
+
 
     //Generates a maze and a player depending on the level.
     //Replaced the arraylist by an array
@@ -19,6 +23,9 @@ public class Level {
             this.p = new Player(2, 2, Dir.S);
             //this.cells = new ArrayList<Cell>();
             cells = new Cell[20][14];
+
+            this.xEnd = 8;
+            this.yEnd = 11;
 
             cells[0][0] = new Cell(Cell.Type.WALL, 0, 0);
             cells[0][1] = new Cell(Cell.Type.WALL, 0, 1);
@@ -311,6 +318,9 @@ public class Level {
         }
         return s;
     }
+
+    public int getXend() { return this.xEnd;}
+    public int getYend() { return this.yEnd;}
 
 
 }

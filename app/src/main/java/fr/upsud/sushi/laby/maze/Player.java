@@ -25,6 +25,7 @@ public class Player {
     private Dir dir;
 
 
+
     public Player(int x, int y, Dir d) {
         this.dir=d;
         this.x = x;

@@ -4,6 +4,7 @@ package fr.upsud.sushi.laby.calculus;
 import android.webkit.JavascriptInterface;
 import fr.upsud.sushi.laby.utils.Observer;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
 import fr.upsud.sushi.laby.maze.Level;
 
@@ -13,12 +14,14 @@ import fr.upsud.sushi.laby.maze.Level;
 public class TermBuilder {
 
 
-    private ListInstr lInstr;
+    //private ListInstr lInstr;
     private Observer<String> gui;
     private Level l;
+    private Deque<ITerm> stack;
+
 
     public TermBuilder(Observer<String> gui) {
-        lInstr=null;
+        stack = new ArrayDeque<>();
         Level l = new Level(1);
         this.gui = gui;
     }
@@ -26,50 +29,88 @@ public class TermBuilder {
     @JavascriptInterface
     public void pushMove() {
 
-      lInstr.add(new MoveFwd(l));
+        stack.push(new MoveFwd(l));
+      //lInstr.add(new MoveFwd(l));
     }
 
     @JavascriptInterface
     public void pushTurnRl(String v) {
-        //TODO : Faire une méthode pour convertir le string en sens
-
-        lInstr.add(new TurnRL(l, Sens.L));
+        stack.push(new TurnRL(l, v));
     }
 
     @JavascriptInterface
-    public void pushIfThen() {
-       //TODO: ne pas mettre n'importe quoi
-        //lInstr.add(new IfThen(,n));
+    public void pushIfThen(String v) {
+        ArrayList<Instr> then = new ArrayList<Instr>();
+        ITerm t = null;
+        while((t=stack.pop()) instanceof Instr){
+            then.add((Instr)t);
+        }
+        //MAY PROVOKE A LOT OF BUGS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        then.remove(then.size()-1);
+        CheckIfPath cond = (new CheckIfPath(l,v));
+        stack.add(new IfPathThen( cond, then));
+
     }
 
     @JavascriptInterface
-    public void push() {
-        //TODO: ne pas mettre n'importe quoi
-        //lInstr.add(new IfThen(,n));
+    public void pushWhile() {
+        ArrayList<Instr> whileDo = new ArrayList<Instr>();
+        ITerm t = null;
+        while((t=stack.pop()) instanceof Instr){
+            whileDo.add((Instr)t);
+        }
+        //MAY PROVOKE A LOT OF BUGS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        whileDo.remove(whileDo.size()-1);
+        CheckIfEnd cond = (new CheckIfEnd(l));
+        stack.add(new InstrWhile( cond, whileDo));
     }
 
     @JavascriptInterface
-    public void pushIfThenElse() {
-        //TODO: ne pas mettre n'importe quoi
-       // lInstr.add(new IfThen());
+    public void pushIfThenElse(String v) {
+        ArrayList<Instr> elseBlock = new ArrayList<Instr>();
+        ITerm t = null;
+        //BEWARE : WE MAY INVERS ELSE END THEN BLOCKS
+        while((t=stack.pop()) instanceof Instr){
+            elseBlock.add((Instr)t);
+        }
+        //MAY PROVOKE A LOT OF BUGS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        elseBlock.remove(elseBlock.size()-1);
+
+        ArrayList<Instr> thenBlock = new ArrayList<Instr>();
+        t = null;
+        //BEWARE : WE MAY INVERS ELSE END THEN BLOCKS
+        while((t=stack.pop()) instanceof Instr){
+            thenBlock.add((Instr)t);
+        }
+        //MAY PROVOKE A LOT OF BUGS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        thenBlock.remove(elseBlock.size()-1);
+        CheckIfPath cond = (new CheckIfPath(l,v));
+        stack.add(new IfPathThen( cond, thenBlock, elseBlock));
     }
 
+    @JavascriptInterface
+    public void pushBegin() {
+        stack.push(new Flag());
+    }
     @JavascriptInterface
     public void reset() {
-        //TODO : CLEAR Linstr
+        stack.clear();
     }
 
 
-    public Instr getTerm() {
-        return lInstr.getLastInstr();
+    public Instr getInstr() {
+        return (Instr)stack.peek();
     }
 
+    //MAY BE PROBLEMATIC
     @JavascriptInterface
     public void eval() {
-        Instr t = lInstr.getLastInstr();
+        Instr t = getInstr();
         if (t != null) {
-            //TODO; faire
+            t.eval();
+            gui.notify();
         }
     }
+
 }
 
