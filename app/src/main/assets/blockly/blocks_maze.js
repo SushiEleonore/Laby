@@ -12,8 +12,6 @@ Blockly.Blocks['turn'] = {
   }
 };
 
-
-
 Blockly.Blocks['move'] = {
   init: function() {
     this.appendDummyInput()
@@ -26,9 +24,6 @@ Blockly.Blocks['move'] = {
     this.setHelpUrl('http://www.example.com/');
   }
 };
-
-
-
 
 Blockly.Blocks['ifpath'] = {
   init: function() {
@@ -46,7 +41,6 @@ Blockly.Blocks['ifpath'] = {
     this.setHelpUrl('http://www.example.com/');
   }
 };
-
 
 Blockly.Blocks['while'] = {
   init: function() {
@@ -88,7 +82,6 @@ Blockly.JavaScript['turn'] = function(block) {
   return code;
 };
 
-
 Blockly.JavaScript['move'] = function(block) {
 
   var code = 'JavaTermBuilder.pushMove();\n';
@@ -101,9 +94,6 @@ Blockly.JavaScript['ifpath'] = function(block) {
   var code ='JavaTermBuilder.pushIfThen();\n';
   return code;
 };
-
-
-
 
 Blockly.JavaScript['while'] = function(block) {
   var statements_name = Blockly.JavaScript.statementToCode(block, 'NAME');
@@ -126,5 +116,3 @@ function evalBlock () {
    eval(code);
    JavaTermBuilder.eval();
 };
-
-
