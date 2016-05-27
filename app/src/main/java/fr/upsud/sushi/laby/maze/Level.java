@@ -23,7 +23,7 @@ public class Level {
     //Replaced the arraylist by an array
     public Level (int lvl) {
         if (lvl == 1) {
-            this.p = new Player(2, 2, Dir.N);
+            this.p = new Player(2, 2, Dir.S);
             //this.cells = new ArrayList<Cell>();
             cells = new Cell[20][14];
 
@@ -331,7 +331,23 @@ public class Level {
         }
         return s;
     }
-
+/*
+    public String printMaze () {
+        String s = "";
+        for (int i = 0; i<cells.length; i++) {
+            for (int j = 0; j<cells[0].length; j++) {
+                if (i == this.p.getX() && j == this.p.getY()) {s = s + "p";}
+                else if (cells[i][j] == null) {s = s + "+";}
+                else if (cells[i][j].getType() == (Cell.Type.WALL)) { s= s+"o"; }
+                else if (cells[i][j].getType() == (Cell.Type.START)) {s = s + "s";}
+                else if (cells[i][j].getType() == (Cell.Type.END)) {s = s + "e";}
+                else s = s + "-";
+            }
+            s = s + "\n";
+        }
+        return s;
+    }
+*/
 
 
 }

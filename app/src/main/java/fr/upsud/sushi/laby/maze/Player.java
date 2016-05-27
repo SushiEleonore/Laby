@@ -40,14 +40,15 @@ public class Player {
     public void setY(int pY) { this.y = pY;}
 
     //Changes the direction of the player
+    //!!!!!!!changed it
     public void rotate(Sens s){
         if (s == (Sens.L) && this.dir == (Dir.E)
-                || s == (Sens.R) && this.dir == (Dir.W)) { this.dir = Dir.N;}
+                || s == (Sens.R) && this.dir == (Dir.W)) { this.dir = Dir.S;}
         else if (s == (Sens.L) && this.dir == (Dir.N)
-                || s == (Sens.R) && this.dir == (Dir.S)) { this.dir = Dir.W;}
+                || s == (Sens.R) && this.dir == (Dir.S)) { this.dir = Dir.E;}
         else if (s == (Sens.L) && this.dir == (Dir.W)
-                || s == (Sens.R) && this.dir == (Dir.E)) { this.dir = Dir.S;}
-        else { this.dir = Dir.E;}
+                || s == (Sens.R) && this.dir == (Dir.E)) { this.dir = Dir.N;}
+        else { this.dir = Dir.W;}
     }
 
 
@@ -64,37 +65,43 @@ public class Player {
             } else {
                 this.x-=1;}
         } else if (this.dir == (Dir.S)){
-            if (l.isWall(this.x, this.y-1)){
-                throw new wallCollisionException();
-            } else {
-                this.y-=1;}
-        } else {
             if (l.isWall(this.x, this.y+1)){
                 throw new wallCollisionException();
             } else {
                 this.y+=1;}
+        } else {
+            if (l.isWall(this.x, this.y-1)){
+                throw new wallCollisionException();
+            } else {
+                this.y-=1;}
         }
     }
 
     //Checks if the player is facing a wall.
     public boolean facingWall (Level l) {
+        System.out.println("Checking front");
         if (this.dir == (Dir.E)) {
+            System.out.println("Facing east");
             return (l.isWall(this.x+1, this.y));
         } else if (this.dir == (Dir.W)) {
+            System.out.println("Facing west");
             return (l.isWall(this.x-1, this.y));
         } else if (this.dir == (Dir.S)){
-            return (l.isWall(this.x, this.y-1));
-        } else {
+            System.out.println("Facing south");
             return (l.isWall(this.x, this.y+1));
+        } else {
+            System.out.println("Facing north");
+            return (l.isWall(this.x, this.y-1));
         }
     }
 
     //Checks if there is a wall on the right
     public boolean wallOnTheR (Level l) {
+        System.out.println("Checking right");
         if (this.dir == (Dir.E)) {
-            return (l.isWall(this.x, this.y-1));
-        } else if (this.dir == (Dir.W)) {
             return (l.isWall(this.x, this.y+1));
+        } else if (this.dir == (Dir.W)) {
+            return (l.isWall(this.x, this.y-1));
         } else if (this.dir == (Dir.S)){
             return (l.isWall(this.x-1, this.y));
         } else {
@@ -104,10 +111,11 @@ public class Player {
 
     //Checks if there is a wall on the left
     public boolean wallOnTheL (Level l) {
+        System.out.println("Checking left");
         if (this.dir == (Dir.E)) {
-            return (l.isWall(this.x, this.y+1));
-        } else if (this.dir == (Dir.W)) {
             return (l.isWall(this.x, this.y-1));
+        } else if (this.dir == (Dir.W)) {
+            return (l.isWall(this.x, this.y+1));
         } else if (this.dir == (Dir.S)){
             return (l.isWall(this.x+1, this.y));
         } else {
