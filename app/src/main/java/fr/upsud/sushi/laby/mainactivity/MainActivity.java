@@ -120,8 +120,8 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     }
 
     public void notify(String data) {
-        //TextView t = (TextView) findViewById(R.id.print);
-       // t.clearComposingText();
+        TextView t = (TextView) findViewById(R.id.print);
+       t.clearComposingText();
         t.setText(l.printMaze());
     }
 

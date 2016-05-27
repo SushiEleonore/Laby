@@ -1,6 +1,7 @@
 package fr.upsud.sushi.laby.calculus;
 
 
+import fr.upsud.sushi.laby.exceptions.wallCollisionException;
 import fr.upsud.sushi.laby.maze.Level;
 
 /**
@@ -14,6 +15,9 @@ public class MoveFwd extends Instr {
     }
 
     @Override
-    public void  eval(){ this.l.getPlayer().move(this.l); }
+    public void  eval() {
+        try { this.l.getPlayer().move(this.l);
+        } catch (wallCollisionException E) {}
+    }
 
 }

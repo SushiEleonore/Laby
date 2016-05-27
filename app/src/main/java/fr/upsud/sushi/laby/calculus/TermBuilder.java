@@ -60,7 +60,7 @@ public class TermBuilder {
             whileDo.add((Instr)t);
         }
         //MAY PROVOKE A LOT OF BUGS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        whileDo.remove(whileDo.size());
+        whileDo.remove(whileDo.size()-1);
         CheckIfEnd cond = (new CheckIfEnd(l));
         stack.add(new InstrWhile( cond, whileDo));
     }
