@@ -120,8 +120,8 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     }
 
     public void notify(String data) {
-        TextView t = (TextView) findViewById(R.id.print);
-        t.clearComposingText();
+        //TextView t = (TextView) findViewById(R.id.print);
+       // t.clearComposingText();
         t.setText(l.printMaze());
     }
 
@@ -129,6 +129,11 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         mWebView.loadUrl("javascript:evalBlock()");
 
 
+    }
+
+    public void restartLevel (View  v) {
+        l.restart();
+        t.setText(l.printMaze());
     }
 
     public void actionBlocks(MenuItem m) {

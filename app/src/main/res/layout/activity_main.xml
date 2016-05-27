@@ -28,6 +28,12 @@
             android:text="Evaluer"
             android:onClick="evalBlock"
             android:id="@+id/button" android:layout_gravity="bottom"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Recommencer"
+            android:onClick="restartLevel"
+            android:id="@+id/buttonRes" android:layout_gravity="bottom"/>
     </LinearLayout>
     <WebView
         android:layout_width="wrap_content"
