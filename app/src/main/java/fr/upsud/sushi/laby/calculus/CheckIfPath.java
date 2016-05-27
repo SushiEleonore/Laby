@@ -20,10 +20,10 @@ public class CheckIfPath extends Bool {
 
     public CheckIfPath(Level l, String dir) {
         this.l = l;
-        if(dir.equals("à droite")){
+        if(dir.equals("OPTIONDROITE")){
             this.s= Sens.R;
         }
-        else if (dir.equals("à gauche")){
+        else if (dir.equals("OPTIONGAUCHE")){
             this.s=Sens.L;
         }
         else {

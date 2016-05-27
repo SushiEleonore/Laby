@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     private WebView mWebView;
     private View mCodeView;
     private Level l;
-    TextView t;
+    //TextView t;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,16 +113,28 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         //l.getPlayer().move(l);
 
 
-        t = (TextView) findViewById(R.id.print);
+        TextView t = (TextView) findViewById(R.id.print);
         String hello = l.printMaze();
         t.setText( hello);
 
     }
 
     public void notify(String data) {
-        TextView t = (TextView) findViewById(R.id.print);
-       t.clearComposingText();
-        t.setText(l.printMaze());
+
+        runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                TextView t = (TextView) findViewById(R.id.print);
+                t.clearComposingText();
+                t.setText(l.printMaze());
+                //title.clearComposingText();//not useful
+
+            }
+        });
+
+
+
     }
 
     public void evalBlock(View v) {
@@ -132,6 +144,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     }
 
     public void restartLevel (View  v) {
+        TextView t = (TextView) findViewById(R.id.print);
         l.restart();
         t.setText(l.printMaze());
     }

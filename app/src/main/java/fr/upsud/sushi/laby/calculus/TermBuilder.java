@@ -74,7 +74,7 @@ public class TermBuilder {
             elseBlock.add((Instr)t);
         }
         //MAY PROVOKE A LOT OF BUGS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        elseBlock.remove(elseBlock.size());
+        elseBlock.remove(elseBlock.size()-1);
 
         ArrayList<Instr> thenBlock = new ArrayList<Instr>();
         t = null;
@@ -83,9 +83,13 @@ public class TermBuilder {
             thenBlock.add((Instr)t);
         }
         //MAY PROVOKE A LOT OF BUGS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        thenBlock.remove(elseBlock.size());
-        CheckIfPath cond = (new CheckIfPath(l,v));
+        if(!thenBlock.isEmpty()) {
+            thenBlock.remove(elseBlock.size() - 1);
+
+        }
+        CheckIfPath cond = (new CheckIfPath(l, v));
         stack.add(new IfPathThen( cond, thenBlock, elseBlock));
+
     }
 
     @JavascriptInterface

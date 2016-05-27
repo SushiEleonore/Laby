@@ -62,7 +62,7 @@ Blockly.Blocks['ifelse'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Si il y a un chemin")
-        .appendField(new Blockly.FieldDropdown([["devant", "OPTIONDEVANT"], ["à gauche", "OPTIONNAME"], ["à droite", "OPTIONNAME"]]), "NAME");
+        .appendField(new Blockly.FieldDropdown([["devant", "OPTIONDEVANT"], ["à gauche", "OPTIONGAUCHE"], ["à droite", "OPTIONDROITE"]]), "NAME");
     this.appendStatementInput("then")
         .setCheck(null)
         .appendField("faire");
@@ -92,7 +92,7 @@ Blockly.JavaScript['move'] = function(block) {
 Blockly.JavaScript['ifpath'] = function(block) {
   var dropdown_name = block.getFieldValue('DIR');
   var statements_name = Blockly.JavaScript.statementToCode(block, 'THEN');
-  var code ='JavaTermBuilder.pushBegin();' + statements_name + 'JavaTermBuilder.pushIfThen('+dropdown_name+');\n';
+  var code ='JavaTermBuilder.pushBegin();' + statements_name + 'JavaTermBuilder.pushIfThen("'+dropdown_name+'");\n';
   return code;
 };
 
@@ -107,7 +107,7 @@ Blockly.JavaScript['ifelse'] = function(block) {
   var statements_then = Blockly.JavaScript.statementToCode(block, 'then');
   var statements_else = Blockly.JavaScript.statementToCode(block, 'else');
   // MAY RAISE AN ERROR !
-  var code ='JavaTermBuilder.pushBegin();' + statements_else+'JavaTermBuilder.pushBegin();' + statements_then +'JavaTermBuilder.pushIfThenElse('+dropdown_name+');\n';
+  var code ='JavaTermBuilder.pushBegin();' + statements_else+'JavaTermBuilder.pushBegin();' + statements_then +'JavaTermBuilder.pushIfThenElse("'+dropdown_name+'");\n';
   return code;
 };
 function evalBlock () {
