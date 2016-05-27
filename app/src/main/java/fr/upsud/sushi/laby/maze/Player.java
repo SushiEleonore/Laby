@@ -35,6 +35,9 @@ public class Player {
     public int getX() { return this.x;}
     public int getY() { return this.y;}
 
+    public void setX(int pX) { this.x = pX;}
+    public void setY(int pY) { this.y = pY;}
+
     //Changes the direction of the player
     public void rotate(Sens s){
         if (s == (Sens.L) && this.dir == (Dir.E)

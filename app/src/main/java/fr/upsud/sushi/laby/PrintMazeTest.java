@@ -71,7 +71,7 @@ public class PrintMazeTest extends SurfaceView implements SurfaceHolder.Callback
             // Dessiner la boule
             if(this.l.getPlayer() != null) {
                 mPaint.setColor(Color.BLUE);
-                pCanvas.drawCircle(this.l.getPlayer().getX()*size, this.l.getPlayer().getY()*size, size/2, mPaint);
+                pCanvas.drawCircle(this.l.getPlayer().getX()*size+size/2, this.l.getPlayer().getY()*size+size/2, size/2, mPaint);
             }
         }
 

@@ -14,6 +14,9 @@ public class Level {
     private int xEnd;
     private int yEnd;
 
+    private int xStart;
+    private int yStart;
+
 
 
     //Generates a maze and a player depending on the level.
@@ -24,6 +27,8 @@ public class Level {
             //this.cells = new ArrayList<Cell>();
             cells = new Cell[20][14];
 
+            this.xStart = 2;
+            this.yStart = 2;
             this.xEnd = 8;
             this.yEnd = 11;
 
@@ -301,6 +306,14 @@ public class Level {
         else {return false;}
     }
 
+    public int getXend() { return this.xEnd;}
+    public int getYend() { return this.yEnd;}
+
+    public void restart () {
+        this.p.setX(this.xStart);
+        this.p.setY(this.yStart);
+    }
+
     /**********Tests************/
 
     public String printMaze () {
@@ -319,8 +332,6 @@ public class Level {
         return s;
     }
 
-    public int getXend() { return this.xEnd;}
-    public int getYend() { return this.yEnd;}
 
 
 }

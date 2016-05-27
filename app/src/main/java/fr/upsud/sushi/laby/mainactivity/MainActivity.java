@@ -2,6 +2,7 @@ package fr.upsud.sushi.laby.mainactivity;
 
 import android.content.Context;
 import android.content.DialogInterface;
+//import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -164,9 +165,11 @@ public class MainActivity extends AppCompatActivity {
         t.setText( hello);
     }
 }
-*/
 
-/*package fr.upsud.sushi.laby.mainactivity;
+/*
+
+
+//package fr.upsud.sushi.laby.mainactivity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -192,6 +195,11 @@ public class MainActivity extends AppCompatActivity {
 
         Level l = new Level(1);
 
+        mView = new PrintMazeTest(this, l);
+        l.getPlayer().move(l);
+       // try {
+       //     Thread.sleep(2000);
+       // } catch (Exception e) {}
         mView = new PrintMazeTest(this, l);
         setContentView(mView);
 
