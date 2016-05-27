@@ -46,7 +46,7 @@ public class TermBuilder {
             then.add((Instr)t);
         }
         //MAY PROVOKE A LOT OF BUGS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        then.remove(then.size()-1);
+
         CheckIfPath cond = (new CheckIfPath(l,v));
         stack.add(new IfPathThen( cond, then));
 
@@ -60,7 +60,7 @@ public class TermBuilder {
             whileDo.add((Instr)t);
         }
         //MAY PROVOKE A LOT OF BUGS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        whileDo.remove(whileDo.size()-1);
+
         CheckIfEnd cond = (new CheckIfEnd(l));
         stack.add(new InstrWhile( cond, whileDo));
     }
@@ -74,19 +74,16 @@ public class TermBuilder {
             elseBlock.add((Instr)t);
         }
         //MAY PROVOKE A LOT OF BUGS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        elseBlock.remove(elseBlock.size()-1);
+
 
         ArrayList<Instr> thenBlock = new ArrayList<Instr>();
         t = null;
-        //BEWARE : WE MAY INVERS ELSE END THEN BLOCKS
+        //BEWARE : WE MAY INVERSE ELSE END THEN BLOCKS
         while((t=stack.pop()) instanceof Instr){
             thenBlock.add((Instr)t);
         }
         //MAY PROVOKE A LOT OF BUGS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        if(!thenBlock.isEmpty()) {
-            thenBlock.remove(elseBlock.size() - 1);
 
-        }
         CheckIfPath cond = (new CheckIfPath(l, v));
         stack.add(new IfPathThen( cond, thenBlock, elseBlock));
 
