@@ -35,14 +35,23 @@ public class IfPathThen extends Instr {
     public void eval(){
         boolean b = cond.eval();
         if (b) {
-            // WE MAY REVERSE THE ARRAYLISTS
-            for(Instr i : lthen){
+            // WE MAY HAVE TO REVERSE THE ARRAYLISTS
+           /* for(Instr i : lthen){
                 i.eval();
             }
+            */
+            for(int i =(lthen.size()-1); i>=0;i--){
+                lthen.get(i).eval();
+            }
+
 
         } else if (this.lelse != null) {
-            for(Instr i : lelse){
+           /* for(Instr i : lelse){
                 i.eval();
+            }
+            */
+            for(int i = lelse.size()-1; i>=0;i--){
+                lelse.get(i).eval();
             }
         }
 

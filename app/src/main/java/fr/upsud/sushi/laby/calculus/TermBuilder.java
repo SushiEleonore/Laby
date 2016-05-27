@@ -6,6 +6,8 @@ import fr.upsud.sushi.laby.utils.Observer;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.NoSuchElementException;
+
 import fr.upsud.sushi.laby.maze.Level;
 
 /**
@@ -100,15 +102,20 @@ public class TermBuilder {
 
 
     public Instr getInstr() {
-        return (Instr)stack.peek();
+        try{ return  (Instr)stack.pop();} catch(NoSuchElementException e){ return null; }
     }
 
     //MAY BE PROBLEMATIC
     @JavascriptInterface
     public void eval() {
         Instr t = getInstr();
-        if (t != null) {
-            t.eval();
+        ArrayList<Instr> instrs = new ArrayList<Instr>();
+        while(t!=null) {
+            instrs.add(t);
+            t=getInstr();
+        }
+        for(int i = instrs.size()-1; i>=0; i--) {
+            instrs.get(i).eval();
             gui.notify(l.printMaze());
         }
     }

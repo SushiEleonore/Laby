@@ -39,7 +39,7 @@ public class CheckIfPath extends Bool {
         if (this.s == (Sens.L)) {
             return !this.l.getPlayer().wallOnTheL(this.l);
         }
-        return this.l.getPlayer().facingWall(this.l);
+        return !this.l.getPlayer().facingWall(this.l);
     }
 
 

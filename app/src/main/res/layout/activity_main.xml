@@ -12,16 +12,19 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent" android:layout_gravity="center_vertical">
+        android:layout_width="match_parent"
+        android:layout_weight="0.70"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical">
+
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=""
             android:id="@+id/print"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:layout_weight="0.00"/>
+            />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,9 +39,9 @@
             android:id="@+id/buttonRes" android:layout_gravity="bottom"/>
     </LinearLayout>
     <WebView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:id="@+id/webView" android:layout_weight="0.5"/>
+        android:id="@+id/webView" android:layout_weight="0.30"/>
 </LinearLayout>
