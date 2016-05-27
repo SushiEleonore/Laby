@@ -16,6 +16,7 @@ public class Level {
 
     private int xStart;
     private int yStart;
+    private Dir startDir;
 
 
 
@@ -23,7 +24,8 @@ public class Level {
     //Replaced the arraylist by an array
     public Level (int lvl) {
         if (lvl == 1) {
-            this.p = new Player(2, 2, Dir.S);
+            this.startDir = Dir.S;
+            this.p = new Player(2, 2, this.startDir);
             //this.cells = new ArrayList<Cell>();
             cells = new Cell[20][14];
 
@@ -312,6 +314,7 @@ public class Level {
     public void restart () {
         this.p.setX(this.xStart);
         this.p.setY(this.yStart);
+        this.p.setDir(this.startDir);
     }
 
     /**********Tests************/

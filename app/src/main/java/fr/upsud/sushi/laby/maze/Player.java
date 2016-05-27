@@ -38,17 +38,18 @@ public class Player {
 
     public void setX(int pX) { this.x = pX;}
     public void setY(int pY) { this.y = pY;}
+    public void setDir(Dir d) { this.dir = d;}
 
     //Changes the direction of the player
     //!!!!!!!changed it
     public void rotate(Sens s){
         if (s == (Sens.L) && this.dir == (Dir.E)
-                || s == (Sens.R) && this.dir == (Dir.W)) { this.dir = Dir.S;}
+                || s == (Sens.R) && this.dir == (Dir.W)) { this.dir = Dir.N;}
         else if (s == (Sens.L) && this.dir == (Dir.N)
-                || s == (Sens.R) && this.dir == (Dir.S)) { this.dir = Dir.E;}
+                || s == (Sens.R) && this.dir == (Dir.S)) { this.dir = Dir.W;}
         else if (s == (Sens.L) && this.dir == (Dir.W)
-                || s == (Sens.R) && this.dir == (Dir.E)) { this.dir = Dir.N;}
-        else { this.dir = Dir.W;}
+                || s == (Sens.R) && this.dir == (Dir.E)) { this.dir = Dir.S;}
+        else { this.dir = Dir.E;}
     }
 
 
