@@ -18,12 +18,15 @@ public class Level {
     private int yStart;
     private Dir startDir;
 
+    private int lvl;
+
 
 
     //Generates a maze and a player depending on the level.
     //Replaced the arraylist by an array
     public Level (int lvl) {
-        if (lvl == 1) {
+        if (lvl == -1) {
+            this.lvl = lvl;
             this.startDir = Dir.S;
             this.p = new Player(2, 2, this.startDir);
 
@@ -164,6 +167,7 @@ public class Level {
             cells[8][11] = new Cell(Cell.Type.END);
 
         } else if (lvl == 0) {
+            this.lvl = lvl;
             this.startDir = Dir.S;
             this.p = new Player(2, 2, this.startDir);
             //this.cells = new ArrayList<Cell>();
@@ -208,12 +212,63 @@ public class Level {
             cells[4][8] = new Cell(Cell.Type.WALL);
             cells[4][9] = new Cell(Cell.Type.WALL);
 
+        } else if (lvl == 1) {
+            this.lvl = lvl;
+            this.startDir = Dir.S;
+            this.p = new Player(2, 2, this.startDir);
+            //this.cells = new ArrayList<Cell>();
+            cells = new Cell[5][10];
+
+            this.xStart = 2;
+            this.yStart = 2;
+            this.xEnd = 2;
+            this.yEnd = 7;
+
+            cells[2][2] = new Cell(Cell.Type.START);
+            cells[2][7] = new Cell(Cell.Type.END);
+            cells[0][0] = new Cell(Cell.Type.WALL);
+            cells[1][0] = new Cell(Cell.Type.WALL);
+            cells[2][0] = new Cell(Cell.Type.WALL);
+            cells[3][0] = new Cell(Cell.Type.WALL);
+            cells[4][0] = new Cell(Cell.Type.WALL);
+
+            cells[0][9] = new Cell(Cell.Type.WALL);
+            cells[1][9] = new Cell(Cell.Type.WALL);
+            cells[2][9] = new Cell(Cell.Type.WALL);
+            cells[3][9] = new Cell(Cell.Type.WALL);
+            cells[1][9] = new Cell(Cell.Type.WALL);
+            cells[2][5] = new Cell(Cell.Type.WALL);
+            cells[2][5] = new Cell(Cell.Type.WALL);
+
+            cells[0][1] = new Cell(Cell.Type.WALL);
+            cells[0][2] = new Cell(Cell.Type.WALL);
+            cells[0][3] = new Cell(Cell.Type.WALL);
+            cells[0][4] = new Cell(Cell.Type.WALL);
+            cells[0][5] = new Cell(Cell.Type.WALL);
+            cells[0][6] = new Cell(Cell.Type.WALL);
+            cells[0][7] = new Cell(Cell.Type.WALL);
+            cells[0][8] = new Cell(Cell.Type.WALL);
+            cells[0][9] = new Cell(Cell.Type.WALL);
+
+            cells[4][1] = new Cell(Cell.Type.WALL);
+            cells[4][2] = new Cell(Cell.Type.WALL);
+            cells[4][3] = new Cell(Cell.Type.WALL);
+            cells[4][4] = new Cell(Cell.Type.WALL);
+            cells[4][5] = new Cell(Cell.Type.WALL);
+            cells[4][6] = new Cell(Cell.Type.WALL);
+            cells[4][7] = new Cell(Cell.Type.WALL);
+            cells[4][8] = new Cell(Cell.Type.WALL);
+            cells[4][9] = new Cell(Cell.Type.WALL);
+
+
         }
 
 
     }
 
     public Player getPlayer() { return this.p;}
+
+    public int getLevel() { return this.lvl; }
 
     public Cell[][] getCells() {return this.cells;}
 

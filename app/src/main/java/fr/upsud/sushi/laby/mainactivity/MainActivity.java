@@ -408,12 +408,13 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
 
         gameView.draw();
-        mWebView = (WebView) findViewById(R.id.webView);
+        setmWebView();
+       /* mWebView = (WebView) findViewById(R.id.webView);
 
         mWebView.setWebChromeClient(new CustomWebChromeClient(this));
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.loadUrl("file:///android_asset/blockly/index.html");
-        mWebView.addJavascriptInterface(new TermBuilder(this, l), "JavaTermBuilder");
+        mWebView.addJavascriptInterface(new TermBuilder(this, l), "JavaTermBuilder");*/
 
 
         //l.getPlayer().move(l);
@@ -425,6 +426,19 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         */
     }
 
+    public void setmWebView () {
+        mWebView = (WebView) findViewById(R.id.webView);
+
+        mWebView.setWebChromeClient(new CustomWebChromeClient(this));
+        mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.loadUrl("file:///android_asset/blockly/index.html");
+        mWebView.addJavascriptInterface(new TermBuilder(this, l), "JavaTermBuilder");
+    }
+
+    public void setLevel (Level lv) {
+        this.l = lv;
+    }
+
 
     class GameView extends SurfaceView implements Runnable {
 
@@ -432,7 +446,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         Thread gameThread = null;
 
         //The current level
-        Level l;
+        //Level l;
 
         private int size;
 
@@ -464,9 +478,6 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         Bitmap bitmapPlayerW;
         Bitmap bitmapEnd;
 
-        // Bob starts off not moving
-        boolean isMoving = false;
-
 
         // New variables for the sprite sheet animation
 
@@ -483,7 +494,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
             ourHolder = getHolder();
 
             paint = new Paint();
-            l = new Level (0);
+            //l = new Level (0);
 
 
 
@@ -509,7 +520,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                 long startFrameTime = System.currentTimeMillis();
 
                 // Update the frame
-                update(this.l);
+                update(l);
 
                 // Draw the frame
                 draw();
@@ -529,9 +540,9 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         // Everything that needs to be updated goes in here
         // In later projects we will have dozens (arrays) of objects.
         // We will also do other things like collision detection.
-        public void update(Level l) {
+        public void update(Level ll) {
 
-            this.l=l;
+            l=ll;
 
         }
 
@@ -558,11 +569,11 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
                 // Draw bob at bobXPosition, 200 pixels
                 //canvas.drawBitmap(bitmapWall, bobXPosition, 200, paint);
-                for (int i = 0; i< this.l.getCells().length; i++) {
-                    for (int j = 0; j< this.l.getCells()[i].length; j++) {
-                        if (this.l.getCells()[i][j] == null ) {
+                for (int i = 0; i< l.getCells().length; i++) {
+                    for (int j = 0; j< l.getCells()[i].length; j++) {
+                        if (l.getCells()[i][j] == null ) {
                         } else {
-                            switch (this.l.getCells()[i][j].getType()) {
+                            switch (l.getCells()[i][j].getType()) {
                                 case START :
                                     canvas.drawBitmap(bitmapStart, i*size, j*size, paint);
                                     break;
@@ -600,6 +611,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                 // Draw everything to the screen
                 ourHolder.unlockCanvasAndPost(canvas);
             }
+
 
         }
 
@@ -677,6 +689,10 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                 t.clearComposingText();
                 t.setText("");//l.printMaze());
                 *///title.clearComposingText();//not useful
+                /////// BOUDIN POOP CHANGE THIS
+                if (l.getPlayer().getX() == l.getXend() && l.getPlayer().getY() == l.getYend()) {
+                    nextLevel();
+                }
                 gameView.update(l);
                 gameView.draw();
             }
@@ -697,7 +713,15 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         l.restart();
         gameView.draw();
         //t.setText("");//l.printMaze());
+    }
 
+    public void nextLevel() {
+        int lvl = l.getLevel();
+        setLevel(new Level(lvl+1));
+        setmWebView ();
+        //mWebView.addJavascriptInterface(new TermBuilder(this, l), "JavaTermBuilder");
+        //l = new Level(lvl+1);
+        gameView.draw();
     }
 
     public void actionBlocks(MenuItem m) {
