@@ -8,15 +8,10 @@ public class Cell {
     public enum  Type { WALL, START, END };
     private int SIZE = 10;
 
-    private int x;
-    private int y;
-
     private Type type;
 
-    public Cell(Type t, int posx, int posy) {
+    public Cell(Type t) {
         this.type = t;
-        this.x = posx;
-        this.y = posy;
     }
 
     public Type getType() { return this.type;}
