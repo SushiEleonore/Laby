@@ -9,16 +9,22 @@ public class InstrWhile extends Instr {
     Bool cond;
     ArrayList<Instr> instr;
 
-    InstrWhile (Bool c,ArrayList<Instr> i) {
+    InstrWhile (CheckIfEnd c,ArrayList<Instr> i) {
         this.cond = c;
         this.instr = i;
     }
 
     @Override
     public void  eval(){
-        while (this.cond.eval()) {
-            for(Instr i : instr)
-                i.eval();
+         int cpt=0;
+        System.out.println("fait");
+        while (!this.cond.eval()) {
+            cpt++;
+            for(int i =instr.size()-1 ; i>=0; i--) {
+                instr.get(i).eval();
+            }
+            System.out.println("fait");
+            if (cpt>20) break;
         }
 
     }

@@ -23,6 +23,9 @@ public class ListInstr extends ITerm{
     //Evaluates the instructions one by one
     public void eval(){
         for (int i = 0; i<instr.size(); i++) {
+
+                // thread to sleep for 1000 milliseconds
+
             instr.get(i).eval();
         }
     }

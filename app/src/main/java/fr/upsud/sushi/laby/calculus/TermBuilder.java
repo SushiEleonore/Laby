@@ -117,6 +117,8 @@ public class TermBuilder {
         for(int i = instrs.size()-1; i>=0; i--) {
             instrs.get(i).eval();
             gui.notify(l.printMaze());
+
+
         }
     }
 

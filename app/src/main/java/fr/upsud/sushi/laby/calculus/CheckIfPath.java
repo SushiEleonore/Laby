@@ -26,6 +26,7 @@ public class CheckIfPath extends Bool {
 
     @Override
     public boolean  eval(){
+
         if (this.s == (Sens.R)) {
             return !this.l.getPlayer().wallOnTheR(this.l);
         }
