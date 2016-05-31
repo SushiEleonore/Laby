@@ -294,7 +294,54 @@ public class Level {
 
             /*cells.add(new Cell(Cell.Type.START, 2, 2));
             cells.add(new Cell(Cell.Type.END, 8, 11));*/
+        } else if (lvl == 0) {
+            this.startDir = Dir.S;
+            this.p = new Player(2, 2, this.startDir);
+            //this.cells = new ArrayList<Cell>();
+            cells = new Cell[5][10];
+
+            this.xStart = 2;
+            this.yStart = 2;
+            this.xEnd = 2;
+            this.yEnd = 7;
+
+            cells[2][2] = new Cell(Cell.Type.START, 2, 2);
+            cells[2][7] = new Cell(Cell.Type.END, 2, 11);
+            cells[0][0] = new Cell(Cell.Type.WALL, 0, 0);
+            cells[1][0] = new Cell(Cell.Type.WALL, 2, 2);
+            cells[2][0] = new Cell(Cell.Type.WALL, 2, 2);
+            cells[3][0] = new Cell(Cell.Type.WALL, 2, 2);
+            cells[4][0] = new Cell(Cell.Type.WALL, 2, 2);
+
+            cells[0][9] = new Cell(Cell.Type.WALL, 0, 0);
+            cells[1][9] = new Cell(Cell.Type.WALL, 2, 2);
+            cells[2][9] = new Cell(Cell.Type.WALL, 2, 2);
+            cells[3][9] = new Cell(Cell.Type.WALL, 2, 2);
+            cells[4][9] = new Cell(Cell.Type.WALL, 2, 2);
+
+            cells[0][1] = new Cell(Cell.Type.WALL, 0, 0);
+            cells[0][2] = new Cell(Cell.Type.WALL, 0, 0);
+            cells[0][3] = new Cell(Cell.Type.WALL, 0, 0);
+            cells[0][4] = new Cell(Cell.Type.WALL, 0, 0);
+            cells[0][5] = new Cell(Cell.Type.WALL, 0, 0);
+            cells[0][6] = new Cell(Cell.Type.WALL, 0, 0);
+            cells[0][7] = new Cell(Cell.Type.WALL, 0, 0);
+            cells[0][8] = new Cell(Cell.Type.WALL, 0, 0);
+            cells[0][9] = new Cell(Cell.Type.WALL, 0, 0);
+
+            cells[4][1] = new Cell(Cell.Type.WALL, 0, 0);
+            cells[4][2] = new Cell(Cell.Type.WALL, 0, 0);
+            cells[4][3] = new Cell(Cell.Type.WALL, 0, 0);
+            cells[4][4] = new Cell(Cell.Type.WALL, 0, 0);
+            cells[4][5] = new Cell(Cell.Type.WALL, 0, 0);
+            cells[4][6] = new Cell(Cell.Type.WALL, 0, 0);
+            cells[4][7] = new Cell(Cell.Type.WALL, 0, 0);
+            cells[4][8] = new Cell(Cell.Type.WALL, 0, 0);
+            cells[4][9] = new Cell(Cell.Type.WALL, 0, 0);
+
         }
+
+
     }
 
     public Player getPlayer() { return this.p;}

@@ -39,6 +39,7 @@ public class Player {
     public void setX(int pX) { this.x = pX;}
     public void setY(int pY) { this.y = pY;}
     public void setDir(Dir d) { this.dir = d;}
+    public Dir getDir() { return this.dir;}
 
     //Changes the direction of the player
     //!!!!!!!changed it
