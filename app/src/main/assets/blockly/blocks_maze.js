@@ -2,7 +2,7 @@ Blockly.Blocks['turn'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("tourner à")
-        .appendField(new Blockly.FieldDropdown([["gauche", "OPTIONGAUCHE"], ["droite", "OPTIONDROITE"]]), "NAME");
+        .appendField(new Blockly.FieldDropdown([["gauche", "L"], ["droite", "R"]]), "NAME");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(160);
@@ -31,7 +31,7 @@ Blockly.Blocks['ifpath'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Si il y a un chemin")
-        .appendField(new Blockly.FieldDropdown([["devant", "OPTIONDEVANT"], ["à gauche", "OPTIONGAUCHE"], ["à droite", "OPTIONDROITE"]]), "DIR");
+        .appendField(new Blockly.FieldDropdown([["devant", "F"], ["à gauche", "L"], ["à droite", "R"]]), "DIR");
     this.appendStatementInput("THEN")
         .setCheck(null)
         .appendField("faire");
@@ -62,7 +62,7 @@ Blockly.Blocks['ifelse'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Si il y a un chemin")
-        .appendField(new Blockly.FieldDropdown([["devant", "OPTIONDEVANT"], ["à gauche", "OPTIONGAUCHE"], ["à droite", "OPTIONDROITE"]]), "NAME");
+        .appendField(new Blockly.FieldDropdown([["devant", "F"], ["à gauche", "L"], ["à droite", "R"]]), "NAME");
     this.appendStatementInput("then")
         .setCheck(null)
         .appendField("faire");
