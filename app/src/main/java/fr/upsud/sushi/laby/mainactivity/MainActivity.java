@@ -493,6 +493,9 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
             bitmapStart = BitmapFactory.decodeResource(this.getResources(), R.drawable.start);
             bitmapPlayerN = BitmapFactory.decodeResource(this.getResources(), R.drawable.player_n);
             bitmapPlayerS = BitmapFactory.decodeResource(this.getResources(), R.drawable.player_s);
+            bitmapPlayerE = BitmapFactory.decodeResource(this.getResources(), R.drawable.player_e);
+            bitmapPlayerW = BitmapFactory.decodeResource(this.getResources(), R.drawable.player_w);
+            bitmapEnd = BitmapFactory.decodeResource(this.getResources(), R.drawable.end);
             size = bitmapWall.getWidth();
             draw();
 
@@ -558,34 +561,40 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                 for (int i = 0; i< this.l.getCells().length; i++) {
                     for (int j = 0; j< this.l.getCells()[i].length; j++) {
                         if (this.l.getCells()[i][j] == null ) {
-                        } else if (i == l.getPlayer().getX() && j == l.getPlayer().getY()) {
-                            switch (l.getPlayer().getDir()) {
-                                case S:
-                                    canvas.drawBitmap(bitmapPlayerS, i * size, j * size, paint);
-                                    break;
-                                default:
-                                    canvas.drawBitmap(bitmapPlayerN, i * size, j * size, paint);
-                                    break;
-
-                            }
-
                         } else {
                             switch (this.l.getCells()[i][j].getType()) {
                                 case START :
                                     canvas.drawBitmap(bitmapStart, i*size, j*size, paint);
                                     break;
                                 case END :
-                                    canvas.drawBitmap(bitmapWall, i*size, j*size, paint);
+                                    canvas.drawBitmap(bitmapEnd, i*size, j*size, paint);
                                     break;
                                 default :
                                     canvas.drawBitmap(bitmapWall, i*size, j*size, paint);
                                     break;
                             }
                         }
+                        if (i == l.getPlayer().getX() && j == l.getPlayer().getY()) {
+                            switch (l.getPlayer().getDir()) {
+                                case S:
+                                    canvas.drawBitmap(bitmapPlayerS, i * size, j * size, paint);
+                                    break;
+                                case E:
+                                    canvas.drawBitmap(bitmapPlayerE, i * size, j * size, paint);
+                                    break;
+                                case W:
+                                    canvas.drawBitmap(bitmapPlayerW, i * size, j * size, paint);
+                                    break;
+                                default:
+                                    canvas.drawBitmap(bitmapPlayerN, i * size, j * size, paint);
+                                    break;
+
+                            }
+                        }
 
                     }
                 }
-                canvas.drawBitmap(bitmapStart, l.getPlayer().getX()*size, l.getPlayer().getY()*size,paint);
+
                 // New drawing code goes here
 
                 // Draw everything to the screen
