@@ -565,7 +565,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                 paint.setTextSize(45);
 
                 // Display the current fps on the screen
-                canvas.drawText("FPS:" + fps, 20, 40, paint);
+                //canvas.drawText("FPS:" + fps, 20, 40, paint);
 
                 // Draw bob at bobXPosition, 200 pixels
                 //canvas.drawBitmap(bitmapWall, bobXPosition, 200, paint);
