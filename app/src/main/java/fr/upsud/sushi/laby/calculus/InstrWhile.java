@@ -22,6 +22,7 @@ public class InstrWhile extends Instr {
             cpt++;
             for(int i =instr.size()-1 ; i>=0; i--) {
                 instr.get(i).eval();
+                if (this.cond.eval()) break;
             }
             System.out.println("fait");
             if (cpt>20) break;

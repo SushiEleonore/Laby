@@ -10,12 +10,19 @@ import fr.upsud.sushi.laby.maze.Level;
 public class MoveFwd extends Instr {
     private Level l;
 
-    public MoveFwd(Level l) {
+    public MoveFwd(Level l)
+    {
+
         this.l = l;
     }
 
     @Override
     public void  eval() {
+
+        try{
+            Thread.sleep(waitingTime);
+        }
+        catch(Exception e){}
         try { this.l.getPlayer().move(this.l);
         } catch (wallCollisionException E) {}
     }

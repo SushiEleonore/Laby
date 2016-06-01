@@ -26,6 +26,10 @@ public class TurnRL extends Instr {
 
     @Override
     public void eval (){
+        try{
+            Thread.sleep(waitingTime);
+        }
+        catch(Exception e){}
         this.l.getPlayer().rotate(this.s);
 
     }

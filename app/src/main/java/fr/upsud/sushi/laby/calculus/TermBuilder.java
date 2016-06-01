@@ -120,6 +120,10 @@ public class TermBuilder {
 
 
         }
+        CheckIfEnd b = new CheckIfEnd(l);
+        if(!b.eval()){
+            l.restart();
+        }
     }
 
 }
