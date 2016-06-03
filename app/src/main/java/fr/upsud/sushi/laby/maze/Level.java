@@ -21,6 +21,20 @@ public class Level {
     private int lvl;
 
 
+    /*
+    * format of the maze :
+    * x\n
+    * y\n
+    *
+    * w : wall
+    * u : empty
+    * s : start
+    * e : end
+    *
+    *
+    * */
+    private String lv1 = "5\n10\n2\n2\nN\n\nwwwww\nwuuuw\nwusuw\nwwwww\nwwwww\nwwwww\nwwwww\nwwwww\nwwwww\nwwwww\n";
+
 
     //Generates a maze and a player depending on the level.
     //Replaced the arraylist by an array
@@ -28,7 +42,7 @@ public class Level {
         if (lvl == -1) {
             this.lvl = lvl;
             this.startDir = Dir.S;
-            this.p = new Player(2, 2, this.startDir);
+            this.p = new Player(2, 2, this.startDir, this);
 
             cells = new Cell[20][14];
 
@@ -169,7 +183,7 @@ public class Level {
         } else if (lvl == 0) {
             this.lvl = lvl;
             this.startDir = Dir.S;
-            this.p = new Player(2, 2, this.startDir);
+            this.p = new Player(2, 2, this.startDir, this);
             //this.cells = new ArrayList<Cell>();
             cells = new Cell[5][10];
 
@@ -215,7 +229,7 @@ public class Level {
         } else if (lvl == 1) {
             this.lvl = lvl;
             this.startDir = Dir.S;
-            this.p = new Player(2, 2, this.startDir);
+            this.p = new Player(2, 2, this.startDir, this);
             //this.cells = new ArrayList<Cell>();
             cells = new Cell[5][10];
 
@@ -264,6 +278,12 @@ public class Level {
         }
 
 
+    }
+
+    //
+    public Cell[][] scan(String s) {
+//TODO
+      return null;
     }
 
     public Player getPlayer() { return this.p;}

@@ -272,10 +272,12 @@ public class MainActivity extends Activity {
 import android.content.Context;
 import android.content.DialogInterface;
 //import android.support.v7.app.AlertDialog;
+import android.graphics.Matrix;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -386,6 +388,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     private View mCodeView;
     private Level l;
     private GameView gameView;
+    private TermBuilder tbuilder;
 
     //TextView t;
     @Override
@@ -403,12 +406,13 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         //LinearLayout lay =(LinearLayout)findViewById(R.id.layout1);
 
         //gameView.draw();
-
+        this.tbuilder = new TermBuilder(this, l);
         //lay.addView(gameView);
 
 
         gameView.draw();
         setmWebView();
+
        /* mWebView = (WebView) findViewById(R.id.webView);
 
         mWebView.setWebChromeClient(new CustomWebChromeClient(this));
@@ -432,7 +436,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         mWebView.setWebChromeClient(new CustomWebChromeClient(this));
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.loadUrl("file:///android_asset/blockly/index.html");
-        mWebView.addJavascriptInterface(new TermBuilder(this, l), "JavaTermBuilder");
+        mWebView.addJavascriptInterface(this.tbuilder , "JavaTermBuilder");
     }
 
     public void setLevel (Level lv) {
@@ -449,6 +453,9 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         //Level l;
 
         private int size;
+
+        /*this should depend on the screen*/
+        private int scale;
 
         // This is new. We need a SurfaceHolder
         // When we use Paint and Canvas in a thread
@@ -479,6 +486,43 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         Bitmap bitmapEnd;
 
 
+        public Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight) {
+            int width = bm.getWidth();
+            int height = bm.getHeight();
+            float scaleWidth = ((float) newWidth) / width;
+            float scaleHeight = ((float) newHeight) / height;
+            // CREATE A MATRIX FOR THE MANIPULATION
+            Matrix matrix = new Matrix();
+            // RESIZE THE BIT MAP
+            matrix.postScale(scaleWidth, scaleHeight);
+
+            // "RECREATE" THE NEW BITMAP
+            Bitmap resizedBitmap = Bitmap.createBitmap(
+                    bm, 0, 0, width, height, matrix, true);
+            bm.recycle();
+            return resizedBitmap;
+        }
+
+        public Bitmap BITMAP_RESIZER(Bitmap bitmap,int newWidth,int newHeight) {
+            Bitmap scaledBitmap = Bitmap.createBitmap(newWidth, newHeight, Bitmap.Config.ARGB_8888);
+
+            float ratioX = newWidth / (float) bitmap.getWidth();
+            float ratioY = newHeight / (float) bitmap.getHeight();
+            float middleX = newWidth / 2.0f;
+            float middleY = newHeight / 2.0f;
+
+            Matrix scaleMatrix = new Matrix();
+            scaleMatrix.setScale(ratioX, ratioY, middleX, middleY);
+
+            Canvas canvas = new Canvas(scaledBitmap);
+            canvas.setMatrix(scaleMatrix);
+            canvas.drawBitmap(bitmap, middleX - bitmap.getWidth() / 2, middleY - bitmap.getHeight() / 2, new Paint(Paint.FILTER_BITMAP_FLAG));
+
+            return scaledBitmap;
+
+        }
+
+
         // New variables for the sprite sheet animation
 
         // When the we initialize (call new()) on gameView
@@ -495,19 +539,36 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
             paint = new Paint();
             //l = new Level (0);
+            this.scale = 4;
 
-
-
-
+            //To get a good quality
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inScaled = false;
             // Load Bob from his .png file
-            bitmapWall = BitmapFactory.decodeResource(this.getResources(), R.drawable.wall_texture2);
-            bitmapStart = BitmapFactory.decodeResource(this.getResources(), R.drawable.start);
-            bitmapPlayerN = BitmapFactory.decodeResource(this.getResources(), R.drawable.player_n);
-            bitmapPlayerS = BitmapFactory.decodeResource(this.getResources(), R.drawable.player_s);
-            bitmapPlayerE = BitmapFactory.decodeResource(this.getResources(), R.drawable.player_e);
-            bitmapPlayerW = BitmapFactory.decodeResource(this.getResources(), R.drawable.player_w);
-            bitmapEnd = BitmapFactory.decodeResource(this.getResources(), R.drawable.end);
-            size = bitmapWall.getWidth();
+            bitmapWall = BitmapFactory.decodeResource(this.getResources(), R.drawable.mini_mur, options);
+            bitmapStart = BitmapFactory.decodeResource(this.getResources(), R.drawable.mini_mur, options);
+            bitmapPlayerN = BitmapFactory.decodeResource(this.getResources(), R.drawable.mini_canard_dos, options);
+            bitmapPlayerS = BitmapFactory.decodeResource(this.getResources(), R.drawable.mini_canard_face, options);
+            bitmapPlayerE = BitmapFactory.decodeResource(this.getResources(), R.drawable.mini_canard_d, options);
+            bitmapPlayerW = BitmapFactory.decodeResource(this.getResources(), R.drawable.mini_canard_g, options);
+            bitmapEnd = BitmapFactory.decodeResource(this.getResources(), R.drawable.arrivee, options);
+
+            /*Resizing the bitmaps*/
+
+            int width = bitmapWall.getWidth()*scale;
+            int height = bitmapWall.getHeight()*scale;
+            size = width;
+
+
+            // recreate the new Bitmap
+            bitmapWall = BITMAP_RESIZER(bitmapWall, width, height);
+            bitmapStart = BITMAP_RESIZER(bitmapStart, width, height);
+            bitmapPlayerN = BITMAP_RESIZER(bitmapPlayerN, width, height);
+            bitmapPlayerS = BITMAP_RESIZER(bitmapPlayerS, width, height);
+            bitmapPlayerE = BITMAP_RESIZER(bitmapPlayerE, width, height);
+            bitmapPlayerW =BITMAP_RESIZER(bitmapPlayerW, width, height);
+            bitmapEnd =BITMAP_RESIZER(bitmapEnd, width, height);
+
             draw();
 
         }
@@ -689,12 +750,12 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                 t.clearComposingText();
                 t.setText("");//l.printMaze());
                 *///title.clearComposingText();//not useful
-                /////// BOUDIN POOP CHANGE THIS
                 if (l.getPlayer().getX() == l.getXend() && l.getPlayer().getY() == l.getYend()) {
                     nextLevel();
                 }
                 gameView.update(l);
                 gameView.draw();
+                System.out.println("this is a test");
             }
         });
 
@@ -708,6 +769,19 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
     }
 
+    public void prevStep(View v) {
+
+
+
+    }
+
+    public void nextStep(View v) {
+
+
+
+    }
+
+
     public void restartLevel (View  v) {
         //TextView t = (TextView) findViewById(R.id.print);
         l.restart();
@@ -719,7 +793,8 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         int lvl = l.getLevel();
         setLevel(new Level(lvl+1));
         setmWebView ();
-        //mWebView.addJavascriptInterface(new TermBuilder(this, l), "JavaTermBuilder");
+        this.tbuilder= new TermBuilder(this, l);
+        mWebView.addJavascriptInterface(tbuilder, "JavaTermBuilder");
         //l = new Level(lvl+1);
         gameView.draw();
     }

@@ -12,7 +12,6 @@ public class Player {
     //Should be equal to the wall size
     //public final float step = 10;
 
-    //TODO : change the coordinates so the player moves the right way
 
     //Position of the player.
     //Top left corresponds to (0,0)
@@ -24,13 +23,14 @@ public class Player {
 
     //The direction faced by the player
     private Dir dir;
+    private Level l;
 
 
-
-    public Player(int x, int y, Dir d) {
+    public Player(int x, int y, Dir d, Level l) { //prend un level
         this.dir=d;
         this.x = x;
         this.y = y;
+        this.l = l;
     }
 
     public int getX() { return this.x;}

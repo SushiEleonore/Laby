@@ -30,4 +30,9 @@ public class ListInstr extends ITerm{
         }
     }
 
+    //ajouter conxcaténation
+
+
+    //isempty
+
 }

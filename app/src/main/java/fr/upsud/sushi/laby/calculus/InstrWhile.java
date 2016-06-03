@@ -7,6 +7,7 @@ import java.util.ArrayList;
  */
 public class InstrWhile extends Instr {
     Bool cond;
+    //remplacer par listinstr
     ArrayList<Instr> instr;
 
     InstrWhile (CheckIfEnd c,ArrayList<Instr> i) {
@@ -22,6 +23,7 @@ public class InstrWhile extends Instr {
             cpt++;
             for(int i =instr.size()-1 ; i>=0; i--) {
                 instr.get(i).eval();
+                //A DEPLACER DANS LE MVFORWARD
                 if (this.cond.eval()) break;
             }
             System.out.println("fait");
