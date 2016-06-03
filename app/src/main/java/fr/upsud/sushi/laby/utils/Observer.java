@@ -6,4 +6,5 @@ package fr.upsud.sushi.laby.utils;
 
 public interface Observer<T> {
     void notify(T data);
+    void  highlightBlockById(T data);
 }

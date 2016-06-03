@@ -2,6 +2,8 @@ package fr.upsud.sushi.laby.calculus;
 
 
 import android.webkit.JavascriptInterface;
+
+import fr.upsud.sushi.laby.mainactivity.MainActivity;
 import fr.upsud.sushi.laby.utils.Observer;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -29,19 +31,19 @@ public class TermBuilder {
     }
 
     @JavascriptInterface
-    public void pushMove() {
+    public void pushMove(String id) {
 
-        stack.push(new MoveFwd(l));
+        stack.push(new MoveFwd(l, id));
       //lInstr.add(new MoveFwd(l));
     }
 
     @JavascriptInterface
-    public void pushTurnRL(String v) {
-        stack.push(new TurnRL(l, v));
+    public void pushTurnRL(String v, String id) {
+        stack.push(new TurnRL(l, v, id));
     }
 
     @JavascriptInterface
-    public void pushIfThen(String v) {
+    public void pushIfThen(String v, String id) {
         ArrayList<Instr> then = new ArrayList<Instr>();
         ITerm t = null;
         while((t=stack.pop()) instanceof Instr){
@@ -50,12 +52,12 @@ public class TermBuilder {
         //MAY PROVOKE A LOT OF BUGS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         CheckIfPath cond = (new CheckIfPath(l,v));
-        stack.add(new IfPathThen( cond, then));
+        stack.add(new IfPathThen( cond, then, id));
 
     }
 
     @JavascriptInterface
-    public void pushWhile() {
+    public void pushWhile(String id) {
         ArrayList<Instr> whileDo = new ArrayList<Instr>();
         ITerm t = null;
         while((t=stack.pop()) instanceof Instr){
@@ -64,11 +66,11 @@ public class TermBuilder {
         //MAY PROVOKE A LOT OF BUGS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         CheckIfEnd cond = (new CheckIfEnd(l));
-        stack.add(new InstrWhile( cond, whileDo));
+        stack.add(new InstrWhile( cond, whileDo, id));
     }
 
     @JavascriptInterface
-    public void pushIfThenElse(String v) {
+    public void pushIfThenElse(String v, String id) {
         ArrayList<Instr> elseBlock = new ArrayList<Instr>();
         ITerm t = null;
         //BEWARE : WE MAY INVERS ELSE END THEN BLOCKS
@@ -87,7 +89,7 @@ public class TermBuilder {
         //MAY PROVOKE A LOT OF BUGS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         CheckIfPath cond = (new CheckIfPath(l, v));
-        stack.add(new IfPathThen( cond, thenBlock, elseBlock));
+        stack.add(new IfPathThen( cond, thenBlock, elseBlock, id));
 
     }
 
@@ -104,8 +106,30 @@ public class TermBuilder {
     public Instr getInstr() {
         try{ return  (Instr)stack.pop();} catch(NoSuchElementException e){ return null; }
     }
+    @JavascriptInterface
+    public void eval() {
+        Instr t = getInstr();
+        ArrayList<Instr> instrs = new ArrayList<Instr>();
+        while(t!=null) {
+            instrs.add(t);
+            t=getInstr();
+        }
 
-    //MAY BE PROBLEMATIC
+        ListInstr lins= new ListInstr(instrs);
+        while(!lins.isEmpty()){
+            Couple c = lins.eval();
+            lins = c.getListInstr();
+            gui.notify(l.printMaze());
+            gui.highlightBlockById(c.getId());
+            try{
+            Thread.sleep(1000);}
+            catch(Exception e){}
+
+        }
+    }
+
+
+    /*
     @JavascriptInterface
     public void eval() {
         Instr t = getInstr();
@@ -124,6 +148,6 @@ public class TermBuilder {
             l.restart();
         }
     }
-
+*/
 }
 

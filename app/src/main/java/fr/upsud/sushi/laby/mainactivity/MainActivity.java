@@ -765,8 +765,11 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
     public void evalBlock(View v) {
         mWebView.loadUrl("javascript:evalBlock()");
+    }
 
-
+    public void  highlightBlockById(String id) {
+        mWebView.loadUrl("javascript:highlightBlockById('" + id +
+                "')");
     }
 
     public void prevStep(View v) {

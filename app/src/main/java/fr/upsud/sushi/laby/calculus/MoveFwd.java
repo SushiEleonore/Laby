@@ -7,16 +7,24 @@ import fr.upsud.sushi.laby.maze.Level;
 /**
  * Created by proval on 5/24/16.
  */
-public class MoveFwd extends Instr {
+public class MoveFwd implements Instr {
     private Level l;
-
-    public MoveFwd(Level l)
+    private String id;
+    public MoveFwd(Level l, String id)
     {
 
         this.l = l;
+        this.id=id;
+    }
+    public Couple next(){
+        try { this.l.getPlayer().move(this.l);
+        } catch (wallCollisionException E) {}
+        return new Couple(this.id,null);
     }
 
-    @Override
+
+/*
+   // @Override
     public void  eval() {
 
         try{
@@ -26,5 +34,5 @@ public class MoveFwd extends Instr {
         try { this.l.getPlayer().move(this.l);
         } catch (wallCollisionException E) {}
     }
-
+*/
 }
