@@ -801,7 +801,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     }
 
     public void nextStep(View v) {
-
+        mWebView.loadUrl("javascript:nextStep()");
 
 
     }

@@ -128,6 +128,14 @@ function evalBlock () {
    eval(code);
    JavaTermBuilder.eval();
 };
+
+function nextStep () {
+   var code = Blockly.JavaScript.workspaceToCode(Blockly.mainWorkspace);
+   JavaTermBuilder.reset();
+   console.log(code);
+   eval(code);
+   JavaTermBuilder.nextStep();
+};
 function highlightBlockById (id){
 
      Blockly.mainWorkspace.getAllBlocks().forEach( function (o,i,_) { o.unselect(); });

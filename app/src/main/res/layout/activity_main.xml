@@ -31,30 +31,30 @@
 
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="wrap_content"
+            android:layout_width="172dp"
             android:layout_height="wrap_content">
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="51dp"
                 android:layout_height="wrap_content"
-                android:text="Refaire"
+                android:text="R"
                 android:onClick="restartLevel"
                 android:id="@+id/buttonRes" android:layout_gravity="bottom"/>
 
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="51dp"
                 android:layout_height="wrap_content"
-                android:text="Evaluer"
+                android:text="E"
                 android:onClick="evalBlock"
                 android:id="@+id/button" android:layout_gravity="bottom"/>
 
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="27dp"
                 android:layout_height="wrap_content"
                 android:text="-"
                 android:id="@+id/prev"
                 android:onClick="prevStep"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="0.70"/>
+            />
 
             <Button
                 android:layout_width="wrap_content"

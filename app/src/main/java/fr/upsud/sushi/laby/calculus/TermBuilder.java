@@ -23,13 +23,20 @@ public class TermBuilder {
     private Observer<String> gui;
     private Level l;
     private Deque<ITerm> stack;
-
+    private int nStep;
+    private ArrayList<Instr> listInstr;
 
     public TermBuilder(Observer<String> gui, Level l) {
         stack = new ArrayDeque<>();
         this.l=l;
         this.gui = gui;
+        this.nStep=0;
+        this.listInstr = new ArrayList<Instr>();
     }
+
+
+
+
 
     @JavascriptInterface
     public void pushMove(String id) {
@@ -107,32 +114,128 @@ public class TermBuilder {
     public Instr getInstr() {
         try{ return  (Instr)stack.pop();} catch(NoSuchElementException e){ return null; }
     }
+ /*   @JavascriptInterface
+    public void eval() {
+        Thread t = new Thread() {
+
+            public void run() {
+
+
+                Instr t = getInstr();
+                ArrayList<Instr> rInstrs = new ArrayList<Instr>();
+                while (t != null) {
+                    rInstrs.add(t);
+                    t = getInstr();
+                }
+
+
+                ListInstr lins = new ListInstr(rInstrs);
+                lins.reverse();
+                while (!lins.isEmpty()) {
+
+                    Couple c = lins.eval();
+                    System.out.println(c.getId());
+                    lins = c.getListInstr();
+                    gui.notify(l.printMaze(), c.getId());
+
+                    //gui.highlightBlockById(c.getId());
+                    try {
+                        Thread.sleep(1000);
+                    } catch (Exception e) {
+                    }
+
+
+                }
+
+
+            }
+
+        };
+
+            t.start();
+        }
+        */
+
     @JavascriptInterface
     public void eval() {
-        Instr t = getInstr();
-        ArrayList<Instr> rInstrs = new ArrayList<Instr>();
-        while(t!=null) {
-            rInstrs.add(t);
-            t=getInstr();
-        }
+        Thread t = new Thread() {
+
+            public void run() {
 
 
-        ListInstr lins= new ListInstr(rInstrs);
-        lins.reverse();
-        while(!lins.isEmpty()){
+                if(listInstr.isEmpty()) initListInstr();
 
-            Couple c = lins.eval(); System.out.println(c.getId());
-            lins = c.getListInstr();
-            gui.notify(l.printMaze(), c.getId());
 
-            //gui.highlightBlockById(c.getId());
-            try{
-            Thread.sleep(1000);}
-            catch(Exception e){}
+                ListInstr lins = new ListInstr(listInstr);
+                lins.reverse();
+                while (!lins.isEmpty()) {
 
-        }
+                    Couple c = lins.eval();
+                    System.out.println(c.getId());
+                    lins = c.getListInstr();
+                    gui.notify(l.printMaze(), c.getId());
+
+                    //gui.highlightBlockById(c.getId());
+                    try {
+                        Thread.sleep(1000);
+                    } catch (Exception e) {
+                    }
+
+
+                }
+
+
+            }
+
+        };
+
+        t.start();
     }
 
+    private void initListInstr() {
+        Instr t = getInstr();
+        //ArrayList<Instr> rInstrs = new ArrayList<Instr>();
+        while (t != null) {
+            this.listInstr.add(t);
+            System.out.println("balaba");
+            t = getInstr();
+        }
+
+    }
+    @JavascriptInterface
+    public void nextStep(){
+        Thread t = new Thread() {
+
+            public void run() {
+
+
+                Instr t = getInstr();
+                if (listInstr.isEmpty()) {
+                    initListInstr();
+                }
+
+                ListInstr lins = new ListInstr(listInstr);
+                lins.reverse();
+
+
+                Couple c = lins.get(nStep).next();
+                System.out.println(c.getId());
+                lins = c.getListInstr();
+                gui.notify(l.printMaze(), c.getId());
+                nStep++;
+                //gui.highlightBlockById(c.getId());
+                try {
+                    Thread.sleep(1000);
+                } catch (Exception e) {
+                }
+
+
+            }
+
+        };
+
+        t.start();
+    }
 
     /*
     @JavascriptInterface
