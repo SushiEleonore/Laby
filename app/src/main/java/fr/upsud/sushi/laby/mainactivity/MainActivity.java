@@ -744,7 +744,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     }
 
     public void notify(String data, String id) {
-        //final String id2 = id;
+        final String id2 = id;
 
         runOnUiThread(new Runnable() {
             @Override
@@ -759,8 +759,10 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                 }
                 gameView.update(l);
                 gameView.draw();
-               // mWebView.loadUrl("javascript:highlightBlockById('" + id2 +
-                 //       "')");
+
+                mWebView.loadUrl("javascript:highlightBlockById('" + id2 +
+                       "')");
+
 
             }
         });
@@ -787,8 +789,9 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                 //code exécuté par l'UI thread
                 mWebView.loadUrl("javascript:highlightBlockById('" + id +
                         "')");
-            }
+                            }
         });
+
     }
 
     public void prevStep(View v) {

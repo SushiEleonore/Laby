@@ -27,8 +27,11 @@ public class ListInstr{ //extends ITerm{
         return this.instr.get(0);
     }
     public ArrayList<Instr> getBody(){
-        this.instr.remove(0);
-        return this.instr;
+       ArrayList<Instr> body = new ArrayList<Instr>();
+        for(int i = 1; i<instr.size(); i++)
+        body.add(instr.get(i));
+        // this.instr.remove(0);
+        return body;
     }
     public ArrayList<Instr> getInstr(){
 
@@ -62,6 +65,14 @@ public class ListInstr{ //extends ITerm{
         instr.addAll(frstPart);
         instr.addAll(sndPart);
 
+    }
+
+    public void reverse(){
+        ArrayList<Instr> instrs = new ArrayList<Instr>();
+        for(int i = 0; i<this.instr.size(); i++){
+            instrs.add(this.instr.get(this.instr.size()-(i+1)));
+        }
+        this.instr = instrs;
     }
     public void concat(Instr sndPart){
         this.instr.add(sndPart);

@@ -19,7 +19,7 @@ public class InstrWhile implements Instr {
     public Couple next(){
         if (!this.isEnd.eval()){
              ListInstr body = new ListInstr(instr);
-
+            body.reverse();
             body.concat(this);
             return  new Couple(this.id,body);
         }

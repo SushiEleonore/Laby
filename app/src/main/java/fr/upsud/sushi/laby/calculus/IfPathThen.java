@@ -35,10 +35,12 @@ public class IfPathThen implements Instr {
     public Couple next(){
         if(this.cond.eval()){
             ListInstr then = new ListInstr(lthen);
+            then.reverse();
             return new Couple(this.id, then);
         }
         else if (this.lelse!=null){
             ListInstr lElse = new ListInstr(lelse);
+            lElse.reverse();
             return new Couple(this.id, lElse);
         }
         else return new Couple (this.id, new ListInstr());

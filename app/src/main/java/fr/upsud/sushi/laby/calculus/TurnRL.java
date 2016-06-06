@@ -19,7 +19,7 @@ public class TurnRL implements Instr {
     public TurnRL(Level l, String dir, String id){
         this.l=l;
         this.id=id;
-        if(dir.equals("OPTIONDROITE")){
+        if(dir.equals("R")){
             this.s= Sens.R;
         }
         else{

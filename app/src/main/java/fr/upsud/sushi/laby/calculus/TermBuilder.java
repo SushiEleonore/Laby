@@ -47,13 +47,13 @@ public class TermBuilder {
     public void pushIfThen(String v, String id) {
         ArrayList<Instr> then = new ArrayList<Instr>();
         ITerm t = null;
-        while((t=stack.pop()) instanceof Instr){
+        while(!((t=stack.pop()) instanceof Flag)){
             then.add((Instr)t);
         }
         //MAY PROVOKE A LOT OF BUGS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         CheckIfPath cond = (new CheckIfPath(l,v));
-        stack.add(new IfPathThen( cond, then, id));
+        stack.push(new IfPathThen( cond, then, id));
 
     }
 
@@ -61,13 +61,13 @@ public class TermBuilder {
     public void pushWhile(String id) {
         ArrayList<Instr> whileDo = new ArrayList<Instr>();
         ITerm t = null;
-        while((t=stack.pop()) instanceof Instr){
+        while((!((t=stack.pop()) instanceof Flag))){
             whileDo.add((Instr)t);
         }
         //MAY PROVOKE A LOT OF BUGS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         CheckIfEnd cond = (new CheckIfEnd(l));
-        stack.add(new InstrWhile( cond, whileDo, id));
+        stack.push(new InstrWhile( cond, whileDo, id));
     }
 
     @JavascriptInterface
@@ -75,7 +75,7 @@ public class TermBuilder {
         ArrayList<Instr> elseBlock = new ArrayList<Instr>();
         ITerm t = null;
         //BEWARE : WE MAY INVERS ELSE END THEN BLOCKS
-        while((t=stack.pop()) instanceof Instr){
+        while(!((t=stack.pop()) instanceof Flag)){
             elseBlock.add((Instr)t);
         }
         //MAY PROVOKE A LOT OF BUGS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -84,13 +84,13 @@ public class TermBuilder {
         ArrayList<Instr> thenBlock = new ArrayList<Instr>();
         t = null;
         //BEWARE : WE MAY INVERSE ELSE END THEN BLOCKS
-        while((t=stack.pop()) instanceof Instr){
+        while(!((t=stack.pop()) instanceof Flag)){
             thenBlock.add((Instr)t);
         }
         //MAY PROVOKE A LOT OF BUGS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         CheckIfPath cond = (new CheckIfPath(l, v));
-        stack.add(new IfPathThen( cond, thenBlock, elseBlock, id));
+        stack.push(new IfPathThen( cond, thenBlock, elseBlock, id));
 
     }
 
@@ -115,18 +115,17 @@ public class TermBuilder {
             rInstrs.add(t);
             t=getInstr();
         }
-        ArrayList<Instr> instrs = new ArrayList<Instr>();
-        for(int i = 0; i<rInstrs.size(); i++){
-            instrs.add(rInstrs.get(rInstrs.size()-1-i));
-        }
 
-        ListInstr lins= new ListInstr(instrs);
+
+        ListInstr lins= new ListInstr(rInstrs);
+        lins.reverse();
         while(!lins.isEmpty()){
-            Couple c = lins.eval();
+
+            Couple c = lins.eval(); System.out.println(c.getId());
             lins = c.getListInstr();
             gui.notify(l.printMaze(), c.getId());
 
-            gui.highlightBlockById(c.getId());
+            //gui.highlightBlockById(c.getId());
             try{
             Thread.sleep(1000);}
             catch(Exception e){}

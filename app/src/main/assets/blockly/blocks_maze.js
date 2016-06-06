@@ -78,6 +78,8 @@ Blockly.Blocks['ifelse'] = {
 };
 //Term Builders
 Blockly.JavaScript['turn'] = function(block) {
+
+    console.log("Creating :" + block.id);
   var dropdown_name = block.getFieldValue('NAME');
    var code = 'JavaTermBuilder.pushTurnRL("' + dropdown_name + '", "'+ block.id +'" );\n';
   return code;
@@ -86,11 +88,14 @@ Blockly.JavaScript['turn'] = function(block) {
 
 Blockly.JavaScript['move'] = function(block) {
 
+    console.log("Creating :" + block.id);
   var code = 'JavaTermBuilder.pushMove("'+ block.id +'");\n';
   return code;
 };
 
 Blockly.JavaScript['ifpath'] = function(block) {
+
+    console.log("Creating :" + block.id);
   var dropdown_name = block.getFieldValue('DIR');
   var statements_name = Blockly.JavaScript.statementToCode(block, 'THEN');
   var code ='JavaTermBuilder.pushBegin();' + statements_name + 'JavaTermBuilder.pushIfThen("'+dropdown_name+ '","'+ block.id +'");\n';
@@ -98,12 +103,16 @@ Blockly.JavaScript['ifpath'] = function(block) {
 };
 
 Blockly.JavaScript['while'] = function(block) {
+
+    console.log("Creating :" + block.id);
   var statements_name = Blockly.JavaScript.statementToCode(block, 'NAME');
   var code = 'JavaTermBuilder.pushBegin();' + statements_name + 'JavaTermBuilder.pushWhile("'+ block.id +'");\n';
   return code;
 };
 
 Blockly.JavaScript['ifelse'] = function(block) {
+
+    console.log("Creating :" + block.id);
   var dropdown_name = block.getFieldValue('NAME');
   var statements_then = Blockly.JavaScript.statementToCode(block, 'then');
   var statements_else = Blockly.JavaScript.statementToCode(block, 'else');
@@ -120,5 +129,9 @@ function evalBlock () {
    JavaTermBuilder.eval();
 };
 function highlightBlockById (id){
-    Blockly.mainWorkspace.getBlockById(id).select();
+
+     Blockly.mainWorkspace.getAllBlocks().forEach( function (o,i,_) { o.unselect(); });
+      //console.log("Highlighting2 :" + id);
+      Blockly.mainWorkspace.getBlockById(id).select();
+
 };
