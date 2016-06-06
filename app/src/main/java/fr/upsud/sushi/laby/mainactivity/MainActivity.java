@@ -539,7 +539,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
             paint = new Paint();
             //l = new Level (0);
-            this.scale = 4;
+            this.scale = 6;
 
             //To get a good quality
             BitmapFactory.Options options = new BitmapFactory.Options();
@@ -561,13 +561,13 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
 
             // recreate the new Bitmap
-            bitmapWall = BITMAP_RESIZER(bitmapWall, width, height);
-            bitmapStart = BITMAP_RESIZER(bitmapStart, width, height);
-            bitmapPlayerN = BITMAP_RESIZER(bitmapPlayerN, width, height);
-            bitmapPlayerS = BITMAP_RESIZER(bitmapPlayerS, width, height);
-            bitmapPlayerE = BITMAP_RESIZER(bitmapPlayerE, width, height);
-            bitmapPlayerW =BITMAP_RESIZER(bitmapPlayerW, width, height);
-            bitmapEnd =BITMAP_RESIZER(bitmapEnd, width, height);
+            bitmapWall = getResizedBitmap(bitmapWall, width, height);
+            bitmapStart = getResizedBitmap(bitmapStart, width, height);
+            bitmapPlayerN = getResizedBitmap(bitmapPlayerN, width, height);
+            bitmapPlayerS = getResizedBitmap(bitmapPlayerS, width, height);
+            bitmapPlayerE = getResizedBitmap(bitmapPlayerE, width, height);
+            bitmapPlayerW =getResizedBitmap(bitmapPlayerW, width, height);
+            bitmapEnd =getResizedBitmap(bitmapEnd, width, height);
 
             draw();
 
