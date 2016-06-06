@@ -19,7 +19,7 @@ public class MoveFwd implements Instr {
     public Couple next(){
         try { this.l.getPlayer().move(this.l);
         } catch (wallCollisionException E) {}
-        return new Couple(this.id,null);
+        return new Couple(this.id,new ListInstr());
     }
 
 

@@ -104,7 +104,7 @@ public class Level {
 
         } else if (lvl == 1) {
              this.lvl = lvl;
-             createLevel(lv0);
+             createLevel(lv1);
         }
 
 

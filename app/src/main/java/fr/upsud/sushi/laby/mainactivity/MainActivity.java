@@ -273,6 +273,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 //import android.support.v7.app.AlertDialog;
 import android.graphics.Matrix;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -388,6 +390,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     private View mCodeView;
     private Level l;
     private GameView gameView;
+    private Handler mHandler;
     private TermBuilder tbuilder;
 
     //TextView t;
@@ -401,7 +404,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         gameView = new GameView(this);
         LinearLayout linlay= (LinearLayout) findViewById(R.id.linlayout);
         linlay.addView(gameView);
-
+        this.mHandler = new Handler(Looper.getMainLooper());
         //this.addContentView(gameView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT) );
         //LinearLayout lay =(LinearLayout)findViewById(R.id.layout1);
 
@@ -539,7 +542,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
             paint = new Paint();
             //l = new Level (0);
-            this.scale = 6;
+            this.scale = 4;
 
             //To get a good quality
             BitmapFactory.Options options = new BitmapFactory.Options();
@@ -740,22 +743,25 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         gameView.pause();
     }
 
-    public void notify(String data) {
+    public void notify(String data, String id) {
+        //final String id2 = id;
 
         runOnUiThread(new Runnable() {
-
             @Override
             public void run() {
                 /*TextView t = (TextView) findViewById(R.id.print);
                 t.clearComposingText();
                 t.setText("");//l.printMaze());
                 *///title.clearComposingText();//not useful
+
                 if (l.getPlayer().getX() == l.getXend() && l.getPlayer().getY() == l.getYend()) {
                     nextLevel();
                 }
                 gameView.update(l);
                 gameView.draw();
-                System.out.println("this is a test");
+               // mWebView.loadUrl("javascript:highlightBlockById('" + id2 +
+                 //       "')");
+
             }
         });
 
@@ -767,9 +773,22 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         mWebView.loadUrl("javascript:evalBlock()");
     }
 
-    public void  highlightBlockById(String id) {
+  /* public void  highlightBlockById(String id) {
         mWebView.loadUrl("javascript:highlightBlockById('" + id +
                 "')");
+    }
+*/
+  public void highlightBlockById(final String id)
+    {
+  //Déposer le Runnable dans la file d'attente de l'UI thread
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //code exécuté par l'UI thread
+                mWebView.loadUrl("javascript:highlightBlockById('" + id +
+                        "')");
+            }
+        });
     }
 
     public void prevStep(View v) {

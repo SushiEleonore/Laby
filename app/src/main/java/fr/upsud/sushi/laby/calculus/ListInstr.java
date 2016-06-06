@@ -13,6 +13,10 @@ public class ListInstr{ //extends ITerm{
         this.instr = instr;
 
     }
+    public ListInstr() {
+        this.instr = new ArrayList<Instr>();
+
+    }
     public void add(Instr i){
         instr.add(i);
     }
@@ -26,10 +30,16 @@ public class ListInstr{ //extends ITerm{
         this.instr.remove(0);
         return this.instr;
     }
+    public ArrayList<Instr> getInstr(){
 
+        return this.instr;
+    }
     public Couple eval(){
         Couple c = this.getHead().next();
+
         c.getListInstr().concat(this.getBody());
+       // this.concat(c.getListInstr().getInstr(), this.getBody());
+        c= new Couple (c.getId(),c.getListInstr());
         return c;
     }
 
@@ -46,6 +56,12 @@ public class ListInstr{ //extends ITerm{
     //ajouter conxcaténation
     public void concat(ArrayList<Instr> sndPart){
         this.instr.addAll(sndPart);
+    }
+    public void concat(ArrayList<Instr> sndPart, ArrayList<Instr> frstPart){
+        this.instr = new ArrayList<Instr>();
+        instr.addAll(frstPart);
+        instr.addAll(sndPart);
+
     }
     public void concat(Instr sndPart){
         this.instr.add(sndPart);

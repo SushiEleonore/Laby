@@ -41,7 +41,7 @@ public class IfPathThen implements Instr {
             ListInstr lElse = new ListInstr(lelse);
             return new Couple(this.id, lElse);
         }
-        else return new Couple (this.id, null);
+        else return new Couple (this.id, new ListInstr());
     }
 
    /* @Override

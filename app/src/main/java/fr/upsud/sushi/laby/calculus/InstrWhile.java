@@ -24,7 +24,7 @@ public class InstrWhile implements Instr {
             return  new Couple(this.id,body);
         }
         else {
-            return new Couple(this.id, null);
+            return new Couple(this.id, new ListInstr());
         }
 
     }

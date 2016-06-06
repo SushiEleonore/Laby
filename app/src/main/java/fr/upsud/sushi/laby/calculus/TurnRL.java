@@ -28,7 +28,7 @@ public class TurnRL implements Instr {
     }
     public Couple next(){
         this.l.getPlayer().rotate(this.s);
-        return new Couple(this.id, null);
+        return new Couple(this.id, new ListInstr());
     }
 
   /*  @Override

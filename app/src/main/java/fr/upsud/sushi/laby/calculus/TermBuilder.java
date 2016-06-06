@@ -3,6 +3,7 @@ package fr.upsud.sushi.laby.calculus;
 
 import android.webkit.JavascriptInterface;
 
+import fr.upsud.sushi.laby.R;
 import fr.upsud.sushi.laby.mainactivity.MainActivity;
 import fr.upsud.sushi.laby.utils.Observer;
 import java.util.ArrayDeque;
@@ -109,17 +110,22 @@ public class TermBuilder {
     @JavascriptInterface
     public void eval() {
         Instr t = getInstr();
-        ArrayList<Instr> instrs = new ArrayList<Instr>();
+        ArrayList<Instr> rInstrs = new ArrayList<Instr>();
         while(t!=null) {
-            instrs.add(t);
+            rInstrs.add(t);
             t=getInstr();
+        }
+        ArrayList<Instr> instrs = new ArrayList<Instr>();
+        for(int i = 0; i<rInstrs.size(); i++){
+            instrs.add(rInstrs.get(rInstrs.size()-1-i));
         }
 
         ListInstr lins= new ListInstr(instrs);
         while(!lins.isEmpty()){
             Couple c = lins.eval();
             lins = c.getListInstr();
-            gui.notify(l.printMaze());
+            gui.notify(l.printMaze(), c.getId());
+
             gui.highlightBlockById(c.getId());
             try{
             Thread.sleep(1000);}
