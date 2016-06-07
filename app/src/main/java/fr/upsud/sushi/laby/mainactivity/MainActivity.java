@@ -310,6 +310,8 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 
+import java.nio.ByteBuffer;
+
 import fr.upsud.sushi.laby.calculus.TermBuilder;
 import fr.upsud.sushi.laby.utils.Observer;
 import fr.upsud.sushi.laby.R;
@@ -525,6 +527,27 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
         }
 
+        public Bitmap myBitmapResizer(Bitmap b, int scale) {
+            int bytes = b.getByteCount();
+            System.out.println("taille : image "+bytes);
+
+            ByteBuffer buffer = ByteBuffer.allocate(bytes); //Create a new buffer
+            b.copyPixelsToBuffer(buffer); //Move the byte data to the buffer
+
+            byte[] array = buffer.array();
+            System.out.println("taille array"+array.length);
+            byte[] pic = new byte[scale* array.length];
+            for (int i=0; i<array.length; i++ ){
+                for (int j =0; j<scale; j++){
+                    pic[i*scale+j] = array[i];
+                }
+            }
+            Bitmap map = BitmapFactory.decodeByteArray(pic , 0, pic.length);
+
+
+            return map;
+        }
+
 
         // New variables for the sprite sheet animation
 
@@ -564,6 +587,15 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
 
             // recreate the new Bitmap
+            /*bitmapWall = myBitmapResizer(bitmapWall, scale);
+            bitmapStart = myBitmapResizer(bitmapStart, scale);
+            bitmapPlayerN = myBitmapResizer(bitmapPlayerN, scale);
+            bitmapPlayerS = myBitmapResizer(bitmapPlayerS, scale);
+            bitmapPlayerE = myBitmapResizer(bitmapPlayerE, scale);
+            bitmapPlayerW =myBitmapResizer(bitmapPlayerW, scale);
+            bitmapEnd =myBitmapResizer(bitmapEnd, scale);
+*/
+
             bitmapWall = getResizedBitmap(bitmapWall, width, height);
             bitmapStart = getResizedBitmap(bitmapStart, width, height);
             bitmapPlayerN = getResizedBitmap(bitmapPlayerN, width, height);
@@ -794,17 +826,21 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
     }
 
+    //////new
     public void prevStep(View v) {
-
-
-
+        this.tbuilder.prevStep();
+        //mWebView.loadUrl("javascript:prevStep()");
     }
-
+    /////Changed
     public void nextStep(View v) {
-        mWebView.loadUrl("javascript:nextStep()");
-
-
+        if (this.tbuilder.getGameStates().size() == this.tbuilder.getnStep()) {
+            mWebView.loadUrl("javascript:nextStep()");
+        } else
+        {
+            tbuilder.nextStepBis();
+        }
     }
+
 
 
     public void restartLevel (View  v) {

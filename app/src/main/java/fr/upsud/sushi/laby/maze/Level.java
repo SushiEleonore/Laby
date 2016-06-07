@@ -6,9 +6,9 @@ import fr.upsud.sushi.laby.calculus.Dir;
  * Created by proval on 5/23/16.
  */
 public class Level {
-    //private ArrayList<Cell> cells;
+
     private Cell[][] cells;
-    //Player ?
+
     private Player p;
 
     private int xEnd;
@@ -107,14 +107,35 @@ public class Level {
              createLevel(lv1);
         }
 
-
     }
+/*
+    public Level (Level l){
+        this.cells = l.getCells();
+
+        this.p = l.getPlayer();
+
+        this.xEnd = l.getXend();
+        this.yEnd = l.getYend();
+
+        this.xStart = l.getXstart();
+        this.yStart = l.getYstart();
+        this.startDir = l.getStartDir();
+
+        this.lvl = l.getLevel();
+    }*/
+
+    public Dir getStartDir() {return this.startDir;}
+
+    public int getXstart()  {return this.xStart;}
+    public int getYstart()  {return this.yStart;}
 
     public Player getPlayer() { return this.p;}
 
     public int getLevel() { return this.lvl; }
 
     public Cell[][] getCells() {return this.cells;}
+
+    public void setPlayer(Player pl) {this.p = pl;}
 
     //Checks if there's a wall at [i][j]
     public boolean isWall(int i, int j) {
@@ -131,7 +152,12 @@ public class Level {
         this.p.setY(this.yStart);
         this.p.setDir(this.startDir);
     }
+/*
+    public Level copy(){
+        return new Level(this);
 
+    }
+*/
     /**********Tests************/
 
     public String printMaze () {

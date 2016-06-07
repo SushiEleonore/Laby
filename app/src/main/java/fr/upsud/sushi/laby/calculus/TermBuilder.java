@@ -3,8 +3,7 @@ package fr.upsud.sushi.laby.calculus;
 
 import android.webkit.JavascriptInterface;
 
-import fr.upsud.sushi.laby.R;
-import fr.upsud.sushi.laby.mainactivity.MainActivity;
+import fr.upsud.sushi.laby.maze.Player;
 import fr.upsud.sushi.laby.utils.Observer;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -25,6 +24,7 @@ public class TermBuilder {
     private Deque<ITerm> stack;
     private int nStep;
     private ArrayList<Instr> listInstr;
+    private ArrayList<GameState> gameStates;
 
     public TermBuilder(Observer<String> gui, Level l) {
         stack = new ArrayDeque<>();
@@ -32,6 +32,7 @@ public class TermBuilder {
         this.gui = gui;
         this.nStep=0;
         this.listInstr = new ArrayList<Instr>();
+        this.gameStates = new ArrayList<GameState>();
     }
 
 
@@ -197,7 +198,6 @@ public class TermBuilder {
         //ArrayList<Instr> rInstrs = new ArrayList<Instr>();
         while (t != null) {
             this.listInstr.add(t);
-            System.out.println("balaba");
             t = getInstr();
         }
 
@@ -207,7 +207,7 @@ public class TermBuilder {
         Thread t = new Thread() {
 
             public void run() {
-
+                System.out.println("dans next");
 
                 Instr t = getInstr();
                 if (listInstr.isEmpty()) {
@@ -220,6 +220,7 @@ public class TermBuilder {
 
                 Couple c = lins.get(nStep).next();
                 System.out.println(c.getId());
+                gameStates.add(new GameState(c.getId(), new Player(l.getPlayer())));
                 lins = c.getListInstr();
                 gui.notify(l.printMaze(), c.getId());
                 nStep++;
@@ -228,14 +229,62 @@ public class TermBuilder {
                     Thread.sleep(1000);
                 } catch (Exception e) {
                 }
-
-
             }
-
         };
 
         t.start();
     }
+
+    public void nextStepBis(){
+        Thread t = new Thread() {
+
+            public void run() {
+
+                try {
+                    nStep++;
+                    System.out.println("dans nextstepBis");
+            l.setPlayer(gameStates.get(nStep).getPlayer());
+            gui.notify(l.printMaze(), gameStates.get(nStep).getId());
+
+            try {
+                Thread.sleep(1000);
+            } catch (Exception e) {
+            }
+        } catch (ArrayIndexOutOfBoundsException e){}
+
+            }
+        };
+
+        t.start();
+    }
+
+
+
+    public void prevStep(){
+        Thread t = new Thread() {
+
+            public void run() {
+
+             try {
+                 System.out.println("AVANT POS Y :"+l.getPlayer().getY()+" EN x: "+l.getPlayer().getX());
+                 nStep--;
+                System.out.println("POS Y"+ gameStates.get(nStep).getPlayer().getY()+" EN x :" + gameStates.get(nStep).getPlayer().getX());
+
+                l.setPlayer(gameStates.get(nStep).getPlayer());
+                gui.notify(l.printMaze(), gameStates.get(nStep).getId());
+             try {
+                Thread.sleep(1000);
+              } catch (Exception e) {
+            }
+            } catch (ArrayIndexOutOfBoundsException e){}
+            }
+        };
+        t.start();
+    }
+
+    public ArrayList<GameState> getGameStates() { return this.gameStates;}
+
+    public int getnStep() {return this.nStep;}
 
     /*
     @JavascriptInterface

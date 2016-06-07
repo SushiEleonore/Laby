@@ -33,13 +33,26 @@ public class Player {
         this.l = l;
     }
 
+    public Player(Player p) {
+        this.dir=p.getDir();
+        this.x = p.getX();
+        this.y = p.getY();
+        this.l = p.getLevel();
+    }
+
     public int getX() { return this.x;}
     public int getY() { return this.y;}
+
+    public Level getLevel(){ return this.l;}
 
     public void setX(int pX) { this.x = pX;}
     public void setY(int pY) { this.y = pY;}
     public void setDir(Dir d) { this.dir = d;}
     public Dir getDir() { return this.dir;}
+
+    public Player copy() {
+        return new Player(this);
+    }
 
     //Changes the direction of the player
     //!!!!!!!changed it
@@ -80,7 +93,7 @@ public class Player {
     }
 
     //Checks if the player is facing a wall.
-    public boolean facingWall (Level l) {
+    public boolean facingWall () {
         System.out.println("Checking front");
         if (this.dir == (Dir.E)) {
             System.out.println("Facing east");
@@ -98,7 +111,7 @@ public class Player {
     }
 
     //Checks if there is a wall on the right
-    public boolean wallOnTheR (Level l) {
+    public boolean wallOnTheR () {
         System.out.println("Checking right");
         if (this.dir == (Dir.E)) {
             return (l.isWall(this.x, this.y+1));
@@ -112,7 +125,7 @@ public class Player {
     }
 
     //Checks if there is a wall on the left
-    public boolean wallOnTheL (Level l) {
+    public boolean wallOnTheL () {
         System.out.println("Checking left");
         if (this.dir == (Dir.E)) {
             return (l.isWall(this.x, this.y-1));

@@ -136,6 +136,12 @@ function nextStep () {
    eval(code);
    JavaTermBuilder.nextStep();
 };
+
+function prevStep () {
+    //console.log("previous step is here");
+   JavaTermBuilder.prevStep();
+};
+
 function highlightBlockById (id){
 
      Blockly.mainWorkspace.getAllBlocks().forEach( function (o,i,_) { o.unselect(); });

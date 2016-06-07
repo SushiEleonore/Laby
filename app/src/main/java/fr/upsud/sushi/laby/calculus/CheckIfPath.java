@@ -28,12 +28,12 @@ public class CheckIfPath extends Bool {
     public boolean  eval(){
 
         if (this.s == (Sens.R)) {
-            return !this.l.getPlayer().wallOnTheR(this.l);
+            return !this.l.getPlayer().wallOnTheR();
         }
         if (this.s == (Sens.L)) {
-            return !this.l.getPlayer().wallOnTheL(this.l);
+            return !this.l.getPlayer().wallOnTheL();
         }
-        return !this.l.getPlayer().facingWall(this.l);
+        return !this.l.getPlayer().facingWall();
     }
 
 
