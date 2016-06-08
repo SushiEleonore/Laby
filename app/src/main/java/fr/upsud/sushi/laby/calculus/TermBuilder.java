@@ -17,16 +17,15 @@ import fr.upsud.sushi.laby.maze.Level;
  * Created by proval on 5/25/16.
  */
 public class TermBuilder {
-
-
     //private ListInstr lInstr;
     private Observer<String> gui;
     private Level l;
     private Deque<ITerm> stack;
     private int nStep;
-    private ArrayList<Instr> listInstr;
+    //private ArrayList<Instr> listInstr;
     private ArrayList<GameState> gameStates;
     private ListInstr lins;
+
 
 
     public TermBuilder(Observer<String> gui, Level l) {
@@ -34,7 +33,7 @@ public class TermBuilder {
         this.l=l;
         this.gui = gui;
         this.nStep=-1;
-        this.listInstr = new ArrayList<Instr>();
+        //this.listInstr = new ArrayList<Instr>();
         this.gameStates = new ArrayList<GameState>();
         ListInstr lins = new ListInstr();
 
@@ -114,8 +113,9 @@ public class TermBuilder {
     @JavascriptInterface
     public void reset() {
         stack.clear();
-        listInstr.clear();
+        //listInstr.clear();
         nStep=-1;
+        lins.clear();
     }
 
 
@@ -171,10 +171,13 @@ public class TermBuilder {
             public void run() {
 
 
-                if(listInstr.isEmpty()) initListInstr();
+                if(!stack.isEmpty()) {
+                    ArrayList<Instr> l = initListInstr();
+                    ListInstr lins = new ListInstr(l);
+                }
 
 
-                ListInstr lins = new ListInstr(listInstr);
+
                 lins.reverse();
                 while (!lins.isEmpty()) {
 
@@ -200,15 +203,16 @@ public class TermBuilder {
         t.start();
     }
 
-    private void initListInstr() {
+    private ArrayList<Instr> initListInstr() {
+
         Instr t = getInstr();
-        //ArrayList<Instr> rInstrs = new ArrayList<Instr>();
+        ArrayList<Instr> rInstrs = new ArrayList<Instr>();
         while (t != null) {
-            this.listInstr.add(t);
+            rInstrs.add(t);
             t = getInstr();
 
         }
-
+        return rInstrs;
 
     }
     @JavascriptInterface
@@ -219,25 +223,32 @@ public class TermBuilder {
 
                 public void run() {
                     try {
-                        nStep++;
+
                         System.out.println("dans next "+nStep);
 
 
-                        if (listInstr==null||listInstr.isEmpty()) {
-                            initListInstr(); lins = new ListInstr(listInstr); lins.reverse();
+                        if (nStep==-1) {
+                            ArrayList<Instr> l = initListInstr();
+                            lins = new ListInstr(l);
+                            lins.reverse();
                         }
-                        Player temp = new Player(l.getPlayer());
+                        if(!lins.isEmpty()) {
+                            nStep++;
+                            Player temp = new Player(l.getPlayer());
 
-                        Couple c = lins.eval();
-                        System.out.println("Player de depart : "+ temp.getX() + " " + temp.getY());
-                        System.out.println("Player d'arrivee : "+ l.getPlayer().getX() + " " + l.getPlayer().getY());
-                        gameStates.add(new GameState(c.getId(), temp, new Player(l.getPlayer())));
-                        System.out.println("Ajout  etat, taille : "+gameStates.size());
-                        //lins = c.getListInstr();
-                        gui.notify(l.printMaze(), c.getId());
-                        lins = c.getListInstr();
-                        //gui.highlightBlockById(c.getId());
-
+                            Couple c = lins.eval();
+                            System.out.println(
+                                    "Player de depart : " + temp.getX() + " " + temp.getY());
+                            System.out.println("Player d'arrivee : " + l.getPlayer().getX() + " " +
+                                    l.getPlayer().getY());
+                            gameStates
+                                    .add(new GameState(c.getId(), temp, new Player(l.getPlayer())));
+                            System.out.println("Ajout  etat, taille : " + gameStates.size());
+                            //lins = c.getListInstr();
+                            gui.notify(l.printMaze(), c.getId());
+                            lins = c.getListInstr();
+                            //gui.highlightBlockById(c.getId());
+                        }
                         try {
                             Thread.sleep(1000);
                         } catch (Exception e) {

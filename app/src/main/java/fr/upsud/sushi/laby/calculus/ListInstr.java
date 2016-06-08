@@ -55,6 +55,9 @@ public class ListInstr{ //extends ITerm{
         return c;
     }
 
+    public void clear(){
+        this.instr.clear();
+    }
     //Evaluates the instructions one by one
   /*  public void eval(){
         for (int i = 0; i<instr.size(); i++) {
