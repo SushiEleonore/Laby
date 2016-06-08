@@ -112,7 +112,7 @@ Blockly.JavaScript['while'] = function(block) {
 
 Blockly.JavaScript['ifelse'] = function(block) {
 
-    console.log("Creating :" + block.id);
+  console.log("Creating :" + block.id);
   var dropdown_name = block.getFieldValue('NAME');
   var statements_then = Blockly.JavaScript.statementToCode(block, 'then');
   var statements_else = Blockly.JavaScript.statementToCode(block, 'else');
@@ -131,7 +131,7 @@ function evalBlock () {
 
 function nextStep () {
    var code = Blockly.JavaScript.workspaceToCode(Blockly.mainWorkspace);
-   JavaTermBuilder.reset();
+  //JavaTermBuilder.reset();
    console.log(code);
    eval(code);
    JavaTermBuilder.nextStep();

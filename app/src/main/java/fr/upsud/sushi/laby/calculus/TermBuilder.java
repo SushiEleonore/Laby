@@ -8,6 +8,7 @@ import fr.upsud.sushi.laby.utils.Observer;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import fr.upsud.sushi.laby.maze.Level;
@@ -25,14 +26,18 @@ public class TermBuilder {
     private int nStep;
     private ArrayList<Instr> listInstr;
     private ArrayList<GameState> gameStates;
+    private ListInstr lins;
+
 
     public TermBuilder(Observer<String> gui, Level l) {
         stack = new ArrayDeque<>();
         this.l=l;
         this.gui = gui;
-        this.nStep=0;
+        this.nStep=-1;
         this.listInstr = new ArrayList<Instr>();
         this.gameStates = new ArrayList<GameState>();
+        ListInstr lins = new ListInstr();
+
     }
 
 
@@ -109,6 +114,8 @@ public class TermBuilder {
     @JavascriptInterface
     public void reset() {
         stack.clear();
+        listInstr.clear();
+        nStep=-1;
     }
 
 
@@ -199,50 +206,86 @@ public class TermBuilder {
         while (t != null) {
             this.listInstr.add(t);
             t = getInstr();
+
         }
+
 
     }
     @JavascriptInterface
-    public void nextStep(){
-        Thread t = new Thread() {
+    public void nextStep() {
+        if (nStep == gameStates.size()-1 ) {
 
-            public void run() {
-                System.out.println("dans next");
+            Thread t = new Thread() {
 
-                Instr t = getInstr();
-                if (listInstr.isEmpty()) {
-                    initListInstr();
+                public void run() {
+                    try {
+                        nStep++;
+                        System.out.println("dans next "+nStep);
+
+
+                        if (listInstr==null||listInstr.isEmpty()) {
+                            initListInstr(); lins = new ListInstr(listInstr); lins.reverse();
+                        }
+                        Player temp = new Player(l.getPlayer());
+
+                        Couple c = lins.eval();
+                        System.out.println("Player de depart : "+ temp.getX() + " " + temp.getY());
+                        System.out.println("Player d'arrivee : "+ l.getPlayer().getX() + " " + l.getPlayer().getY());
+                        gameStates.add(new GameState(c.getId(), temp, new Player(l.getPlayer())));
+                        System.out.println("Ajout  etat, taille : "+gameStates.size());
+                        //lins = c.getListInstr();
+                        gui.notify(l.printMaze(), c.getId());
+                        lins = c.getListInstr();
+                        //gui.highlightBlockById(c.getId());
+
+                        try {
+                            Thread.sleep(1000);
+                        } catch (Exception e) {
+                        }
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                    }
                 }
+            };
 
-                ListInstr lins = new ListInstr(listInstr);
-                lins.reverse();
+            t.start();
+        } else {
 
+            Thread t = new Thread() {
 
-                Couple c = lins.get(nStep).next();
-                System.out.println(c.getId());
-                gameStates.add(new GameState(c.getId(), new Player(l.getPlayer())));
-                lins = c.getListInstr();
-                gui.notify(l.printMaze(), c.getId());
-                nStep++;
-                //gui.highlightBlockById(c.getId());
-                try {
-                    Thread.sleep(1000);
-                } catch (Exception e) {
+                public void run() {
+
+                    try {
+
+                        nStep++;
+                        System.out.println("dans next bis "+nStep);
+
+                        l.setPlayer(gameStates.get(nStep).getpArr());
+                        gui.notify(l.printMaze(), gameStates.get(nStep).getId());
+
+                        try {
+                            Thread.sleep(1000);
+                        } catch (Exception e) {
+                        }
+                    } catch (ArrayIndexOutOfBoundsException e){}
+
                 }
-            }
-        };
+            };
 
-        t.start();
+            t.start();
+
+        }
     }
-
+/*
     public void nextStepBis(){
         Thread t = new Thread() {
 
             public void run() {
 
                 try {
+
                     nStep++;
-                    System.out.println("dans nextstepBis");
+                    System.out.println(nStep);
+
             l.setPlayer(gameStates.get(nStep).getPlayer());
             gui.notify(l.printMaze(), gameStates.get(nStep).getId());
 
@@ -256,7 +299,7 @@ public class TermBuilder {
         };
 
         t.start();
-    }
+    }*/
 
 
 
@@ -266,12 +309,14 @@ public class TermBuilder {
             public void run() {
 
              try {
-                 System.out.println("AVANT POS Y :"+l.getPlayer().getY()+" EN x: "+l.getPlayer().getX());
-                 nStep--;
-                System.out.println("POS Y"+ gameStates.get(nStep).getPlayer().getY()+" EN x :" + gameStates.get(nStep).getPlayer().getX());
 
-                l.setPlayer(gameStates.get(nStep).getPlayer());
-                gui.notify(l.printMaze(), gameStates.get(nStep).getId());
+                 nStep--;
+                 System.out.println(nStep);
+               // System.out.println("POS Y"+ gameStates.get(nStep).getPlayer().getY()+" EN x :" + gameStates.get(nStep).getPlayer().getX());
+
+                l.setPlayer(gameStates.get(nStep+1).getpDep());
+                gui.notify(l.printMaze(), gameStates.get(nStep).getId());////
+
              try {
                 Thread.sleep(1000);
               } catch (Exception e) {

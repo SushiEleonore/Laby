@@ -19,14 +19,12 @@ public class CheckIfPath extends Bool {
     }
 
     public CheckIfPath(Level l, String dir) {
-        this.l = l;
-        // FAIRE THIS.S = Sens.valueOf(dir);
+        this.l = l;;
         this.s=Sens.valueOf(dir);
     }
 
     @Override
     public boolean  eval(){
-
         if (this.s == (Sens.R)) {
             return !this.l.getPlayer().wallOnTheR();
         }

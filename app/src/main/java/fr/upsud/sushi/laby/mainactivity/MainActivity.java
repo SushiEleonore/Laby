@@ -611,15 +611,15 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
 
             // recreate the new Bitmap
-            bitmapWall = myBitmapResizer(bitmapWall, scale);
+       /*     bitmapWall = myBitmapResizer(bitmapWall, scale);
             bitmapStart = myBitmapResizer(bitmapStart, scale);
             bitmapPlayerN = myBitmapResizer(bitmapPlayerN, scale);
             bitmapPlayerS = myBitmapResizer(bitmapPlayerS, scale);
             bitmapPlayerE = myBitmapResizer(bitmapPlayerE, scale);
             bitmapPlayerW =myBitmapResizer(bitmapPlayerW, scale);
-            bitmapEnd =myBitmapResizer(bitmapEnd, scale);
+            bitmapEnd =myBitmapResizer(bitmapEnd, scale);*/
 
-/*
+
             bitmapWall = getResizedBitmap(bitmapWall, width, height);
             bitmapStart = getResizedBitmap(bitmapStart, width, height);
             bitmapPlayerN = getResizedBitmap(bitmapPlayerN, width, height);
@@ -627,7 +627,6 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
             bitmapPlayerE = getResizedBitmap(bitmapPlayerE, width, height);
             bitmapPlayerW =getResizedBitmap(bitmapPlayerW, width, height);
             bitmapEnd =getResizedBitmap(bitmapEnd, width, height);
-*/
             draw();
 
         }
@@ -857,12 +856,12 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     }
     /////Changed
     public void nextStep(View v) {
-        if (this.tbuilder.getGameStates().size() == this.tbuilder.getnStep()) {
+       // if (this.tbuilder.getGameStates().size() == this.tbuilder.getnStep()) {
             mWebView.loadUrl("javascript:nextStep()");
-        } else
-        {
-            tbuilder.nextStepBis();
-        }
+        //} else
+       // {
+         //   tbuilder.nextStepBis();
+       // }
     }
 
 

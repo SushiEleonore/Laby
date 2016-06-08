@@ -42,9 +42,14 @@ public class ListInstr{ //extends ITerm{
         return this.instr.get(i);
     }
     public Couple eval(){
-        Couple c = this.getHead().next();
 
-        c.getListInstr().concat(this.getBody());
+            Couple c = this.getHead().next();
+
+        if(instr.size()>=1) {
+            c.getListInstr().concat(this.getBody());
+            instr= c.getListInstr().getInstr();
+        }
+
        // this.concat(c.getListInstr().getInstr(), this.getBody());
         c= new Couple (c.getId(),c.getListInstr());
         return c;
