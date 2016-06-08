@@ -596,8 +596,8 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inScaled = false;
             // Load Bob from his .png file
-            bitmapWall = BitmapFactory.decodeResource(this.getResources(), R.drawable.mini_mur, options);
-            bitmapStart = BitmapFactory.decodeResource(this.getResources(), R.drawable.mini_mur, options);
+            bitmapWall = BitmapFactory.decodeResource(this.getResources(), R.drawable.mini_mur2, options);
+            bitmapStart = BitmapFactory.decodeResource(this.getResources(), R.drawable.mini_mur2, options);
             bitmapPlayerN = BitmapFactory.decodeResource(this.getResources(), R.drawable.mini_canard_dos, options);
             bitmapPlayerS = BitmapFactory.decodeResource(this.getResources(), R.drawable.mini_canard_face, options);
             bitmapPlayerE = BitmapFactory.decodeResource(this.getResources(), R.drawable.mini_canard_d, options);
