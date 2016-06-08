@@ -34,32 +34,32 @@
             android:layout_width="172dp"
             android:layout_height="wrap_content">
             <Button
-                android:layout_width="51dp"
+                android:layout_width="35dp"
                 android:layout_height="wrap_content"
-                android:text="R"
+                android:text="@string/reset"
                 android:onClick="restartLevel"
                 android:id="@+id/buttonRes" android:layout_gravity="bottom"/>
-
             <Button
-                android:layout_width="51dp"
+                android:layout_width="35dp"
                 android:layout_height="wrap_content"
-                android:text="E"
-                android:onClick="evalBlock"
-                android:id="@+id/button" android:layout_gravity="bottom"/>
-
-            <Button
-                android:layout_width="27dp"
-                android:layout_height="wrap_content"
-                android:text="-"
+                android:text="@string/prev"
                 android:id="@+id/prev"
                 android:onClick="prevStep"
                 android:layout_gravity="center_vertical"
             />
+            <Button
+                android:layout_width="35dp"
+                android:layout_height="wrap_content"
+                android:text="@string/play"
+                android:onClick="evalBlock"
+                android:id="@+id/button" android:layout_gravity="bottom"/>
+
+
 
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="35dp"
                 android:layout_height="wrap_content"
-                android:text="+"
+                android:text="@string/next"
                 android:onClick="nextStep"
                 android:id="@+id/next"/>
 

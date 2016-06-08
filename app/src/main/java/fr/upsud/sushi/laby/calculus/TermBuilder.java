@@ -110,12 +110,14 @@ public class TermBuilder {
     public void pushBegin() {
         stack.push(new Flag());
     }
+
     @JavascriptInterface
     public void reset() {
         stack.clear();
         //listInstr.clear();
         nStep=-1;
-        lins.clear();
+        if (lins!=null)lins.clear();
+
     }
 
 
@@ -166,41 +168,45 @@ public class TermBuilder {
 
     @JavascriptInterface
     public void eval() {
-        Thread t = new Thread() {
+        Thread t1 = new Thread() {
 
             public void run() {
 
 
                 if(!stack.isEmpty()) {
                     ArrayList<Instr> l = initListInstr();
-                    ListInstr lins = new ListInstr(l);
+                    lins = new ListInstr(l); lins.reverse();
                 }
+                if(lins!=null) {
+                    while (!lins.isEmpty()) {
+                        nextStep();
+                        /*Couple c = lins.eval();
+                        System.out.println(c.getId());
+                        lins = c.getListInstr();
+                        gui.notify(l.printMaze(), c.getId());
 
+                        //gui.highlightBlockById(c.getId());
+                        try {
+                            Thread.sleep(1000);
+                        } catch (Exception e) {
+                        }
+*/                       try {
+                            Thread.sleep(1000);
+                        } catch (Exception e){}
 
-
-                lins.reverse();
-                while (!lins.isEmpty()) {
-
-                    Couple c = lins.eval();
-                    System.out.println(c.getId());
-                    lins = c.getListInstr();
-                    gui.notify(l.printMaze(), c.getId());
-
-                    //gui.highlightBlockById(c.getId());
-                    try {
-                        Thread.sleep(1000);
-                    } catch (Exception e) {
                     }
-
-
+                    CheckIfEnd b = new CheckIfEnd(l);
+                    if(!b.eval()){
+                        l.restart();
+                    }
                 }
 
 
             }
 
-        };
+      };
 
-        t.start();
+        t1.start();
     }
 
     private ArrayList<Instr> initListInstr() {
@@ -227,7 +233,8 @@ public class TermBuilder {
                         System.out.println("dans next "+nStep);
 
 
-                        if (nStep==-1) {
+
+                        if (nStep==-1 && (lins==null ||lins.isEmpty())) {
                             ArrayList<Instr> l = initListInstr();
                             lins = new ListInstr(l);
                             lins.reverse();
@@ -320,14 +327,14 @@ public class TermBuilder {
             public void run() {
 
              try {
+                if(nStep>-1) {
+                    nStep--;
+                    System.out.println(nStep);
+                    // System.out.println("POS Y"+ gameStates.get(nStep).getPlayer().getY()+" EN x :" + gameStates.get(nStep).getPlayer().getX());
 
-                 nStep--;
-                 System.out.println(nStep);
-               // System.out.println("POS Y"+ gameStates.get(nStep).getPlayer().getY()+" EN x :" + gameStates.get(nStep).getPlayer().getX());
-
-                l.setPlayer(gameStates.get(nStep+1).getpDep());
-                gui.notify(l.printMaze(), gameStates.get(nStep).getId());////
-
+                    l.setPlayer(gameStates.get(nStep + 1).getpDep());
+                    gui.notify(l.printMaze(), gameStates.get(nStep).getId());////
+                }
              try {
                 Thread.sleep(1000);
               } catch (Exception e) {

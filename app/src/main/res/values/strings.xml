@@ -4,4 +4,8 @@
         <string name="action_code">Code</string>
         <string name="variable_name">Variable Name</string>
         <string name="variable_name_title">Enter a name for the variable</string>
+        <string name="play">&#10148;</string>
+        <string name="next">&#8677;</string>
+        <string name="prev">&#8676;</string>
+        <string name="reset">&#9632;</string>
 </resources>
