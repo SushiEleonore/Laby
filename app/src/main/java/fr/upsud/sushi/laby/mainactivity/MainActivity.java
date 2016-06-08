@@ -314,6 +314,7 @@ import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
 
 import fr.upsud.sushi.laby.calculus.TermBuilder;
+import fr.upsud.sushi.laby.utils.Constants;
 import fr.upsud.sushi.laby.utils.Observer;
 import fr.upsud.sushi.laby.R;
 import fr.upsud.sushi.laby.maze.Level;
@@ -589,7 +590,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                     Paint.DITHER_FLAG |
                     Paint.ANTI_ALIAS_FLAG);
             //l = new Level (0);
-            this.scale = 4;
+            this.scale = Constants.SCALE;
 
             //To get a good quality
             BitmapFactory.Options options = new BitmapFactory.Options();
@@ -870,6 +871,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         //TextView t = (TextView) findViewById(R.id.print);
         l.restart();
         gameView.draw();
+        tbuilder.reset();
         //t.setText("");//l.printMaze());
     }
 
