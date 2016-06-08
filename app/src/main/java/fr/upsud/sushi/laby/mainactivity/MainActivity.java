@@ -310,6 +310,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 
+import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
 
 import fr.upsud.sushi.laby.calculus.TermBuilder;
@@ -508,6 +509,24 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
             return resizedBitmap;
         }
 
+        public  Bitmap scaleBitmap(Bitmap bitmap, int newWidth, int newHeight) {
+            Bitmap scaledBitmap = Bitmap.createBitmap(newWidth, newHeight, Bitmap.Config.ARGB_8888);
+
+            float scaleX = newWidth / (float) bitmap.getWidth();
+            float scaleY = newHeight / (float) bitmap.getHeight();
+            float pivotX = 0;
+            float pivotY = 0;
+
+            Matrix scaleMatrix = new Matrix();
+            scaleMatrix.setScale(scaleX, scaleY, pivotX, pivotY);
+
+            Canvas canvas = new Canvas(scaledBitmap);
+            canvas.setMatrix(scaleMatrix);
+            canvas.drawBitmap(bitmap, 0, 0, new Paint(Paint.FILTER_BITMAP_FLAG));
+
+            return scaledBitmap;
+        }
+
         public Bitmap BITMAP_RESIZER(Bitmap bitmap,int newWidth,int newHeight) {
             Bitmap scaledBitmap = Bitmap.createBitmap(newWidth, newHeight, Bitmap.Config.ARGB_8888);
 
@@ -527,14 +546,16 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
         }
 
+
+        public byte[] getBytesFromBitmap(Bitmap bitmap) {
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream);
+            return stream.toByteArray();
+        }
+
         public Bitmap myBitmapResizer(Bitmap b, int scale) {
-            int bytes = b.getByteCount();
-            System.out.println("taille : image "+bytes);
 
-            ByteBuffer buffer = ByteBuffer.allocate(bytes); //Create a new buffer
-            b.copyPixelsToBuffer(buffer); //Move the byte data to the buffer
-
-            byte[] array = buffer.array();
+            byte[] array = getBytesFromBitmap(b);
             System.out.println("taille array"+array.length);
             byte[] pic = new byte[scale* array.length];
             for (int i=0; i<array.length; i++ ){
@@ -543,10 +564,11 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                 }
             }
             Bitmap map = BitmapFactory.decodeByteArray(pic , 0, pic.length);
-
+           // map = BitmapFactory.decodeByteArray(array , 0, array.length);
 
             return map;
         }
+
 
 
         // New variables for the sprite sheet animation
@@ -563,7 +585,9 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
             ourHolder = getHolder();
 
-            paint = new Paint();
+            paint =  new Paint(Paint.FILTER_BITMAP_FLAG |
+                    Paint.DITHER_FLAG |
+                    Paint.ANTI_ALIAS_FLAG);
             //l = new Level (0);
             this.scale = 4;
 
@@ -587,15 +611,15 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
 
             // recreate the new Bitmap
-            /*bitmapWall = myBitmapResizer(bitmapWall, scale);
+            bitmapWall = myBitmapResizer(bitmapWall, scale);
             bitmapStart = myBitmapResizer(bitmapStart, scale);
             bitmapPlayerN = myBitmapResizer(bitmapPlayerN, scale);
             bitmapPlayerS = myBitmapResizer(bitmapPlayerS, scale);
             bitmapPlayerE = myBitmapResizer(bitmapPlayerE, scale);
             bitmapPlayerW =myBitmapResizer(bitmapPlayerW, scale);
             bitmapEnd =myBitmapResizer(bitmapEnd, scale);
-*/
 
+/*
             bitmapWall = getResizedBitmap(bitmapWall, width, height);
             bitmapStart = getResizedBitmap(bitmapStart, width, height);
             bitmapPlayerN = getResizedBitmap(bitmapPlayerN, width, height);
@@ -603,7 +627,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
             bitmapPlayerE = getResizedBitmap(bitmapPlayerE, width, height);
             bitmapPlayerW =getResizedBitmap(bitmapPlayerW, width, height);
             bitmapEnd =getResizedBitmap(bitmapEnd, width, height);
-
+*/
             draw();
 
         }
