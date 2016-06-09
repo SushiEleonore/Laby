@@ -1,6 +1,6 @@
 package fr.upsud.sushi.laby.maze;
 
-import fr.upsud.sushi.laby.calculus.Dir;
+import fr.upsud.sushi.laby.utils.Dir;
 
 /**
  * Created by proval on 5/23/16.

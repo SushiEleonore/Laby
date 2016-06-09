@@ -1,7 +1,7 @@
 package fr.upsud.sushi.laby.maze;
 
-import fr.upsud.sushi.laby.calculus.Dir;
-import fr.upsud.sushi.laby.calculus.Sens;
+import fr.upsud.sushi.laby.utils.Dir;
+import fr.upsud.sushi.laby.utils.Sens;
 import fr.upsud.sushi.laby.exceptions.wallCollisionException;
 
 /**

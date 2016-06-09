@@ -1,4 +1,4 @@
-package fr.upsud.sushi.laby.calculus;
+package fr.upsud.sushi.laby.utils;
 
 /**
  * Created by proval on 5/25/16.
