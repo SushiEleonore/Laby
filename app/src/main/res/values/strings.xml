@@ -8,4 +8,5 @@
         <string name="next">&#8677;</string>
         <string name="prev">&#8676;</string>
         <string name="reset">&#9632;</string>
+        <string name="stop">&#9646;</string>
 </resources>

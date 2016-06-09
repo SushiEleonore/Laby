@@ -14,6 +14,10 @@ public class CheckIfEnd extends Bool {
     public boolean  eval() {
         int px = l.getPlayer().getX();
         int py = l.getPlayer().getY();
+        boolean isend = (l.getXend()==px) && (l.getYend()==py);
+        System.out.println("Player en x : "+l.getPlayer().getX() + "Player en y : "+l.getPlayer().getY());
+        System.out.println("Fin du niveau x : "+l.getXend() + " Fin du niveau en y : " + l.getYend());
+        System.out.println("Detection fin de niveau    " + isend);
         return ((l.getXend()==px) && (l.getYend()==py));
     }
 }

@@ -24,6 +24,7 @@ public class TermBuilder {
     //private ArrayList<Instr> listInstr;
     private ArrayList<GameState> gameStates;
     private ListInstr lins;
+    private boolean play;
 
 
 
@@ -32,6 +33,7 @@ public class TermBuilder {
         this.l=l;
         this.gui = gui;
         this.nStep=-1;
+        this.play=true;
         //this.listInstr = new ArrayList<Instr>();
         this.gameStates = new ArrayList<GameState>();
         ListInstr lins = new ListInstr();
@@ -167,6 +169,7 @@ public class TermBuilder {
 
     @JavascriptInterface
     public void eval() {
+        this.play=true;
         Thread t1 = new Thread() {
 
             public void run() {
@@ -175,7 +178,7 @@ public class TermBuilder {
                     lins = new ListInstr(l); lins.reverse();
                 }
                 if(lins!=null) {
-                    while (!lins.isEmpty()) {
+                    while (!lins.isEmpty()&&play) {
                         nextStep();
                         try {
                             Thread.sleep(1000);
@@ -183,8 +186,12 @@ public class TermBuilder {
 
                     }
                     CheckIfEnd b = new CheckIfEnd(l);
+                    System.out.println(!b.eval());
                     if(!b.eval()){
                         l.restart();
+                    }
+                    else{
+                       gui.notify(true, null);
                     }
                 }
             }
@@ -192,7 +199,9 @@ public class TermBuilder {
       };
         t1.start();
     }
-
+    public void stop(){
+        this.play=false;
+    }
     private ArrayList<Instr> initListInstr() {
 
         Instr t = getInstr();
@@ -228,7 +237,7 @@ public class TermBuilder {
                                     .add(new GameState(c.getId(), temp, new Player(l.getPlayer())));
 
                             //lins = c.getListInstr();
-                            gui.notify(l.printMaze(), c.getId());
+                            gui.notify(false, c.getId());
                             lins = c.getListInstr();
                             //gui.highlightBlockById(c.getId());
                         }
@@ -254,7 +263,7 @@ public class TermBuilder {
                         System.out.println("dans next bis "+nStep);
 
                         l.setPlayer(gameStates.get(nStep).getpArr());
-                        gui.notify(l.printMaze(), gameStates.get(nStep).getId());
+                        gui.notify(false, gameStates.get(nStep).getId());
 
                         try {
                             Thread.sleep(1000);
@@ -281,7 +290,7 @@ public class TermBuilder {
                     nStep--;
                     System.out.println(nStep);
                     l.setPlayer(gameStates.get(nStep + 1).getpDep());
-                    gui.notify(l.printMaze(), gameStates.get(nStep).getId());////
+                    gui.notify(false, gameStates.get(nStep).getId());////
                 }
              try {
                 Thread.sleep(1000);

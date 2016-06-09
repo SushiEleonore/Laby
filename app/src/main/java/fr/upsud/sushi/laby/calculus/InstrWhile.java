@@ -18,7 +18,7 @@ public class InstrWhile implements Instr {
     }
     public Couple next(){
         if (!this.isEnd.eval()){
-             ListInstr body = new ListInstr(instr);
+            ListInstr body = new ListInstr(instr);
             body.reverse();
             body.concat(this);
             return  new Couple(this.id,body);
@@ -38,7 +38,7 @@ public class InstrWhile implements Instr {
             for(int i =instr.size()-1 ; i>=0; i--) {
                 instr.get(i).next();
                 //A DEPLACER DANS LE MVFORWARD
-                if (this.isEnd.eval()) break;
+                if (this.isEnd.eval()){ System.out.println("break"); break;}
             }
             System.out.println("fait");
             if (cpt>20) break;

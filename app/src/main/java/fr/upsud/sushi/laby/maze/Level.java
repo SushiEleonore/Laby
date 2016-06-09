@@ -79,13 +79,13 @@ public class Level {
                         break;
                     case 's' :
                         cells[j][i-5] = new Cell(Cell.Type.START);
-                        this.xStart = i-5;
-                        this.yStart = j;
+                        this.xStart = j;
+                        this.yStart =  i-5;
                         break;
                     default : //=end
                         cells[j][i-5] = new Cell(Cell.Type.END);
-                        this.xEnd = i-5;
-                        this.yEnd = j;
+                        this.xEnd = j;
+                        this.yEnd = i-5;
                         break;
                 }
             }
@@ -139,7 +139,7 @@ public class Level {
 
     /**********Tests************/
 
-    public String printMaze () {
+  /*  public String printMaze () {
         String s = "";
         for (int i = 0; i<cells[0].length; i++) {
             for (int j = 0; j<cells.length; j++) {
@@ -153,7 +153,7 @@ public class Level {
             s = s + "\n";
         }
         return s;
-    }
+    }*/
 
 
 }

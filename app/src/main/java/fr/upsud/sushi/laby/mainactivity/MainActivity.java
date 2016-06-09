@@ -2,16 +2,21 @@ package fr.upsud.sushi.laby.mainactivity;
 
 import android.content.Context;
 import android.content.DialogInterface;
+//import android.support.v7.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.Matrix;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.Surface;
 import android.view.View;
 import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
@@ -19,16 +24,26 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 
 import java.io.ByteArrayOutputStream;
+import java.nio.ByteBuffer;
 
 import fr.upsud.sushi.laby.calculus.TermBuilder;
 import fr.upsud.sushi.laby.utils.Constants;
@@ -178,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
         private int size;
 
-        /*this should depend on the screen and comes from the "constants" class*/
+        /*this should depend on the screen*/
         private int scale;
 
         // This is new. We need a SurfaceHolder
@@ -289,9 +304,14 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
 
 
+        // New variables for the sprite sheet animation
 
-         public GameView(Context context) {
-
+        // When the we initialize (call new()) on gameView
+        // This special constructor method runs
+        public GameView(Context context) {
+            // The next line of code asks the
+            // SurfaceView class to set up our object.
+            // How kind.
             super(context);
 
             // Initialize ourHolder and paint objects
@@ -388,24 +408,24 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                 canvas.drawColor(Color.argb(255, 255, 255, 255));
 
                 // Choose the brush color for drawing
-                paint.setColor(Color.argb(255, 249, 129, 0));
+                paint.setColor(Color.argb(255,  249, 129, 0));
 
 
                 // Draw bob at bobXPosition, 200 pixels
                 //canvas.drawBitmap(bitmapWall, bobXPosition, 200, paint);
-                for (int i = 0; i < l.getCells().length; i++) {
-                    for (int j = 0; j < l.getCells()[i].length; j++) {
-                        if (l.getCells()[i][j] == null) {
+                for (int i = 0; i< l.getCells().length; i++) {
+                    for (int j = 0; j< l.getCells()[i].length; j++) {
+                        if (l.getCells()[i][j] == null ) {
                         } else {
                             switch (l.getCells()[i][j].getType()) {
-                                case START:
-                                    canvas.drawBitmap(bitmapStart, i * size, j * size, paint);
+                                case START :
+                                    canvas.drawBitmap(bitmapStart, i*size, j*size, paint);
                                     break;
-                                case END:
-                                    canvas.drawBitmap(bitmapEnd, i * size, j * size, paint);
+                                case END :
+                                    canvas.drawBitmap(bitmapEnd, i*size, j*size, paint);
                                     break;
-                                default:
-                                    canvas.drawBitmap(bitmapWall, i * size, j * size, paint);
+                                default :
+                                    canvas.drawBitmap(bitmapWall, i*size, j*size, paint);
                                     break;
                             }
                         }
@@ -430,8 +450,12 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                     }
                 }
 
+                // New drawing code goes here
+
+                // Draw everything to the screen
                 ourHolder.unlockCanvasAndPost(canvas);
             }
+
 
         }
 
@@ -473,29 +497,36 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         gameView.pause();
     }
 
-    public void notify(String data, String id) {
-        final String id2 = id;
+    public void winWindow(){
+        Intent intent = new Intent(getApplicationContext(), WinActivity.class);
+        startActivity(intent);
 
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
+    }
+
+    public void notify(boolean fin, String id) {
+        final String id2 = id;
+        final boolean fin2 =fin;
+
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
                 /*TextView t = (TextView) findViewById(R.id.print);
                 t.clearComposingText();
                 t.setText("");//l.printMaze());
                 *///title.clearComposingText();//not useful
 
-                if (l.getPlayer().getX() == l.getXend() && l.getPlayer().getY() == l.getYend()) {
-                    nextLevel();
+                    if (fin2){winWindow();nextLevel();}
+
+                    gameView.update(l);
+                    gameView.draw();
+
+                    mWebView.loadUrl("javascript:highlightBlockById('" + id2 +
+                            "')");
+
+
                 }
-                gameView.update(l);
-                gameView.draw();
-
-                mWebView.loadUrl("javascript:highlightBlockById('" + id2 +
-                       "')");
-
-
-            }
-        });
+            });
 
 
 
@@ -527,11 +558,22 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     //////new
     public void prevStep(View v) {
         this.tbuilder.prevStep();
+        //mWebView.loadUrl("javascript:prevStep()");
     }
 
+
+    public void stop(View v) {
+        this.tbuilder.stop();
+        //mWebView.loadUrl("javascript:prevStep()");
+    }
     /////Changed
     public void nextStep(View v) {
+       // if (this.tbuilder.getGameStates().size() == this.tbuilder.getnStep()) {
             mWebView.loadUrl("javascript:nextStep()");
+        //} else
+       // {
+         //   tbuilder.nextStepBis();
+       // }
     }
 
 
