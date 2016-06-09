@@ -8,4 +8,7 @@ public class Constants {
     //Agrandissement des images
     public static final int SCALE = 4;
 
+
+    //Add sizeX and sizeY (width and height of the images)
+
 }

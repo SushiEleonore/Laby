@@ -293,32 +293,6 @@ public class TermBuilder {
 
         }
     }
-/*
-    public void nextStepBis(){
-        Thread t = new Thread() {
-
-            public void run() {
-
-                try {
-
-                    nStep++;
-                    System.out.println(nStep);
-
-            l.setPlayer(gameStates.get(nStep).getPlayer());
-            gui.notify(l.printMaze(), gameStates.get(nStep).getId());
-
-            try {
-                Thread.sleep(1000);
-            } catch (Exception e) {
-            }
-        } catch (ArrayIndexOutOfBoundsException e){}
-
-            }
-        };
-
-        t.start();
-    }*/
-
 
 
     public void prevStep(){

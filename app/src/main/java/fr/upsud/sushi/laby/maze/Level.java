@@ -108,21 +108,7 @@ public class Level {
         }
 
     }
-/*
-    public Level (Level l){
-        this.cells = l.getCells();
 
-        this.p = l.getPlayer();
-
-        this.xEnd = l.getXend();
-        this.yEnd = l.getYend();
-
-        this.xStart = l.getXstart();
-        this.yStart = l.getYstart();
-        this.startDir = l.getStartDir();
-
-        this.lvl = l.getLevel();
-    }*/
 
     public Dir getStartDir() {return this.startDir;}
 
@@ -152,12 +138,7 @@ public class Level {
         this.p.setY(this.yStart);
         this.p.setDir(this.startDir);
     }
-/*
-    public Level copy(){
-        return new Level(this);
 
-    }
-*/
     /**********Tests************/
 
     public String printMaze () {
@@ -175,23 +156,6 @@ public class Level {
         }
         return s;
     }
-/*
-    public String printMaze () {
-        String s = "";
-        for (int i = 0; i<cells.length; i++) {
-            for (int j = 0; j<cells[0].length; j++) {
-                if (i == this.p.getX() && j == this.p.getY()) {s = s + "p";}
-                else if (cells[i][j] == null) {s = s + "+";}
-                else if (cells[i][j].getType() == (Cell.Type.WALL)) { s= s+"o"; }
-                else if (cells[i][j].getType() == (Cell.Type.START)) {s = s + "s";}
-                else if (cells[i][j].getType() == (Cell.Type.END)) {s = s + "e";}
-                else s = s + "-";
-            }
-            s = s + "\n";
-        }
-        return s;
-    }
-*/
 
 
 }
