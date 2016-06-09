@@ -138,4 +138,8 @@ public class Player {
         }
     }
 
+    public boolean levelFinished(){
+        return (this.x == this.l.getXend() && this.y == this.l.getYend());
+    }
+
 }

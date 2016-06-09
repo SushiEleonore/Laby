@@ -289,14 +289,9 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
 
 
-        // New variables for the sprite sheet animation
 
-        // When the we initialize (call new()) on gameView
-        // This special constructor method runs
-        public GameView(Context context) {
-            // The next line of code asks the
-            // SurfaceView class to set up our object.
-            // How kind.
+         public GameView(Context context) {
+
             super(context);
 
             // Initialize ourHolder and paint objects
@@ -393,29 +388,24 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                 canvas.drawColor(Color.argb(255, 255, 255, 255));
 
                 // Choose the brush color for drawing
-                paint.setColor(Color.argb(255,  249, 129, 0));
+                paint.setColor(Color.argb(255, 249, 129, 0));
 
-                // Make the text a bit bigger
-                paint.setTextSize(45);
-
-                // Display the current fps on the screen
-                //canvas.drawText("FPS:" + fps, 20, 40, paint);
 
                 // Draw bob at bobXPosition, 200 pixels
                 //canvas.drawBitmap(bitmapWall, bobXPosition, 200, paint);
-                for (int i = 0; i< l.getCells().length; i++) {
-                    for (int j = 0; j< l.getCells()[i].length; j++) {
-                        if (l.getCells()[i][j] == null ) {
+                for (int i = 0; i < l.getCells().length; i++) {
+                    for (int j = 0; j < l.getCells()[i].length; j++) {
+                        if (l.getCells()[i][j] == null) {
                         } else {
                             switch (l.getCells()[i][j].getType()) {
-                                case START :
-                                    canvas.drawBitmap(bitmapStart, i*size, j*size, paint);
+                                case START:
+                                    canvas.drawBitmap(bitmapStart, i * size, j * size, paint);
                                     break;
-                                case END :
-                                    canvas.drawBitmap(bitmapEnd, i*size, j*size, paint);
+                                case END:
+                                    canvas.drawBitmap(bitmapEnd, i * size, j * size, paint);
                                     break;
-                                default :
-                                    canvas.drawBitmap(bitmapWall, i*size, j*size, paint);
+                                default:
+                                    canvas.drawBitmap(bitmapWall, i * size, j * size, paint);
                                     break;
                             }
                         }
@@ -440,12 +430,8 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                     }
                 }
 
-                // New drawing code goes here
-
-                // Draw everything to the screen
                 ourHolder.unlockCanvasAndPost(canvas);
             }
-
 
         }
 
@@ -541,16 +527,11 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     //////new
     public void prevStep(View v) {
         this.tbuilder.prevStep();
-        //mWebView.loadUrl("javascript:prevStep()");
     }
+
     /////Changed
     public void nextStep(View v) {
-       // if (this.tbuilder.getGameStates().size() == this.tbuilder.getnStep()) {
             mWebView.loadUrl("javascript:nextStep()");
-        //} else
-       // {
-         //   tbuilder.nextStepBis();
-       // }
     }
 
 

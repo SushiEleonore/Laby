@@ -69,7 +69,6 @@ public class Level {
         this.startDir = d;
         for (int i = 5; i<sizeY+5; i++){
             for (int j =0; j<sizeX; j++){
-                System.out.println(tab[i]);
                 char c = tab[i].charAt(j);
                 switch (c) {
                     case 'w' :
@@ -100,7 +99,6 @@ public class Level {
          if (lvl == 0) {
             this.lvl = lvl;
             createLevel(lv0);
-
 
         } else if (lvl == 1) {
              this.lvl = lvl;

@@ -8,7 +8,6 @@ import fr.upsud.sushi.laby.utils.Observer;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
-import java.util.List;
 import java.util.NoSuchElementException;
 
 import fr.upsud.sushi.laby.maze.Level;
@@ -171,8 +170,6 @@ public class TermBuilder {
         Thread t1 = new Thread() {
 
             public void run() {
-
-
                 if(!stack.isEmpty()) {
                     ArrayList<Instr> l = initListInstr();
                     lins = new ListInstr(l); lins.reverse();
@@ -180,17 +177,7 @@ public class TermBuilder {
                 if(lins!=null) {
                     while (!lins.isEmpty()) {
                         nextStep();
-                        /*Couple c = lins.eval();
-                        System.out.println(c.getId());
-                        lins = c.getListInstr();
-                        gui.notify(l.printMaze(), c.getId());
-
-                        //gui.highlightBlockById(c.getId());
                         try {
-                            Thread.sleep(1000);
-                        } catch (Exception e) {
-                        }
-*/                       try {
                             Thread.sleep(1000);
                         } catch (Exception e){}
 
@@ -200,12 +187,9 @@ public class TermBuilder {
                         l.restart();
                     }
                 }
-
-
             }
 
       };
-
         t1.start();
     }
 
@@ -231,9 +215,6 @@ public class TermBuilder {
                     try {
 
                         System.out.println("dans next "+nStep);
-
-
-
                         if (nStep==-1 && (lins==null ||lins.isEmpty())) {
                             ArrayList<Instr> l = initListInstr();
                             lins = new ListInstr(l);
@@ -242,15 +223,10 @@ public class TermBuilder {
                         if(!lins.isEmpty()) {
                             nStep++;
                             Player temp = new Player(l.getPlayer());
-
                             Couple c = lins.eval();
-                            System.out.println(
-                                    "Player de depart : " + temp.getX() + " " + temp.getY());
-                            System.out.println("Player d'arrivee : " + l.getPlayer().getX() + " " +
-                                    l.getPlayer().getY());
                             gameStates
                                     .add(new GameState(c.getId(), temp, new Player(l.getPlayer())));
-                            System.out.println("Ajout  etat, taille : " + gameStates.size());
+
                             //lins = c.getListInstr();
                             gui.notify(l.printMaze(), c.getId());
                             lins = c.getListInstr();
@@ -304,8 +280,6 @@ public class TermBuilder {
                 if(nStep>-1) {
                     nStep--;
                     System.out.println(nStep);
-                    // System.out.println("POS Y"+ gameStates.get(nStep).getPlayer().getY()+" EN x :" + gameStates.get(nStep).getPlayer().getX());
-
                     l.setPlayer(gameStates.get(nStep + 1).getpDep());
                     gui.notify(l.printMaze(), gameStates.get(nStep).getId());////
                 }
