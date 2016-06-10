@@ -135,9 +135,14 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        l = new Level(0);
+        //setContentView(R.layout.activity_main);
+        final Intent intent = getIntent();
+        int niveau = intent.getIntExtra("level", 0);
 
+        setContentView(R.layout.activity_main);
+        l = new Level(niveau);
+        //Intent intent2 = new Intent(getApplicationContext(), MenuActivity.class);
+        //startActivity(intent2);
         //SurfaceView v =  (SurfaceView) findViewById(R.id.surfaceView);
         gameView = new GameView(this);
         LinearLayout linlay= (LinearLayout) findViewById(R.id.linlayout);
@@ -290,18 +295,34 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
         public Bitmap myBitmapResizer(Bitmap b, int scale) {
 
-            byte[] array = getBytesFromBitmap(b);
+            /*byte[] array = getBytesFromBitmap(b);
             System.out.println("taille array"+array.length);
-            byte[] pic = new byte[scale* array.length];
-            for (int i=0; i<array.length; i++ ){
+            byte[] pic = new byte[scale* array.length];*/
+            int width = b.getWidth();
+            int height = b.getHeight();
+
+            int sz = b.getRowBytes() * b.getHeight();
+            ByteBuffer byteBuffer = ByteBuffer.allocate(sz);
+            b.copyPixelsToBuffer(byteBuffer);
+            byte[] byteArray = byteBuffer.array();
+
+            byte[] pic = new byte[(byteArray.length*scale)];
+            for (int i=0; i<byteArray.length; i++ ){
                 for (int j =0; j<scale; j++){
-                    pic[i*scale+j] = array[i];
+                    pic[i*scale+j] = byteArray[i];
+                    System.out.println("Truc : "+ byteArray[i]);
                 }
             }
-            Bitmap map = BitmapFactory.decodeByteArray(pic , 0, pic.length);
-           // map = BitmapFactory.decodeByteArray(array , 0, array.length);
 
-            return map;
+            Bitmap.Config configBmp = Bitmap.Config.valueOf(b.getConfig().name());
+            Bitmap bitmap_tmp = Bitmap.createBitmap(width*scale, height*scale, configBmp);
+            ByteBuffer buffer = ByteBuffer.wrap(pic);
+            bitmap_tmp.copyPixelsFromBuffer(buffer);
+/*
+            Bitmap map = BitmapFactory.decodeByteArray(pic , 0, pic.length);
+            map = BitmapFactory.decodeByteArray(byteArray , 0, byteArray.length);
+*/
+            return bitmap_tmp;
         }
 
 
@@ -346,7 +367,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
 
             // recreate the new Bitmap
-       /*     bitmapWall = myBitmapResizer(bitmapWall, scale);
+           /*bitmapWall = myBitmapResizer(bitmapWall, scale);
             bitmapStart = myBitmapResizer(bitmapStart, scale);
             bitmapPlayerN = myBitmapResizer(bitmapPlayerN, scale);
             bitmapPlayerS = myBitmapResizer(bitmapPlayerS, scale);

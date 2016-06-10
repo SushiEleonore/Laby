@@ -39,8 +39,9 @@ public class Level {
     *
     *
     * */
-    private String lv0 = "5\n10\n2\n2\nS\nwwwww\nwuuuw\nwusuw\nwuuuw\nwuuuw\nwuuuw\nwuuuw\nwueuw\nwuuuw\nwwwww";
-    private String lv1 = "5\n10\n2\n2\nS\nwwwww\nwuuuw\nwusuw\nwuuuw\nwuuuw\nwuwuw\nwuuuw\nwueuw\nwuuuw\nwwwww";
+    private String lv1 = "5\n7\n2\n2\nS\nwwwww\nwuuuw\nwusuw\nwuuuw\nwueuw\nwuuuw\nwwwww";
+    private String lv2 = "5\n10\n2\n2\nS\nwwwww\nwuuuw\nwusuw\nwuuuw\nwuuuw\nwuuuw\nwuuuw\nwueuw\nwuuuw\nwwwww";
+    private String lv3 = "5\n10\n2\n2\nS\nwwwww\nwuuuw\nwusuw\nwuuuw\nwuuuw\nwuwuw\nwuuuw\nwueuw\nwuuuw\nwwwww";
 
 
     private void createLevel(String s){
@@ -96,14 +97,17 @@ public class Level {
     //Generates a maze and a player depending on the level.
     //Replaced the arraylist by an array
     public Level (int lvl) {
-         if (lvl == 0) {
+         if (lvl == 1) {
             this.lvl = lvl;
-            createLevel(lv0);
+            createLevel(lv1);
 
-        } else if (lvl == 1) {
+         } else if (lvl == 2) {
              this.lvl = lvl;
-             createLevel(lv1);
-        }
+             createLevel(lv2);
+         } else if (lvl == 3) {
+             this.lvl = lvl;
+             createLevel(lv3);
+         }
 
     }
 

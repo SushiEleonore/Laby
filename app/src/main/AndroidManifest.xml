@@ -10,13 +10,16 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".mainactivity.MainActivity">
 
+        </activity>
+        <activity android:name=".mainactivity.WinActivity"></activity>
+        <activity android:name=".mainactivity.MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
         </activity>
-        <activity android:name=".mainactivity.WinActivity"></activity>
     </application>
 
 </manifest>
