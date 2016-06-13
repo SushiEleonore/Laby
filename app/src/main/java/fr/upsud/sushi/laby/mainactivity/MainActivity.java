@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         int niveau = intent.getIntExtra("level", 0);
 
         setContentView(R.layout.activity_main);
-        l = new Level(niveau);
+        l = new Level(niveau, this);
         //Intent intent2 = new Intent(getApplicationContext(), MenuActivity.class);
         //startActivity(intent2);
         //SurfaceView v =  (SurfaceView) findViewById(R.id.surfaceView);
@@ -352,7 +352,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
             options.inScaled = false;
             // Load Bob from his .png file
             bitmapWall = BitmapFactory.decodeResource(this.getResources(), R.drawable.mini_mur2, options);
-            bitmapStart = BitmapFactory.decodeResource(this.getResources(), R.drawable.mini_mur2, options);
+           // bitmapStart = BitmapFactory.decodeResource(this.getResources(), R.drawable.mini_mur2, options);
             bitmapPlayerN = BitmapFactory.decodeResource(this.getResources(), R.drawable.mini_canard_dos, options);
             bitmapPlayerS = BitmapFactory.decodeResource(this.getResources(), R.drawable.mini_canard_face, options);
             bitmapPlayerE = BitmapFactory.decodeResource(this.getResources(), R.drawable.mini_canard_d, options);
@@ -377,7 +377,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
 
             bitmapWall = getResizedBitmap(bitmapWall, width, height);
-            bitmapStart = getResizedBitmap(bitmapStart, width, height);
+           // bitmapStart = getResizedBitmap(bitmapStart, width, height);
             bitmapPlayerN = getResizedBitmap(bitmapPlayerN, width, height);
             bitmapPlayerS = getResizedBitmap(bitmapPlayerS, width, height);
             bitmapPlayerE = getResizedBitmap(bitmapPlayerE, width, height);
@@ -441,9 +441,9 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                         if (l.getCells()[i][j] == null ) {
                         } else {
                             switch (l.getCells()[i][j].getType()) {
-                                case START :
+                                /*case START :
                                     canvas.drawBitmap(bitmapStart, i*size, j*size, paint);
-                                    break;
+                                    break;*/
                                 case END :
                                     canvas.drawBitmap(bitmapEnd, i*size, j*size, paint);
                                     break;
@@ -611,7 +611,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
     public void nextLevel() {
         int lvl = l.getLevel();
-        setLevel(new Level(lvl+1));
+        setLevel(new Level(lvl+1, this));
         setmWebView ();
         this.tbuilder= new TermBuilder(this, l);
         mWebView.addJavascriptInterface(tbuilder, "JavaTermBuilder");

@@ -1,10 +1,21 @@
 package fr.upsud.sushi.laby.maze;
 
-import fr.upsud.sushi.laby.utils.Dir;
+import java.io.InputStream;
+import java.util.HashMap;
 
-/**
- * Created by proval on 5/23/16.
- */
+import fr.upsud.sushi.laby.R;
+import fr.upsud.sushi.laby.utils.Dir;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.res.Resources;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
+
 public class Level {
 
     private Cell[][] cells;
@@ -18,7 +29,11 @@ public class Level {
     private int yStart;
     private Dir startDir;
 
+    private Context context;
+
     private int lvl;
+
+    private HashMap<String, Boolean> authorizedBlocks;
 
 
     /*
@@ -39,12 +54,17 @@ public class Level {
     *
     *
     * */
-    private String lv1 = "5\n7\n2\n2\nS\nwwwww\nwuuuw\nwusuw\nwuuuw\nwueuw\nwuuuw\nwwwww";
-    private String lv2 = "5\n10\n2\n2\nS\nwwwww\nwuuuw\nwusuw\nwuuuw\nwuuuw\nwuuuw\nwuuuw\nwueuw\nwuuuw\nwwwww";
-    private String lv3 = "5\n10\n2\n2\nS\nwwwww\nwuuuw\nwusuw\nwuuuw\nwuuuw\nwuwuw\nwuuuw\nwueuw\nwuuuw\nwwwww";
+    private String lv1 = "3\n5\n1\n1\nS\nwww\nwsw\nwuw\nwew\nwww";
+    private String lv2 = "5\n7\n2\n2\nS\nwwwww\nwuuuw\nwusuw\nwuuuw\nwueuw\nwuuuw\nwwwww";
+    private String lv3 = "5\n10\n2\n2\nS\nwwwww\nwuuuw\nwusuw\nwuuuw\nwuuuw\nwuuuw\nwuuuw\nwueuw\nwuuuw\nwwwww";
+    private String lv4 = "5\n10\n2\n2\nS\nwwwww\nwuuuw\nwusuw\nwuuuw\nwuuuw\nwuwuw\nwuuuw\nwueuw\nwuuuw\nwwwww";
+
+
+
 
 
     private void createLevel(String s){
+        System.out.println(s);
         String[] tab = s.split("\n");
         int sizeX = Integer.parseInt(tab[0]);
         int sizeY = Integer.parseInt(tab[1]);
@@ -94,19 +114,47 @@ public class Level {
         this.p = new Player(posX, posY, d, this);
     }
 
+
+    private void openFile   (int id){
+        InputStream iS =  this.context.getResources().openRawResource(id);
+        try {
+            byte[] buffer = new byte[iS.available()];
+            iS.read(buffer);
+            ByteArrayOutputStream oS = new ByteArrayOutputStream();
+            oS.write(buffer);
+            oS.close();
+            iS.close();
+
+            createLevel(oS.toString());
+        } catch (Exception e) {System.out.println("File problem");}
+    }
+
+
     //Generates a maze and a player depending on the level.
     //Replaced the arraylist by an array
-    public Level (int lvl) {
+    public Level (int lvl, Context ctx) {
+        this.context = ctx;
+        this.authorizedBlocks = new HashMap<String, Boolean>();
          if (lvl == 1) {
             this.lvl = lvl;
-            createLevel(lv1);
+             this.authorizedBlocks.put("turn", false);
+             this.authorizedBlocks.put("move", true);
+             this.authorizedBlocks.put("ifpath", false);
+             this.authorizedBlocks.put("while", false);
+             this.authorizedBlocks.put("ifelse", false);
+             this.authorizedBlocks.put("ifelse", false);
+             openFile( R.raw.level1);
+             //createLevel(lv1);
 
          } else if (lvl == 2) {
              this.lvl = lvl;
-             createLevel(lv2);
+             openFile( R.raw.level2);
          } else if (lvl == 3) {
              this.lvl = lvl;
-             createLevel(lv3);
+             openFile( R.raw.level3);
+         } else if (lvl == 4) {
+             this.lvl = lvl;
+             //openFile( R.raw.level4);
          }
 
     }
