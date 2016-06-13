@@ -1,6 +1,7 @@
 package fr.upsud.sushi.laby.maze;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import fr.upsud.sushi.laby.R;
@@ -33,7 +34,7 @@ public class Level {
 
     private int lvl;
 
-    private HashMap<String, Boolean> authorizedBlocks;
+    private ArrayList<String> authorizedBlocks;
 
 
     /*
@@ -46,11 +47,14 @@ public class Level {
     * px\n
     * py\n
     * Direction\n
-    * then the maze
+    * then the maze :
+    *
     * w : wall
     * u : empty
     * s : start
     * e : end
+    *
+    * finally, the authorized blocks
     *
     *
     * */
@@ -68,10 +72,8 @@ public class Level {
         String[] tab = s.split("\n");
         int sizeX = Integer.parseInt(tab[0]);
         int sizeY = Integer.parseInt(tab[1]);
-        int posX = Integer.parseInt(tab[2]);
-        int posY = Integer.parseInt(tab[3]);
         this.cells = new Cell[sizeX][sizeY];
-        String dir = tab[4];
+        String dir = tab[2];
         Dir d;
         switch (dir) {
             case "N" :
@@ -88,32 +90,34 @@ public class Level {
                 break;
         }
         this.startDir = d;
-        for (int i = 5; i<sizeY+5; i++){
+        for (int i = 3; i<sizeY+3; i++){
             for (int j =0; j<sizeX; j++){
                 char c = tab[i].charAt(j);
                 switch (c) {
                     case 'w' :
-                        cells[j][i-5] = new Cell(Cell.Type.WALL);
+                        cells[j][i-3] = new Cell(Cell.Type.WALL);
                         break;
                     case 'u' :
-                        cells[j][i-5] = null;
+                        cells[j][i-3] = null;
                         break;
                     case 's' :
-                        cells[j][i-5] = new Cell(Cell.Type.START);
+                        cells[j][i-3] = new Cell(Cell.Type.START);
                         this.xStart = j;
-                        this.yStart =  i-5;
+                        this.yStart =  i-3;
                         break;
                     default : //=end
-                        cells[j][i-5] = new Cell(Cell.Type.END);
+                        cells[j][i-3] = new Cell(Cell.Type.END);
                         this.xEnd = j;
-                        this.yEnd = i-5;
+                        this.yEnd = i-3;
                         break;
                 }
             }
         }
-        this.p = new Player(posX, posY, d, this);
+        this.p = new Player(this.xStart, this.yStart, d, this);
+        for (int i = sizeY+3; i<tab.length; i++) {
+            this.authorizedBlocks.add(tab[i]);
+        }
     }
-
 
     private void openFile   (int id){
         InputStream iS =  this.context.getResources().openRawResource(id);
@@ -134,29 +138,17 @@ public class Level {
     //Replaced the arraylist by an array
     public Level (int lvl, Context ctx) {
         this.context = ctx;
-        this.authorizedBlocks = new HashMap<String, Boolean>();
+        this.authorizedBlocks = new ArrayList<String>();
          if (lvl == 1) {
             this.lvl = lvl;
-             this.authorizedBlocks.put("turn", false);
-             this.authorizedBlocks.put("move", true);
-             this.authorizedBlocks.put("ifpath", false);
-             this.authorizedBlocks.put("while", false);
-             this.authorizedBlocks.put("ifelse", false);
-             this.authorizedBlocks.put("ifelse", false);
              openFile( R.raw.level1);
-             //createLevel(lv1);
-
          } else if (lvl == 2) {
              this.lvl = lvl;
              openFile( R.raw.level2);
          } else if (lvl == 3) {
              this.lvl = lvl;
              openFile( R.raw.level3);
-         } else if (lvl == 4) {
-             this.lvl = lvl;
-             //openFile( R.raw.level4);
          }
-
     }
 
 
@@ -164,6 +156,8 @@ public class Level {
 
     public int getXstart()  {return this.xStart;}
     public int getYstart()  {return this.yStart;}
+
+    public ArrayList<String> getAuthorizedBlocks() {return this.authorizedBlocks;}
 
     public Player getPlayer() { return this.p;}
 

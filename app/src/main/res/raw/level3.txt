@@ -1,7 +1,5 @@
 5
 10
-2
-2
 S
 wwwww
 wuuuw
@@ -13,3 +11,6 @@ wuuuw
 wueuw
 wuuuw
 wwwww
+move
+turn
+while
