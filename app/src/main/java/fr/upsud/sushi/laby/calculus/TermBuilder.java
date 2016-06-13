@@ -129,6 +129,7 @@ public class TermBuilder {
                     //If the player doesn't stop the execution
                     if(play) {
                         if (!b.eval()) {
+                            gui.notify(false,null);
                             l.restart();
                         } else {
                             gui.notify(true, null);
@@ -164,7 +165,7 @@ public class TermBuilder {
                 public void run() {
                     try {
 
-                        //if (nStep==-1 && (lins==null ||lins.isEmpty())) {
+
                         if (nStep==-1 && lins.isEmpty()) {
                             ArrayList<Instr> l = initListInstr();
                             lins = new ListInstr(l);

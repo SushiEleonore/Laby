@@ -28,6 +28,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
@@ -532,14 +533,16 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                 *///title.clearComposingText();//not useful
 
                     if (fin2){winWindow();nextLevel();}
+                    else if (id2==null) {Toast.makeText(getApplicationContext(), "Tu n'es pas allé jusqu'au bout, réessaie !", Toast.LENGTH_SHORT).show();}
+                    else {
 
-                    gameView.update(l);
-                    gameView.draw();
+                        gameView.update(l);
+                        gameView.draw();
 
-                    mWebView.loadUrl("javascript:highlightBlockById('" + id2 +
-                            "')");
+                        mWebView.loadUrl("javascript:highlightBlockById('" + id2 +
+                                "')");
 
-
+                    }
                 }
             });
 
