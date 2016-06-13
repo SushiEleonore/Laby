@@ -123,9 +123,12 @@ Blockly.JavaScript['ifelse'] = function(block) {
 
 function evalBlock () {
    var code = Blockly.JavaScript.workspaceToCode(Blockly.mainWorkspace);
-   JavaTermBuilder.reset();
    console.log(code);
    eval(code);
+   JavaTermBuilder.eval();
+};
+
+function evalRestOfBlock () {
    JavaTermBuilder.eval();
 };
 

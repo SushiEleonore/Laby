@@ -25,7 +25,7 @@ public class WinActivity extends Activity {
     }
 
     public void nextLevel(View v){
-        duckSound.stop();
+        //duckSound.stop();
        finish();
     }
 }
