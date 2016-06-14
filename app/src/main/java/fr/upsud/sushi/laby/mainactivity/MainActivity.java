@@ -45,6 +45,7 @@ import android.view.View;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 
 import fr.upsud.sushi.laby.calculus.TermBuilder;
 import fr.upsud.sushi.laby.utils.Constants;
@@ -142,7 +143,8 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
         setContentView(R.layout.activity_main);
         l = new Level(niveau, this);
-        IndexEditor ie = new IndexEditor(l);
+
+        //IndexEditor ie = new IndexEditor(l);
         //Intent intent2 = new Intent(getApplicationContext(), MenuActivity.class);
         //startActivity(intent2);
         //SurfaceView v =  (SurfaceView) findViewById(R.id.surfaceView);
@@ -183,7 +185,10 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
         mWebView.setWebChromeClient(new CustomWebChromeClient(this));
         mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.loadUrl("file:///android_asset/blockly/index.html");
+        String blocks = createToolBox(l.getAuthorizedBlocks());
+        mWebView.loadUrl("file:///android_asset/blockly/index.html?blocks=" + blocks);
+        //createToolBox(l.getAuthorizedBlocks());
+        //file:///android_asset/blockly/index.html
         mWebView.addJavascriptInterface(this.tbuilder , "JavaTermBuilder");
     }
 
@@ -580,6 +585,22 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
     }
 
+    public String createToolBox(ArrayList<String> blocks) {
+
+        String arg = "";
+
+        for (int i = 0; i < blocks.size() - 1; i++) {
+            arg +=   blocks.get(i) + ",";
+        }
+
+        if (blocks.size() != 0) {
+            arg +=  blocks.get(blocks.size() - 1);
+        }
+
+        System.out.println("tableau : "+arg);
+        return arg;
+    }
+
     //////new
     public void prevStep(View v) {
         this.tbuilder.prevStep();
@@ -618,6 +639,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         this.tbuilder= new TermBuilder(this, l);
         mWebView.addJavascriptInterface(tbuilder, "JavaTermBuilder");
         //l = new Level(lvl+1);
+
         gameView.draw();
     }
 

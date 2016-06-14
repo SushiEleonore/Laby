@@ -22,11 +22,11 @@ public class IndexEditor {
 
 
 
-        File f = new File("\\home\\proval\\AndroidStudioProjects\\Laby\\app\\src\\main\\assets\\blockly\\index.html");
+        File f = new File("file:///android_asset/blockly/index.html");
 
         File f2 = new File("../.");
 
-        File f3 = new File("/android_asset/blockly/index.html");
+        File f3 = new File("~/AndroidStudioProjects/Laby/app/src/main/assets/blockly/index.html");
 
 
 

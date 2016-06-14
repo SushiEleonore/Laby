@@ -49,5 +49,14 @@ public class MenuActivity extends Activity {
         finish();
     }
 
+    public void level4(View v){
+        level = 4;
+        setContentView(R.layout.activity_main);
+        Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);
+        intent2.putExtra("level", level);
+        startActivityForResult(intent2, 0);
+        finish();
+    }
+
 
 }
