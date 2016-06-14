@@ -48,6 +48,7 @@ import java.nio.ByteBuffer;
 
 import fr.upsud.sushi.laby.calculus.TermBuilder;
 import fr.upsud.sushi.laby.utils.Constants;
+import fr.upsud.sushi.laby.utils.IndexEditor;
 import fr.upsud.sushi.laby.utils.Observer;
 import fr.upsud.sushi.laby.R;
 import fr.upsud.sushi.laby.maze.Level;
@@ -141,6 +142,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
         setContentView(R.layout.activity_main);
         l = new Level(niveau, this);
+        IndexEditor ie = new IndexEditor(l);
         //Intent intent2 = new Intent(getApplicationContext(), MenuActivity.class);
         //startActivity(intent2);
         //SurfaceView v =  (SurfaceView) findViewById(R.id.surfaceView);
