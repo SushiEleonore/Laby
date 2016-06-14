@@ -2,22 +2,25 @@ package fr.upsud.sushi.laby.mainactivity;
 
 import android.content.Context;
 import android.content.DialogInterface;
-//import android.support.v7.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
-import android.media.MediaPlayer;
+import android.graphics.Paint;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.Surface;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
@@ -25,34 +28,19 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import android.app.Activity;
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.RectF;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.MotionEvent;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
-import android.view.View;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
+import fr.upsud.sushi.laby.R;
 import fr.upsud.sushi.laby.calculus.TermBuilder;
+import fr.upsud.sushi.laby.maze.Level;
 import fr.upsud.sushi.laby.utils.Constants;
 import fr.upsud.sushi.laby.utils.IndexEditor;
 import fr.upsud.sushi.laby.utils.Observer;
-import fr.upsud.sushi.laby.R;
-import fr.upsud.sushi.laby.maze.Level;
+
+//import android.support.v7.app.AlertDialog;
 
 class CustomWebChromeClient extends WebChromeClient {
 
@@ -131,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     private GameView gameView;
     private Handler mHandler;
     private TermBuilder tbuilder;
-
+    private boolean firsTime;
 
     //TextView t;
     @Override
@@ -140,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         //setContentView(R.layout.activity_main);
         final Intent intent = getIntent();
         int niveau = intent.getIntExtra("level", 0);
-
+        firsTime= true;
         setContentView(R.layout.activity_main);
         l = new Level(niveau, this);
 
@@ -193,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     }
 
     public void setLevel (Level lv) {
-        this.l = lv;
+        this.l = lv; firsTime=true;
     }
 
 
@@ -362,7 +350,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
            // bitmapStart = BitmapFactory.decodeResource(this.getResources(), R.drawable.mini_mur2, options);
             bitmapPlayerN = BitmapFactory.decodeResource(this.getResources(), R.drawable.mini_canard_dos, options);
             bitmapPlayerS = BitmapFactory.decodeResource(this.getResources(), R.drawable.mini_canard_face, options);
-            bitmapPlayerE = BitmapFactory.decodeResource(this.getResources(), R.drawable.mini_canard_d, options);
+            bitmapPlayerE = BitmapFactory.decodeResource(this.getResources(), R.drawable.bigduck_d, options);
             bitmapPlayerW = BitmapFactory.decodeResource(this.getResources(), R.drawable.mini_canard_g, options);
             bitmapEnd = BitmapFactory.decodeResource(this.getResources(), R.drawable.arrivee, options);
 
@@ -510,6 +498,9 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         }
 
     }
+
+
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -528,6 +519,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     }
 
     public void winWindow(){
+        firsTime=true;
         Intent intent = new Intent(getApplicationContext(), WinActivity.class);
         startActivity(intent);
 
@@ -563,7 +555,15 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     }
 
     public void evalBlock(View v) {
-        mWebView.loadUrl("javascript:evalBlock()");
+        if (firsTime){
+            System.out.println("First Time");
+            mWebView.loadUrl("javascript:evalBlock()");
+            firsTime=false;
+        }
+        else{
+            System.out.println("Rest");
+            mWebView.loadUrl("javascript:evalRestOfBlock()");
+        }
     }
 
   /* public void  highlightBlockById(String id) {
@@ -604,6 +604,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     //////new
     public void prevStep(View v) {
         this.tbuilder.prevStep();
+        firsTime=false;
         //mWebView.loadUrl("javascript:prevStep()");
     }
 
@@ -615,6 +616,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     /////Changed
     public void nextStep(View v) {
        // if (this.tbuilder.getGameStates().size() == this.tbuilder.getnStep()) {
+            firsTime=false;
             mWebView.loadUrl("javascript:nextStep()");
         //} else
        // {
@@ -629,6 +631,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         l.restart();
         gameView.draw();
         tbuilder.reset();
+        firsTime =true;
         //t.setText("");//l.printMaze());
     }
 
@@ -636,6 +639,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         int lvl = l.getLevel();
         setLevel(new Level(lvl+1, this));
         setmWebView ();
+        firsTime=true;
         this.tbuilder= new TermBuilder(this, l);
         mWebView.addJavascriptInterface(tbuilder, "JavaTermBuilder");
         //l = new Level(lvl+1);

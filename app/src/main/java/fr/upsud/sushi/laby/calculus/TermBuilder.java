@@ -98,7 +98,7 @@ public class TermBuilder {
         nStep=-1;
         this.play=true;
         gameStates.clear();
-        if (lins!=null)lins.clear();
+        lins.clear();
 
     }
 
@@ -114,7 +114,7 @@ public class TermBuilder {
 
             public void run() {
 
-                if(!stack.isEmpty()) {
+                if(!stack.isEmpty()&&lins.isEmpty()) {
                     ArrayList<Instr> l = initListInstr();
                     lins = new ListInstr(l); lins.reverse();
                 }
@@ -152,10 +152,10 @@ public class TermBuilder {
             rInstrs.add(t);
             t = getInstr();
         }
-
         return rInstrs;
 
     }
+
     @JavascriptInterface
     public void nextStep() {
         if (nStep == gameStates.size()-1 ) {
