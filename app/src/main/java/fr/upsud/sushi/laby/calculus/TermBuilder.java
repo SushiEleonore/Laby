@@ -2,12 +2,7 @@ package fr.upsud.sushi.laby.calculus;
 
 
 import android.webkit.JavascriptInterface;
-import android.widget.Button;
 
-import android.widget.EditText;
-
-import fr.upsud.sushi.laby.R;
-import fr.upsud.sushi.laby.mainactivity.MainActivity;
 import fr.upsud.sushi.laby.maze.Player;
 import fr.upsud.sushi.laby.utils.Observer;
 import java.util.ArrayDeque;
@@ -134,10 +129,10 @@ public class TermBuilder {
                     //If the player doesn't stop the execution
                     if(play) {
                         if (!b.eval()) {
-                            gui.notify(false, null, true);
-                           // l.restart();
+                            gui.notify(false,null);
+                            l.restart();
                         } else {
-                            gui.notify(true, null, false);
+                            gui.notify(true, null);
                         }
                     }
 
@@ -170,7 +165,7 @@ public class TermBuilder {
                 public void run() {
                     try {
 
-                        //if (nStep==-1 && (lins==null ||lins.isEmpty())) {
+
                         if (nStep==-1 && lins.isEmpty()) {
                             ArrayList<Instr> l = initListInstr();
                             lins = new ListInstr(l);
@@ -182,7 +177,7 @@ public class TermBuilder {
                             Player temp = new Player(l.getPlayer());
                             Couple c = lins.eval();
                             gameStates.add(new GameState(c.getId(), temp, new Player(l.getPlayer())));
-                            gui.notify(false, c.getId(), false);
+                            gui.notify(false, c.getId());
                             lins = c.getListInstr();
                         }
 
@@ -203,7 +198,7 @@ public class TermBuilder {
 
                         nStep++;
                         l.setPlayer(gameStates.get(nStep).getpArr());
-                        gui.notify(false, gameStates.get(nStep).getId(), false);
+                        gui.notify(false, gameStates.get(nStep).getId());
                         try { Thread.sleep(1000); } catch (Exception e) {}
 
                     } catch (ArrayIndexOutOfBoundsException e){}
@@ -228,7 +223,7 @@ public class TermBuilder {
                     nStep--;
                     System.out.println(nStep);
                     l.setPlayer(gameStates.get(nStep + 1).getpDep());
-                    gui.notify(false, gameStates.get(nStep).getId(), false);////
+                    gui.notify(false, gameStates.get(nStep).getId());////
                 }
 
              try { Thread.sleep(1000); } catch (Exception e) {}

@@ -1,9 +1,9 @@
 5
 4
-N
+S
 wwwww
-wuuuw
 wswew
+wuuuw
 wwwww
 move
 turn

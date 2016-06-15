@@ -22,17 +22,22 @@
   <div id="blocklyDiv" style="position:absolute;top:0;left:0;margin:0;padding:0;height: 100vh; width: 100vw;"></div>
 
   <xml id="toolbox" style="display: none">
-    <!--
     <block type="turn"></block>
     <block type="move"></block>
     <block type="ifpath"></block>
     <block type="while"></block>
     <block type="ifelse"></block>
-    -->
   </xml>
 
   <script>
-
+    var workspace = Blockly.inject('blocklyDiv',
+        {media: 'media/',
+        zoom : { control: false,
+                 wheel: false,
+                 startScale : 0.90
+                 },
+         trashcan: true,
+         toolbox: document.getElementById('toolbox')});
   </script>
 
 </body>

@@ -20,14 +20,28 @@
         android:id="@+id/layout1"
         android:weightSum="1">
 
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1 " >
+            <SurfaceView
+                android:id="@+id/mazeview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:orientation="horizontal"
+
+                />
+            <SurfaceView
+                android:id="@+id/playerview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:orientation="horizontal"
+               />
+        </RelativeLayout>
 
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:id="@+id/linlayout"
-            android:layout_weight="1"
-            android:orientation="horizontal"/>
 
         <LinearLayout
             android:orientation="horizontal"
@@ -62,7 +76,12 @@
                 android:text="@string/next"
                 android:onClick="nextStep"
                 android:id="@+id/next"/>
-
+            <Button
+                android:layout_width="35dp"
+                android:layout_height="wrap_content"
+                android:text="@string/stop"
+                android:onClick="stop"
+                android:id="@+id/stop"/>
 
         </LinearLayout>
     </LinearLayout>
