@@ -282,44 +282,6 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         }
 
 
-        public byte[] getBytesFromBitmap(Bitmap bitmap) {
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream);
-            return stream.toByteArray();
-        }
-
-        public Bitmap myBitmapResizer(Bitmap b, int scale) {
-
-            /*byte[] array = getBytesFromBitmap(b);
-            System.out.println("taille array"+array.length);
-            byte[] pic = new byte[scale* array.length];*/
-            int width = b.getWidth();
-            int height = b.getHeight();
-
-            int sz = b.getRowBytes() * b.getHeight();
-            ByteBuffer byteBuffer = ByteBuffer.allocate(sz);
-            b.copyPixelsToBuffer(byteBuffer);
-            byte[] byteArray = byteBuffer.array();
-
-            byte[] pic = new byte[(byteArray.length*scale)];
-            for (int i=0; i<byteArray.length; i++ ){
-                for (int j =0; j<scale; j++){
-                    pic[i*scale+j] = byteArray[i];
-                    System.out.println("Truc : "+ byteArray[i]);
-                }
-            }
-
-            Bitmap.Config configBmp = Bitmap.Config.valueOf(b.getConfig().name());
-            Bitmap bitmap_tmp = Bitmap.createBitmap(width*scale, height*scale, configBmp);
-            ByteBuffer buffer = ByteBuffer.wrap(pic);
-            bitmap_tmp.copyPixelsFromBuffer(buffer);
-/*
-            Bitmap map = BitmapFactory.decodeByteArray(pic , 0, pic.length);
-            map = BitmapFactory.decodeByteArray(byteArray , 0, byteArray.length);
-*/
-            return bitmap_tmp;
-        }
-
 
 
         // New variables for the sprite sheet animation
@@ -359,16 +321,6 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
             int width = bitmapWall.getWidth()*scale;
             int height = bitmapWall.getHeight()*scale;
             size = width;
-
-
-            // recreate the new Bitmap
-           /*bitmapWall = myBitmapResizer(bitmapWall, scale);
-            bitmapStart = myBitmapResizer(bitmapStart, scale);
-            bitmapPlayerN = myBitmapResizer(bitmapPlayerN, scale);
-            bitmapPlayerS = myBitmapResizer(bitmapPlayerS, scale);
-            bitmapPlayerE = myBitmapResizer(bitmapPlayerE, scale);
-            bitmapPlayerW =myBitmapResizer(bitmapPlayerW, scale);
-            bitmapEnd =myBitmapResizer(bitmapEnd, scale);*/
 
 
             bitmapWall = getResizedBitmap(bitmapWall, width, height);
