@@ -56,12 +56,9 @@ public class GameRenderer {
        //listSurface.drawTest(l, bitmapWall,bitmapEnd);
         Bitmap tab[][] = new Bitmap[l.getCells().length][l.getCells()[0].length];
         int id = 0;
-        Object lock = new Object();
-        synchronized (lock) {
-            for (int i = 0; i < l.getCells().length; i++) {
-                Object lock2 = new Object();
 
-                synchronized (lock2) {
+            for (int i = 0; i < l.getCells().length; i++) {
+
                     for (int j = 0; j < l.getCells()[i].length; j++) {
                         if (l.getCells()[i][j] != null) {
                             switch (l.getCells()[i][j].getType()) {
@@ -78,9 +75,9 @@ public class GameRenderer {
 
                             }
                         }
-                    }
+
                 }
-            }
+
         }
 
         SurfaceView v = listSurface.getSurfaceViews().get(0);
@@ -94,9 +91,6 @@ public class GameRenderer {
 
 
             for (int i = 0; i < tab.length; i++) {
-                Object lock2 = new Object();
-
-                synchronized (lock2) {
                     for (int j = 0; j < tab[i].length; j++) {
                         if (tab[i][j] != null) {
                             Bitmap bm = listSurface.getResizedBitmap(tab[i][j]);
@@ -116,7 +110,6 @@ public class GameRenderer {
                             }
                         }
                     }
-                }
             }
             ourHolder.unlockCanvasAndPost(canvas);
         }

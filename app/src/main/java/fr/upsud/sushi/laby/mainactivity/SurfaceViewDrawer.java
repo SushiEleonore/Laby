@@ -40,7 +40,7 @@ public class SurfaceViewDrawer {
         return this.surfaceViews;
     }
 
-    public void drawTest(Level l, Bitmap bitmapWall, Bitmap bitmapEnd) {
+   /* public void drawTest(Level l, Bitmap bitmapWall, Bitmap bitmapEnd) {
 
         Bitmap tab[][] = new Bitmap[l.getCells().length][l.getCells()[0].length];
         int id = 0;
@@ -109,7 +109,7 @@ public class SurfaceViewDrawer {
                     ourHolder.unlockCanvasAndPost(canvas);
                 }
     }
-
+*/
     public  void draw(int x, int y, Bitmap b, int id) {
 
         Bitmap bm = getResizedBitmap(b);
@@ -121,7 +121,7 @@ public class SurfaceViewDrawer {
             System.out.println(sizex);
             SurfaceView v = surfaceViews.get(id);
             SurfaceHolder ourHolder = v.getHolder();
-            synchronized(ourHolder) {
+
 
                 if (ourHolder.getSurface().isValid()) {
                      v.getHolder().setFormat(PixelFormat.TRANSPARENT);
@@ -135,7 +135,7 @@ public class SurfaceViewDrawer {
                 } else {
                     System.out.println("surfaceholder pas valide");
                 }
-            }
+
         } catch (Exception e) {
         }
 
