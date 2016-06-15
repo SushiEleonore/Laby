@@ -15,6 +15,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.Toast;
 
 public class Level {
@@ -180,6 +181,7 @@ public class Level {
         this.p.setX(this.xStart);
         this.p.setY(this.yStart);
         this.p.setDir(this.startDir);
+
     }
 
     /**********Tests************/

@@ -26,6 +26,7 @@ import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -477,9 +478,10 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
     }
 
-    public void notify(boolean fin, String id) {
+    public void notify(boolean fin, String id, final boolean resetLevel) {
         final String id2 = id;
         final boolean fin2 =fin;
+        final boolean resetLevel2 = resetLevel;
 
 
             runOnUiThread(new Runnable() {
@@ -490,6 +492,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                 t.setText("");//l.printMaze());
                 *///title.clearComposingText();//not useful
 
+                    if (resetLevel2) {restartLevel (gameView); }
                     if (fin2){winWindow();nextLevel();}
 
                     gameView.update(l);
@@ -506,16 +509,29 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
     }
 
+    //////////
     public void evalBlock(View v) {
-        if (firsTime){
-            System.out.println("First Time");
-            mWebView.loadUrl("javascript:evalBlock()");
-            firsTime=false;
+        Button b = (Button)v;
+        String buttonText = b.getText().toString();
+        if (buttonText.equals(getResources().getText(R.string.play))) {
+            System.out.println("COUCOU");
+            if (firsTime){
+                System.out.println("First Time");
+                mWebView.loadUrl("javascript:evalBlock()");
+                firsTime=false;
+            }
+            else{
+                System.out.println("Rest");
+                mWebView.loadUrl("javascript:evalRestOfBlock()");
+            }
+            b.setText(getResources().getText(R.string.stop));
+
+        } else {
+            this.tbuilder.stop();
+            b.setText(getResources().getText(R.string.play));
         }
-        else{
-            System.out.println("Rest");
-            mWebView.loadUrl("javascript:evalRestOfBlock()");
-        }
+
+
     }
 
   /* public void  highlightBlockById(String id) {
@@ -576,11 +592,18 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
        // }
     }
 
+    public void resetButtons() {
+        Button b = (Button) findViewById(R.id.button);
+        b.setText(getResources().getText(R.string.play));
+
+    }
+
 
 
     public void restartLevel (View  v) {
         //TextView t = (TextView) findViewById(R.id.print);
         l.restart();
+        resetButtons();
         gameView.draw();
         tbuilder.reset();
         firsTime =true;
@@ -592,6 +615,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         setLevel(new Level(lvl+1, this));
         setmWebView ();
         firsTime=true;
+        resetButtons();
         this.tbuilder= new TermBuilder(this, l);
         mWebView.addJavascriptInterface(tbuilder, "JavaTermBuilder");
         //l = new Level(lvl+1);
