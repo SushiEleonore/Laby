@@ -83,7 +83,7 @@ public class GameRenderer {
                             Bitmap bm = listSurface.getResizedBitmap(tab[i][j]);
                             int sizex = bm.getWidth();
                             int sizey = bm.getHeight();
-
+                            
                             canvas.drawBitmap(bm, i * sizex, j * sizey, paint);
                         }
                     }
