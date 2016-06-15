@@ -168,7 +168,6 @@ public class TermBuilder {
             Thread t = new Thread() {
 
                 public void run() {
-                    try {
 
                         //if (nStep==-1 && (lins==null ||lins.isEmpty())) {
                         if (nStep==-1 && lins.isEmpty()) {
@@ -186,9 +185,8 @@ public class TermBuilder {
                             lins = c.getListInstr();
                         }
 
-                        try {Thread.sleep(1000);} catch (Exception e) {}
+                        try{Thread.sleep(1000);} catch (InterruptedException e) { e.printStackTrace(); System.out.println("Exception");}
 
-                    } catch (ArrayIndexOutOfBoundsException e) {}
                 }
             };
 
@@ -199,14 +197,14 @@ public class TermBuilder {
             Thread t = new Thread() {
 
                 public void run() {
-                    try {
+                    //try {
 
                         nStep++;
                         l.setPlayer(gameStates.get(nStep).getpArr());
                         gui.notify(false, gameStates.get(nStep).getId(), false);
-                        try { Thread.sleep(1000); } catch (Exception e) {}
+                        try { Thread.sleep(1000); } catch (Exception e) {e.printStackTrace(); System.out.println("Exception");}
 
-                    } catch (ArrayIndexOutOfBoundsException e){}
+                    //} catch (ArrayIndexOutOfBoundsException e){}
 
                 }
             };
@@ -222,7 +220,7 @@ public class TermBuilder {
         Thread t = new Thread() {
 
             public void run() {
-             try {
+             //try {
 
                 if(nStep>-1) {
                     nStep--;
@@ -233,7 +231,7 @@ public class TermBuilder {
 
              try { Thread.sleep(1000); } catch (Exception e) {}
 
-            } catch (ArrayIndexOutOfBoundsException e){}
+            //} catch (ArrayIndexOutOfBoundsException e){}
             }
         };
         t.start();

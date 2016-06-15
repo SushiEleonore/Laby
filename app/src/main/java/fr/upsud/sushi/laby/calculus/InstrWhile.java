@@ -41,7 +41,7 @@ public class InstrWhile implements Instr {
                 if (this.isEnd.eval()){ System.out.println("break"); break;}
             }
             System.out.println("fait");
-            if (cpt>20) break;
+            //if (cpt>20) break;
         }
 
     }

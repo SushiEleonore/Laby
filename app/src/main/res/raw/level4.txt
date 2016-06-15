@@ -1,4 +1,4 @@
-9
+10
 9
 S
 wwwwwwwwww
@@ -13,4 +13,4 @@ wwwwwwwwww
 move
 turn
 while
-ifpath
+ifelse

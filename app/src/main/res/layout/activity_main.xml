@@ -39,10 +39,10 @@
                 android:text="@string/reset"
                 android:onClick="restartLevel"
                 android:id="@+id/buttonRes" android:layout_gravity="bottom"/>
-            <Button
+            <ImageButton
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:text="@string/prev"
+                android:src="@drawable/prev_butt"
                 android:id="@+id/prev"
                 android:onClick="prevStep"
                 android:layout_gravity="center_vertical"

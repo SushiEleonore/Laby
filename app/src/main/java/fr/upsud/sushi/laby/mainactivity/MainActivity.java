@@ -380,7 +380,6 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                 //canvas.drawBitmap(bitmapWall, bobXPosition, 200, paint);
                 for (int i = 0; i< l.getCells().length; i++) {
                     for (int j = 0; j< l.getCells()[i].length; j++) {
-                        try {Thread.sleep(500);} catch (Exception e) {System.out.println("BIZARRE");}
                         if (l.getCells()[i][j] == null ) {
                         } else {
                             switch (l.getCells()[i][j].getType()) {
@@ -389,6 +388,8 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                                     break;*/
                                 case END :
                                     canvas.drawBitmap(bitmapEnd, i*size, j*size, paint);
+                                    break;
+                                case PATH :
                                     break;
                                 default :
                                     canvas.drawBitmap(bitmapWall, i*size, j*size, paint);
