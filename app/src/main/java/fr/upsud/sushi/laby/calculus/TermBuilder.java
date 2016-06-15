@@ -129,10 +129,10 @@ public class TermBuilder {
                     //If the player doesn't stop the execution
                     if(play) {
                         if (!b.eval()) {
-                            gui.notify(false,null);
-                            l.restart();
+                             gui.notify(false, null, true);
+
                         } else {
-                            gui.notify(true, null);
+                            gui.notify(true, null, false);
                         }
                     }
 
@@ -177,7 +177,7 @@ public class TermBuilder {
                             Player temp = new Player(l.getPlayer());
                             Couple c = lins.eval();
                             gameStates.add(new GameState(c.getId(), temp, new Player(l.getPlayer())));
-                            gui.notify(false, c.getId());
+                            gui.notify(false, c.getId(), false);
                             lins = c.getListInstr();
                         }
 
@@ -198,7 +198,7 @@ public class TermBuilder {
 
                         nStep++;
                         l.setPlayer(gameStates.get(nStep).getpArr());
-                        gui.notify(false, gameStates.get(nStep).getId());
+                        gui.notify(false, gameStates.get(nStep).getId(), false);
                         try { Thread.sleep(1000); } catch (Exception e) {}
 
                     } catch (ArrayIndexOutOfBoundsException e){}
@@ -223,7 +223,7 @@ public class TermBuilder {
                     nStep--;
                     System.out.println(nStep);
                     l.setPlayer(gameStates.get(nStep + 1).getpDep());
-                    gui.notify(false, gameStates.get(nStep).getId());////
+                    gui.notify(false, gameStates.get(nStep).getId(), false);////
                 }
 
              try { Thread.sleep(1000); } catch (Exception e) {}

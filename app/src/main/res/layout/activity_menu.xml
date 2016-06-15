@@ -9,11 +9,24 @@
         android:layout_height="wrap_content"
         android:text="1"
         android:onClick="level1"
-        android:id="@+id/button2"/>
+        android:id="@+id/button2"
+        android:background="@drawable/duck_n"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="2"
         android:onClick="level2"
         android:id="@+id/button3"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3"
+        android:onClick="level3"
+        android:id="@+id/button4"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4"
+        android:onClick="level4"
+        android:id="@+id/button5"/>
 </LinearLayout>

@@ -21,12 +21,14 @@ import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 
 import fr.upsud.sushi.laby.R;
 import fr.upsud.sushi.laby.calculus.TermBuilder;
@@ -174,7 +176,10 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
         mWebView.setWebChromeClient(new CustomWebChromeClient(this));
         mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.loadUrl("file:///android_asset/blockly/index.html");
+        String blocks = createToolBox(l.getAuthorizedBlocks());
+        mWebView.loadUrl("file:///android_asset/blockly/index.html?blocks=" + blocks);
+        //createToolBox(l.getAuthorizedBlocks());
+        //file:///android_asset/blockly/index.html
         mWebView.addJavascriptInterface(this.tbuilder , "JavaTermBuilder");
     }
 
@@ -207,13 +212,21 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         startActivity(intent);
     }
 
-    public void notify(boolean fin, String id) {
+    public void notify(boolean fin, String id, final boolean resetLevel) {
         final String id2 = id;
         final boolean fin2 =fin;
+        final boolean resetLevel2 = resetLevel;
+
 
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                /*TextView t = (TextView) findViewById(R.id.print);
+                t.clearComposingText();
+                t.setText("");//l.printMaze());
+                *///title.clearComposingText();//not useful
+
+                    if (resetLevel2) {restartLevel(); }
                     if (fin2){winWindow();nextLevel();}
                     else if (id2==null) {Toast.makeText(getApplicationContext(), "Tu n'es pas allé jusqu'au bout, réessaie !", Toast.LENGTH_SHORT).show();}
                     else {
@@ -229,7 +242,12 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
             });
     }
 
+    //////////
     public void evalBlock(View v) {
+        Button b = (Button)v;
+        String buttonText = b.getText().toString();
+        if (buttonText.equals(getResources().getText(R.string.play))) {
+            System.out.println("COUCOU");
         if (firsTime){
             System.out.println("First Time");
             mWebView.loadUrl("javascript:evalBlock()");
@@ -239,8 +257,52 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
             System.out.println("Rest");
             mWebView.loadUrl("javascript:evalRestOfBlock()");
         }
+            b.setText(getResources().getText(R.string.stop));
+
+        } else {
+            this.tbuilder.stop();
+            b.setText(getResources().getText(R.string.play));
     }
 
+
+    }
+
+  /* public void  highlightBlockById(String id) {
+        mWebView.loadUrl("javascript:highlightBlockById('" + id +
+                "')");
+    }
+*/
+  public void highlightBlockById(final String id)
+    {
+  //Déposer le Runnable dans la file d'attente de l'UI thread
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //code exécuté par l'UI thread
+                mWebView.loadUrl("javascript:highlightBlockById('" + id +
+                        "')");
+                            }
+        });
+
+    }
+
+    public String createToolBox(ArrayList<String> blocks) {
+
+        String arg = "";
+
+        for (int i = 0; i < blocks.size() - 1; i++) {
+            arg +=   blocks.get(i) + ",";
+        }
+
+        if (blocks.size() != 0) {
+            arg +=  blocks.get(blocks.size() - 1);
+        }
+
+        System.out.println("tableau : "+arg);
+        return arg;
+    }
+
+    //////new
     public void prevStep(View v) {
         this.tbuilder.prevStep();
         firsTime=false;
@@ -255,19 +317,40 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
             mWebView.loadUrl("javascript:nextStep()");
     }
 
-    public void restartLevel (View  v) {
+    public void resetButtons() {
+        Button b = (Button) findViewById(R.id.button);
+        b.setText(getResources().getText(R.string.play));
+
+    }
+
+
+
+    public void restartLevel () {
+        //TextView t = (TextView) findViewById(R.id.print);
         l.restart();
         gameR.drawBG();
         gameR.drawPlayer();
+        resetButtons();
+
         tbuilder.reset();
         firsTime =true;
     }
+    public void restartLevel (View v) {
+        //TextView t = (TextView) findViewById(R.id.print);
+        l.restart();
+        gameR.drawBG();
+        gameR.drawPlayer();
+        resetButtons();
 
+        tbuilder.reset();
+        firsTime =true;
+    }
     public void nextLevel() {
         int lvl = l.getLevel();
         setLevel(new Level(lvl+1, this));
         setmWebView ();
         firsTime=true;
+        resetButtons();
         this.tbuilder= new TermBuilder(this, l);
         mWebView.addJavascriptInterface(tbuilder, "JavaTermBuilder");
         gameR.update(this.l);
