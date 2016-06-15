@@ -1,0 +1,16 @@
+9
+9
+S
+wwwwwwwwww
+wswuuuuuuw
+wuwuwwwwuw
+wuwuweuwuw
+wuwuwwuwuw
+wuwuuuuwuw
+wuwwwwwwuw
+wuuuuuuuuw
+wwwwwwwwww
+move
+turn
+while
+ifpath

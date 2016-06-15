@@ -26,17 +26,20 @@ import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 
 import fr.upsud.sushi.laby.R;
 import fr.upsud.sushi.laby.calculus.TermBuilder;
 import fr.upsud.sushi.laby.maze.Level;
 import fr.upsud.sushi.laby.utils.Constants;
+import fr.upsud.sushi.laby.utils.IndexEditor;
 import fr.upsud.sushi.laby.utils.Observer;
 
 //import android.support.v7.app.AlertDialog;
@@ -130,6 +133,8 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         firsTime= true;
         setContentView(R.layout.activity_main);
         l = new Level(niveau, this);
+
+        //IndexEditor ie = new IndexEditor(l);
         //Intent intent2 = new Intent(getApplicationContext(), MenuActivity.class);
         //startActivity(intent2);
         //SurfaceView v =  (SurfaceView) findViewById(R.id.surfaceView);
@@ -170,7 +175,10 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
         mWebView.setWebChromeClient(new CustomWebChromeClient(this));
         mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.loadUrl("file:///android_asset/blockly/index.html");
+        String blocks = createToolBox(l.getAuthorizedBlocks());
+        mWebView.loadUrl("file:///android_asset/blockly/index.html?blocks=" + blocks);
+        //createToolBox(l.getAuthorizedBlocks());
+        //file:///android_asset/blockly/index.html
         mWebView.addJavascriptInterface(this.tbuilder , "JavaTermBuilder");
     }
 
@@ -276,44 +284,6 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         }
 
 
-        public byte[] getBytesFromBitmap(Bitmap bitmap) {
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream);
-            return stream.toByteArray();
-        }
-
-        public Bitmap myBitmapResizer(Bitmap b, int scale) {
-
-            /*byte[] array = getBytesFromBitmap(b);
-            System.out.println("taille array"+array.length);
-            byte[] pic = new byte[scale* array.length];*/
-            int width = b.getWidth();
-            int height = b.getHeight();
-
-            int sz = b.getRowBytes() * b.getHeight();
-            ByteBuffer byteBuffer = ByteBuffer.allocate(sz);
-            b.copyPixelsToBuffer(byteBuffer);
-            byte[] byteArray = byteBuffer.array();
-
-            byte[] pic = new byte[(byteArray.length*scale)];
-            for (int i=0; i<byteArray.length; i++ ){
-                for (int j =0; j<scale; j++){
-                    pic[i*scale+j] = byteArray[i];
-                    System.out.println("Truc : "+ byteArray[i]);
-                }
-            }
-
-            Bitmap.Config configBmp = Bitmap.Config.valueOf(b.getConfig().name());
-            Bitmap bitmap_tmp = Bitmap.createBitmap(width*scale, height*scale, configBmp);
-            ByteBuffer buffer = ByteBuffer.wrap(pic);
-            bitmap_tmp.copyPixelsFromBuffer(buffer);
-/*
-            Bitmap map = BitmapFactory.decodeByteArray(pic , 0, pic.length);
-            map = BitmapFactory.decodeByteArray(byteArray , 0, byteArray.length);
-*/
-            return bitmap_tmp;
-        }
-
 
 
         // New variables for the sprite sheet animation
@@ -353,16 +323,6 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
             int width = bitmapWall.getWidth()*scale;
             int height = bitmapWall.getHeight()*scale;
             size = width;
-
-
-            // recreate the new Bitmap
-           /*bitmapWall = myBitmapResizer(bitmapWall, scale);
-            bitmapStart = myBitmapResizer(bitmapStart, scale);
-            bitmapPlayerN = myBitmapResizer(bitmapPlayerN, scale);
-            bitmapPlayerS = myBitmapResizer(bitmapPlayerS, scale);
-            bitmapPlayerE = myBitmapResizer(bitmapPlayerE, scale);
-            bitmapPlayerW =myBitmapResizer(bitmapPlayerW, scale);
-            bitmapEnd =myBitmapResizer(bitmapEnd, scale);*/
 
 
             bitmapWall = getResizedBitmap(bitmapWall, width, height);
@@ -519,9 +479,10 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
     }
 
-    public void notify(boolean fin, String id) {
+    public void notify(boolean fin, String id, final boolean resetLevel) {
         final String id2 = id;
         final boolean fin2 =fin;
+        final boolean resetLevel2 = resetLevel;
 
 
             runOnUiThread(new Runnable() {
@@ -532,6 +493,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                 t.setText("");//l.printMaze());
                 *///title.clearComposingText();//not useful
 
+                    if (resetLevel2) {restartLevel (gameView); }
                     if (fin2){winWindow();nextLevel();}
                     else if (id2==null) {Toast.makeText(getApplicationContext(), "Tu n'es pas allé jusqu'au bout, réessaie !", Toast.LENGTH_SHORT).show();}
                     else {
@@ -550,16 +512,29 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
     }
 
+    //////////
     public void evalBlock(View v) {
-        if (firsTime){
-            System.out.println("First Time");
-            mWebView.loadUrl("javascript:evalBlock()");
-            firsTime=false;
+        Button b = (Button)v;
+        String buttonText = b.getText().toString();
+        if (buttonText.equals(getResources().getText(R.string.play))) {
+            System.out.println("COUCOU");
+            if (firsTime){
+                System.out.println("First Time");
+                mWebView.loadUrl("javascript:evalBlock()");
+                firsTime=false;
+            }
+            else{
+                System.out.println("Rest");
+                mWebView.loadUrl("javascript:evalRestOfBlock()");
+            }
+            b.setText(getResources().getText(R.string.stop));
+
+        } else {
+            this.tbuilder.stop();
+            b.setText(getResources().getText(R.string.play));
         }
-        else{
-            System.out.println("Rest");
-            mWebView.loadUrl("javascript:evalRestOfBlock()");
-        }
+
+
     }
 
   /* public void  highlightBlockById(String id) {
@@ -579,6 +554,22 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                             }
         });
 
+    }
+
+    public String createToolBox(ArrayList<String> blocks) {
+
+        String arg = "";
+
+        for (int i = 0; i < blocks.size() - 1; i++) {
+            arg +=   blocks.get(i) + ",";
+        }
+
+        if (blocks.size() != 0) {
+            arg +=  blocks.get(blocks.size() - 1);
+        }
+
+        System.out.println("tableau : "+arg);
+        return arg;
     }
 
     //////new
@@ -604,11 +595,18 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
        // }
     }
 
+    public void resetButtons() {
+        Button b = (Button) findViewById(R.id.button);
+        b.setText(getResources().getText(R.string.play));
+
+    }
+
 
 
     public void restartLevel (View  v) {
         //TextView t = (TextView) findViewById(R.id.print);
         l.restart();
+        resetButtons();
         gameView.draw();
         tbuilder.reset();
         firsTime =true;
@@ -620,9 +618,11 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         setLevel(new Level(lvl+1, this));
         setmWebView ();
         firsTime=true;
+        resetButtons();
         this.tbuilder= new TermBuilder(this, l);
         mWebView.addJavascriptInterface(tbuilder, "JavaTermBuilder");
         //l = new Level(lvl+1);
+
         gameView.draw();
     }
 
