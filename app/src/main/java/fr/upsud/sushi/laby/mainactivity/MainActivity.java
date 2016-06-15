@@ -9,6 +9,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -28,17 +29,15 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
-import java.io.ByteArrayOutputStream;
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 import fr.upsud.sushi.laby.R;
 import fr.upsud.sushi.laby.calculus.TermBuilder;
 import fr.upsud.sushi.laby.maze.Level;
 import fr.upsud.sushi.laby.utils.Constants;
-import fr.upsud.sushi.laby.utils.IndexEditor;
 import fr.upsud.sushi.laby.utils.Observer;
 
 //import android.support.v7.app.AlertDialog;
@@ -133,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         setContentView(R.layout.activity_main);
         l = new Level(niveau, this);
 
-        //IndexEditor ie = new IndexEditor(l);
+
         //Intent intent2 = new Intent(getApplicationContext(), MenuActivity.class);
         //startActivity(intent2);
         //SurfaceView v =  (SurfaceView) findViewById(R.id.surfaceView);
@@ -284,11 +283,6 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
 
 
-
-        // New variables for the sprite sheet animation
-
-        // When the we initialize (call new()) on gameView
-        // This special constructor method runs
         public GameView(Context context) {
             // The next line of code asks the
             // SurfaceView class to set up our object.
@@ -386,6 +380,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                 //canvas.drawBitmap(bitmapWall, bobXPosition, 200, paint);
                 for (int i = 0; i< l.getCells().length; i++) {
                     for (int j = 0; j< l.getCells()[i].length; j++) {
+                        try {Thread.sleep(500);} catch (Exception e) {System.out.println("BIZARRE");}
                         if (l.getCells()[i][j] == null ) {
                         } else {
                             switch (l.getCells()[i][j].getType()) {
@@ -457,17 +452,14 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     @Override
     protected void onResume() {
         super.onResume();
-
-        // Tell the gameView resume method to execute
         gameView.resume();
     }
 
-    // This method executes when the player quits the game
+
     @Override
     protected void onPause() {
         super.onPause();
 
-        // Tell the gameView pause method to execute
         gameView.pause();
     }
 
@@ -487,10 +479,6 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                /*TextView t = (TextView) findViewById(R.id.print);
-                t.clearComposingText();
-                t.setText("");//l.printMaze());
-                *///title.clearComposingText();//not useful
 
                     if (resetLevel2) {restartLevel (gameView); }
                     if (fin2){winWindow();nextLevel();}
@@ -501,7 +489,6 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                     mWebView.loadUrl("javascript:highlightBlockById('" + id2 +
                             "')");
 
-
                 }
             });
 
@@ -511,9 +498,12 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
     //////////
     public void evalBlock(View v) {
-        Button b = (Button)v;
+
+       // ImageButton b = (ImageButton)v;
+       // Drawable buttonText = b.getDrawable();
+        Button b = (Button) v;
         String buttonText = b.getText().toString();
-        if (buttonText.equals(getResources().getText(R.string.play))) {
+        if (buttonText.equals(getResources().getString(R.string.play))) {
             System.out.println("COUCOU");
             if (firsTime){
                 System.out.println("First Time");
@@ -524,11 +514,11 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                 System.out.println("Rest");
                 mWebView.loadUrl("javascript:evalRestOfBlock()");
             }
-            b.setText(getResources().getText(R.string.stop));
+            b.setText(getResources().getString(R.string.stop));
 
         } else {
             this.tbuilder.stop();
-            b.setText(getResources().getText(R.string.play));
+            b.setText(getResources().getString(R.string.play));
         }
 
 
@@ -554,17 +544,13 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     }
 
     public String createToolBox(ArrayList<String> blocks) {
-
         String arg = "";
-
         for (int i = 0; i < blocks.size() - 1; i++) {
             arg +=   blocks.get(i) + ",";
         }
-
         if (blocks.size() != 0) {
             arg +=  blocks.get(blocks.size() - 1);
         }
-
         System.out.println("tableau : "+arg);
         return arg;
     }
@@ -573,26 +559,22 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     public void prevStep(View v) {
         this.tbuilder.prevStep();
         firsTime=false;
-        //mWebView.loadUrl("javascript:prevStep()");
     }
 
 
     public void stop(View v) {
         this.tbuilder.stop();
-        //mWebView.loadUrl("javascript:prevStep()");
     }
-    /////Changed
+
+
     public void nextStep(View v) {
-       // if (this.tbuilder.getGameStates().size() == this.tbuilder.getnStep()) {
             firsTime=false;
             mWebView.loadUrl("javascript:nextStep()");
-        //} else
-       // {
-         //   tbuilder.nextStepBis();
-       // }
     }
 
     public void resetButtons() {
+      //  ImageButton imageButton = (ImageButton) findViewById(R.id.imageButton1);
+        //ImageButton b = (ImageButton) findViewById(R.id.button);
         Button b = (Button) findViewById(R.id.button);
         b.setText(getResources().getText(R.string.play));
 
@@ -601,13 +583,11 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
 
     public void restartLevel (View  v) {
-        //TextView t = (TextView) findViewById(R.id.print);
         l.restart();
         resetButtons();
         gameView.draw();
         tbuilder.reset();
         firsTime =true;
-        //t.setText("");//l.printMaze());
     }
 
     public void nextLevel() {
@@ -618,8 +598,6 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         resetButtons();
         this.tbuilder= new TermBuilder(this, l);
         mWebView.addJavascriptInterface(tbuilder, "JavaTermBuilder");
-        //l = new Level(lvl+1);
-
         gameView.draw();
     }
 

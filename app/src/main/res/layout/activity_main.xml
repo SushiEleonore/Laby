@@ -35,13 +35,13 @@
             android:layout_height="wrap_content">
             <Button
                 android:layout_width="35dp"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:text="@string/reset"
                 android:onClick="restartLevel"
                 android:id="@+id/buttonRes" android:layout_gravity="bottom"/>
             <Button
                 android:layout_width="35dp"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:text="@string/prev"
                 android:id="@+id/prev"
                 android:onClick="prevStep"
@@ -49,16 +49,15 @@
             />
             <Button
                 android:layout_width="35dp"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:text="@string/play"
                 android:onClick="evalBlock"
                 android:id="@+id/button" android:layout_gravity="bottom"/>
 
 
-
             <Button
                 android:layout_width="35dp"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:text="@string/next"
                 android:onClick="nextStep"
                 android:id="@+id/next"/>

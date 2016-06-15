@@ -95,10 +95,10 @@ public class Level {
                         cells[j][i-3] = new Cell(Cell.Type.WALL);
                         break;
                     case 'u' :
-                        cells[j][i-3] = null;
+                        cells[j][i-3] = new Cell(Cell.Type.PATH);
                         break;
                     case 's' :
-                        cells[j][i-3] = new Cell(Cell.Type.START);
+                        cells[j][i-3] = new Cell(Cell.Type.PATH);
                         this.xStart = j;
                         this.yStart =  i-3;
                         break;

@@ -28,9 +28,6 @@ public class MenuActivity extends Activity {
         finish();
     }
 
-
-
-
     public void level2(View v){
         level = 2;
         setContentView(R.layout.activity_main);

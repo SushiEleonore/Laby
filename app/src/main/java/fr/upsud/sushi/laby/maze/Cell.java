@@ -5,7 +5,7 @@ package fr.upsud.sushi.laby.maze;
  */
 public class Cell {
 
-    public enum  Type { WALL, START, END };
+    public enum  Type { WALL, END, PATH };
     private int SIZE = 10;
 
     private Type type;
