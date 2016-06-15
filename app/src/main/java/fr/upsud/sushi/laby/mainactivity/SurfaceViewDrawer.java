@@ -120,18 +120,16 @@ public class SurfaceViewDrawer {
 
 
         try {
-            System.out.println(sizex);
             SurfaceView v = surfaceViews.get(id);
             SurfaceHolder ourHolder = v.getHolder();
 
 
                 if (ourHolder.getSurface().isValid()) {
-                     v.getHolder().setFormat(PixelFormat.TRANSPARENT);
+                    if(id==1) v.getHolder().setFormat(PixelFormat.TRANSPARENT);
 
                     Canvas canvas =ourHolder.lockCanvas();
 
                     if (id == 1) canvas.drawColor(0, PorterDuff.Mode.CLEAR);
-                    System.out.println("Draw at "+y*sizey);
                     canvas.drawBitmap(bm, x *sizex, y * sizey, paint);
                     ourHolder.unlockCanvasAndPost(canvas);
                 } else {
