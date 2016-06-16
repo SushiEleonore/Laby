@@ -123,6 +123,7 @@ Blockly.JavaScript['ifelse'] = function(block) {
 
 function evalBlock () {
    var code = Blockly.JavaScript.workspaceToCode(Blockly.mainWorkspace);
+    //JavaTermBuilder.reset();
    console.log(code);
    eval(code);
    JavaTermBuilder.eval();
@@ -152,3 +153,30 @@ function highlightBlockById (id){
       Blockly.mainWorkspace.getBlockById(id).select();
 
 };
+
+function initBlockly() {
+    var toolbox = document.getElementById("toolbox");
+    toolbox.innerHTML = "";
+    var content = "";
+    var blocksURL = document.location.href.toString().split("=");
+    var blocks = blocksURL[1].split(",");
+    console.log(blocks);
+    for ( var i = 0; i < blocks.length; i++) {
+        content += "<block type=\"" + blocks[i] + "\"></block>\n";
+    };
+    console.log(content);
+    toolbox.innerHTML = content;
+
+
+
+    workspace = Blockly.inject('blocklyDiv',
+            {media: 'media/',
+            zoom : { control: false,
+                     wheel: false,
+                     startScale : 0.90
+                     },
+             trashcan: true,
+             toolbox: document.getElementById('toolbox')});
+
+};
+window.addEventListener("load", initBlockly);

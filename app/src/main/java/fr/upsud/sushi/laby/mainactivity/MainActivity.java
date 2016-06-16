@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.webkit.JavascriptInterface;
 import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
@@ -230,6 +231,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         });
 
     }
+
 
     public String createToolBox(ArrayList<String> blocks) {
 
