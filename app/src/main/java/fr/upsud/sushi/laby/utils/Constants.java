@@ -16,6 +16,9 @@ public class Constants {
     public static final int CELLSIZE = 53;
 
     //TODO : put the maze in the middle of the frame
+    public static final int MVFWD =1;
+    public static final int MVBWD = -1;
+    public static final int NOMV = 0;
 
     public static float getScale(LinearLayout lay, Level l) {
         int hauteur = lay.getHeight();

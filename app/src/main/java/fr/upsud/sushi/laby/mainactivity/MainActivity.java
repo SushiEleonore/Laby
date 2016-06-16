@@ -190,8 +190,9 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         startActivity(intent);
     }
 
-    public void notify(boolean fin, String id, final boolean resetLevel) {
+    public void notify(boolean fin, String id, final boolean resetLevel, final int mv2) {
         final String id2 = id;
+        final int mv=mv2;
         final boolean fin2 =fin;
         final boolean resetLevel2 = resetLevel;
 
@@ -206,7 +207,8 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                     else {
 
                         gameR.update(l);
-                        gameR.drawPlayer();
+                        if(mv==0)gameR.drawPlayer();
+                        else gameR.drawMvingPlayer(mv);
 
                         mWebView.loadUrl("javascript:highlightBlockById('" + id2 +
                                 "')");

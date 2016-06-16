@@ -28,9 +28,10 @@ public class GameRenderer {
     Bitmap bitmapPlayerE;
     Bitmap bitmapPlayerW;
     Bitmap bitmapEnd;
+    Bitmap bitmapPlayerMv;
     Paint paint = new Paint(Paint.FILTER_BITMAP_FLAG |
             Paint.DITHER_FLAG
-            | Paint.ANTI_ALIAS_FLAG);
+            );
 
     public GameRenderer(SurfaceViewDrawer list, Level le, Resources res) {
         listSurface = list;
@@ -43,10 +44,12 @@ public class GameRenderer {
 
         bitmapWall = BitmapFactory.decodeResource(res, R.drawable.mini_mur2, options);
         bitmapPlayerN = BitmapFactory.decodeResource(res, R.drawable.mini_canard_dos, options);
-        bitmapPlayerS = BitmapFactory.decodeResource(res, R.drawable.bebezilla, options);
-        bitmapPlayerE = BitmapFactory.decodeResource(res, R.drawable.bigduck_d, options);
+        bitmapPlayerS = BitmapFactory.decodeResource(res, R.drawable.mini_canard_face, options);
+        bitmapPlayerE = BitmapFactory.decodeResource(res, R.drawable.mini_canard_d, options);
         bitmapPlayerW = BitmapFactory.decodeResource(res, R.drawable.mini_canard_g, options);
         bitmapEnd = BitmapFactory.decodeResource(res, R.drawable.arrivee, options);
+
+        bitmapPlayerMv= BitmapFactory.decodeResource(res, R.drawable.ptbebezilla, options);
 
 
     }
@@ -123,6 +126,49 @@ public class GameRenderer {
 
 */
 
+    public void drawMvingPlayer(int mv){
+        int id = 1;
+        Bitmap b;
+
+        switch (l.getPlayer().getDir()) {
+            case S:
+                b = bitmapPlayerMv;
+                break;
+            case E:
+                b = bitmapPlayerE;
+                break;
+            case W:
+                b = bitmapPlayerW;
+                break;
+            default:
+                b = bitmapPlayerN;
+                break;
+        }
+        if( b==bitmapPlayerMv){
+            Bitmap[] imgs = new Bitmap[3];
+            imgs[0] = Bitmap.createBitmap(b, 0, 0,b.getWidth()/3 , b.getHeight());
+            imgs[1] = Bitmap.createBitmap(b, b.getWidth()/3, 0, b.getWidth()/3, b.getHeight());
+            imgs[2] = Bitmap.createBitmap(b,2*b.getWidth()/3, 0, b.getWidth()/3, b.getHeight());
+            for(int k=2; k>=0; k--){
+
+             listSurface.draw(l.getPlayer().getX(),l.getPlayer().getY(),imgs[1],1,0,k*mv);
+                try {
+                    Thread.sleep(300);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+        listSurface.draw(l.getPlayer().getX(), l.getPlayer().getY(), b, id);
+
+    }
+
+
+
+
+
+
     public void drawPlayer() {
         int id = 1;
         Bitmap b;
@@ -141,7 +187,7 @@ public class GameRenderer {
                 b = bitmapPlayerN;
                 break;
         }
-       if( b==bitmapPlayerS) listSurface.drawSprite(l.getPlayer().getX(),l.getPlayer().getY(),b,'c');
+
         listSurface.draw(l.getPlayer().getX(), l.getPlayer().getY(), b, id);
 
     }

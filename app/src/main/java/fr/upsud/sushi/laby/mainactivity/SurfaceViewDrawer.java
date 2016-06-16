@@ -7,6 +7,8 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.LinearLayout;
@@ -30,6 +32,8 @@ public class SurfaceViewDrawer {
 
     private ArrayList<SurfaceView> surfaceViews;
     float scale;
+    private int frameWidth = 133;
+    private int frameHeight = 133;
 
     SurfaceViewDrawer(SurfaceView bg, SurfaceView player, LinearLayout l, Level lvl) {
         surfaceViews = new ArrayList<SurfaceView>();
@@ -42,76 +46,52 @@ public class SurfaceViewDrawer {
         return this.surfaceViews;
     }
 
-   /* public void drawTest(Level l, Bitmap bitmapWall, Bitmap bitmapEnd) {
-
-        Bitmap tab[][] = new Bitmap[l.getCells().length][l.getCells()[0].length];
-        int id = 0;
-        Object lock = new Object();
-        synchronized (lock) {
-            for (int i = 0; i < l.getCells().length; i++) {
-                Object lock2 = new Object();
-
-                synchronized (lock2) {
-                    for (int j = 0; j < l.getCells()[i].length; j++) {
-                        if (l.getCells()[i][j] != null) {
-                            switch (l.getCells()[i][j].getType()) {
-                                case WALL:
-                                   tab[i][j]=bitmapWall;
-                                    break;
-                                case END:
-                                    tab[i][j]=bitmapEnd;
-                                    break;
-
-                                default:
-                                    break;
+    public void drawSprite(int x, int y, Bitmap b, char Dir) {
+        int gap = 15;
+        RectF whereToDraw = new RectF(
+                x-53, y-53,
+                x-53 + frameWidth,
+                y -53+ frameHeight);
+        Rect frameToDraw = new Rect(
+                0,
+                0,
+                frameWidth,
+                frameHeight);
+        for (int k = 3; k >= 0; k--) {
 
 
-                            }
-                        }
-                    }
-                }
-            }
-        }
+            frameToDraw.left = k * frameWidth;
+            frameToDraw.right = frameToDraw.left + frameWidth;
+            whereToDraw.set((int) x *53,
+                    y*53 - k * gap,
+                    x*53 + 53,
+                    y*53+53 - k * gap);
 
-        SurfaceView v = surfaceViews.get(id);
-        SurfaceHolder ourHolder = v.getHolder();
+            SurfaceView v = surfaceViews.get(1);
+            SurfaceHolder ourHolder = v.getHolder();
 
 
             if (ourHolder.getSurface().isValid()) {
-                if (id == 1) v.getHolder().setFormat(PixelFormat.TRANSPARENT);
+                v.getHolder().setFormat(PixelFormat.TRANSPARENT);
 
-                Canvas canvas =ourHolder.lockCanvas();
+                Canvas canvas = ourHolder.lockCanvas();
 
+                canvas.drawColor(0, PorterDuff.Mode.CLEAR);
+                canvas.drawBitmap(b,
+                        frameToDraw,
+                        whereToDraw, paint);
+                ourHolder.unlockCanvasAndPost(canvas);
 
-                for (int i = 0; i < tab.length; i++) {
-                    Object lock2 = new Object();
-
-                    synchronized (lock2) {
-                        for (int j = 0; j < tab[i].length; j++) {
-                            if (tab[i][j] != null) {
-                                Bitmap bm = getResizedBitmap(tab[i][j]);
-                                int sizex = bm.getWidth();
-                                int sizey = bm.getHeight();
-
-
-                                try {
-                                    System.out.println(sizex);
-
-
-                                    if (id == 1) canvas.drawColor(0, PorterDuff.Mode.CLEAR);
-                                    System.out.println("Draw at " + j * sizey);
-                                    canvas.drawBitmap(bm, i * sizex, j * sizey, paint);
-
-                                } catch (Exception e) {
-                                }
-                            }
-                        }
-                    }
+                try {
+                    Thread.sleep(300);
+                } catch (Exception e) {
                 }
-                    ourHolder.unlockCanvasAndPost(canvas);
-                }
+            }
+
+
+        }
     }
-*/
+    /*
     public  void draw(int x, int y, Bitmap b, int id) {
 
         Bitmap bm = getResizedBitmap(b);
@@ -140,6 +120,73 @@ public class SurfaceViewDrawer {
         }
 
     }
+*/
+
+    public  void draw(int x, int y, Bitmap b, int id) {
+
+        Bitmap bm = getResizedBitmap(b);
+        int sizex = bm.getWidth() ;
+        int sizey=bm.getHeight();
+        RectF whereToDraw = new RectF(
+                x*sizex, y*sizex,
+                (x+1)*sizex ,
+                (1+y) *sizey);
+
+        try {
+            SurfaceView v = surfaceViews.get(id);
+            SurfaceHolder ourHolder = v.getHolder();
+
+
+            if (ourHolder.getSurface().isValid()) {
+                if(id==1) v.getHolder().setFormat(PixelFormat.TRANSPARENT);
+
+                Canvas canvas =ourHolder.lockCanvas();
+
+                if (id == 1) canvas.drawColor(0, PorterDuff.Mode.CLEAR);
+                canvas.drawBitmap(bm,null, whereToDraw, paint);
+
+                ourHolder.unlockCanvasAndPost(canvas);
+            } else {
+                System.out.println("surfaceholder pas valide");
+            }
+
+        } catch (Exception e) {
+        }
+
+    }
+    public  void draw(int x, int y, Bitmap b, int id, int kx, int ky) {
+        int gap = 15;
+        Bitmap bm = getResizedBitmap(b);
+        int sizex = bm.getWidth() ;
+        int sizey=bm.getHeight();
+        RectF whereToDraw = new RectF(
+                x*sizex-kx*gap, y*sizey-ky*gap,
+                (x+1)*sizex-kx*gap ,
+                (1+y) *sizey-ky*gap);
+
+        try {
+            SurfaceView v = surfaceViews.get(id);
+            SurfaceHolder ourHolder = v.getHolder();
+
+
+            if (ourHolder.getSurface().isValid()) {
+                if(id==1) v.getHolder().setFormat(PixelFormat.TRANSPARENT);
+
+                Canvas canvas =ourHolder.lockCanvas();
+
+                if (id == 1) canvas.drawColor(0, PorterDuff.Mode.CLEAR);
+                canvas.drawBitmap(bm,null, whereToDraw, paint);
+
+                ourHolder.unlockCanvasAndPost(canvas);
+            } else {
+                System.out.println("surfaceholder pas valide");
+            }
+
+        } catch (Exception e) {
+        }
+
+    }
+
 
 
     public Bitmap getResizedBitmap(Bitmap bm) {

@@ -27,4 +27,12 @@ public class GameState {
     public Player getpArr(){
         return this.pArr;
     }
+
+    public boolean playerMoving(){
+        if(this.pDep.getX()!=this.pArr.getX()
+           || this.pDep.getY()!=this.pArr.getY()     ) return true;
+        else return false;
+    }
+
+
 }
