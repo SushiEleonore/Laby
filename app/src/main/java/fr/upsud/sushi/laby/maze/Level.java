@@ -173,6 +173,8 @@ public class Level {
         this.cellSize = Constants.CELLSIZE;
     }
 
+    public int getCellSize() { return this.cellSize;}
+
 
     public Dir getStartDir() {return this.startDir;}
 
