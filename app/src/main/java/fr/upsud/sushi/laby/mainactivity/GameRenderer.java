@@ -22,7 +22,7 @@ public class GameRenderer {
     Resources res;
 
     Bitmap bitmapWall;
-    Bitmap bitmapPath;
+    Bitmap bitmapStart;
     Bitmap bitmapPlayerN;
     Bitmap bitmapPlayerS;
     Bitmap bitmapPlayerE;
@@ -47,15 +47,13 @@ public class GameRenderer {
         bitmapPlayerE = BitmapFactory.decodeResource(res, R.drawable.bigduck_d, options);
         bitmapPlayerW = BitmapFactory.decodeResource(res, R.drawable.mini_canard_g, options);
         bitmapEnd = BitmapFactory.decodeResource(res, R.drawable.arrivee, options);
-        bitmapPath = BitmapFactory.decodeResource(res, R.drawable.path, options);
+
+
     }
 
 
     public void drawBG() {
-       //listSurface.drawTest(l, bitmapWall,bitmapEnd);
         Bitmap tab[][] = new Bitmap[l.getCells().length][l.getCells()[0].length];
-        int id = 0;
-
             for (int i = 0; i < l.getCells().length; i++) {
 
                     for (int j = 0; j < l.getCells()[i].length; j++) {
@@ -67,47 +65,26 @@ public class GameRenderer {
                                 case END:
                                     tab[i][j]=bitmapEnd;
                                     break;
-                                case PATH:
-                                    tab[i][j]=bitmapPath;
-                                    break;
-
                                 default:
                                     break;
-
-
                             }
                         }
 
                 }
-
         }
 
         SurfaceView v = listSurface.getSurfaceViews().get(0);
         SurfaceHolder ourHolder = v.getHolder();
-
-
         if (ourHolder.getSurface().isValid()) {
-            // if (id == 1) v.getHolder().setFormat(PixelFormat.TRANSPARENT);
-
             Canvas canvas =ourHolder.lockCanvas();
-
-
             for (int i = 0; i < tab.length; i++) {
                     for (int j = 0; j < tab[i].length; j++) {
                         if (tab[i][j] != null) {
                             Bitmap bm = listSurface.getResizedBitmap(tab[i][j]);
                             int sizex = bm.getWidth();
                             int sizey = bm.getHeight();
-
-
-                            try {
-                                System.out.println(sizex);
-
-                                System.out.println("Draw at " + j * sizey);
-                                canvas.drawBitmap(bm, i * sizex, j * sizey, paint);
-
-                            } catch (Exception e) { e.printStackTrace();
-                            }
+                            
+                            canvas.drawBitmap(bm, i * sizex, j * sizey, paint);
                         }
                     }
             }
@@ -150,7 +127,7 @@ public class GameRenderer {
 
     public void drawPlayer() {
         int id = 1;
-        Bitmap b = null;
+        Bitmap b;
 
         switch (l.getPlayer().getDir()) {
             case S:
@@ -172,6 +149,6 @@ public class GameRenderer {
 
 
     public void update(Level ll) {
-        l = ll;
+        this.l = ll;
     }
 }
