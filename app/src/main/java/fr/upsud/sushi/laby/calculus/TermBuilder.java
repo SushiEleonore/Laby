@@ -2,12 +2,7 @@ package fr.upsud.sushi.laby.calculus;
 
 
 import android.webkit.JavascriptInterface;
-import android.widget.Button;
 
-import android.widget.EditText;
-
-import fr.upsud.sushi.laby.R;
-import fr.upsud.sushi.laby.mainactivity.MainActivity;
 import fr.upsud.sushi.laby.maze.Player;
 import fr.upsud.sushi.laby.utils.Observer;
 import java.util.ArrayDeque;
@@ -134,8 +129,8 @@ public class TermBuilder {
                     //If the player doesn't stop the execution
                     if(play) {
                         if (!b.eval()) {
-                            gui.notify(false, null, true);
-                           // l.restart();
+                             gui.notify(false, null, true);
+
                         } else {
                             gui.notify(true, null, false);
                         }
@@ -169,7 +164,7 @@ public class TermBuilder {
 
                 public void run() {
 
-                        //if (nStep==-1 && (lins==null ||lins.isEmpty())) {
+
                         if (nStep==-1 && lins.isEmpty()) {
                             ArrayList<Instr> l = initListInstr();
                             lins = new ListInstr(l);

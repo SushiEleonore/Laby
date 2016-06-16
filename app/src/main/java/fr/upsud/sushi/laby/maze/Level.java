@@ -15,7 +15,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.Toast;
 
 public class Level {
@@ -59,6 +58,10 @@ public class Level {
     *
     *
     * */
+    private String lv1 = "3\n5\n1\n1\nS\nwww\nwsw\nwuw\nwew\nwww";
+    private String lv2 = "5\n7\n2\n2\nS\nwwwww\nwuuuw\nwusuw\nwuuuw\nwueuw\nwuuuw\nwwwww";
+    private String lv3 = "5\n10\n2\n2\nS\nwwwww\nwuuuw\nwusuw\nwuuuw\nwuuuw\nwuuuw\nwuuuw\nwueuw\nwuuuw\nwwwww";
+    private String lv4 = "5\n10\n2\n2\nS\nwwwww\nwuuuw\nwusuw\nwuuuw\nwuuuw\nwuwuw\nwuuuw\nwueuw\nwuuuw\nwwwww";
 
 
 
@@ -145,9 +148,6 @@ public class Level {
          } else if (lvl == 3) {
              this.lvl = lvl;
              openFile( R.raw.level3);
-         } else if (lvl == 4) {
-             this.lvl = lvl;
-             openFile( R.raw.level4);
          }
     }
 
@@ -181,7 +181,6 @@ public class Level {
         this.p.setX(this.xStart);
         this.p.setY(this.yStart);
         this.p.setDir(this.startDir);
-
     }
 
     /**********Tests************/

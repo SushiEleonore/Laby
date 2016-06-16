@@ -3,19 +3,13 @@ package fr.upsud.sushi.laby.mainactivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Matrix;
-import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
+import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,9 +23,11 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 import fr.upsud.sushi.laby.R;
@@ -116,7 +112,8 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     private WebView mWebView;
     private View mCodeView;
     private Level l;
-    private GameView gameView;
+    //private GameView gameView;
+    private GameRenderer gameR;
     private Handler mHandler;
     private TermBuilder tbuilder;
     private boolean firsTime;
@@ -131,14 +128,19 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         firsTime= true;
         setContentView(R.layout.activity_main);
         l = new Level(niveau, this);
-
-
         //Intent intent2 = new Intent(getApplicationContext(), MenuActivity.class);
         //startActivity(intent2);
         //SurfaceView v =  (SurfaceView) findViewById(R.id.surfaceView);
-        gameView = new GameView(this);
-        LinearLayout linlay= (LinearLayout) findViewById(R.id.linlayout);
-        linlay.addView(gameView);
+        //gameView = new GameView(this, l);
+
+        SurfaceView sMaze= (SurfaceView) findViewById(R.id.mazeview);
+        SurfaceView sPlayer = (SurfaceView) findViewById(R.id.playerview);
+        sPlayer.setZOrderOnTop(true);    // necessary
+
+        SurfaceViewDrawer drawer =new SurfaceViewDrawer(sMaze, sPlayer);
+        gameR= new GameRenderer(drawer, l, this.getResources());
+
+        //linlay.addView(gameView);
         this.mHandler = new Handler(Looper.getMainLooper());
         //this.addContentView(gameView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT) );
         //LinearLayout lay =(LinearLayout)findViewById(R.id.layout1);
@@ -146,9 +148,10 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         //gameView.draw();
         this.tbuilder = new TermBuilder(this, l);
         //lay.addView(gameView);
+        gameR.drawBG();
+        //gameR.drawPlayer();
 
-
-        gameView.draw();
+        //gameView.draw();
         setmWebView();
 
        /* mWebView = (WebView) findViewById(R.id.webView);
@@ -182,293 +185,31 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
     public void setLevel (Level lv) {
         this.l = lv; firsTime=true;
+
     }
 
-
-    class GameView extends SurfaceView implements Runnable {
-
-        // This is our thread
-        Thread gameThread = null;
-
-        //The current level
-        //Level l;
-
-        private int size;
-
-        /*this should depend on the screen*/
-        private int scale;
-
-        // This is new. We need a SurfaceHolder
-        // When we use Paint and Canvas in a thread
-        // We will see it in action in the draw method soon.
-        SurfaceHolder ourHolder;
-
-        // A boolean which we will set and unset
-        // when the game is running- or not.
-        volatile boolean playing;
-
-        // A Canvas and a Paint object
-        Canvas canvas;
-        Paint paint;
-
-        // This variable tracks the game frame rate
-        long fps;
-
-        // This is used to help calculate the fps
-        private long timeThisFrame;
-
-        // Declare an object of type Bitmap
-        Bitmap bitmapWall;
-        Bitmap bitmapStart;
-        Bitmap bitmapPlayerN;
-        Bitmap bitmapPlayerS;
-        Bitmap bitmapPlayerE;
-        Bitmap bitmapPlayerW;
-        Bitmap bitmapEnd;
-
-
-        public Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight) {
-            int width = bm.getWidth();
-            int height = bm.getHeight();
-            float scaleWidth = ((float) newWidth) / width;
-            float scaleHeight = ((float) newHeight) / height;
-            // CREATE A MATRIX FOR THE MANIPULATION
-            Matrix matrix = new Matrix();
-            // RESIZE THE BIT MAP
-            matrix.postScale(scaleWidth, scaleHeight);
-
-            // "RECREATE" THE NEW BITMAP
-            Bitmap resizedBitmap = Bitmap.createBitmap(
-                    bm, 0, 0, width, height, matrix, true);
-            bm.recycle();
-            return resizedBitmap;
-        }
-
-        public  Bitmap scaleBitmap(Bitmap bitmap, int newWidth, int newHeight) {
-            Bitmap scaledBitmap = Bitmap.createBitmap(newWidth, newHeight, Bitmap.Config.ARGB_8888);
-
-            float scaleX = newWidth / (float) bitmap.getWidth();
-            float scaleY = newHeight / (float) bitmap.getHeight();
-            float pivotX = 0;
-            float pivotY = 0;
-
-            Matrix scaleMatrix = new Matrix();
-            scaleMatrix.setScale(scaleX, scaleY, pivotX, pivotY);
-
-            Canvas canvas = new Canvas(scaledBitmap);
-            canvas.setMatrix(scaleMatrix);
-            canvas.drawBitmap(bitmap, 0, 0, new Paint(Paint.FILTER_BITMAP_FLAG));
-
-            return scaledBitmap;
-        }
-
-        public Bitmap BITMAP_RESIZER(Bitmap bitmap,int newWidth,int newHeight) {
-            Bitmap scaledBitmap = Bitmap.createBitmap(newWidth, newHeight, Bitmap.Config.ARGB_8888);
-
-            float ratioX = newWidth / (float) bitmap.getWidth();
-            float ratioY = newHeight / (float) bitmap.getHeight();
-            float middleX = newWidth / 2.0f;
-            float middleY = newHeight / 2.0f;
-
-            Matrix scaleMatrix = new Matrix();
-            scaleMatrix.setScale(ratioX, ratioY, middleX, middleY);
-
-            Canvas canvas = new Canvas(scaledBitmap);
-            canvas.setMatrix(scaleMatrix);
-            canvas.drawBitmap(bitmap, middleX - bitmap.getWidth() / 2, middleY - bitmap.getHeight() / 2, new Paint(Paint.FILTER_BITMAP_FLAG));
-
-            return scaledBitmap;
-
-        }
-
-
-
-        public GameView(Context context) {
-            // The next line of code asks the
-            // SurfaceView class to set up our object.
-            // How kind.
-            super(context);
-
-            // Initialize ourHolder and paint objects
-
-            ourHolder = getHolder();
-
-            paint =  new Paint(Paint.FILTER_BITMAP_FLAG |
-                    Paint.DITHER_FLAG |
-                    Paint.ANTI_ALIAS_FLAG);
-            //l = new Level (0);
-            this.scale = Constants.SCALE;
-
-            //To get a good quality
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inScaled = false;
-            // Load Bob from his .png file
-            bitmapWall = BitmapFactory.decodeResource(this.getResources(), R.drawable.mini_mur2, options);
-           // bitmapStart = BitmapFactory.decodeResource(this.getResources(), R.drawable.mini_mur2, options);
-            bitmapPlayerN = BitmapFactory.decodeResource(this.getResources(), R.drawable.mini_canard_dos, options);
-            bitmapPlayerS = BitmapFactory.decodeResource(this.getResources(), R.drawable.mini_canard_face, options);
-            bitmapPlayerE = BitmapFactory.decodeResource(this.getResources(), R.drawable.bigduck_d, options);
-            bitmapPlayerW = BitmapFactory.decodeResource(this.getResources(), R.drawable.mini_canard_g, options);
-            bitmapEnd = BitmapFactory.decodeResource(this.getResources(), R.drawable.arrivee, options);
-
-            /*Resizing the bitmaps*/
-
-            int width = bitmapWall.getWidth()*scale;
-            int height = bitmapWall.getHeight()*scale;
-            size = width;
-
-
-            bitmapWall = getResizedBitmap(bitmapWall, width, height);
-           // bitmapStart = getResizedBitmap(bitmapStart, width, height);
-            bitmapPlayerN = getResizedBitmap(bitmapPlayerN, width, height);
-            bitmapPlayerS = getResizedBitmap(bitmapPlayerS, width, height);
-            bitmapPlayerE = getResizedBitmap(bitmapPlayerE, width, height);
-            bitmapPlayerW =getResizedBitmap(bitmapPlayerW, width, height);
-            bitmapEnd =getResizedBitmap(bitmapEnd, width, height);
-            draw();
-
-        }
-
-        @Override
-        public void run() {
-            while (playing) {
-
-                // Capture the current time in milliseconds in startFrameTime
-                long startFrameTime = System.currentTimeMillis();
-
-                // Update the frame
-                update(l);
-
-                // Draw the frame
-                draw();
-
-                // Calculate the fps this frame
-                // We can then use the result to
-                // time animations and more.
-                timeThisFrame = System.currentTimeMillis() - startFrameTime;
-                if (timeThisFrame >= 1) {
-                    fps = 1000 / timeThisFrame;
-                }
-
-            }
-
-        }
-
-        public void update(Level ll) {
-
-            l=ll;
-
-        }
-
-        // Draw the newly updated scene
-        public void draw() {
-
-            // Make sure our drawing surface is valid or we crash
-            if (ourHolder.getSurface().isValid()) {
-
-                // Lock the canvas ready to draw
-                canvas = ourHolder.lockCanvas();
-
-                // Draw the background color
-                canvas.drawColor(Color.argb(255, 255, 255, 255));
-
-                // Choose the brush color for drawing
-                paint.setColor(Color.argb(255,  249, 129, 0));
-
-
-                // Draw bob at bobXPosition, 200 pixels
-                //canvas.drawBitmap(bitmapWall, bobXPosition, 200, paint);
-                for (int i = 0; i< l.getCells().length; i++) {
-                    for (int j = 0; j< l.getCells()[i].length; j++) {
-                        if (l.getCells()[i][j] == null ) {
-                        } else {
-                            switch (l.getCells()[i][j].getType()) {
-                                /*case START :
-                                    canvas.drawBitmap(bitmapStart, i*size, j*size, paint);
-                                    break;*/
-                                case END :
-                                    canvas.drawBitmap(bitmapEnd, i*size, j*size, paint);
-                                    break;
-                                case PATH :
-                                    break;
-                                default :
-                                    canvas.drawBitmap(bitmapWall, i*size, j*size, paint);
-                                    break;
-                            }
-                        }
-                        if (i == l.getPlayer().getX() && j == l.getPlayer().getY()) {
-                            switch (l.getPlayer().getDir()) {
-                                case S:
-                                    canvas.drawBitmap(bitmapPlayerS, i * size, j * size, paint);
-                                    break;
-                                case E:
-                                    canvas.drawBitmap(bitmapPlayerE, i * size, j * size, paint);
-                                    break;
-                                case W:
-                                    canvas.drawBitmap(bitmapPlayerW, i * size, j * size, paint);
-                                    break;
-                                default:
-                                    canvas.drawBitmap(bitmapPlayerN, i * size, j * size, paint);
-                                    break;
-
-                            }
-                        }
-
-                    }
-                }
-
-                // New drawing code goes here
-
-                // Draw everything to the screen
-                ourHolder.unlockCanvasAndPost(canvas);
-            }
-
-
-        }
-
-        // If SimpleGameEngine Activity is paused/stopped
-        // shutdown our thread.
-        public void pause() {
-            playing = false;
-            try {
-                gameThread.join();
-            } catch (InterruptedException e) {
-                Log.e("Error:", "joining thread");
-            }
-
-        }
-
-        // If SimpleGameEngine Activity is started theb
-        // start our thread.
-        public void resume() {
-            playing = true;
-            gameThread = new Thread(this);
-            gameThread.start();
-        }
-
-    }
 
 
 
     @Override
     protected void onResume() {
         super.onResume();
-        gameView.resume();
+        // Tell the gameView resume method to execute
+       // gameView.resume();
     }
 
-
+    // This method executes when the player quits the game
     @Override
     protected void onPause() {
         super.onPause();
-
-        gameView.pause();
+        // Tell the gameView pause method to execute
+        //gameView.pause();
     }
 
     public void winWindow(){
         firsTime=true;
         Intent intent = new Intent(getApplicationContext(), WinActivity.class);
         startActivity(intent);
-
     }
 
     public void notify(boolean fin, String id, final boolean resetLevel) {
@@ -480,47 +221,48 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                /*TextView t = (TextView) findViewById(R.id.print);
+                t.clearComposingText();
+                t.setText("");//l.printMaze());
+                *///title.clearComposingText();//not useful
 
-                    if (resetLevel2) {restartLevel (gameView); }
+                    if (resetLevel2) {restartLevel(); }
                     if (fin2){winWindow();nextLevel();}
+                    else if (id2==null) {Toast.makeText(getApplicationContext(), "Tu n'es pas allé jusqu'au bout, réessaie !", Toast.LENGTH_SHORT).show();}
+                    else {
 
-                    gameView.update(l);
-                    gameView.draw();
+                        gameR.update(l);
+                        gameR.drawPlayer();
 
-                    mWebView.loadUrl("javascript:highlightBlockById('" + id2 +
-                            "')");
+                        mWebView.loadUrl("javascript:highlightBlockById('" + id2 +
+                                "')");
 
+                    }
                 }
             });
-
-
-
     }
 
     //////////
     public void evalBlock(View v) {
-
-       // ImageButton b = (ImageButton)v;
-       // Drawable buttonText = b.getDrawable();
-        Button b = (Button) v;
+        Button b = (Button)v;
         String buttonText = b.getText().toString();
-        if (buttonText.equals(getResources().getString(R.string.play))) {
+        if (buttonText.equals(getResources().getText(R.string.play))) {
             System.out.println("COUCOU");
-            if (firsTime){
-                System.out.println("First Time");
-                mWebView.loadUrl("javascript:evalBlock()");
-                firsTime=false;
-            }
-            else{
-                System.out.println("Rest");
-                mWebView.loadUrl("javascript:evalRestOfBlock()");
-            }
-            b.setText(getResources().getString(R.string.stop));
+        if (firsTime){
+            System.out.println("First Time");
+            mWebView.loadUrl("javascript:evalBlock()");
+            firsTime=false;
+        }
+        else{
+            System.out.println("Rest");
+            mWebView.loadUrl("javascript:evalRestOfBlock()");
+        }
+            b.setText(getResources().getText(R.string.stop));
 
         } else {
             this.tbuilder.stop();
-            b.setText(getResources().getString(R.string.play));
-        }
+            b.setText(getResources().getText(R.string.play));
+    }
 
 
     }
@@ -545,13 +287,17 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     }
 
     public String createToolBox(ArrayList<String> blocks) {
+
         String arg = "";
+
         for (int i = 0; i < blocks.size() - 1; i++) {
             arg +=   blocks.get(i) + ",";
         }
+
         if (blocks.size() != 0) {
             arg +=  blocks.get(blocks.size() - 1);
         }
+
         System.out.println("tableau : "+arg);
         return arg;
     }
@@ -562,11 +308,9 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         firsTime=false;
     }
 
-
     public void stop(View v) {
         this.tbuilder.stop();
     }
-
 
     public void nextStep(View v) {
             firsTime=false;
@@ -574,8 +318,6 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     }
 
     public void resetButtons() {
-      //  ImageButton imageButton = (ImageButton) findViewById(R.id.imageButton1);
-        //ImageButton b = (ImageButton) findViewById(R.id.button);
         Button b = (Button) findViewById(R.id.button);
         b.setText(getResources().getText(R.string.play));
 
@@ -583,14 +325,26 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
 
 
-    public void restartLevel (View  v) {
+    public void restartLevel () {
+        //TextView t = (TextView) findViewById(R.id.print);
         l.restart();
+        gameR.drawBG();
+        gameR.drawPlayer();
         resetButtons();
-        gameView.draw();
+
         tbuilder.reset();
         firsTime =true;
     }
+    public void restartLevel (View v) {
+        //TextView t = (TextView) findViewById(R.id.print);
+        l.restart();
+        gameR.drawBG();
+        gameR.drawPlayer();
+        resetButtons();
 
+        tbuilder.reset();
+        firsTime =true;
+    }
     public void nextLevel() {
         int lvl = l.getLevel();
         setLevel(new Level(lvl+1, this));
@@ -599,7 +353,9 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         resetButtons();
         this.tbuilder= new TermBuilder(this, l);
         mWebView.addJavascriptInterface(tbuilder, "JavaTermBuilder");
-        gameView.draw();
+        gameR.update(this.l);
+        gameR.drawPlayer();
+        gameR.drawBG();
     }
 
     public void actionBlocks(MenuItem m) {

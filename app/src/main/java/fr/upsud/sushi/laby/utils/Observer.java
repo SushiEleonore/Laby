@@ -5,6 +5,6 @@ package fr.upsud.sushi.laby.utils;
  */
 
 public interface Observer<T> {
-    void notify(boolean data, T id, boolean resetLevel);
+    void notify(boolean data, T id,boolean data2);
  // void  highlightBlockById(T data);
 }
