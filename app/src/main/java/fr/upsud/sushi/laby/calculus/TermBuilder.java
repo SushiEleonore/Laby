@@ -221,7 +221,7 @@ public class TermBuilder {
                     nStep--;
                     System.out.println(nStep);
                     l.setPlayer(gameStates.get(nStep + 1).getpDep());
-                    gui.notify(false, gameStates.get(nStep).getId(), false);////
+                    gui.notify(false, gameStates.get(nStep+1).getId(), false);////
                 }
 
              try { Thread.sleep(1000); } catch (Exception e) {}
