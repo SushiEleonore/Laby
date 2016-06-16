@@ -36,7 +36,6 @@ import fr.upsud.sushi.laby.maze.Level;
 import fr.upsud.sushi.laby.utils.Constants;
 import fr.upsud.sushi.laby.utils.Observer;
 
-//import android.support.v7.app.AlertDialog;
 
 class CustomWebChromeClient extends WebChromeClient {
 
@@ -112,13 +111,13 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     private WebView mWebView;
     private View mCodeView;
     private Level l;
-    //private GameView gameView;
     private GameRenderer gameR;
     private Handler mHandler;
     private TermBuilder tbuilder;
     private boolean firsTime;
 
-    //TextView t;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -153,22 +152,6 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
         //gameView.draw();
         setmWebView();
-
-       /* mWebView = (WebView) findViewById(R.id.webView);
-
-        mWebView.setWebChromeClient(new CustomWebChromeClient(this));
-        mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.loadUrl("file:///android_asset/blockly/index.html");
-        mWebView.addJavascriptInterface(new TermBuilder(this, l), "JavaTermBuilder");*/
-
-
-        //l.getPlayer().move(l);
-
-        /*
-        TextView t = (TextView) findViewById(R.id.print);
-        String hello = "";//l.printMaze();
-        t.setText( hello);
-        */
     }
 
     public void setmWebView () {
@@ -189,21 +172,15 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     }
 
 
-
-
     @Override
     protected void onResume() {
         super.onResume();
-        // Tell the gameView resume method to execute
-       // gameView.resume();
     }
 
-    // This method executes when the player quits the game
+
     @Override
     protected void onPause() {
         super.onPause();
-        // Tell the gameView pause method to execute
-        //gameView.pause();
     }
 
     public void winWindow(){
@@ -221,10 +198,6 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                /*TextView t = (TextView) findViewById(R.id.print);
-                t.clearComposingText();
-                t.setText("");//l.printMaze());
-                *///title.clearComposingText();//not useful
 
                     if (resetLevel2) {restartLevel(); }
                     if (fin2){winWindow();nextLevel();}
@@ -242,39 +215,11 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
             });
     }
 
-    //////////
-    public void evalBlock(View v) {
-        Button b = (Button)v;
-        String buttonText = b.getText().toString();
-        if (buttonText.equals(getResources().getText(R.string.play))) {
-            System.out.println("COUCOU");
-        if (firsTime){
-            System.out.println("First Time");
-            mWebView.loadUrl("javascript:evalBlock()");
-            firsTime=false;
-        }
-        else{
-            System.out.println("Rest");
-            mWebView.loadUrl("javascript:evalRestOfBlock()");
-        }
-            b.setText(getResources().getText(R.string.stop));
 
-        } else {
-            this.tbuilder.stop();
-            b.setText(getResources().getText(R.string.play));
-    }
+    /**** Blocks operations ****/
 
-
-    }
-
-  /* public void  highlightBlockById(String id) {
-        mWebView.loadUrl("javascript:highlightBlockById('" + id +
-                "')");
-    }
-*/
   public void highlightBlockById(final String id)
     {
-  //Déposer le Runnable dans la file d'attente de l'UI thread
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -302,20 +247,9 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         return arg;
     }
 
-    //////new
-    public void prevStep(View v) {
-        this.tbuilder.prevStep();
-        firsTime=false;
-    }
 
-    public void stop(View v) {
-        this.tbuilder.stop();
-    }
 
-    public void nextStep(View v) {
-            firsTime=false;
-            mWebView.loadUrl("javascript:nextStep()");
-    }
+    /***** Level restart operations *****/
 
     public void resetButtons() {
         Button b = (Button) findViewById(R.id.button);
@@ -323,28 +257,23 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
     }
 
-
-
     public void restartLevel () {
-        //TextView t = (TextView) findViewById(R.id.print);
         l.restart();
         gameR.drawBG();
         gameR.drawPlayer();
         resetButtons();
-
         tbuilder.reset();
         firsTime =true;
     }
     public void restartLevel (View v) {
-        //TextView t = (TextView) findViewById(R.id.print);
         l.restart();
         gameR.drawBG();
         gameR.drawPlayer();
         resetButtons();
-
         tbuilder.reset();
         firsTime =true;
     }
+
     public void nextLevel() {
         int lvl = l.getLevel();
         setLevel(new Level(lvl+1, this));
@@ -372,5 +301,44 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         inflater.inflate(R.menu.main_menu, menu);
         return true;
     }
+
+    /****** Button calls *******/
+
+
+    public void evalBlock(View v) {
+        Button b = (Button)v;
+        String buttonText = b.getText().toString();
+        if (buttonText.equals(getResources().getText(R.string.play))) {
+            if (firsTime){
+                System.out.println("First Time");
+                mWebView.loadUrl("javascript:evalBlock()");
+                firsTime=false;
+            }
+            else{
+                System.out.println("Rest");
+                mWebView.loadUrl("javascript:evalRestOfBlock()");
+            }
+            b.setText(getResources().getText(R.string.stop));
+
+        } else {
+            this.tbuilder.stop();
+            b.setText(getResources().getText(R.string.play));
+        }
+    }
+
+    public void prevStep(View v) {
+        this.tbuilder.prevStep();
+        firsTime=false;
+    }
+
+    public void stop(View v) {
+        this.tbuilder.stop();
+    }
+
+    public void nextStep(View v) {
+        firsTime=false;
+        mWebView.loadUrl("javascript:nextStep()");
+    }
+
 
 }

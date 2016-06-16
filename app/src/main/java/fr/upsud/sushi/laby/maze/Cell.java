@@ -16,6 +16,4 @@ public class Cell {
 
     public Type getType() { return this.type;}
 
-
-
 }

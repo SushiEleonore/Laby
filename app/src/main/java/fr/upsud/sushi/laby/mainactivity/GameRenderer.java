@@ -22,7 +22,7 @@ public class GameRenderer {
     Resources res;
 
     Bitmap bitmapWall;
-    Bitmap bitmapStart;
+    Bitmap bitmapPath;
     Bitmap bitmapPlayerN;
     Bitmap bitmapPlayerS;
     Bitmap bitmapPlayerE;
@@ -47,8 +47,7 @@ public class GameRenderer {
         bitmapPlayerE = BitmapFactory.decodeResource(res, R.drawable.bigduck_d, options);
         bitmapPlayerW = BitmapFactory.decodeResource(res, R.drawable.mini_canard_g, options);
         bitmapEnd = BitmapFactory.decodeResource(res, R.drawable.arrivee, options);
-
-
+        bitmapPath = BitmapFactory.decodeResource(res, R.drawable.path, options);
     }
 
 
@@ -67,6 +66,9 @@ public class GameRenderer {
                                     break;
                                 case END:
                                     tab[i][j]=bitmapEnd;
+                                    break;
+                                case PATH:
+                                    tab[i][j]=bitmapPath;
                                     break;
 
                                 default:
@@ -101,12 +103,10 @@ public class GameRenderer {
                             try {
                                 System.out.println(sizex);
 
-
-                                //if (id == 1) canvas.drawColor(0, PorterDuff.Mode.CLEAR);
                                 System.out.println("Draw at " + j * sizey);
                                 canvas.drawBitmap(bm, i * sizex, j * sizey, paint);
 
-                            } catch (Exception e) {
+                            } catch (Exception e) { e.printStackTrace();
                             }
                         }
                     }
