@@ -221,18 +221,6 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
     /**** Blocks operations ****/
 
-  public void highlightBlockById(final String id)
-    {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                //code exécuté par l'UI thread
-                mWebView.loadUrl("javascript:highlightBlockById('" + id +
-                        "')");
-                            }
-        });
-
-    }
 
 
     public String createToolBox(ArrayList<String> blocks) {

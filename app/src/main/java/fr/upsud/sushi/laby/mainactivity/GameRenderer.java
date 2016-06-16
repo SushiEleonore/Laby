@@ -22,13 +22,16 @@ public class GameRenderer {
     Resources res;
 
     Bitmap bitmapWall;
-    Bitmap bitmapStart;
+
     Bitmap bitmapPlayerN;
     Bitmap bitmapPlayerS;
     Bitmap bitmapPlayerE;
     Bitmap bitmapPlayerW;
     Bitmap bitmapEnd;
-    Bitmap bitmapPlayerMv;
+    Bitmap bitmapPlayerMvN;
+    Bitmap bitmapPlayerMvW;
+    Bitmap bitmapPlayerMvS;
+    Bitmap bitmapPlayerMvE;
     Paint paint = new Paint(Paint.FILTER_BITMAP_FLAG |
             Paint.DITHER_FLAG
             );
@@ -49,8 +52,10 @@ public class GameRenderer {
         bitmapPlayerW = BitmapFactory.decodeResource(res, R.drawable.mini_canard_g, options);
         bitmapEnd = BitmapFactory.decodeResource(res, R.drawable.arrivee, options);
 
-        bitmapPlayerMv= BitmapFactory.decodeResource(res, R.drawable.ptbebezilla, options);
-
+        bitmapPlayerMvN= BitmapFactory.decodeResource(res, R.drawable.mv_mini_canard_dos, options);
+        bitmapPlayerMvS= BitmapFactory.decodeResource(res, R.drawable.mv_mini_canard_face, options);
+        bitmapPlayerMvE= BitmapFactory.decodeResource(res, R.drawable.mv_mini_canard_d, options);
+        bitmapPlayerMvW= BitmapFactory.decodeResource(res, R.drawable.mv_mini_canard_g, options);
 
     }
 
@@ -96,8 +101,6 @@ public class GameRenderer {
     }
 
 
-
-
 /*
     public void drawBG() {
         int id = 0;
@@ -122,36 +125,40 @@ public class GameRenderer {
         }
     }
 
-
-
 */
+
+
 
     public void drawMvingPlayer(int mv){
         int id = 1;
         Bitmap b;
-
+        int xmove=0;
+        int ymove=0;
         switch (l.getPlayer().getDir()) {
             case S:
-                b = bitmapPlayerMv;
+                b = bitmapPlayerMvS;
+                xmove=0;ymove=mv;
                 break;
             case E:
-                b = bitmapPlayerE;
+                b = bitmapPlayerMvE;
+                xmove=mv;ymove=0;
                 break;
             case W:
-                b = bitmapPlayerW;
+                b = bitmapPlayerMvW;
+                xmove=-mv;ymove=0;
                 break;
             default:
-                b = bitmapPlayerN;
+                b = bitmapPlayerMvN;
+                xmove=0; ymove=-mv;
                 break;
         }
-        if( b==bitmapPlayerMv){
             Bitmap[] imgs = new Bitmap[3];
             imgs[0] = Bitmap.createBitmap(b, 0, 0,b.getWidth()/3 , b.getHeight());
             imgs[1] = Bitmap.createBitmap(b, b.getWidth()/3, 0, b.getWidth()/3, b.getHeight());
             imgs[2] = Bitmap.createBitmap(b,2*b.getWidth()/3, 0, b.getWidth()/3, b.getHeight());
-            for(int k=2; k>=0; k--){
 
-             listSurface.draw(l.getPlayer().getX(),l.getPlayer().getY(),imgs[1],1,0,k*mv);
+            for(int k=2; k>=0; k--){
+             listSurface.draw(l.getPlayer().getX(),l.getPlayer().getY(),imgs[k],1,k*xmove,k*ymove);
                 try {
                     Thread.sleep(300);
                 } catch (InterruptedException e) {
@@ -159,14 +166,10 @@ public class GameRenderer {
                 }
             }
 
-        }
-        listSurface.draw(l.getPlayer().getX(), l.getPlayer().getY(), b, id);
+
+       drawPlayer();
 
     }
-
-
-
-
 
 
     public void drawPlayer() {

@@ -46,51 +46,7 @@ public class SurfaceViewDrawer {
         return this.surfaceViews;
     }
 
-    public void drawSprite(int x, int y, Bitmap b, char Dir) {
-        int gap = 15;
-        RectF whereToDraw = new RectF(
-                x-53, y-53,
-                x-53 + frameWidth,
-                y -53+ frameHeight);
-        Rect frameToDraw = new Rect(
-                0,
-                0,
-                frameWidth,
-                frameHeight);
-        for (int k = 3; k >= 0; k--) {
 
-
-            frameToDraw.left = k * frameWidth;
-            frameToDraw.right = frameToDraw.left + frameWidth;
-            whereToDraw.set((int) x *53,
-                    y*53 - k * gap,
-                    x*53 + 53,
-                    y*53+53 - k * gap);
-
-            SurfaceView v = surfaceViews.get(1);
-            SurfaceHolder ourHolder = v.getHolder();
-
-
-            if (ourHolder.getSurface().isValid()) {
-                v.getHolder().setFormat(PixelFormat.TRANSPARENT);
-
-                Canvas canvas = ourHolder.lockCanvas();
-
-                canvas.drawColor(0, PorterDuff.Mode.CLEAR);
-                canvas.drawBitmap(b,
-                        frameToDraw,
-                        whereToDraw, paint);
-                ourHolder.unlockCanvasAndPost(canvas);
-
-                try {
-                    Thread.sleep(300);
-                } catch (Exception e) {
-                }
-            }
-
-
-        }
-    }
     /*
     public  void draw(int x, int y, Bitmap b, int id) {
 
@@ -175,7 +131,7 @@ public class SurfaceViewDrawer {
                 Canvas canvas =ourHolder.lockCanvas();
 
                 if (id == 1) canvas.drawColor(0, PorterDuff.Mode.CLEAR);
-                canvas.drawBitmap(bm,null, whereToDraw, paint);
+                canvas.drawBitmap(bm, null, whereToDraw, paint);
 
                 ourHolder.unlockCanvasAndPost(canvas);
             } else {
@@ -196,15 +152,15 @@ public class SurfaceViewDrawer {
         int newWidth =(int) (width * this.scale);
         int newHeight =(int) (height * this.scale);
 
-        float scaleWidth = ((float) newWidth) / width;
+        /*float scaleWidth = ((float) newWidth) / width;
         float scaleHeight = ((float) newHeight) / height;
         // CREATE A MATRIX FOR THE MANIPULATION
         Matrix matrix = new Matrix();
         // RESIZE THE BIT MAP
         matrix.postScale(scaleWidth, scaleHeight);
-
+*/
         // "RECREATE" THE NEW BITMAP
-        Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, true);
+        Bitmap resizedBitmap =  Bitmap.createScaledBitmap(bm, newWidth, newHeight, true);
         //bm.recycle();
         return resizedBitmap;
     }

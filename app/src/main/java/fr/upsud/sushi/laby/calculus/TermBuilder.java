@@ -120,7 +120,6 @@ public class TermBuilder {
                     lins = new ListInstr(l); lins.reverse();
                 }
 
-               // if(lins!=null) {
                     while (!lins.isEmpty()&&play) {
                         nextStep();
                         try { Thread.sleep(1000); } catch (Exception e){}
@@ -137,7 +136,7 @@ public class TermBuilder {
                         }
                     }
 
-                //}
+
             }
 
       };
@@ -177,7 +176,7 @@ public class TermBuilder {
                             Player temp = new Player(l.getPlayer());
                             Couple c = lins.eval();
                             gameStates.add(new GameState(c.getId(), temp, new Player(l.getPlayer())));
-                            if(gameStates.get(nStep).playerMoving()   )
+                            if(gameStates.get(nStep).playerMoving())
                                 gui.notify(false, c.getId(), false, Constants.MVFWD);
                             else gui.notify(false, c.getId(), false, Constants.NOMV);
                             lins = c.getListInstr();
@@ -195,17 +194,16 @@ public class TermBuilder {
             Thread t = new Thread() {
 
                 public void run() {
-                    //try {
 
                         nStep++;
                         l.setPlayer(gameStates.get(nStep).getpArr());
-                    if(gameStates.get(nStep).playerMoving()   ){
+                    if(gameStates.get(nStep).playerMoving()   )
                         gui.notify(false, gameStates.get(nStep).getId(), false, Constants.MVFWD);
-                    }
-                    else {gui.notify(false, gameStates.get(nStep).getId(), false, Constants.NOMV);}
-                        try { Thread.sleep(1000); } catch (Exception e) {e.printStackTrace(); System.out.println("Exception");}
 
-                    //} catch (ArrayIndexOutOfBoundsException e){}
+                    else
+                        gui.notify(false, gameStates.get(nStep).getId(), false, Constants.NOMV);
+                    try { Thread.sleep(1000); } catch (Exception e) {e.printStackTrace(); System.out.println("Exception");}
+
 
                 }
             };
@@ -221,7 +219,6 @@ public class TermBuilder {
         Thread t = new Thread() {
 
             public void run() {
-             //try {
 
                 if(nStep>-1) {
                     nStep--;
@@ -231,17 +228,20 @@ public class TermBuilder {
                         gui.notify(false, gameStates.get(nStep+1).getId(), false, Constants.MVBWD);
                     }
                     else { gui.notify(false, gameStates.get(nStep+1).getId(), false, Constants.NOMV);}
+
                 }
 
-             try { Thread.sleep(1000); } catch (Exception e) {}
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
-            //} catch (ArrayIndexOutOfBoundsException e){}
+
             }
         };
         t.start();
     }
-
-    //public ArrayList<GameState> getGameStates() { return this.gameStates;}
 
     public int getnStep() {return this.nStep;}
 }
