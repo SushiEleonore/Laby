@@ -9,10 +9,12 @@ import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.LinearLayout;
 
 import java.security.spec.ECField;
 import java.util.ArrayList;
 
+import fr.upsud.sushi.laby.R;
 import fr.upsud.sushi.laby.maze.Level;
 import fr.upsud.sushi.laby.utils.Constants;
 
@@ -27,13 +29,13 @@ public class SurfaceViewDrawer {
              | Paint.ANTI_ALIAS_FLAG);
 
     private ArrayList<SurfaceView> surfaceViews;
-    int scale;
+    float scale;
 
-    SurfaceViewDrawer(SurfaceView bg, SurfaceView player) {
+    SurfaceViewDrawer(SurfaceView bg, SurfaceView player, LinearLayout l) {
         surfaceViews = new ArrayList<SurfaceView>();
         surfaceViews.add(bg);
         surfaceViews.add(player);
-        this.scale = Constants.SCALE;
+        this.scale = Constants.getScale(l);
     }
 
     public ArrayList<SurfaceView> getSurfaceViews() {
@@ -146,8 +148,8 @@ public class SurfaceViewDrawer {
         int width = bm.getWidth();
         int height = bm.getHeight();
 
-        int newWidth = width * Constants.SCALE;
-        int newHeight = height * Constants.SCALE;
+        int newWidth =(int) (width * this.scale);
+        int newHeight =(int) (height * this.scale);
 
         float scaleWidth = ((float) newWidth) / width;
         float scaleHeight = ((float) newHeight) / height;
