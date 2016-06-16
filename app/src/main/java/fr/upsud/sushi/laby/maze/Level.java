@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import fr.upsud.sushi.laby.R;
+import fr.upsud.sushi.laby.utils.Constants;
 import fr.upsud.sushi.laby.utils.Dir;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -15,6 +16,9 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 public class Level {
@@ -31,6 +35,8 @@ public class Level {
     private Dir startDir;
 
     private Context context;
+
+    private int cellSize;
 
     private int lvl;
 
@@ -144,6 +150,27 @@ public class Level {
              this.lvl = lvl;
              openFile( R.raw.level4);
          }
+        computeCellSize();
+    }
+
+
+    private void computeCellSize() {
+        LinearLayout lay = (LinearLayout)((Activity)this.context).findViewById(R.id.layout1);
+
+        int hauteur = lay.getMeasuredHeight();
+        System.out.println(lay);
+        int horizontalitude = lay.getMeasuredWidth();
+        float sizex = ((float)(horizontalitude)) / ((float)(this.cells.length));
+        System.out.println("TAILLE EN X : "+ sizex);
+        float sizey = ((float)(hauteur) )/((float) (this.cells[0].length));
+        System.out.println("TAILLE EN Y : " + sizey);
+        if (sizex>sizey) {
+
+            this.cellSize =(int) sizey;
+        } else {
+            this.cellSize = (int) sizex;
+        }
+        this.cellSize = Constants.CELLSIZE;
     }
 
 
