@@ -43,7 +43,7 @@ public class GameRenderer {
 
         bitmapWall = BitmapFactory.decodeResource(res, R.drawable.mini_mur2, options);
         bitmapPlayerN = BitmapFactory.decodeResource(res, R.drawable.mini_canard_dos, options);
-        bitmapPlayerS = BitmapFactory.decodeResource(res, R.drawable.mini_canard_face, options);
+        bitmapPlayerS = BitmapFactory.decodeResource(res, R.drawable.bebezilla, options);
         bitmapPlayerE = BitmapFactory.decodeResource(res, R.drawable.bigduck_d, options);
         bitmapPlayerW = BitmapFactory.decodeResource(res, R.drawable.mini_canard_g, options);
         bitmapEnd = BitmapFactory.decodeResource(res, R.drawable.arrivee, options);
@@ -94,36 +94,34 @@ public class GameRenderer {
 
 
 
-   /*
 
+/*
     public void drawBG() {
         int id = 0;
         for (int i = 0; i < l.getCells().length; i++) {
             for (int j = 0; j < l.getCells()[i].length; j++) {
                 if (l.getCells()[i][j] != null) {
-                    whichDraw(i,j, l.getCells()[i][j]);
+                    switch (l.getCells()[i][j].getType()) {
+                        case WALL:
+                            listSurface.draw(i, j, bitmapWall, id);
+                            break;
+                        case END:
+                            listSurface.draw(i, j, bitmapEnd, id);
+                            break;
+                        default:
+                            break;
+
+                    }
                 }
+
+
             }
-
-
         }
     }
 
 
-    private void whichDraw(int i, int j, Cell c){
-        int id =0;
-        switch (c.getType()) {
-            case WALL:
-                listSurface.draw(i, j, bitmapWall, id); break;
-            case END:
-                listSurface.draw(i, j, bitmapEnd, id); break;
-            default:
-                break;
 
-        }
-
-
-    */
+*/
 
     public void drawPlayer() {
         int id = 1;
@@ -143,6 +141,7 @@ public class GameRenderer {
                 b = bitmapPlayerN;
                 break;
         }
+       if( b==bitmapPlayerS) listSurface.drawSprite(l.getPlayer().getX(),l.getPlayer().getY(),b,'c');
         listSurface.draw(l.getPlayer().getX(), l.getPlayer().getY(), b, id);
 
     }
