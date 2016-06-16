@@ -31,11 +31,11 @@ public class SurfaceViewDrawer {
     private ArrayList<SurfaceView> surfaceViews;
     float scale;
 
-    SurfaceViewDrawer(SurfaceView bg, SurfaceView player, LinearLayout l) {
+    SurfaceViewDrawer(SurfaceView bg, SurfaceView player, LinearLayout l, Level lvl) {
         surfaceViews = new ArrayList<SurfaceView>();
         surfaceViews.add(bg);
         surfaceViews.add(player);
-        this.scale = Constants.getScale(l);
+        this.scale = Constants.getScale(l, lvl);
     }
 
     public ArrayList<SurfaceView> getSurfaceViews() {

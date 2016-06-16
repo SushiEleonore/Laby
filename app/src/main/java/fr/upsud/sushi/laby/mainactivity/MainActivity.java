@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         SurfaceView sPlayer = (SurfaceView) findViewById(R.id.playerview);
         sPlayer.setZOrderOnTop(true);    // necessary
 
-        SurfaceViewDrawer drawer =new SurfaceViewDrawer(sMaze, sPlayer, (LinearLayout) findViewById(R.id.layout1));
+        SurfaceViewDrawer drawer =new SurfaceViewDrawer(sMaze, sPlayer, (LinearLayout) findViewById(R.id.layout1), l);
         gameR= new GameRenderer(drawer, l, this.getResources());
 
         //linlay.addView(gameView);
