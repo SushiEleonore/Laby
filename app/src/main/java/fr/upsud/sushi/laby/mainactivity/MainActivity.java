@@ -131,7 +131,6 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         SurfaceView sMaze= (SurfaceView) findViewById(R.id.mazeview);
         SurfaceView sPlayer = (SurfaceView) findViewById(R.id.playerview);
         sPlayer.setZOrderOnTop(true);    // necessary
-
         SurfaceViewDrawer drawer =new SurfaceViewDrawer(sMaze, sPlayer, (LinearLayout) findViewById(R.id.layout1), l);
         gameR= new GameRenderer(drawer, l, this.getResources());
 
@@ -201,13 +200,13 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                     if (fin2){winWindow();nextLevel();}
                     else if (id2==null) {Toast.makeText(getApplicationContext(), "Tu n'es pas allé jusqu'au bout, réessaie !", Toast.LENGTH_SHORT).show();}
                     else {
-
-                        gameR.update(l);
+                        mWebView.loadUrl("javascript:highlightBlockById('" + id2 +
+                                "')");
+                        //gameR.update(l);
                         if(mv==0)gameR.drawPlayer();
                         else gameR.drawMvingPlayer(mv);
 
-                        mWebView.loadUrl("javascript:highlightBlockById('" + id2 +
-                                "')");
+
 
                     }
                 }
