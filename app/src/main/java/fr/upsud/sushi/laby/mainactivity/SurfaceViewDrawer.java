@@ -47,70 +47,7 @@ public class SurfaceViewDrawer {
     }
 
 
-    /*
-    public  void draw(int x, int y, Bitmap b, int id) {
-
-        Bitmap bm = getResizedBitmap(b);
-        int sizex = bm.getWidth() ;
-        int sizey=bm.getHeight();
-
-
-        try {
-            SurfaceView v = surfaceViews.get(id);
-            SurfaceHolder ourHolder = v.getHolder();
-
-
-                if (ourHolder.getSurface().isValid()) {
-                    if(id==1) v.getHolder().setFormat(PixelFormat.TRANSPARENT);
-
-                    Canvas canvas =ourHolder.lockCanvas();
-
-                    if (id == 1) canvas.drawColor(0, PorterDuff.Mode.CLEAR);
-                    canvas.drawBitmap(bm, x *sizex, y * sizey, paint);
-                    ourHolder.unlockCanvasAndPost(canvas);
-                } else {
-                    System.out.println("surfaceholder pas valide");
-                }
-
-        } catch (Exception e) {
-        }
-
-    }
-*/
-
-    public  void draw(int x, int y, Bitmap b, int id) {
-
-        Bitmap bm = getResizedBitmap(b);
-        int sizex = bm.getWidth() ;
-        int sizey=bm.getHeight();
-        RectF whereToDraw = new RectF(
-                x*sizex, y*sizex,
-                (x+1)*sizex ,
-                (1+y) *sizey);
-
-        try {
-            SurfaceView v = surfaceViews.get(id);
-            SurfaceHolder ourHolder = v.getHolder();
-
-
-            if (ourHolder.getSurface().isValid()) {
-                if(id==1) v.getHolder().setFormat(PixelFormat.TRANSPARENT);
-
-                Canvas canvas =ourHolder.lockCanvas();
-
-                if (id == 1) canvas.drawColor(0, PorterDuff.Mode.CLEAR);
-                canvas.drawBitmap(bm,null, whereToDraw, paint);
-
-                ourHolder.unlockCanvasAndPost(canvas);
-            } else {
-                System.out.println("surfaceholder pas valide");
-            }
-
-        } catch (Exception e) {
-        }
-
-    }
-    public  void draw(int x, int y, Bitmap b, int id, int kx, int ky) {
+    public  void draw(int x, int y, Bitmap b, int id, Canvas canvas, int kx, int ky) {
         int gap = 15;
         Bitmap bm = getResizedBitmap(b);
         int sizex = bm.getWidth() ;
@@ -119,49 +56,17 @@ public class SurfaceViewDrawer {
                 x*sizex-kx*gap, y*sizey-ky*gap,
                 (x+1)*sizex-kx*gap ,
                 (1+y) *sizey-ky*gap);
-
-        try {
-            SurfaceView v = surfaceViews.get(id);
-            SurfaceHolder ourHolder = v.getHolder();
-
-
-            if (ourHolder.getSurface().isValid()) {
-                if(id==1) v.getHolder().setFormat(PixelFormat.TRANSPARENT);
-
-                Canvas canvas =ourHolder.lockCanvas();
-
-                if (id == 1) canvas.drawColor(0, PorterDuff.Mode.CLEAR);
-                canvas.drawBitmap(bm, null, whereToDraw, paint);
-
-                ourHolder.unlockCanvasAndPost(canvas);
-            } else {
-                System.out.println("surfaceholder pas valide");
-            }
-
-        } catch (Exception e) {
-        }
-
+        if (id!= 0) canvas.drawColor(0, PorterDuff.Mode.CLEAR);
+        canvas.drawBitmap(bm, null, whereToDraw, paint);
     }
-
 
 
     public Bitmap getResizedBitmap(Bitmap bm) {
         int width = bm.getWidth();
         int height = bm.getHeight();
-
         int newWidth =(int) (width * this.scale);
         int newHeight =(int) (height * this.scale);
-
-        /*float scaleWidth = ((float) newWidth) / width;
-        float scaleHeight = ((float) newHeight) / height;
-        // CREATE A MATRIX FOR THE MANIPULATION
-        Matrix matrix = new Matrix();
-        // RESIZE THE BIT MAP
-        matrix.postScale(scaleWidth, scaleHeight);
-*/
-        // "RECREATE" THE NEW BITMAP
         Bitmap resizedBitmap =  Bitmap.createScaledBitmap(bm, newWidth, newHeight, false);
-        //bm.recycle();
         return resizedBitmap;
     }
 

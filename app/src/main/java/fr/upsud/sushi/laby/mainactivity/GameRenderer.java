@@ -5,8 +5,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.PixelFormat;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+import java.util.ArrayList;
 
 import fr.upsud.sushi.laby.R;
 import fr.upsud.sushi.laby.maze.Cell;
@@ -63,107 +66,89 @@ public class GameRenderer {
 
 
     public void drawBG() {
-        Bitmap tab[][] = new Bitmap[l.getCells().length][l.getCells()[0].length];
-            for (int i = 0; i < l.getCells().length; i++) {
+        int id = 0;
+        ArrayList<SurfaceView> list = listSurface.getSurfaceViews();
+        SurfaceHolder h = list.get(0).getHolder();
 
+        if (h.getSurface().isValid()) {
+
+            synchronized (h) {
+                Canvas canvas = h.lockCanvas();
+                for (int i = 0; i < l.getCells().length; i++) {
                     for (int j = 0; j < l.getCells()[i].length; j++) {
                         if (l.getCells()[i][j] != null) {
                             switch (l.getCells()[i][j].getType()) {
                                 case WALL:
-                                    tab[i][j]=bitmapWall;
+                                    listSurface.draw(i, j, bitmapWall, id, canvas,0,0);
+
+                                    break;
+                                case PATH:
+                                    listSurface.draw(i, j, bitmapPath, id, canvas,0,0);
+
                                     break;
                                 case END:
-                                    tab[i][j]=bitmapEnd;
-                                    break;
-                                case PATH :
-                                    tab[i][j]=bitmapPath;
+                                    listSurface.draw(i, j, bitmapEnd, id, canvas,0,0);
 
+                                    break;
                                 default:
                                     break;
+
                             }
                         }
 
-                }
-        }
-
-        SurfaceView v = listSurface.getSurfaceViews().get(0);
-        SurfaceHolder ourHolder = v.getHolder();
-        if (ourHolder.getSurface().isValid()) {
-            Canvas canvas =ourHolder.lockCanvas();
-            for (int i = 0; i < tab.length; i++) {
-                    for (int j = 0; j < tab[i].length; j++) {
-                        if (tab[i][j] != null) {
-                            Bitmap bm = listSurface.getResizedBitmap(tab[i][j]);
-                            int sizex = bm.getWidth();
-                            int sizey = bm.getHeight();
-                            
-                            canvas.drawBitmap(bm, i * sizex, j * sizey, paint);
-                        }
-                    }
-            }
-            ourHolder.unlockCanvasAndPost(canvas);
-        }
-    }
-
-
-/*
-    public void drawBG() {
-        int id = 0;
-        for (int i = 0; i < l.getCells().length; i++) {
-            for (int j = 0; j < l.getCells()[i].length; j++) {
-                if (l.getCells()[i][j] != null) {
-                    switch (l.getCells()[i][j].getType()) {
-                        case WALL:
-                            listSurface.draw(i, j, bitmapWall, id);
-                            break;
-                        case END:
-                            listSurface.draw(i, j, bitmapEnd, id);
-                            break;
-                        default:
-                            break;
 
                     }
                 }
-
-
+                h.unlockCanvasAndPost(canvas);
             }
         }
+
     }
 
-*/
 
 
 
-    public void drawMvingPlayer(int mv){
+
+    public void drawMvingPlayer(int mv) {
         int id = 1;
         Bitmap b;
-        int xmove=0;
-        int ymove=0;
+        int xmove = 0;
+        int ymove = 0;
         switch (l.getPlayer().getDir()) {
             case S:
                 b = bitmapPlayerMvS;
-                xmove=0;ymove=mv;
+                xmove = 0;
+                ymove = mv;
                 break;
             case E:
                 b = bitmapPlayerMvE;
-                xmove=mv;ymove=0;
+                xmove = mv;
+                ymove = 0;
                 break;
             case W:
                 b = bitmapPlayerMvW;
-                xmove=-mv;ymove=0;
+                xmove = -mv;
+                ymove = 0;
                 break;
             default:
                 b = bitmapPlayerMvN;
-                xmove=0; ymove=-mv;
+                xmove = 0;
+                ymove = -mv;
                 break;
         }
-            Bitmap[] imgs = new Bitmap[3];
-            imgs[0] = Bitmap.createBitmap(b, 0, 0,b.getWidth()/3 , b.getHeight());
-            imgs[1] = Bitmap.createBitmap(b, b.getWidth()/3, 0, b.getWidth()/3, b.getHeight());
-            imgs[2] = Bitmap.createBitmap(b,2*b.getWidth()/3, 0, b.getWidth()/3, b.getHeight());
-
-            for(int k=2; k>=0; k--){
-             listSurface.draw(l.getPlayer().getX(),l.getPlayer().getY(),imgs[k],1,k*xmove,k*ymove);
+        Bitmap[] imgs = new Bitmap[3];
+        imgs[0] = Bitmap.createBitmap(b, 0, 0, b.getWidth() / 3, b.getHeight());
+        imgs[1] = Bitmap.createBitmap(b, b.getWidth() / 3, 0, b.getWidth() / 3, b.getHeight());
+        imgs[2] = Bitmap.createBitmap(b, 2 * b.getWidth() / 3, 0, b.getWidth() / 3, b.getHeight());
+        SurfaceHolder h = listSurface.getSurfaceViews().get(id).getHolder();
+        for (int k = 2; k >= 0; k--) {
+            if (h.getSurface().isValid()) {
+                Canvas canvas = h.lockCanvas();
+                synchronized (canvas) {
+                    listSurface.draw(l.getPlayer().getX(), l.getPlayer().getY(), imgs[k], id, canvas,
+                            k * xmove, k * ymove);
+                    h.unlockCanvasAndPost(canvas);
+                }
                 try {
                     Thread.sleep(300);
                 } catch (InterruptedException e) {
@@ -171,10 +156,10 @@ public class GameRenderer {
                 }
             }
 
-       drawPlayer();
+            drawPlayer();
 
+        }
     }
-
 
     public void drawPlayer() {
         int id = 1;
@@ -194,8 +179,16 @@ public class GameRenderer {
                 b = bitmapPlayerN;
                 break;
         }
+        SurfaceHolder h = listSurface.getSurfaceViews().get(id).getHolder();
+        if (h.getSurface().isValid()) {
+            h.setFormat(PixelFormat.TRANSPARENT);
+            synchronized (h) {
+                Canvas canvas = h.lockCanvas();
 
-        listSurface.draw(l.getPlayer().getX(), l.getPlayer().getY(), b, id, 0, 0);
+                listSurface.draw(l.getPlayer().getX(), l.getPlayer().getY(), b, id,canvas, 0, 0);
+                h.unlockCanvasAndPost(canvas);
+            }
+        }
 
     }
 
