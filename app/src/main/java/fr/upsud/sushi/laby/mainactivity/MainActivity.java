@@ -122,16 +122,11 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
         final Intent intent = getIntent();
         int niveau = intent.getIntExtra("level", 0);
         firsTime= true;
         setContentView(R.layout.activity_main);
         l = new Level(niveau, this);
-        //Intent intent2 = new Intent(getApplicationContext(), MenuActivity.class);
-        //startActivity(intent2);
-        //SurfaceView v =  (SurfaceView) findViewById(R.id.surfaceView);
-        //gameView = new GameView(this, l);
 
         SurfaceView sMaze= (SurfaceView) findViewById(R.id.mazeview);
         SurfaceView sPlayer = (SurfaceView) findViewById(R.id.playerview);
@@ -153,6 +148,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
         //gameView.draw();
         setmWebView();
+
     }
 
     public void setmWebView () {
@@ -266,6 +262,8 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         firsTime =true;
     }
 
+
+    //changed so the size of the bitmaps is updated when the level is changed
     public void nextLevel() {
         int lvl = l.getLevel();
         setLevel(new Level(lvl+1, this));
@@ -274,6 +272,11 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         resetButtons();
         this.tbuilder= new TermBuilder(this, l);
         mWebView.addJavascriptInterface(tbuilder, "JavaTermBuilder");
+        SurfaceView sMaze= (SurfaceView) findViewById(R.id.mazeview);
+        SurfaceView sPlayer = (SurfaceView) findViewById(R.id.playerview);
+        sPlayer.setZOrderOnTop(true);
+        SurfaceViewDrawer drawer =new SurfaceViewDrawer(sMaze, sPlayer, (LinearLayout) findViewById(R.id.layout1), l);
+        gameR= new GameRenderer(drawer, l, this.getResources());
         gameR.update(this.l);
         gameR.drawPlayer();
         gameR.drawBG();
@@ -330,6 +333,15 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     public void nextStep(View v) {
         firsTime=false;
         mWebView.loadUrl("javascript:nextStep()");
+    }
+
+    public void backToMenu(View v) {
+        setContentView(R.layout.activity_menu);
+        Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);
+        //intent2.putExtra("level", level);
+        startActivityForResult(intent2, 0);
+        finish();
+
     }
 
 

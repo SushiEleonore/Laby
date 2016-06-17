@@ -17,6 +17,8 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -154,12 +156,21 @@ public class Level {
     }
 
 
-    private void computeCellSize() {
-        LinearLayout lay = (LinearLayout)((Activity)this.context).findViewById(R.id.layout1);
 
-        int hauteur = lay.getMeasuredHeight();
-        System.out.println(lay);
-        int horizontalitude = lay.getMeasuredWidth();
+
+    private void computeCellSize() {
+
+        int hauteur = 0;
+        int horizontalitude = 0;
+        LinearLayout lay = (LinearLayout)((Activity)this.context).findViewById(R.id.layout1);
+        lay.measure(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        horizontalitude=lay.getMeasuredWidth();
+        hauteur=lay.getMeasuredHeight();
+        System.out.println("hauteur : " + hauteur);
+        System.out.println("largeur :  " + horizontalitude);
+
+        System.out.println("taille du niveau en x : " + this.cells.length);
+
         float sizex = ((float)(horizontalitude)) / ((float)(this.cells.length));
         System.out.println("TAILLE EN X : "+ sizex);
         float sizey = ((float)(hauteur) )/((float) (this.cells[0].length));
@@ -170,7 +181,7 @@ public class Level {
         } else {
             this.cellSize = (int) sizex;
         }
-        this.cellSize = Constants.CELLSIZE;
+        this.cellSize = (int) sizex;
     }
 
     public int getCellSize() { return this.cellSize;}

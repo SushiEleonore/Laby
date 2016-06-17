@@ -13,7 +13,7 @@ public class Constants {
     //Agrandissement des images
     public static final int SCALE = 4;
     public static final int IMAGE_SIZE = 14;
-    public static final int CELLSIZE = 53;
+    public static final int CELLSIZE = 80;
 
     //TODO : put the maze in the middle of the frame
     public static final int MVFWD =1;
@@ -24,7 +24,7 @@ public class Constants {
         int hauteur = lay.getHeight();
         int horizontalitude = lay.getWidth();
 
-        return 4;
+        return 2;
 
     }
 

@@ -39,7 +39,7 @@ public class SurfaceViewDrawer {
         surfaceViews = new ArrayList<SurfaceView>();
         surfaceViews.add(bg);
         surfaceViews.add(player);
-        this.scale = Constants.getScale(l, lvl);
+        this.scale = lvl.getCellSize()/Constants.IMAGE_SIZE;
     }
 
     public ArrayList<SurfaceView> getSurfaceViews() {

@@ -77,7 +77,7 @@ public class GameRenderer {
                                     break;
                                 case PATH :
                                     tab[i][j]=bitmapPath;
-                                    break;
+
                                 default:
                                     break;
                             }

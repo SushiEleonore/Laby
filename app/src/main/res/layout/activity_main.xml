@@ -54,14 +54,13 @@
                 android:text="@string/reset"
                 android:onClick="restartLevel"
                 android:id="@+id/buttonRes" android:layout_gravity="bottom"/>
-            <ImageButton
+            <Button
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:src="@drawable/prev_butt"
+                android:text="@string/prev"
                 android:id="@+id/prev"
                 android:onClick="prevStep"
-                android:layout_gravity="center_vertical"
-            />
+                android:layout_gravity="center_vertical"/>
             <Button
                 android:layout_width="35dp"
                 android:layout_height="35dp"
@@ -76,6 +75,12 @@
                 android:text="@string/next"
                 android:onClick="nextStep"
                 android:id="@+id/next"/>
+            <Button
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:text="MENU"
+                android:onClick="ba"
+                android:id="@+id/menu"/>
 
 
         </LinearLayout>
