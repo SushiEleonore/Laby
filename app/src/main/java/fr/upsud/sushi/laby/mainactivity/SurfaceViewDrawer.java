@@ -160,7 +160,7 @@ public class SurfaceViewDrawer {
         matrix.postScale(scaleWidth, scaleHeight);
 */
         // "RECREATE" THE NEW BITMAP
-        Bitmap resizedBitmap =  Bitmap.createScaledBitmap(bm, newWidth, newHeight, true);
+        Bitmap resizedBitmap =  Bitmap.createScaledBitmap(bm, newWidth, newHeight, false);
         //bm.recycle();
         return resizedBitmap;
     }

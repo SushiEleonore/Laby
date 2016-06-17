@@ -171,7 +171,6 @@ public class GameRenderer {
                 }
             }
 
-
        drawPlayer();
 
     }
@@ -196,7 +195,7 @@ public class GameRenderer {
                 break;
         }
 
-        listSurface.draw(l.getPlayer().getX(), l.getPlayer().getY(), b, id);
+        listSurface.draw(l.getPlayer().getX(), l.getPlayer().getY(), b, id, 0, 0);
 
     }
 
