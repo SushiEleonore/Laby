@@ -337,7 +337,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
     public void backToMenu(View v) {
         setContentView(R.layout.activity_menu);
-        Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);
+        Intent intent2 = new Intent(getApplicationContext(), MenuActivity.class);
         //intent2.putExtra("level", level);
         startActivityForResult(intent2, 0);
         finish();
