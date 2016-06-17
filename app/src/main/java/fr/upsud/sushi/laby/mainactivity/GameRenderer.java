@@ -28,6 +28,7 @@ public class GameRenderer {
     Bitmap bitmapPlayerE;
     Bitmap bitmapPlayerW;
     Bitmap bitmapEnd;
+    Bitmap bitmapPath;
     Bitmap bitmapPlayerMvN;
     Bitmap bitmapPlayerMvW;
     Bitmap bitmapPlayerMvS;
@@ -51,6 +52,7 @@ public class GameRenderer {
         bitmapPlayerE = BitmapFactory.decodeResource(res, R.drawable.mini_canard_d, options);
         bitmapPlayerW = BitmapFactory.decodeResource(res, R.drawable.mini_canard_g, options);
         bitmapEnd = BitmapFactory.decodeResource(res, R.drawable.arrivee, options);
+        bitmapPath = BitmapFactory.decodeResource(res, R.drawable.path, options);
 
         bitmapPlayerMvN= BitmapFactory.decodeResource(res, R.drawable.mv_mini_canard_dos, options);
         bitmapPlayerMvS= BitmapFactory.decodeResource(res, R.drawable.mv_mini_canard_face, options);
@@ -72,6 +74,9 @@ public class GameRenderer {
                                     break;
                                 case END:
                                     tab[i][j]=bitmapEnd;
+                                    break;
+                                case PATH :
+                                    tab[i][j]=bitmapPath;
                                     break;
                                 default:
                                     break;
