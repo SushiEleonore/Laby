@@ -151,6 +151,9 @@ public class Level {
          } else if (lvl == 4) {
              this.lvl = lvl;
              openFile( R.raw.level4);
+         } else if (lvl == 5) {
+             this.lvl = lvl;
+             openFile( R.raw.level5);
          }
         computeCellSize();
     }
