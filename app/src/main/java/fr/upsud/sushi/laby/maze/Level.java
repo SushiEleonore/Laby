@@ -32,6 +32,8 @@ public class Level {
     private int xEnd;
     private int yEnd;
 
+    private int levelMax;
+
     private int xStart;
     private int yStart;
     private Dir startDir;
@@ -137,6 +139,7 @@ public class Level {
     //Generates a maze and a player depending on the level.
     //Replaced the arraylist by an array
     public Level (int lvl, Context ctx) {
+        this.levelMax = 5;
         this.context = ctx;
         this.authorizedBlocks = new ArrayList<String>();
          if (lvl == 1) {
@@ -194,6 +197,8 @@ public class Level {
 
     public int getXstart()  {return this.xStart;}
     public int getYstart()  {return this.yStart;}
+
+    public int getLevelMax() { return this.levelMax;}
 
     public ArrayList<String> getAuthorizedBlocks() {return this.authorizedBlocks;}
 

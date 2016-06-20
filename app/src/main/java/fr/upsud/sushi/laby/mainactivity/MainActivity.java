@@ -268,20 +268,27 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     //changed so the size of the bitmaps is updated when the level is changed
     public void nextLevel() {
         int lvl = l.getLevel();
-        setLevel(new Level(lvl+1, this));
-        setmWebView ();
-        firsTime=true;
-        resetButtons();
-        this.tbuilder= new TermBuilder(this, l);
-        mWebView.addJavascriptInterface(tbuilder, "JavaTermBuilder");
-        SurfaceView sMaze= (SurfaceView) findViewById(R.id.mazeview);
-        SurfaceView sPlayer = (SurfaceView) findViewById(R.id.playerview);
-        sPlayer.setZOrderOnTop(true);
-        SurfaceViewDrawer drawer =new SurfaceViewDrawer(sMaze, sPlayer, (LinearLayout) findViewById(R.id.layout1), l);
-        gameR= new GameRenderer(drawer, l, this.getResources());
-        gameR.update(this.l);
-        gameR.drawPlayer();
-        gameR.drawBG();
+        if (lvl+1>l.getLevelMax()){
+            Toast.makeText(getApplicationContext(), "Bravo, tu as fini le jeu !", Toast.LENGTH_SHORT).show();
+            backToMenu();
+        } else {
+            setLevel(new Level(lvl + 1, this));
+            setmWebView();
+            firsTime = true;
+            resetButtons();
+            this.tbuilder = new TermBuilder(this, l);
+            mWebView.addJavascriptInterface(tbuilder, "JavaTermBuilder");
+            SurfaceView sMaze = (SurfaceView) findViewById(R.id.mazeview);
+            SurfaceView sPlayer = (SurfaceView) findViewById(R.id.playerview);
+            sPlayer.setZOrderOnTop(true);
+            SurfaceViewDrawer drawer =
+                    new SurfaceViewDrawer(sMaze, sPlayer, (LinearLayout) findViewById(R.id.layout1),
+                            l);
+            gameR = new GameRenderer(drawer, l, this.getResources());
+            gameR.update(this.l);
+            gameR.drawPlayer();
+            gameR.drawBG();
+        }
     }
 
     public void actionBlocks(MenuItem m) {
@@ -338,6 +345,15 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     }
 
     public void backToMenu(View v) {
+        setContentView(R.layout.activity_menu);
+        Intent intent2 = new Intent(getApplicationContext(), MenuActivity.class);
+        //intent2.putExtra("level", level);
+        startActivityForResult(intent2, 0);
+        finish();
+
+    }
+
+    public void backToMenu() {
         setContentView(R.layout.activity_menu);
         Intent intent2 = new Intent(getApplicationContext(), MenuActivity.class);
         //intent2.putExtra("level", level);
