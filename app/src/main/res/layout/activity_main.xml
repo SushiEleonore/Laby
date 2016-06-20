@@ -24,7 +24,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1 "
-                        android:id="@+id/layout2">
+                        android:id="@+id/layoutGame">
             <SurfaceView
                 android:id="@+id/mazeview"
                 android:layout_width="wrap_content"
@@ -49,35 +49,35 @@
             android:layout_width="172dp"
             android:layout_height="wrap_content">
             <Button
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:text="@string/reset"
                 android:onClick="restartLevel"
                 android:id="@+id/buttonRes" android:layout_gravity="bottom"/>
             <Button
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:text="@string/prev"
                 android:id="@+id/prev"
                 android:onClick="prevStep"
                 android:layout_gravity="center_vertical"/>
             <Button
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:text="@string/play"
                 android:onClick="evalBlock"
                 android:id="@+id/button" android:layout_gravity="bottom"/>
 
 
             <Button
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:text="@string/next"
                 android:onClick="nextStep"
                 android:id="@+id/next"/>
             <Button
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:text="MENU"
                 android:onClick="backToMenu"
                 android:id="@+id/menu"/>
@@ -91,5 +91,5 @@
         android:layout_height="fill_parent"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:id="@+id/webView" android:layout_weight="0.30"/>
+        android:id="@+id/webView" android:layout_weight="0.10"/>
 </LinearLayout>

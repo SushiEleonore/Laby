@@ -25,6 +25,7 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
@@ -142,11 +143,12 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         //gameView.draw();
         this.tbuilder = new TermBuilder(this, l);
         //lay.addView(gameView);
-        gameR.drawBG();
+
         //gameR.drawPlayer();
 
         //gameView.draw();
         setmWebView();
+
 
     }
 
@@ -164,13 +166,14 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
     public void setLevel (Level lv) {
         this.l = lv; firsTime=true;
+        gameR.drawBG();
 
     }
 
 
     @Override
     protected void onResume() {
-        super.onResume();
+         super.onResume();
     }
 
 
@@ -202,7 +205,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                     else {
                         mWebView.loadUrl("javascript:highlightBlockById('" + id2 +
                                 "')");
-                        //gameR.update(l);
+
                         if(mv==0)gameR.drawPlayer();
                         else gameR.drawMvingPlayer(mv);
 

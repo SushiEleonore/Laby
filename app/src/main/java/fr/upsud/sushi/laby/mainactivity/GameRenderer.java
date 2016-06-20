@@ -69,6 +69,7 @@ public class GameRenderer {
         int id = 0;
         ArrayList<SurfaceView> list = listSurface.getSurfaceViews();
         SurfaceHolder h = list.get(0).getHolder();
+        
 
         if (h.getSurface().isValid()) {
 

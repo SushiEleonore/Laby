@@ -32,8 +32,7 @@ public class SurfaceViewDrawer {
 
     private ArrayList<SurfaceView> surfaceViews;
     float scale;
-    private int frameWidth = 133;
-    private int frameHeight = 133;
+
 
     SurfaceViewDrawer(SurfaceView bg, SurfaceView player, LinearLayout l, Level lvl) {
         surfaceViews = new ArrayList<SurfaceView>();
@@ -56,7 +55,7 @@ public class SurfaceViewDrawer {
                 x*sizex-kx*gap, y*sizey-ky*gap,
                 (x+1)*sizex-kx*gap ,
                 (1+y) *sizey-ky*gap);
-        if (id!= 0) canvas.drawColor(0, PorterDuff.Mode.CLEAR);
+        if (id!= BG_LAYER) canvas.drawColor(0, PorterDuff.Mode.CLEAR);
         canvas.drawBitmap(bm, null, whereToDraw, paint);
     }
 

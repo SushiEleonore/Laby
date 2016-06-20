@@ -25,6 +25,7 @@ public class MenuActivity extends Activity {
         Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);
         intent2.putExtra("level", level);
         startActivityForResult(intent2, 0);
+
         finish();
     }
 
