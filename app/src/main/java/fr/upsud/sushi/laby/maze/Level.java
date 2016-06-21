@@ -46,6 +46,8 @@ public class Level {
 
     private ArrayList<String> authorizedBlocks;
 
+    private int nbBlocks;
+
 
     /*
     * format of the maze :
@@ -57,12 +59,17 @@ public class Level {
     * px\n
     * py\n
     * Direction\n
+    * then the number of blocks you can place :
+    *
+    * n\n
     * then the maze :
     *
     * w : wall
     * u : empty
     * s : start
     * e : end
+    *
+    *
     *
     * finally, the authorized blocks
     *
@@ -92,31 +99,33 @@ public class Level {
                 break;
         }
         this.startDir = d;
-        for (int i = 3; i<sizeY+3; i++){
+        this.nbBlocks = Integer.parseInt(tab[3]);
+        System.out.println("nombre de blocs a placer : " + this.nbBlocks);
+        for (int i = 4; i<sizeY+4; i++){
             for (int j =0; j<sizeX; j++){
                 char c = tab[i].charAt(j);
                 switch (c) {
                     case 'w' :
-                        cells[j][i-3] = new Cell(Cell.Type.WALL);
+                        cells[j][i-4] = new Cell(Cell.Type.WALL);
                         break;
                     case 'u' :
-                        cells[j][i-3] = new Cell(Cell.Type.PATH);
+                        cells[j][i-4] = new Cell(Cell.Type.PATH);
                         break;
                     case 's' :
-                        cells[j][i-3] = new Cell(Cell.Type.PATH);
+                        cells[j][i-4] = new Cell(Cell.Type.PATH);
                         this.xStart = j;
-                        this.yStart =  i-3;
+                        this.yStart =  i-4;
                         break;
                     default : //=end
-                        cells[j][i-3] = new Cell(Cell.Type.END);
+                        cells[j][i-4] = new Cell(Cell.Type.END);
                         this.xEnd = j;
-                        this.yEnd = i-3;
+                        this.yEnd = i-4;
                         break;
                 }
             }
         }
         this.p = new Player(this.xStart, this.yStart, d, this);
-        for (int i = sizeY+3; i<tab.length; i++) {
+        for (int i = sizeY+4; i<tab.length; i++) {
             this.authorizedBlocks.add(tab[i]);
         }
     }
@@ -139,7 +148,7 @@ public class Level {
     //Generates a maze and a player depending on the level.
     //Replaced the arraylist by an array
     public Level (int lvl, Context ctx) {
-        this.levelMax = 5;
+        this.levelMax = 6;
         this.context = ctx;
         this.authorizedBlocks = new ArrayList<String>();
          if (lvl == 1) {
@@ -157,6 +166,9 @@ public class Level {
          } else if (lvl == 5) {
              this.lvl = lvl;
              openFile( R.raw.level5);
+         } else if (lvl == 6) {
+             this.lvl = lvl;
+             openFile( R.raw.level6);
          }
         computeCellSize();
     }
@@ -165,11 +177,11 @@ public class Level {
 
 
     private void computeCellSize() {
-
         int hauteur = 0;
         int horizontalitude = 0;
         LinearLayout lay = (LinearLayout)((Activity)this.context).findViewById(R.id.layout1);
         lay.measure(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+
         horizontalitude=lay.getMeasuredWidth();
         hauteur=lay.getMeasuredHeight();
         System.out.println("hauteur : " + hauteur);
