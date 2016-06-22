@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         mWebView.setWebChromeClient(new CustomWebChromeClient(this));
         mWebView.getSettings().setJavaScriptEnabled(true);
         String blocks = createToolBox(l.getAuthorizedBlocks());
-        mWebView.loadUrl("file:///android_asset/blockly/index.html?blocks=" + blocks);
+        mWebView.loadUrl("file:///android_asset/blockly/index.html?blocks=" + blocks + "=" + l.getNbBlocks());
         //createToolBox(l.getAuthorizedBlocks());
         //file:///android_asset/blockly/index.html
         mWebView.addJavascriptInterface(this.tbuilder , "JavaTermBuilder");

@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.webkit.JavascriptInterface;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -204,6 +205,7 @@ public class Level {
 
     public int getCellSize() { return this.cellSize;}
 
+    public int getNbBlocks() {return this.nbBlocks;}
 
     public Dir getStartDir() {return this.startDir;}
 
@@ -237,6 +239,8 @@ public class Level {
         this.p.setY(this.yStart);
         this.p.setDir(this.startDir);
     }
+
+
 
     /**********Tests************/
 

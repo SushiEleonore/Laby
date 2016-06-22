@@ -160,6 +160,7 @@ function initBlockly() {
     var content = "";
     var blocksURL = document.location.href.toString().split("=");
     var blocks = blocksURL[1].split(",");
+    var nmax = parseInt(blocksURL[2]);
     console.log(blocks);
     for ( var i = 0; i < blocks.length; i++) {
         content += "<block type=\"" + blocks[i] + "\"></block>\n";
@@ -171,6 +172,7 @@ function initBlockly() {
 
     workspace = Blockly.inject('blocklyDiv',
             {media: 'media/',
+            maxBlocks: nmax,
             zoom : { control: false,
                      wheel: false,
                      startScale : 0.90
@@ -180,3 +182,38 @@ function initBlockly() {
 
 };
 window.addEventListener("load", initBlockly);
+
+/*
+function disableBlocks() {
+    var nbBlocks = 0;
+    var nbBlocks2 = 0;
+    nbBlocks2 = Blockly.mainWorkspace.getAllBlocks().length;
+    console.log(nbBlocks);
+    console.log(nbBlocks2);
+};
+
+
+
+var workspaceChanged = function() {
+            console.log("changed");
+};
+Blockly.mainWorkspace.addChangeListener(workspaceChanged);
+
+
+
+     workspace = Blockly.inject('blocklyDiv',
+        {media: 'media/',
+         maxBlocks: 5,
+         toolbox: document.getElementById('toolbox')});
+
+    function onchange(event) {
+    workspace = Blockly.inject('blocklyDiv',
+            {media: 'media/',
+             maxBlocks: 5,
+             toolbox: document.getElementById('toolbox')});
+      document.getElementById('capacity').innerHTML =
+          workspace.remainingCapacity();
+    }
+
+    workspace.addChangeListener(onchange);
+    onchange();*/
