@@ -25,7 +25,9 @@ public class WinActivity extends Activity {
     }
 
     public void nextLevel(View v){
-        //duckSound.stop();
+        duckSound.stop();
+        Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent2);
        finish();
     }
 }

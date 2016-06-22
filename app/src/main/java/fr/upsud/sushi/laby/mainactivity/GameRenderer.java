@@ -56,11 +56,37 @@ public class GameRenderer {
         bitmapPlayerW = BitmapFactory.decodeResource(res, R.drawable.mini_canard_g, options);
         bitmapEnd = BitmapFactory.decodeResource(res, R.drawable.arrivee, options);
         bitmapPath = BitmapFactory.decodeResource(res, R.drawable.path, options);
-
+/*
         bitmapPlayerMvN= BitmapFactory.decodeResource(res, R.drawable.mv_mini_canard_dos, options);
         bitmapPlayerMvS= BitmapFactory.decodeResource(res, R.drawable.mv_mini_canard_face, options);
         bitmapPlayerMvE= BitmapFactory.decodeResource(res, R.drawable.mv_mini_canard_d, options);
         bitmapPlayerMvW= BitmapFactory.decodeResource(res, R.drawable.mv_mini_canard_g, options);
+        */
+
+        bitmapPlayerMvN= BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_dos, options);
+        bitmapPlayerMvS= BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_face, options);
+        bitmapPlayerMvE= BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_d, options);
+        bitmapPlayerMvW= BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_g, options);
+        for (SurfaceView sV: listSurface.getSurfaceViews())
+            sV.getHolder().addCallback(new SurfaceHolder.Callback() {
+
+                @Override
+                public void surfaceCreated(SurfaceHolder holder) {
+                    drawBG();
+                    drawPlayer();
+                }
+
+                @Override
+                public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+                    drawBG();
+                }
+
+                @Override
+                public void surfaceDestroyed(SurfaceHolder holder) {
+                    holder.removeCallback(this);
+
+                }
+            });
 
     }
 
@@ -157,9 +183,10 @@ public class GameRenderer {
                 }
             }
 
-            drawPlayer();
 
         }
+        drawPlayer();
+
     }
 
     public void drawPlayer() {

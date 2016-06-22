@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 import java.security.spec.ECField;
 import java.util.ArrayList;
 
-import fr.upsud.sushi.laby.R;
+//import fr.upsud.sushi.laby.R;
 import fr.upsud.sushi.laby.maze.Level;
 import fr.upsud.sushi.laby.utils.Constants;
 
@@ -38,7 +38,7 @@ public class SurfaceViewDrawer {
         surfaceViews = new ArrayList<SurfaceView>();
         surfaceViews.add(bg);
         surfaceViews.add(player);
-        this.scale = lvl.getCellSize()/Constants.IMAGE_SIZE;
+        this.scale = Constants.IMAGE_SIZE;
     }
 
     public ArrayList<SurfaceView> getSurfaceViews() {
@@ -47,9 +47,10 @@ public class SurfaceViewDrawer {
 
 
     public  void draw(int x, int y, Bitmap b, int id, Canvas canvas, int kx, int ky) {
-        int gap = 15;
+
         Bitmap bm = getResizedBitmap(b);
         int sizex = bm.getWidth() ;
+        int gap = (int) sizex/4;
         int sizey=bm.getHeight();
         RectF whereToDraw = new RectF(
                 x*sizex-kx*gap, y*sizey-ky*gap,
@@ -63,9 +64,9 @@ public class SurfaceViewDrawer {
     public Bitmap getResizedBitmap(Bitmap bm) {
         int width = bm.getWidth();
         int height = bm.getHeight();
-        int newWidth =(int) (width * this.scale);
-        int newHeight =(int) (height * this.scale);
-        Bitmap resizedBitmap =  Bitmap.createScaledBitmap(bm, newWidth, newHeight, false);
+        int newWidth =(int) (Constants.CELLSIZE/width);
+        int newHeight =(int) ( Constants.CELLSIZE/ height);
+        Bitmap resizedBitmap =  Bitmap.createScaledBitmap(bm, newWidth*width, newHeight*height, false);
         return resizedBitmap;
     }
 

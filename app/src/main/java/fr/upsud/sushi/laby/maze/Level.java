@@ -129,6 +129,7 @@ public class Level {
         for (int i = sizeY+4; i<tab.length; i++) {
             this.authorizedBlocks.add(tab[i]);
         }
+        computeCellSize();
     }
 
     private void openFile   (int id){
@@ -194,12 +195,13 @@ public class Level {
         System.out.println("TAILLE EN X : "+ sizex);
         float sizey = ((float)(hauteur) )/((float) (this.cells[0].length));
         System.out.println("TAILLE EN Y : " + sizey);
-        if (sizex>sizey) {
+        if (sizex<sizey) {
 
-            this.cellSize =(int) sizey;
+            this.cellSize =(int) (sizey*1.1);
         } else {
-            this.cellSize = (int) sizex;
+            this.cellSize = (int) (sizex*1.1);
         }
+        Constants.setCellSize(cellSize);
         this.cellSize = (int) sizex;
     }
 

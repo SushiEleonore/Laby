@@ -8,27 +8,29 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+
     tools:context=".mainactivity.MainActivity" android:weightSum="1"
     android:orientation="horizontal">
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_weight="0.70"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="0.5"
+        android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
         android:id="@+id/layout1"
-        android:weightSum="1">
+        >
 
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_weight="1 "
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:id="@+id/layoutGame">
+
             <SurfaceView
                 android:id="@+id/mazeview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:orientation="horizontal"
 
@@ -47,6 +49,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="172dp"
+            android:layout_weight="0.5"
             android:layout_height="wrap_content">
             <Button
                 android:layout_width="35dp"
@@ -87,9 +90,11 @@
     </LinearLayout>
 
     <WebView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:focusable="true"
+        android:layout_weight="0.5"
         android:focusableInTouchMode="true"
-        android:id="@+id/webView" android:layout_weight="0.10"/>
+        android:id="@+id/webView" />
 </LinearLayout>

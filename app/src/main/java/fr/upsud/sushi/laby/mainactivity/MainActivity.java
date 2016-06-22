@@ -3,6 +3,7 @@ package fr.upsud.sushi.laby.mainactivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.os.Handler;
@@ -133,20 +134,17 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         SurfaceView sPlayer = (SurfaceView) findViewById(R.id.playerview);
         sPlayer.setZOrderOnTop(true);    // necessary
         SurfaceViewDrawer drawer =new SurfaceViewDrawer(sMaze, sPlayer, (LinearLayout) findViewById(R.id.layout1), l);
+
         gameR= new GameRenderer(drawer, l, this.getResources());
 
         //linlay.addView(gameView);
         this.mHandler = new Handler(Looper.getMainLooper());
         //this.addContentView(gameView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT) );
         //LinearLayout lay =(LinearLayout)findViewById(R.id.layout1);
-
         //gameView.draw();
         this.tbuilder = new TermBuilder(this, l);
-        //lay.addView(gameView);
-
+       // gameR.drawBG();
         //gameR.drawPlayer();
-
-        //gameView.draw();
         setmWebView();
 
 
@@ -162,6 +160,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         //createToolBox(l.getAuthorizedBlocks());
         //file:///android_asset/blockly/index.html
         mWebView.addJavascriptInterface(this.tbuilder , "JavaTermBuilder");
+
     }
 
     public void setLevel (Level lv) {
@@ -173,6 +172,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
     @Override
     protected void onResume() {
+
          super.onResume();
     }
 
@@ -182,12 +182,12 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         super.onPause();
     }
 
-    public void winWindow(){
+    /*public void winWindow(){
         firsTime=true;
         Intent intent = new Intent(getApplicationContext(), WinActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, 0);
     }
-
+*/
     public void notify(boolean fin, String id, final boolean resetLevel, final int mv2) {
         final String id2 = id;
         final int mv=mv2;
@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                 public void run() {
 
                     if (resetLevel2) {restartLevel(); }
-                    if (fin2){winWindow();nextLevel();}
+                    if (fin2){backToMenu();}
                     else if (id2==null) {Toast.makeText(getApplicationContext(), "Tu n'es pas allé jusqu'au bout, réessaie !", Toast.LENGTH_SHORT).show();}
                     else {
                         mWebView.loadUrl("javascript:highlightBlockById('" + id2 +
@@ -234,6 +234,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         }
 
         System.out.println("tableau : "+arg);
+
         return arg;
     }
 
@@ -278,29 +279,34 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
             resetButtons();
             this.tbuilder = new TermBuilder(this, l);
             mWebView.addJavascriptInterface(tbuilder, "JavaTermBuilder");
-            SurfaceView sMaze = (SurfaceView) findViewById(R.id.mazeview);
+            /*SurfaceView sMaze = (SurfaceView) findViewById(R.id.mazeview);
             SurfaceView sPlayer = (SurfaceView) findViewById(R.id.playerview);
             sPlayer.setZOrderOnTop(true);
             SurfaceViewDrawer drawer =
                     new SurfaceViewDrawer(sMaze, sPlayer, (LinearLayout) findViewById(R.id.layout1),
                             l);
             gameR = new GameRenderer(drawer, l, this.getResources());
+            */
             gameR.update(this.l);
+
             gameR.drawPlayer();
             gameR.drawBG();
         }
     }
 
     public void actionBlocks(MenuItem m) {
+
         mCodeView.setVisibility(View.GONE);
         mWebView.setVisibility(View.VISIBLE);
     }
 
     public void actionCode(MenuItem m) {
+
         mWebView.setVisibility(View.GONE);
         mCodeView.setVisibility(View.VISIBLE);
     }
     public boolean onCreateOptionsMenu(Menu menu) {
+
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
         return true;
@@ -350,6 +356,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         //intent2.putExtra("level", level);
         startActivityForResult(intent2, 0);
         finish();
+
 
     }
 

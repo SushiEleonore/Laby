@@ -12,8 +12,8 @@ public class Constants {
 
     //Agrandissement des images
     public static final int SCALE = 4;
-    public static final int IMAGE_SIZE = 14;
-    public static final int CELLSIZE = 80;
+    public static final int IMAGE_SIZE =100;
+    public static int CELLSIZE = 2;
 
     //TODO : put the maze in the middle of the frame
     public static final int MVFWD =1;
@@ -27,7 +27,9 @@ public class Constants {
         return 2;
 
     }
-
+    public static void setCellSize(int cellSize){
+       CELLSIZE=cellSize;
+    }
 
 
     //Add sizeX and sizeY (width and height of the images)
