@@ -1,5 +1,10 @@
 package fr.upsud.sushi.laby.maze;
 
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
+import fr.upsud.sushi.laby.R;
 import fr.upsud.sushi.laby.utils.Dir;
 import fr.upsud.sushi.laby.utils.Sens;
 import fr.upsud.sushi.laby.exceptions.wallCollisionException;
@@ -22,13 +27,23 @@ public class Player {
     //The direction faced by the player
     private Dir dir;
     private Level l;
-
+    private Bitmap skin_g;
+    private Bitmap skin_d;
+    private Bitmap skin_face;
+    private Bitmap skin_dos;
 
     public Player(int x, int y, Dir d, Level l) { //prend un level
         this.dir=d;
         this.x = x;
         this.y = y;
         this.l = l;
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inScaled = false;
+        Resources res = l.getContext().getResources();
+        this.skin_g = BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_g, options);
+        this.skin_d = BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_d, options);
+        this.skin_dos = BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_dos, options);
+        this.skin_face = BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_face, options);
     }
 
     public Player(Player p) {
@@ -42,6 +57,11 @@ public class Player {
     public int getY() { return this.y;}
 
     public Level getLevel(){ return this.l;}
+
+    public Bitmap getSkin_g(){return this.skin_g;}
+    public Bitmap getSkin_d(){return this.skin_d;}
+    public Bitmap getSkin_dos(){return this.skin_dos;}
+    public Bitmap getSkin_face(){return this.skin_face;}
 
     public void setX(int pX) { this.x = pX;}
     public void setY(int pY) { this.y = pY;}

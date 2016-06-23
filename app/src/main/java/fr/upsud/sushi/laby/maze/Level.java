@@ -176,7 +176,9 @@ public class Level {
     }
 
 
-
+    public Context getContext(){
+        return this.context;
+    }
 
     private void computeCellSize() {
         int hauteur = 0;
