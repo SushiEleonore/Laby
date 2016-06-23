@@ -33,13 +33,14 @@ public class TermBuilder {
         this.play=true;
         this.gameStates = new ArrayList<GameState>();
         this.lins = new ListInstr();
-
-
     }
 
 
     @JavascriptInterface
     public void pushMove(String id) { stack.push(new MoveFwd(l, id)); }
+
+    @JavascriptInterface
+    public void pushEatChili(String id) { stack.push(new EatChili(l, id)); }
 
     @JavascriptInterface
     public void pushTurnRL(String v, String id) {

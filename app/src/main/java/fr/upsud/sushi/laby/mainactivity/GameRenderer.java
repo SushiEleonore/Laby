@@ -4,8 +4,10 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
+import android.graphics.PorterDuff;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -38,7 +40,7 @@ public class GameRenderer {
     Bitmap bitmapPlayerMvE;
     Paint paint = new Paint(Paint.FILTER_BITMAP_FLAG |
             Paint.DITHER_FLAG
-            );
+    );
 
     public GameRenderer(SurfaceViewDrawer list, Level le, Resources res) {
         listSurface = list;
@@ -64,18 +66,21 @@ public class GameRenderer {
         */
 
 
-        for (SurfaceView sV: listSurface.getSurfaceViews())
+        for (SurfaceView sV : listSurface.getSurfaceViews())
             sV.getHolder().addCallback(new SurfaceHolder.Callback() {
 
                 @Override
                 public void surfaceCreated(SurfaceHolder holder) {
                     drawBG();
+                    drawChili();
                     drawPlayer();
                 }
 
                 @Override
-                public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+                public void surfaceChanged(SurfaceHolder holder, int format, int width,
+                        int height) {
                     drawBG();
+                    drawChili();
                 }
 
                 @Override
@@ -87,12 +92,40 @@ public class GameRenderer {
 
     }
 
+    public void drawChili() {
+        int id = 2;
+        ArrayList<SurfaceView> list = listSurface.getSurfaceViews();
+        SurfaceHolder h = list.get(id).getHolder();
+        if (h.getSurface().isValid()) {
+            synchronized (h) {
+                h.setFormat(PixelFormat.TRANSPARENT);
+                Canvas canvas = h.lockCanvas();
+
+                if(l.getItem()!=null){
+                listSurface.draw(l.getItem().getX(), l.getItem().getY(), l.getItem().getSkinItem(), id, canvas,0,0);}
+                h.unlockCanvasAndPost(canvas);}
+
+        }
+    }
+
+    public void eraseChili() {
+        int id = 2;
+        ArrayList<SurfaceView> list = listSurface.getSurfaceViews();
+        SurfaceHolder h = list.get(id).getHolder();
+        if (h.getSurface().isValid()) {
+            synchronized (h) {
+                h.setFormat(PixelFormat.TRANSPARENT);
+                Canvas canvas = h.lockCanvas();
+                canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+                h.unlockCanvasAndPost(canvas);
+            }
+        }
+    }
 
     public void drawBG() {
         int id = 0;
         ArrayList<SurfaceView> list = listSurface.getSurfaceViews();
         SurfaceHolder h = list.get(0).getHolder();
-        
 
         if (h.getSurface().isValid()) {
 
@@ -136,8 +169,8 @@ public class GameRenderer {
     public void drawMvingPlayer(int mv) {
         int id = 1;
         Bitmap b;
-        int xmove = 0;
-        int ymove = 0;
+        int xmove;
+        int ymove;
         switch (l.getPlayer().getDir()) {
             case S:
                 b = l.getPlayer().getSkin_face();
@@ -204,17 +237,16 @@ public class GameRenderer {
 
                 break;
             default:
-                b = l.getPlayer().getSkin_dos();;
+                b = l.getPlayer().getSkin_dos();
                 break;
         }
-        b = Bitmap.createBitmap(b, 0, 0, b.getWidth() / 3, b.getHeight());
-
+        Bitmap be = Bitmap.createBitmap(b, 0, 0, b.getWidth() / 3, b.getHeight());
         SurfaceHolder h = listSurface.getSurfaceViews().get(id).getHolder();
         if (h.getSurface().isValid()) {
             h.setFormat(PixelFormat.TRANSPARENT);
             synchronized (h) {
                 Canvas canvas = h.lockCanvas();
-                listSurface.draw(l.getPlayer().getX(), l.getPlayer().getY(), b, id,canvas, 0, 0);
+                listSurface.draw(l.getPlayer().getX(), l.getPlayer().getY(), be, id,canvas, 0, 0);
                 h.unlockCanvasAndPost(canvas);
             }
         }

@@ -44,7 +44,7 @@ public class Level {
     private int cellSize;
 
     private int lvl;
-
+    private Item item;
     private ArrayList<String> authorizedBlocks;
 
     private int nbBlocks;
@@ -117,6 +117,10 @@ public class Level {
                         this.xStart = j;
                         this.yStart =  i-4;
                         break;
+                    case 'p' :
+                        cells[j][i-4] = new Cell(Cell.Type.PATH);
+                        this.item=new Item(j, i-4, this);
+                        break;
                     default : //=end
                         cells[j][i-4] = new Cell(Cell.Type.END);
                         this.xEnd = j;
@@ -171,6 +175,10 @@ public class Level {
          } else if (lvl == 6) {
              this.lvl = lvl;
              openFile( R.raw.level6);
+
+         } else if (lvl == 7) {
+             this.lvl = lvl;
+            openFile( R.raw.level7);
          }
         computeCellSize();
     }
@@ -244,6 +252,7 @@ public class Level {
         this.p.setDir(this.startDir);
     }
 
+    public Item getItem(){return this.item;}
 
 
     /**********Tests************/

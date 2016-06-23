@@ -92,6 +92,17 @@ Blockly.Blocks['ifelse'] = {
     this.setHelpUrl('http://www.example.com/');
   }
 };
+Blockly.Blocks['eatchili'] = {
+    init: function() {
+      this.appendDummyInput()
+          .appendField("Manger le piment");
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour(120);
+      this.setTooltip('');
+      this.setHelpUrl('http://www.example.com/');
+    }
+  };
 //Term Builders
 Blockly.JavaScript['turn'] = function(block) {
 
@@ -101,6 +112,12 @@ Blockly.JavaScript['turn'] = function(block) {
   return code;
 };
 
+
+Blockly.JavaScript['eatchili'] = function(block) {
+   console.log("Creating :" + block.id);
+   var code = 'JavaTermBuilder.pushEatChili("'+ block.id +'");\n';
+   return code;
+};
 
 Blockly.JavaScript['move'] = function(block) {
 

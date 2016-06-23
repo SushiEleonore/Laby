@@ -31,6 +31,8 @@ public class Player {
     private Bitmap skin_d;
     private Bitmap skin_face;
     private Bitmap skin_dos;
+    private boolean hasChili;
+
 
     public Player(int x, int y, Dir d, Level l) { //prend un level
         this.dir=d;
@@ -44,6 +46,7 @@ public class Player {
         this.skin_d = BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_d, options);
         this.skin_dos = BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_dos, options);
         this.skin_face = BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_face, options);
+        this.hasChili=false;
     }
 
     public Player(Player p) {
@@ -51,11 +54,16 @@ public class Player {
         this.x = p.getX();
         this.y = p.getY();
         this.l = p.getLevel();
+        this.hasChili=p.hasChili();
+        this.skin_g = p.getSkin_g();
+        this.skin_d = p.getSkin_d();
+        this.skin_dos = p.getSkin_dos();
+        this.skin_face = p.getSkin_face();
     }
 
     public int getX() { return this.x;}
     public int getY() { return this.y;}
-
+    public boolean hasChili(){return this.hasChili;}
     public Level getLevel(){ return this.l;}
 
     public Bitmap getSkin_g(){return this.skin_g;}
@@ -63,6 +71,9 @@ public class Player {
     public Bitmap getSkin_dos(){return this.skin_dos;}
     public Bitmap getSkin_face(){return this.skin_face;}
 
+    public void setItem(){
+        this.hasChili=true;
+    }
     public void setX(int pX) { this.x = pX;}
     public void setY(int pY) { this.y = pY;}
     public void setDir(Dir d) { this.dir = d;}

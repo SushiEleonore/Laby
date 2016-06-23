@@ -1,7 +1,11 @@
 package fr.upsud.sushi.laby.calculus;
 
 
+import android.os.Looper;
+import android.widget.Toast;
+
 import fr.upsud.sushi.laby.exceptions.wallCollisionException;
+import fr.upsud.sushi.laby.mainactivity.MainActivity;
 import fr.upsud.sushi.laby.maze.Level;
 
 /**
@@ -18,7 +22,10 @@ public class MoveFwd implements Instr {
     }
     public Couple next(){
         try { this.l.getPlayer().move(this.l);
-        } catch (wallCollisionException E) {}
+        } catch (wallCollisionException E) {
+            Looper.prepare();
+            Toast.makeText(l.getContext(), "Bim, tu t'es cogné contre un mur", Toast.LENGTH_SHORT).show();
+        }
         return new Couple(this.id,new ListInstr());
     }
 

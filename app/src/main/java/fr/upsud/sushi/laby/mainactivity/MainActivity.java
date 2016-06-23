@@ -132,8 +132,10 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
         SurfaceView sMaze= (SurfaceView) findViewById(R.id.mazeview);
         SurfaceView sPlayer = (SurfaceView) findViewById(R.id.playerview);
+        SurfaceView sChili = (SurfaceView) findViewById(R.id.chiliview);
+        sChili.setZOrderOnTop(true);
         sPlayer.setZOrderOnTop(true);    // necessary
-        SurfaceViewDrawer drawer =new SurfaceViewDrawer(sMaze, sPlayer, (LinearLayout) findViewById(R.id.layout1), l);
+        SurfaceViewDrawer drawer =new SurfaceViewDrawer(sMaze, sPlayer, sChili, (LinearLayout) findViewById(R.id.layout1), l);
 
         gameR= new GameRenderer(drawer, l, this.getResources());
 
@@ -169,6 +171,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     public void setLevel (Level lv) {
         this.l = lv; firsTime=true;
         gameR.drawBG();
+        gameR.drawChili();
 
     }
 
@@ -210,8 +213,9 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                                 "')");
 
                         if(mv==0)gameR.drawPlayer();
-                        else gameR.drawMvingPlayer(mv);
 
+                        else gameR.drawMvingPlayer(mv);
+                        if(l.getPlayer().hasChili())gameR.eraseChili();
 
 
                     }
@@ -294,6 +298,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
             gameR.drawPlayer();
             gameR.drawBG();
+            gameR.drawChili();
         }
     }
 
