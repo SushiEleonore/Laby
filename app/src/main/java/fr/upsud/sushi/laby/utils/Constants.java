@@ -20,7 +20,7 @@ public class Constants {
     public static final int MVBWD = -1;
     public static final int NOMV = 0;
 
-    public static final int maxLvl = 6;
+    public static final int maxLvl = 7;
 
     public static float getScale(LinearLayout lay, Level l) {
         int hauteur = lay.getHeight();
