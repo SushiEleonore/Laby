@@ -50,10 +50,10 @@ public class GameRenderer {
 
 
         bitmapWall = BitmapFactory.decodeResource(res, R.drawable.mini_mur2, options);
-        bitmapPlayerN = BitmapFactory.decodeResource(res, R.drawable.mini_canard_dos, options);
+       /* bitmapPlayerN = BitmapFactory.decodeResource(res, R.drawable.mini_canard_dos, options);
         bitmapPlayerS = BitmapFactory.decodeResource(res, R.drawable.mini_canard_face, options);
         bitmapPlayerE = BitmapFactory.decodeResource(res, R.drawable.mini_canard_d, options);
-        bitmapPlayerW = BitmapFactory.decodeResource(res, R.drawable.mini_canard_g, options);
+        bitmapPlayerW = BitmapFactory.decodeResource(res, R.drawable.mini_canard_g, options);*/
         bitmapEnd = BitmapFactory.decodeResource(res, R.drawable.arrivee, options);
         bitmapPath = BitmapFactory.decodeResource(res, R.drawable.path, options);
 /*
@@ -63,10 +63,7 @@ public class GameRenderer {
         bitmapPlayerMvW= BitmapFactory.decodeResource(res, R.drawable.mv_mini_canard_g, options);
         */
 
-        bitmapPlayerMvN= BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_dos, options);
-        bitmapPlayerMvS= BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_face, options);
-        bitmapPlayerMvE= BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_d, options);
-        bitmapPlayerMvW= BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_g, options);
+
         for (SurfaceView sV: listSurface.getSurfaceViews())
             sV.getHolder().addCallback(new SurfaceHolder.Callback() {
 
@@ -143,22 +140,22 @@ public class GameRenderer {
         int ymove = 0;
         switch (l.getPlayer().getDir()) {
             case S:
-                b = bitmapPlayerMvS;
+                b = l.getPlayer().getSkin_face();
                 xmove = 0;
                 ymove = mv;
                 break;
             case E:
-                b = bitmapPlayerMvE;
+                b = l.getPlayer().getSkin_d();
                 xmove = mv;
                 ymove = 0;
                 break;
             case W:
-                b = bitmapPlayerMvW;
+                b = l.getPlayer().getSkin_g();
                 xmove = -mv;
                 ymove = 0;
                 break;
             default:
-                b = bitmapPlayerMvN;
+                b = l.getPlayer().getSkin_dos();
                 xmove = 0;
                 ymove = -mv;
                 break;
@@ -195,24 +192,27 @@ public class GameRenderer {
 
         switch (l.getPlayer().getDir()) {
             case S:
-                b = bitmapPlayerS;
+                b = l.getPlayer().getSkin_face();
+
                 break;
             case E:
-                b = bitmapPlayerE;
+                b = l.getPlayer().getSkin_d();
+
                 break;
             case W:
-                b = bitmapPlayerW;
+                b = l.getPlayer().getSkin_g();
+
                 break;
             default:
-                b = bitmapPlayerN;
+                b = l.getPlayer().getSkin_dos();;
                 break;
         }
+        b = Bitmap.createBitmap(b, 0, 0, b.getWidth() / 3, b.getHeight());
         SurfaceHolder h = listSurface.getSurfaceViews().get(id).getHolder();
         if (h.getSurface().isValid()) {
             h.setFormat(PixelFormat.TRANSPARENT);
             synchronized (h) {
                 Canvas canvas = h.lockCanvas();
-
                 listSurface.draw(l.getPlayer().getX(), l.getPlayer().getY(), b, id,canvas, 0, 0);
                 h.unlockCanvasAndPost(canvas);
             }
