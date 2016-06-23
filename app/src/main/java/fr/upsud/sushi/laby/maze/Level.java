@@ -150,7 +150,7 @@ public class Level {
     //Generates a maze and a player depending on the level.
     //Replaced the arraylist by an array
     public Level (int lvl, Context ctx) {
-        this.levelMax = 6;
+        this.levelMax = Constants.maxLvl;
         this.context = ctx;
         this.authorizedBlocks = new ArrayList<String>();
          if (lvl == 1) {
@@ -197,12 +197,12 @@ public class Level {
         System.out.println("TAILLE EN Y : " + sizey);
         if (sizex<sizey) {
 
-            this.cellSize =(int) (sizey*1.1);
+            this.cellSize =(int) (sizey);
         } else {
-            this.cellSize = (int) (sizex*1.1);
+            this.cellSize = (int) (sizex);
         }
         Constants.setCellSize(cellSize);
-        this.cellSize = (int) sizex;
+        //this.cellSize = (int) sizex;
     }
 
     public int getCellSize() { return this.cellSize;}

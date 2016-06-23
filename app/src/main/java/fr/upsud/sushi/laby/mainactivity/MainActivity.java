@@ -151,6 +151,8 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     }
 
     public void setmWebView () {
+
+
         mWebView = (WebView) findViewById(R.id.webView);
 
         mWebView.setWebChromeClient(new CustomWebChromeClient(this));
@@ -201,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
                     if (resetLevel2) {restartLevel(); }
                     if (fin2){backToMenu();}
-                    else if (id2==null) {Toast.makeText(getApplicationContext(), "Tu n'es pas allé jusqu'au bout, réessaie !", Toast.LENGTH_SHORT).show();}
+                    else if (id2==null) {Toast.makeText(getApplicationContext(), R.string.essaie_encore, Toast.LENGTH_SHORT).show();}
                     else {
                         mWebView.loadUrl("javascript:highlightBlockById('" + id2 +
                                 "')");
@@ -270,7 +272,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     public void nextLevel() {
         int lvl = l.getLevel();
         if (lvl+1>l.getLevelMax()){
-            Toast.makeText(getApplicationContext(), "Bravo, tu as fini le jeu !", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.toast_bravo, Toast.LENGTH_SHORT).show();
             backToMenu();
         } else {
             setLevel(new Level(lvl + 1, this));
@@ -368,6 +370,61 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         finish();
 
     }
+
+
+
+    /**** For string resources ****/
+
+    @JavascriptInterface
+    public void get_tourner_a() {
+        mWebView.loadUrl("javascript:get_tourner_a('" + getString(R.string.tourner_a) +
+                "')");
+    }
+    @JavascriptInterface
+    public void get_gauche() {
+        mWebView.loadUrl("javascript:get_gauche('" + getString(R.string.gauche) +
+                "')");
+    }
+    @JavascriptInterface
+    public void get_droite() {
+        mWebView.loadUrl("javascript:get_droite('" + getString(R.string.droite) +
+                "')");
+    }
+    @JavascriptInterface
+    public void get_a_gauche() {
+        mWebView.loadUrl("javascript:get_a_gauche('" + getString(R.string.a_gauche) +
+                "')");
+    }
+    @JavascriptInterface
+    public void get_a_droite() {
+        mWebView.loadUrl("javascript:get_a_droite('" + getString(R.string.a_droite) +
+                "')");
+    }
+    public void get_devant() {
+        mWebView.loadUrl("javascript:get_devant('" + getString(R.string.devant) +
+                "')");
+    }
+    public void get_avancer_case() {
+        mWebView.loadUrl("javascript:get_avancer_case('" + getString(R.string.avancer_case) +
+                "')");
+    }
+    public void get_tant_que() {
+        mWebView.loadUrl("javascript:get_tant_que('" + getString(R.string.tant_que_niv_pas_fini) +
+                "')");
+    }
+    public void get_faire() {
+        mWebView.loadUrl("javascript:get_faire('" + getString(R.string.faire) +
+                "')");
+    }
+    public void get_si_chemin() {
+        mWebView.loadUrl("javascript:get_si_chemin('" + getString(R.string.si_chemin) +
+                "')");
+    }
+    public void get_sinon() {
+        mWebView.loadUrl("javascript:get_sinon('" + getString(R.string.sinon) +
+                "')");
+    }
+
 
 
 }
