@@ -208,6 +208,7 @@ public class GameRenderer {
                 break;
         }
         b = Bitmap.createBitmap(b, 0, 0, b.getWidth() / 3, b.getHeight());
+
         SurfaceHolder h = listSurface.getSurfaceViews().get(id).getHolder();
         if (h.getSurface().isValid()) {
             h.setFormat(PixelFormat.TRANSPARENT);
@@ -217,7 +218,6 @@ public class GameRenderer {
                 h.unlockCanvasAndPost(canvas);
             }
         }
-
     }
 
 

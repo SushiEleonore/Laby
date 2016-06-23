@@ -1,8 +1,11 @@
 Blockly.Blocks['turn'] = {
   init: function() {
+    var tournera = JavaMainActivity.get_tourner_a();
+    var g = JavaMainActivity.get_gauche();
+    var d = JavaMainActivity.get_droite();
     this.appendDummyInput()
-        .appendField("tourner à")
-        .appendField(new Blockly.FieldDropdown([["gauche", "L"], ["droite", "R"]]), "NAME");
+        .appendField(tournera)
+        .appendField(new Blockly.FieldDropdown([[g, "L"], [d, "R"]]), "NAME");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(160);
@@ -12,9 +15,11 @@ Blockly.Blocks['turn'] = {
 };
 
 Blockly.Blocks['move'] = {
+
   init: function() {
+  var avancer = JavaMainActivity.get_avancer_case();
     this.appendDummyInput()
-        .appendField("avancer d'une case");
+        .appendField(avancer);
     this.setInputsInline(false);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -27,12 +32,17 @@ Blockly.Blocks['move'] = {
 
 Blockly.Blocks['ifpath'] = {
   init: function() {
+  var chemin = JavaMainActivity.get_si_chemin();
+  var dev = JavaMainActivity.get_devant();
+  var ad = JavaMainActivity.get_a_droite();
+  var ag = JavaMainActivity.get_a_gauche();
+  var f = JavaMainActivity.get_faire();
     this.appendDummyInput()
-        .appendField("Si il y a un chemin")
-        .appendField(new Blockly.FieldDropdown([["devant", "F"], ["à gauche", "L"], ["à droite", "R"]]), "DIR");
+        .appendField(chemin)
+        .appendField(new Blockly.FieldDropdown([[dev, "F"], [ag, "L"], [ad, "R"]]), "DIR");
     this.appendStatementInput("THEN")
         .setCheck(null)
-        .appendField("faire");
+        .appendField(f);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(290);
@@ -44,11 +54,13 @@ Blockly.Blocks['ifpath'] = {
 
 Blockly.Blocks['while'] = {
   init: function() {
+  var f = JavaMainActivity.get_faire();
+    var tantque = JavaMainActivity.get_tant_que();
     this.appendDummyInput()
-        .appendField("Tant que le niveau n'est pas fini,");
+        .appendField(tantque);
     this.appendStatementInput("NAME")
         .setCheck(null)
-        .appendField("faire");
+        .appendField(f);
     this.setColour(330);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
@@ -58,15 +70,21 @@ Blockly.Blocks['while'] = {
 
 Blockly.Blocks['ifelse'] = {
   init: function() {
+    var chemin = JavaMainActivity.get_si_chemin();
+    var dev = JavaMainActivity.get_devant();
+    var ad = JavaMainActivity.get_a_droite();
+    var ag = JavaMainActivity.get_a_gauche();
+    var f = JavaMainActivity.get_faire();
+    var s = JavaMainActivity.get_sinon();
     this.appendDummyInput()
-        .appendField("Si il y a un chemin")
-        .appendField(new Blockly.FieldDropdown([["devant", "F"], ["à gauche", "L"], ["à droite", "R"]]), "NAME");
+        .appendField(chemin)
+        .appendField(new Blockly.FieldDropdown([[dev, "F"], [ag, "L"], [ad, "R"]]), "NAME");
     this.appendStatementInput("then")
         .setCheck(null)
-        .appendField("faire");
+        .appendField(f);
     this.appendStatementInput("else")
         .setCheck(null)
-        .appendField("else");
+        .appendField(s);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(290);

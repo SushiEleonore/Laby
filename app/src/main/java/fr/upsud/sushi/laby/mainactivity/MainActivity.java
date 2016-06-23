@@ -162,6 +162,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         //createToolBox(l.getAuthorizedBlocks());
         //file:///android_asset/blockly/index.html
         mWebView.addJavascriptInterface(this.tbuilder , "JavaTermBuilder");
+        mWebView.addJavascriptInterface(this , "JavaMainActivity");
 
     }
 
@@ -375,54 +376,50 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
     /**** For string resources ****/
 
+
     @JavascriptInterface
-    public void get_tourner_a() {
-        mWebView.loadUrl("javascript:get_tourner_a('" + getString(R.string.tourner_a) +
-                "')");
-    }
-    @JavascriptInterface
-    public void get_gauche() {
-        mWebView.loadUrl("javascript:get_gauche('" + getString(R.string.gauche) +
-                "')");
+    public String get_tourner_a() {
+        return getString(R.string.tourner_a);
     }
     @JavascriptInterface
-    public void get_droite() {
-        mWebView.loadUrl("javascript:get_droite('" + getString(R.string.droite) +
-                "')");
+    public String get_gauche() {
+        return getString(R.string.gauche);
     }
     @JavascriptInterface
-    public void get_a_gauche() {
-        mWebView.loadUrl("javascript:get_a_gauche('" + getString(R.string.a_gauche) +
-                "')");
+    public String get_droite() {
+        return getString(R.string.droite);
     }
     @JavascriptInterface
-    public void get_a_droite() {
-        mWebView.loadUrl("javascript:get_a_droite('" + getString(R.string.a_droite) +
-                "')");
+    public String get_a_gauche() {
+        return getString(R.string.a_gauche);
     }
-    public void get_devant() {
-        mWebView.loadUrl("javascript:get_devant('" + getString(R.string.devant) +
-                "')");
+    @JavascriptInterface
+    public String get_a_droite() {
+        return getString(R.string.a_droite);
     }
-    public void get_avancer_case() {
-        mWebView.loadUrl("javascript:get_avancer_case('" + getString(R.string.avancer_case) +
-                "')");
+    @JavascriptInterface
+    public String get_devant() {
+        return getString(R.string.devant) ;
     }
-    public void get_tant_que() {
-        mWebView.loadUrl("javascript:get_tant_que('" + getString(R.string.tant_que_niv_pas_fini) +
-                "')");
+    @JavascriptInterface
+    public String get_avancer_case() {
+        return getString(R.string.avancer_case);
     }
-    public void get_faire() {
-        mWebView.loadUrl("javascript:get_faire('" + getString(R.string.faire) +
-                "')");
+    @JavascriptInterface
+    public String get_tant_que() {
+        return getString(R.string.tant_que_niv_pas_fini);
     }
-    public void get_si_chemin() {
-        mWebView.loadUrl("javascript:get_si_chemin('" + getString(R.string.si_chemin) +
-                "')");
+    @JavascriptInterface
+    public String get_faire() {
+        return getString(R.string.faire);
     }
-    public void get_sinon() {
-        mWebView.loadUrl("javascript:get_sinon('" + getString(R.string.sinon) +
-                "')");
+    @JavascriptInterface
+    public String get_si_chemin() {
+        return getString(R.string.si_chemin);
+    }
+    @JavascriptInterface
+    public String get_sinon() {
+        return getString(R.string.sinon);
     }
 
 
