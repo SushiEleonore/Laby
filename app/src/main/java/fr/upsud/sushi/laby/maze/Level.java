@@ -44,7 +44,10 @@ public class Level {
     private int cellSize;
 
     private int lvl;
+
     private Item item;
+    private BreakableWall bWall;
+
     private ArrayList<String> authorizedBlocks;
 
     private int nbBlocks;
@@ -120,6 +123,10 @@ public class Level {
                     case 'p' :
                         cells[j][i-4] = new Cell(Cell.Type.PATH);
                         this.item=new Item(j, i-4, this);
+                        break;
+                    case 'b' :
+                        cells[j][i-4] = new Cell(Cell.Type.PATH);
+                        this.bWall=new BreakableWall(j, i-4, this);
                         break;
                     default : //=end
                         cells[j][i-4] = new Cell(Cell.Type.END);
@@ -254,7 +261,7 @@ public class Level {
 
     public Item getItem(){return this.item;}
 
-
+    public BreakableWall getbWall(){return this.bWall;}
     /**********Tests************/
 
   /*  public String printMaze () {

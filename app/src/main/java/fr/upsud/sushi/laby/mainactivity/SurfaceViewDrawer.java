@@ -41,11 +41,12 @@ public class SurfaceViewDrawer {
         this.scale = Constants.IMAGE_SIZE;
     }
 
-    SurfaceViewDrawer(SurfaceView bg, SurfaceView player, SurfaceView chili, LinearLayout l, Level lvl) {
+    SurfaceViewDrawer(SurfaceView bg, SurfaceView player, SurfaceView chili, SurfaceView wall, LinearLayout l, Level lvl) {
         surfaceViews = new ArrayList<SurfaceView>();
         surfaceViews.add(bg);
         surfaceViews.add(player);
         surfaceViews.add(chili);
+        surfaceViews.add(wall);
         this.scale = Constants.IMAGE_SIZE;
     }
 

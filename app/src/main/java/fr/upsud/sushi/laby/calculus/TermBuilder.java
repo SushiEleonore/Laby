@@ -43,6 +43,9 @@ public class TermBuilder {
     public void pushEatChili(String id) { stack.push(new EatChili(l, id)); }
 
     @JavascriptInterface
+    public void pushSplitFire(String id) { stack.push(new SplitFire(l, id)); }
+
+    @JavascriptInterface
     public void pushTurnRL(String v, String id) {
         stack.push(new TurnRL(l, v, id));
     }

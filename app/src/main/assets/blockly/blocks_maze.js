@@ -103,6 +103,19 @@ Blockly.Blocks['eatchili'] = {
       this.setHelpUrl('http://www.example.com/');
     }
   };
+
+
+Blockly.Blocks['splitfire'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Activer le pouvoir du piment");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(120);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
 //Term Builders
 Blockly.JavaScript['turn'] = function(block) {
 
@@ -119,11 +132,17 @@ Blockly.JavaScript['eatchili'] = function(block) {
    return code;
 };
 
+Blockly.JavaScript['splitfire'] = function(block) {
+   console.log("Creating :" + block.id);
+       var code = 'JavaTermBuilder.pushSplitFire("'+ block.id +'");\n';
+       return code;
+};
+
 Blockly.JavaScript['move'] = function(block) {
 
-    console.log("Creating :" + block.id);
-  var code = 'JavaTermBuilder.pushMove("'+ block.id +'");\n';
-  return code;
+  console.log("Creating :" + block.id);
+     var code = 'JavaTermBuilder.pushMove("'+ block.id +'");\n';
+     return code;
 };
 
 Blockly.JavaScript['ifpath'] = function(block) {

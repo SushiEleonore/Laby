@@ -74,6 +74,7 @@ public class GameRenderer {
                     drawBG();
                     drawChili();
                     drawPlayer();
+                    drawBreakableWall();
                 }
 
                 @Override
@@ -81,6 +82,7 @@ public class GameRenderer {
                         int height) {
                     drawBG();
                     drawChili();
+                    drawBreakableWall();
                 }
 
                 @Override
@@ -110,6 +112,36 @@ public class GameRenderer {
 
     public void eraseChili() {
         int id = 2;
+        ArrayList<SurfaceView> list = listSurface.getSurfaceViews();
+        SurfaceHolder h = list.get(id).getHolder();
+        if (h.getSurface().isValid()) {
+            synchronized (h) {
+                h.setFormat(PixelFormat.TRANSPARENT);
+                Canvas canvas = h.lockCanvas();
+                canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+                h.unlockCanvasAndPost(canvas);
+            }
+        }
+    }
+
+    public void drawBreakableWall() {
+        int id = 3;
+        ArrayList<SurfaceView> list = listSurface.getSurfaceViews();
+        SurfaceHolder h = list.get(id).getHolder();
+        if (h.getSurface().isValid()) {
+            synchronized (h) {
+                h.setFormat(PixelFormat.TRANSPARENT);
+                Canvas canvas = h.lockCanvas();
+
+                if(l.getItem()!=null){
+                    listSurface.draw(l.getbWall().getX(), l.getbWall().getY(), l.getbWall().getSkinItem(), id, canvas,0,0);}
+                h.unlockCanvasAndPost(canvas);}
+
+        }
+    }
+
+    public void erasebWall() {
+        int id = 3;
         ArrayList<SurfaceView> list = listSurface.getSurfaceViews();
         SurfaceHolder h = list.get(id).getHolder();
         if (h.getSurface().isValid()) {
