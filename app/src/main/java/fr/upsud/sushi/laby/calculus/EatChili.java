@@ -1,5 +1,6 @@
 package fr.upsud.sushi.laby.calculus;
 
+import android.os.Looper;
 import android.widget.Toast;
 
 import fr.upsud.sushi.laby.maze.Level;
@@ -22,6 +23,7 @@ public class EatChili implements Instr {
         public Couple next(){
             if( this.l.getItem().playerOnCell()) l.getPlayer().setItem();
              else {
+                Looper.prepare();
                 Toast.makeText(l.getContext(), "Il n'y a rien a mangé sur cette case",
                         Toast.LENGTH_SHORT).show();
             }
