@@ -188,7 +188,9 @@ public class Level {
             openFile( R.raw.level7);
          }
         computeCellSize();
+
     }
+
 
 
     public Context getContext(){
@@ -219,8 +221,9 @@ public class Level {
             this.cellSize = (int) (sizex);
         }
         Constants.setCellSize(cellSize);
-        //this.cellSize = (int) sizex;
     }
+
+
 
     public int getCellSize() { return this.cellSize;}
 
