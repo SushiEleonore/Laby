@@ -266,6 +266,8 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         l.restart();
         gameR.drawBG();
         gameR.drawPlayer();
+        if(l.getItem()!=null)gameR.drawChili();
+        if(l.getbWall()!=null)gameR.drawBreakableWall();
         resetButtons();
         tbuilder.reset();
         firsTime =true;

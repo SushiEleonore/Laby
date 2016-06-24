@@ -35,6 +35,10 @@ public class BreakableWall {
     public int getX() { return this.x;}
     public int getY() { return this.y;}
 
+    public void restart(){
+        this.state= true;
+    }
+
     public Bitmap getSkinItem(){ return this.skinBWall;}
     public Bitmap getSkinBurning(){return this.skinBurnig;}
 

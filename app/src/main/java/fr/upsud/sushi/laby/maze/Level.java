@@ -257,6 +257,9 @@ public class Level {
         this.p.setX(this.xStart);
         this.p.setY(this.yStart);
         this.p.setDir(this.startDir);
+        this.p.setChili(false);
+        if(bWall!=null)bWall.restart();
+
     }
 
     public Item getItem(){return this.item;}
