@@ -133,10 +133,10 @@ public class TermBuilder {
                     //If the player doesn't stop the execution
                     if(play) {
                         if (!b.eval()) {
-                             gui.notify(false, null, true, Constants.NOMV);
+                             gui.notify(false, null, true, Constants.NOMV, gameStates.get(nStep).playerDestroying());
 
                         } else {
-                            gui.notify(true, null, false, Constants.NOMV);
+                            gui.notify(true, null, false, Constants.NOMV, gameStates.get(nStep).playerDestroying());
                         }
                     }
 
@@ -181,8 +181,8 @@ public class TermBuilder {
                             Couple c = lins.eval();
                             gameStates.add(new GameState(c.getId(), temp, new Player(l.getPlayer())));
                             if(gameStates.get(nStep).playerMoving())
-                                gui.notify(false, c.getId(), false, Constants.MVFWD);
-                            else gui.notify(false, c.getId(), false, Constants.NOMV);
+                                gui.notify(false, c.getId(), false, Constants.MVFWD , gameStates.get(nStep).playerDestroying());
+                            else gui.notify(false, c.getId(), false, Constants.NOMV, gameStates.get(nStep).playerDestroying());
                             lins = c.getListInstr();
                         }
 
@@ -202,10 +202,10 @@ public class TermBuilder {
                         nStep++;
                         l.setPlayer(gameStates.get(nStep).getpArr());
                     if(gameStates.get(nStep).playerMoving()   )
-                        gui.notify(false, gameStates.get(nStep).getId(), false, Constants.MVFWD);
+                        gui.notify(false, gameStates.get(nStep).getId(), false, Constants.MVFWD,gameStates.get(nStep).playerDestroying());
 
                     else
-                        gui.notify(false, gameStates.get(nStep).getId(), false, Constants.NOMV);
+                        gui.notify(false, gameStates.get(nStep).getId(), false, Constants.NOMV,gameStates.get(nStep).playerDestroying());
                     try { Thread.sleep(1000); } catch (Exception e) {e.printStackTrace(); System.out.println("Exception");}
 
 
@@ -229,9 +229,9 @@ public class TermBuilder {
                     System.out.println(nStep);
                     l.setPlayer(gameStates.get(nStep + 1).getpDep());
                     if(gameStates.get(nStep+1).playerMoving()   ){
-                        gui.notify(false, gameStates.get(nStep+1).getId(), false, Constants.MVBWD);
+                        gui.notify(false, gameStates.get(nStep+1).getId(), false, Constants.MVBWD,gameStates.get(nStep).playerDestroying());
                     }
-                    else { gui.notify(false, gameStates.get(nStep+1).getId(), false, Constants.NOMV);}
+                    else { gui.notify(false, gameStates.get(nStep+1).getId(), false, Constants.NOMV, gameStates.get(nStep).playerDestroying());}
 
                 }
 

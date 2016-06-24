@@ -27,17 +27,8 @@ public class GameRenderer {
     Resources res;
 
     Bitmap bitmapWall;
-
-    Bitmap bitmapPlayerN;
-    Bitmap bitmapPlayerS;
-    Bitmap bitmapPlayerE;
-    Bitmap bitmapPlayerW;
     Bitmap bitmapEnd;
     Bitmap bitmapPath;
-    Bitmap bitmapPlayerMvN;
-    Bitmap bitmapPlayerMvW;
-    Bitmap bitmapPlayerMvS;
-    Bitmap bitmapPlayerMvE;
     Paint paint = new Paint(Paint.FILTER_BITMAP_FLAG |
             Paint.DITHER_FLAG
     );
@@ -66,31 +57,79 @@ public class GameRenderer {
         */
 
 
-        for (SurfaceView sV : listSurface.getSurfaceViews())
-            sV.getHolder().addCallback(new SurfaceHolder.Callback() {
+      //  for (SurfaceView sV : listSurface.getSurfaceViews())
+            listSurface.getSurfaceViews().get(0).getHolder().addCallback(new SurfaceHolder.Callback() {
 
                 @Override
                 public void surfaceCreated(SurfaceHolder holder) {
                     drawBG();
-                    drawChili();
-                    drawPlayer();
-                    drawBreakableWall();
                 }
 
                 @Override
                 public void surfaceChanged(SurfaceHolder holder, int format, int width,
                         int height) {
                     drawBG();
-                    drawChili();
-                    drawBreakableWall();
                 }
 
                 @Override
                 public void surfaceDestroyed(SurfaceHolder holder) {
                     holder.removeCallback(this);
-
                 }
             });
+        listSurface.getSurfaceViews().get(1).getHolder().addCallback(new SurfaceHolder.Callback() {
+
+            @Override
+            public void surfaceCreated(SurfaceHolder holder) {
+                drawPlayer();
+            }
+
+            @Override
+            public void surfaceChanged(SurfaceHolder holder, int format, int width,
+                    int height) {
+                drawPlayer();
+            }
+
+            @Override
+            public void surfaceDestroyed(SurfaceHolder holder) {
+                holder.removeCallback(this);
+            }
+        });
+        listSurface.getSurfaceViews().get(2).getHolder().addCallback(new SurfaceHolder.Callback() {
+
+            @Override
+            public void surfaceCreated(SurfaceHolder holder) {
+                drawChili();
+            }
+
+            @Override
+            public void surfaceChanged(SurfaceHolder holder, int format, int width,
+                    int height) {
+                drawChili();
+            }
+
+            @Override
+            public void surfaceDestroyed(SurfaceHolder holder) {
+                holder.removeCallback(this);
+            }
+        });
+        listSurface.getSurfaceViews().get(3).getHolder().addCallback(new SurfaceHolder.Callback() {
+
+            @Override
+            public void surfaceCreated(SurfaceHolder holder) {
+                drawBreakableWall();
+            }
+
+            @Override
+            public void surfaceChanged(SurfaceHolder holder, int format, int width,
+                    int height) {
+                drawBreakableWall();
+            }
+
+            @Override
+            public void surfaceDestroyed(SurfaceHolder holder) {
+                holder.removeCallback(this);
+            }
+        });
 
     }
 
@@ -237,6 +276,47 @@ public class GameRenderer {
                     listSurface.draw(l.getPlayer().getX(), l.getPlayer().getY(), imgs[k], id, canvas,
                             k * xmove, k * ymove);
                     h.unlockCanvasAndPost(canvas);
+                }
+                try {
+                    Thread.sleep(300);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+        }
+        drawPlayer();
+
+    }
+
+    public void drawPDestroying() {
+        int idP = 1;
+        int idBWall=3;
+        Bitmap bP, bW;
+        bP = l.getPlayer().getpDestroying();
+        bW= l.getbWall().getSkinBurning();
+        Bitmap[] imgsP = new Bitmap[3];
+        Bitmap[] imgsW = new Bitmap[3];
+        imgsP[0] = Bitmap.createBitmap(bP, 0, 0, bP.getWidth() / 3, bP.getHeight());
+        imgsP[1] = Bitmap.createBitmap(bP, bP.getWidth() / 3, 0, bP.getWidth() / 3, bP.getHeight());
+        imgsP[2] = Bitmap.createBitmap(bP, 2 * bP.getWidth() / 3, 0, bP.getWidth() / 3, bP.getHeight());
+        imgsW[0] = Bitmap.createBitmap(bW, 0, 0, bW.getWidth() / 3, bW.getHeight());
+        imgsW[1] = Bitmap.createBitmap(bW, bW.getWidth() / 3, 0, bW.getWidth() / 3, bW.getHeight());
+        imgsW[2] = Bitmap.createBitmap(bW, 2 * bW.getWidth() / 3, 0, bW.getWidth() / 3, bW.getHeight());
+        SurfaceHolder hP = listSurface.getSurfaceViews().get(idP).getHolder();
+        SurfaceHolder hW = listSurface.getSurfaceViews().get(idBWall).getHolder();
+        for (int k = 2; k >= 0; k--) {
+            if (hP.getSurface().isValid()&&hW.getSurface().isValid()) {
+                Canvas canvas = hP.lockCanvas();
+                Canvas canvasW= hW.lockCanvas();
+                synchronized (canvas) {
+                    listSurface.draw(l.getPlayer().getX(), l.getPlayer().getY(), imgsP[k], idP, canvas,
+                            0, 0);
+                    listSurface.draw(l.getbWall().getX(), l.getbWall().getY(), imgsW[k], idBWall, canvasW,
+                            0, 0);
+                    hP.unlockCanvasAndPost(canvas);
+                    hW.unlockCanvasAndPost(canvasW);
                 }
                 try {
                     Thread.sleep(300);

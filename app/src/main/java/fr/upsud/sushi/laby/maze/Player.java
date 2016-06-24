@@ -31,6 +31,7 @@ public class Player {
     private Bitmap skin_d;
     private Bitmap skin_face;
     private Bitmap skin_dos;
+    private Bitmap pDestroying;
     private boolean hasChili;
 
 
@@ -46,6 +47,7 @@ public class Player {
         this.skin_d = BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_d, options);
         this.skin_dos = BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_dos, options);
         this.skin_face = BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_face, options);
+        this.pDestroying= BitmapFactory.decodeResource(res, R.drawable.pdestroying, options);
         this.hasChili=false;
     }
 
@@ -61,6 +63,8 @@ public class Player {
         this.skin_face = p.getSkin_face();
     }
 
+    public void setChili(Boolean b){this.hasChili=false;}
+
     public int getX() { return this.x;}
     public int getY() { return this.y;}
     public boolean hasChili(){return this.hasChili;}
@@ -70,6 +74,7 @@ public class Player {
     public Bitmap getSkin_d(){return this.skin_d;}
     public Bitmap getSkin_dos(){return this.skin_dos;}
     public Bitmap getSkin_face(){return this.skin_face;}
+    public Bitmap getpDestroying(){return this.pDestroying;}
 
     public void setItem(){
         this.hasChili=true;

@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         startActivityForResult(intent, 0);
     }
 */
-    public void notify(boolean fin, String id, final boolean resetLevel, final int mv2) {
+    public void notify(boolean fin, String id, final boolean resetLevel, final int mv2, final boolean pDestroying) {
         final String id2 = id;
         final int mv=mv2;
         final boolean fin2 =fin;
@@ -210,8 +210,8 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                     else {
                         mWebView.loadUrl("javascript:highlightBlockById('" + id2 +
                                 "')");
-
-                        if(mv==0)gameR.drawPlayer();
+                        if(pDestroying) gameR.drawPDestroying();
+                        else if(mv==0)gameR.drawPlayer();
 
                         else gameR.drawMvingPlayer(mv);
                         if(l.getPlayer().hasChili())gameR.eraseChili();
@@ -293,11 +293,11 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                             l);
             gameR = new GameRenderer(drawer, l, this.getResources());
             */
-            gameR.update(this.l);
+            //gameR.update(this.l);
 
-            gameR.drawPlayer();
-            gameR.drawBG();
-            gameR.drawChili();
+          // gameR.drawPlayer();
+            //gameR.drawBG();
+            //gameR.drawChili();
         }
     }
 

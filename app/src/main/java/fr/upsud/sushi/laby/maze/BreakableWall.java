@@ -15,6 +15,7 @@ public class BreakableWall {
     //state is true if wall is not broken
     private boolean state;
     Bitmap skinBWall;
+    Bitmap skinBurnig;
     //The direction faced by the player
     private Level l;
 
@@ -28,12 +29,14 @@ public class BreakableWall {
         options.inScaled = false;
         Resources res=this.l.getContext().getResources();
         this.skinBWall = BitmapFactory.decodeResource(res, R.drawable.breakablewall, options);
+        this.skinBurnig = BitmapFactory.decodeResource(res, R.drawable.burningbwall, options);
     }
 
     public int getX() { return this.x;}
     public int getY() { return this.y;}
 
     public Bitmap getSkinItem(){ return this.skinBWall;}
+    public Bitmap getSkinBurning(){return this.skinBurnig;}
 
     public Level getLevel(){ return this.l;}
 
@@ -45,6 +48,8 @@ public class BreakableWall {
                 (this.y-1==this.l.getPlayer().getY())||
                 (this.y+1==this.l.getPlayer().getY()));
     }
-    public void setState(Boolean b){this.state=b;}
+    public void setState(Boolean b){
+        if(!b) l.getPlayer().setChili(false);
+        this.state=b;}
     public boolean getState(){return this.state;}
 }

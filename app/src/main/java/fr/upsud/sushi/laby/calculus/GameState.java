@@ -34,5 +34,8 @@ public class GameState {
         else return false;
     }
 
+    public boolean playerDestroying(){
+        return this.pDep.hasChili()&&!this.pArr.hasChili();
+    }
 
 }

@@ -65,7 +65,8 @@ public class SurfaceViewDrawer {
                 x*sizex-kx*gap, y*sizey-ky*gap,
                 (x+1)*sizex-kx*gap ,
                 (1+y) *sizey-ky*gap);
-        if (id!= BG_LAYER) canvas.drawColor(0, PorterDuff.Mode.CLEAR);
+        if (id== 1)
+            canvas.drawColor(0, PorterDuff.Mode.CLEAR);
         canvas.drawBitmap(bm, null, whereToDraw, paint);
     }
 
