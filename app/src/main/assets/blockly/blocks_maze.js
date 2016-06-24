@@ -94,8 +94,9 @@ Blockly.Blocks['ifelse'] = {
 };
 Blockly.Blocks['eatchili'] = {
     init: function() {
+    var pim = JavaMainActivity.get_manger();
       this.appendDummyInput()
-          .appendField("Manger le piment");
+          .appendField(pim);
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
       this.setColour(120);
@@ -107,8 +108,9 @@ Blockly.Blocks['eatchili'] = {
 
 Blockly.Blocks['splitfire'] = {
   init: function() {
+  act = JavaMainActivity.get_activer_pouvoir();
     this.appendDummyInput()
-        .appendField("Activer le pouvoir du piment");
+        .appendField(act);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(120);

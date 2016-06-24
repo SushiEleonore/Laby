@@ -164,7 +164,6 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         String blocks = createToolBox(l.getAuthorizedBlocks());
         mWebView.loadUrl("file:///android_asset/blockly/index.html?blocks=" + blocks + "=" + l.getNbBlocks());
         //createToolBox(l.getAuthorizedBlocks());
-        //file:///android_asset/blockly/index.html
         mWebView.addJavascriptInterface(this.tbuilder , "JavaTermBuilder");
         mWebView.addJavascriptInterface(this , "JavaMainActivity");
 
@@ -174,13 +173,11 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         this.l = lv; firsTime=true;
         gameR.drawBG();
         gameR.drawChili();
-
     }
 
 
     @Override
     protected void onResume() {
-
          super.onResume();
     }
 
@@ -228,7 +225,6 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
 
     /**** Blocks operations ****/
-
 
 
     public String createToolBox(ArrayList<String> blocks) {
@@ -384,7 +380,6 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
     /**** For string resources ****/
 
-
     @JavascriptInterface
     public String get_tourner_a() {
         return getString(R.string.tourner_a);
@@ -428,6 +423,14 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     @JavascriptInterface
     public String get_sinon() {
         return getString(R.string.sinon);
+    }
+    @JavascriptInterface
+    public String get_manger() {
+        return getString(R.string.manger_piment);
+    }
+    @JavascriptInterface
+    public String get_activer_pouvoir() {
+        return getString(R.string.activer_pouvoir);
     }
 
 

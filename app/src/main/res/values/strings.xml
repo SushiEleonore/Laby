@@ -22,6 +22,8 @@
         <string name="faire">faire</string>
         <string name="si_chemin">S\'il y a un chemin</string>
         <string name ="sinon">sinon</string>
+        <string name ="manger_piment">Manger le piment</string>
+        <string name="activer_pouvoir">Activer le pouvoir du piment</string>
 
         <string name = "toast_bravo">Bravo, tu as fini le jeu !</string>
         <string name = "essaie_encore">Tu n\'es pas allé jusqu\'au bout, réessaie !</string>
