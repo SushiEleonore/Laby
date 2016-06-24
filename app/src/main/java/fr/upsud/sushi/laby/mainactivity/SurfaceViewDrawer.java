@@ -74,9 +74,9 @@ public class SurfaceViewDrawer {
     public Bitmap getResizedBitmap(Bitmap bm) {
         int width = bm.getWidth();
         int height = bm.getHeight();
-        int newWidth =(int) (Constants.CELLSIZE/width);
-        int newHeight =(int) ( Constants.CELLSIZE/ height);
-        Bitmap resizedBitmap =  Bitmap.createScaledBitmap(bm, newWidth*width, newHeight*height, false);
+        float newWidth = Constants.CELLSIZE/width;
+        float newHeight = Constants.CELLSIZE/ height;
+        Bitmap resizedBitmap =  Bitmap.createScaledBitmap(bm, (int)(newWidth*width), (int)(newHeight*height), false);
         return resizedBitmap;
     }
 

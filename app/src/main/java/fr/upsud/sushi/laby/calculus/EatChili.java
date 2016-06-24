@@ -24,7 +24,7 @@ public class EatChili implements Instr {
             if( this.l.getItem().playerOnCell()) l.getPlayer().setItem();
              else {
                 Looper.prepare();
-                Toast.makeText(l.getContext(), "Il n'y a rien à mangé sur cette case",
+                Toast.makeText(l.getContext(), "Il n'y a rien à manger sur cette case",
                         Toast.LENGTH_SHORT).show();
             }
 

@@ -229,9 +229,9 @@ public class TermBuilder {
                     System.out.println(nStep);
                     l.setPlayer(gameStates.get(nStep + 1).getpDep());
                     if(gameStates.get(nStep+1).playerMoving()   ){
-                        gui.notify(false, gameStates.get(nStep+1).getId(), false, Constants.MVBWD,gameStates.get(nStep).playerDestroying());
+                        gui.notify(false, gameStates.get(nStep+1).getId(), false, Constants.MVBWD,gameStates.get(nStep+1).playerDestroying());
                     }
-                    else { gui.notify(false, gameStates.get(nStep+1).getId(), false, Constants.NOMV, gameStates.get(nStep).playerDestroying());}
+                    else { gui.notify(false, gameStates.get(nStep+1).getId(), false, Constants.NOMV, gameStates.get(nStep+1).playerDestroying());}
 
                 }
 
