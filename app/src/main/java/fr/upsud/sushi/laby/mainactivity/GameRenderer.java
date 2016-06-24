@@ -62,12 +62,14 @@ public class GameRenderer {
 
                 @Override
                 public void surfaceCreated(SurfaceHolder holder) {
+                    l.setCellSize(holder.getSurfaceFrame().height(), holder.getSurfaceFrame().width());
                     drawBG();
                 }
 
                 @Override
                 public void surfaceChanged(SurfaceHolder holder, int format, int width,
                         int height) {
+                    //l.setCellSize(holder.getSurfaceFrame().height(), holder.getSurfaceFrame().width());
                     drawBG();
                 }
 

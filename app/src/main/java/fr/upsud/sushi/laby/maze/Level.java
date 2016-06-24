@@ -223,6 +223,27 @@ public class Level {
         Constants.setCellSize(cellSize);
     }
 
+    public void setCellSize(int h, int w){
+        System.out.println("h : " + h + "\nw : " + w);
+        System.out.println("appel à setcellsize ");
+        float sizex = ((float)(w)) / ((float)(this.cells.length));
+        System.out.println("TAILLE EN X : "+ sizex);
+        float sizey = ((float)(h) )/((float) (this.cells[0].length));
+        System.out.println("TAILLE EN Y : " + sizey);
+        if (sizex<sizey) {
+
+            this.cellSize =(int) (sizex);
+        } else {
+            this.cellSize = (int) (sizey);
+        }
+
+
+        System.out.println( "Eccess width :" + (w - this.cells.length * this.cellSize) );
+        System.out.println( "Eccess height :" + (h - this.cells[0].length * this.cellSize) );
+        Constants.setCellSize(cellSize);
+
+    }
+
 
 
     public int getCellSize() { return this.cellSize;}
