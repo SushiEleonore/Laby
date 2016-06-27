@@ -1,6 +1,8 @@
 package fr.upsud.sushi.laby.maze;
 
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -42,6 +44,9 @@ public class Level {
     private Context context;
 
     private int cellSize;
+
+    private int lShift;
+    private int hShift;
 
     private int lvl;
 
@@ -237,11 +242,13 @@ public class Level {
             this.cellSize = (int) (sizey);
         }
 
-
+        this.hShift = (h - this.cells[0].length * this.cellSize)/2;
+        Constants.setHSHIFT(hShift);
+        this.lShift= (w - this.cells.length * this.cellSize)/2;
+        Constants.setLSHIFT(lShift);
         System.out.println( "Eccess width :" + (w - this.cells.length * this.cellSize) );
         System.out.println( "Eccess height :" + (h - this.cells[0].length * this.cellSize) );
         Constants.setCellSize(cellSize);
-
     }
 
 

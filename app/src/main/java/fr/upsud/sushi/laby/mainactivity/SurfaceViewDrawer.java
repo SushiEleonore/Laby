@@ -62,9 +62,9 @@ public class SurfaceViewDrawer {
         int gap = (int) sizex/4;
         int sizey=bm.getHeight();
         RectF whereToDraw = new RectF(
-                x*sizex-kx*gap, y*sizey-ky*gap,
-                (x+1)*sizex-kx*gap ,
-                (1+y) *sizey-ky*gap);
+                x*sizex-kx*gap+ Constants.LSHIFT, y*sizey-ky*gap+Constants.HSHIFT,
+                (x+1)*sizex-kx*gap + Constants.LSHIFT,
+                (1+y) *sizey-ky*gap + Constants.HSHIFT);
         if (id== 1)
             canvas.drawColor(0, PorterDuff.Mode.CLEAR);
         canvas.drawBitmap(bm, null, whereToDraw, paint);
