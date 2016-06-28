@@ -221,9 +221,9 @@ public class Level {
         System.out.println("TAILLE EN Y : " + sizey);
         if (sizex<sizey) {
 
-            this.cellSize =(int) (sizey);
+            this.cellSize =(int) (sizex);
         } else {
-            this.cellSize = (int) (sizex);
+            this.cellSize = (int) (sizey);
         }
         Constants.setCellSize(cellSize);
     }

@@ -12,7 +12,7 @@ import fr.upsud.sushi.laby.utils.Sens;
 /**
  * Created by proval on 6/23/16.
  */
-public class Item {
+public class Item extends MovableElement {
     private int x;
     private int y;
     Bitmap skinItem;
@@ -42,5 +42,20 @@ public class Item {
     public boolean playerOnCell(){
         return (this.x==this.l.getPlayer().getX())&&(this.y==this.l.getPlayer().getY());
     }
+    public Bitmap[] getStaticBmp(){Bitmap[] bmp = new Bitmap[3];
+        bmp[0]=this.skinItem;
+        bmp[1]=this.skinItem;
+        bmp[2]=this.skinItem;
+        return bmp;
+    }
+
+
+    public Dir getDir(){return Dir.F;}
+
+
+    public String toString() {
+        return "item chili";
+    }
+
 
 }

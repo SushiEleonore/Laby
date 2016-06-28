@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
+import android.graphics.Rect;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -57,38 +58,22 @@ public class GameRenderer {
         */
 
 
-      //  for (SurfaceView sV : listSurface.getSurfaceViews())
-            listSurface.getSurfaceViews().get(0).getHolder().addCallback(new SurfaceHolder.Callback() {
+        //  for (SurfaceView sV : listSurface.getSurfaceViews())
 
-                @Override
-                public void surfaceCreated(SurfaceHolder holder) {
-                    l.setCellSize(holder.getSurfaceFrame().height(), holder.getSurfaceFrame().width());
-                    drawBG();
-                }
-
-                @Override
-                public void surfaceChanged(SurfaceHolder holder, int format, int width,
-                        int height) {
-                    //l.setCellSize(holder.getSurfaceFrame().height(), holder.getSurfaceFrame().width());
-                    drawBG();
-                }
-
-                @Override
-                public void surfaceDestroyed(SurfaceHolder holder) {
-                    holder.removeCallback(this);
-                }
-            });
-        listSurface.getSurfaceViews().get(1).getHolder().addCallback(new SurfaceHolder.Callback() {
+        listSurface.getBg().getHolder().addCallback(new SurfaceHolder.Callback() {
 
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
-                drawPlayer();
+                l.setCellSize(holder.getSurfaceFrame().height(), holder.getSurfaceFrame().width());
+
+                drawBG();
             }
 
             @Override
             public void surfaceChanged(SurfaceHolder holder, int format, int width,
                     int height) {
-                drawPlayer();
+                //l.setCellSize(holder.getSurfaceFrame().height(), holder.getSurfaceFrame().width());
+                drawBG();
             }
 
             @Override
@@ -96,128 +81,147 @@ public class GameRenderer {
                 holder.removeCallback(this);
             }
         });
-        listSurface.getSurfaceViews().get(2).getHolder().addCallback(new SurfaceHolder.Callback() {
-
-            @Override
-            public void surfaceCreated(SurfaceHolder holder) {
-                drawChili();
-            }
-
-            @Override
-            public void surfaceChanged(SurfaceHolder holder, int format, int width,
-                    int height) {
-                drawChili();
-            }
-
-            @Override
-            public void surfaceDestroyed(SurfaceHolder holder) {
-                holder.removeCallback(this);
-            }
-        });
-        listSurface.getSurfaceViews().get(3).getHolder().addCallback(new SurfaceHolder.Callback() {
-
-            @Override
-            public void surfaceCreated(SurfaceHolder holder) {
-                drawBreakableWall();
-            }
-
-            @Override
-            public void surfaceChanged(SurfaceHolder holder, int format, int width,
-                    int height) {
-                drawBreakableWall();
-            }
-
-            @Override
-            public void surfaceDestroyed(SurfaceHolder holder) {
-                holder.removeCallback(this);
-            }
-        });
-
     }
 
-    public void drawChili() {
-        int id = 2;
-        ArrayList<SurfaceView> list = listSurface.getSurfaceViews();
-        SurfaceHolder h = list.get(id).getHolder();
-        if (h.getSurface().isValid()) {
-            synchronized (h) {
-                h.setFormat(PixelFormat.TRANSPARENT);
-                Canvas canvas = h.lockCanvas();
+    /*listSurface.getSurfaceViews().get(1).getHolder().addCallback(new SurfaceHolder.Callback() {
 
-                if(l.getItem()!=null){
-                listSurface.draw(l.getItem().getX(), l.getItem().getY(), l.getItem().getSkinItem(), id, canvas,0,0);}
-                h.unlockCanvasAndPost(canvas);}
+        @Override
+        public void surfaceCreated(SurfaceHolder holder) {
+            drawPlayer();
+        }
 
+        @Override
+        public void surfaceChanged(SurfaceHolder holder, int format, int width,
+                int height) {
+            drawPlayer();
+        }
+
+        @Override
+        public void surfaceDestroyed(SurfaceHolder holder) {
+            holder.removeCallback(this);
+        }
+    });
+    listSurface.getSurfaceViews().get(2).getHolder().addCallback(new SurfaceHolder.Callback() {
+
+        @Override
+        public void surfaceCreated(SurfaceHolder holder) {
+            drawChili();
+        }
+
+        @Override
+        public void surfaceChanged(SurfaceHolder holder, int format, int width,
+                int height) {
+            drawChili();
+        }
+
+        @Override
+        public void surfaceDestroyed(SurfaceHolder holder) {
+            holder.removeCallback(this);
+        }
+    });
+    listSurface.getSurfaceViews().get(3).getHolder().addCallback(new SurfaceHolder.Callback() {
+
+        @Override
+        public void surfaceCreated(SurfaceHolder holder) {
+            drawBreakableWall();
+        }
+
+        @Override
+        public void surfaceChanged(SurfaceHolder holder, int format, int width,
+                int height) {
+            drawBreakableWall();
+        }
+
+        @Override
+        public void surfaceDestroyed(SurfaceHolder holder) {
+            holder.removeCallback(this);
+        }
+    });
+
+}
+
+public void drawChili() {
+    int id = 2;
+    ArrayList<SurfaceView> list = listSurface.getSurfaceViews();
+    SurfaceHolder h = list.get(id).getHolder();
+    if (h.getSurface().isValid()) {
+        synchronized (h) {
+            h.setFormat(PixelFormat.TRANSPARENT);
+            Canvas canvas = h.lockCanvas();
+
+            if(l.getItem()!=null){
+            listSurface.draw(l.getItem().getX(), l.getItem().getY(), l.getItem().getSkinItem(), false, canvas,0,0);}
+            h.unlockCanvasAndPost(canvas);}
+
+    }
+}
+
+public void eraseChili() {
+    int id = 2;
+    ArrayList<SurfaceView> list = listSurface.getSurfaceViews();
+    SurfaceHolder h = list.get(id).getHolder();
+    if (h.getSurface().isValid()) {
+        synchronized (h) {
+            h.setFormat(PixelFormat.TRANSPARENT);
+            Canvas canvas = h.lockCanvas();
+            canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+            h.unlockCanvasAndPost(canvas);
         }
     }
+}
 
-    public void eraseChili() {
-        int id = 2;
-        ArrayList<SurfaceView> list = listSurface.getSurfaceViews();
-        SurfaceHolder h = list.get(id).getHolder();
-        if (h.getSurface().isValid()) {
-            synchronized (h) {
-                h.setFormat(PixelFormat.TRANSPARENT);
-                Canvas canvas = h.lockCanvas();
-                canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-                h.unlockCanvasAndPost(canvas);
-            }
+public void drawBreakableWall() {
+    int id = 3;
+    ArrayList<SurfaceView> list = listSurface.getSurfaceViews();
+    SurfaceHolder h = list.get(id).getHolder();
+    if (h.getSurface().isValid()) {
+        synchronized (h) {
+            h.setFormat(PixelFormat.TRANSPARENT);
+            Canvas canvas = h.lockCanvas();
+
+            if(l.getItem()!=null){
+                listSurface.draw(l.getbWall().getX(), l.getbWall().getY(), l.getbWall().getSkinItem(), false, canvas,0,0);}
+            h.unlockCanvasAndPost(canvas);}
+
+    }
+}
+
+public void erasebWall() {
+    int id = 3;
+    ArrayList<SurfaceView> list = listSurface.getSurfaceViews();
+    SurfaceHolder h = list.get(id).getHolder();
+    if (h.getSurface().isValid()) {
+        synchronized (h) {
+            h.setFormat(PixelFormat.TRANSPARENT);
+            Canvas canvas = h.lockCanvas();
+            canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+            h.unlockCanvasAndPost(canvas);
         }
     }
-
-    public void drawBreakableWall() {
-        int id = 3;
-        ArrayList<SurfaceView> list = listSurface.getSurfaceViews();
-        SurfaceHolder h = list.get(id).getHolder();
-        if (h.getSurface().isValid()) {
-            synchronized (h) {
-                h.setFormat(PixelFormat.TRANSPARENT);
-                Canvas canvas = h.lockCanvas();
-
-                if(l.getItem()!=null){
-                    listSurface.draw(l.getbWall().getX(), l.getbWall().getY(), l.getbWall().getSkinItem(), id, canvas,0,0);}
-                h.unlockCanvasAndPost(canvas);}
-
-        }
-    }
-
-    public void erasebWall() {
-        int id = 3;
-        ArrayList<SurfaceView> list = listSurface.getSurfaceViews();
-        SurfaceHolder h = list.get(id).getHolder();
-        if (h.getSurface().isValid()) {
-            synchronized (h) {
-                h.setFormat(PixelFormat.TRANSPARENT);
-                Canvas canvas = h.lockCanvas();
-                canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-                h.unlockCanvasAndPost(canvas);
-            }
-        }
-    }
-
+}
+*/
     public void drawBG() {
         int id = 0;
-        ArrayList<SurfaceView> list = listSurface.getSurfaceViews();
-        SurfaceHolder h = list.get(0).getHolder();
-
+        SurfaceView bg = listSurface.getBg();
+        SurfaceHolder h = bg.getHolder();
         if (h.getSurface().isValid()) {
-
             synchronized (h) {
                 Canvas canvas = h.lockCanvas();
+                Rect r = new Rect(0, 0, 200, 200);
+                canvas.drawRect(r, paint);
                 for (int i = 0; i < l.getCells().length; i++) {
                     for (int j = 0; j < l.getCells()[i].length; j++) {
                         if (l.getCells()[i][j] != null) {
                             switch (l.getCells()[i][j].getType()) {
                                 case WALL:
-                                    listSurface.draw(i, j, bitmapWall, id, canvas,0,0);
-
+                                    listSurface.draw(i, j, bitmapWall, false, canvas, 0, 0);
                                     break;
                                 case PATH:
-                                    listSurface.draw(i, j, bitmapPath, id, canvas,0,0);
+                                    listSurface.draw(i, j, bitmapPath, false, canvas, 0, 0);
 
                                     break;
                                 case END:
-                                    listSurface.draw(i, j, bitmapEnd, id, canvas,0,0);
+                                    listSurface.draw(i, j, bitmapEnd, false, canvas, 0, 0);
 
                                     break;
                                 default:
@@ -225,19 +229,36 @@ public class GameRenderer {
 
                             }
                         }
-
-
                     }
                 }
                 h.unlockCanvasAndPost(canvas);
             }
         }
-
     }
 
+    public void drawPlayer() {
+        listSurface.getGameViews().get(0).drawStatic();
 
+    }
+    public void drawMvingPlayer(int mv) {
+        listSurface.getGameViews().get(0).drawMving();
 
+    }
+    public void drawPDestroying(){
+        // TODO : DRAWDESTROYING
+       // listSurface.getGameViews().get(0).drawStatic();
+    }
+    public void drawChili(){
+        listSurface.getGameViews().get(1).drawStatic();
+    }
+    public void drawBreakableWall(){
+        listSurface.getGameViews().get(2).drawStatic();
+    }
+    public void erasebWall() {
+    }
+    public void eraseChili() {}
 
+/*
 
     public void drawMvingPlayer(int mv) {
         int id = 1;
@@ -275,7 +296,7 @@ public class GameRenderer {
             if (h.getSurface().isValid()) {
                 Canvas canvas = h.lockCanvas();
                 synchronized (canvas) {
-                    listSurface.draw(l.getPlayer().getX(), l.getPlayer().getY(), imgs[k], id, canvas,
+                    listSurface.draw(l.getPlayer().getX(), l.getPlayer().getY(), imgs[k], true, canvas,
                             k * xmove, k * ymove);
                     h.unlockCanvasAndPost(canvas);
                 }
@@ -301,8 +322,9 @@ public class GameRenderer {
         Bitmap[] imgsP = new Bitmap[3];
         Bitmap[] imgsW = new Bitmap[3];
         imgsP[0] = Bitmap.createBitmap(bP, 0, 0, bP.getWidth() / 3, bP.getHeight());
-        imgsP[1] = Bitmap.createBitmap(bP, bP.getWidth() / 3, 0, bP.getWidth() / 3, bP.getHeight());
+        imgsP[1] = Bitmap.createBitmap(
         imgsP[2] = Bitmap.createBitmap(bP, 2 * bP.getWidth() / 3, 0, bP.getWidth() / 3, bP.getHeight());
+
         imgsW[0] = Bitmap.createBitmap(bW, 0, 0, bW.getWidth() / 3, bW.getHeight());
         imgsW[1] = Bitmap.createBitmap(bW, bW.getWidth() / 3, 0, bW.getWidth() / 3, bW.getHeight());
         imgsW[2] = Bitmap.createBitmap(bW, 2 * bW.getWidth() / 3, 0, bW.getWidth() / 3, bW.getHeight());
@@ -313,9 +335,9 @@ public class GameRenderer {
                 Canvas canvas = hP.lockCanvas();
                 Canvas canvasW= hW.lockCanvas();
                 synchronized (canvas) {
-                    listSurface.draw(l.getPlayer().getX(), l.getPlayer().getY(), imgsP[k], idP, canvas,
+                    listSurface.draw(l.getPlayer().getX(), l.getPlayer().getY(), imgsP[k], true, canvas,
                             0, 0);
-                    listSurface.draw(l.getbWall().getX(), l.getbWall().getY(), imgsW[k], idBWall, canvasW,
+                    listSurface.draw(l.getbWall().getX(), l.getbWall().getY(), imgsW[k], false, canvasW,
                             0, 0);
                     hP.unlockCanvasAndPost(canvas);
                     hW.unlockCanvasAndPost(canvasW);
@@ -360,13 +382,13 @@ public class GameRenderer {
             h.setFormat(PixelFormat.TRANSPARENT);
             synchronized (h) {
                 Canvas canvas = h.lockCanvas();
-                listSurface.draw(l.getPlayer().getX(), l.getPlayer().getY(), be, id,canvas, 0, 0);
+                listSurface.draw(l.getPlayer().getX(), l.getPlayer().getY(), be, true,canvas, 0, 0);
                 h.unlockCanvasAndPost(canvas);
             }
         }
     }
 
-
+*/
     public void update(Level ll) {
         this.l = ll;
     }

@@ -35,6 +35,7 @@ import java.util.ArrayList;
 
 import fr.upsud.sushi.laby.R;
 import fr.upsud.sushi.laby.calculus.TermBuilder;
+import fr.upsud.sushi.laby.graphics.GameView;
 import fr.upsud.sushi.laby.maze.Level;
 import fr.upsud.sushi.laby.utils.Constants;
 import fr.upsud.sushi.laby.utils.Observer;
@@ -131,9 +132,10 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         l = new Level(niveau, this);
 
         SurfaceView sMaze= (SurfaceView) findViewById(R.id.mazeview);
-        SurfaceView sPlayer = (SurfaceView) findViewById(R.id.playerview);
+        SurfaceView sPlayer =(SurfaceView) findViewById(R.id.playerview);
         SurfaceView sChili = (SurfaceView) findViewById(R.id.chiliview);
         SurfaceView sBWall= (SurfaceView)findViewById(R.id.bwallview);
+        //GameView sBwall = new GameView(findViewById(R.id.bwallview), l.getbWall(), l, drawze)
         sChili.setZOrderOnTop(true);
         sBWall.setZOrderOnTop(true);
         sPlayer.setZOrderOnTop(true);    // necessary
