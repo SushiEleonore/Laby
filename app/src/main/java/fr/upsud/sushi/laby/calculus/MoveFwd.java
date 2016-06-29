@@ -7,6 +7,7 @@ import android.widget.Toast;
 import fr.upsud.sushi.laby.exceptions.wallCollisionException;
 import fr.upsud.sushi.laby.mainactivity.MainActivity;
 import fr.upsud.sushi.laby.maze.Level;
+import fr.upsud.sushi.laby.utils.Pair;
 
 /**
  * Created by proval on 5/24/16.
@@ -20,13 +21,13 @@ public class MoveFwd implements Instr {
         this.l = l;
         this.id=id;
     }
-    public Couple next(){
+    public Pair<String, ListInstr> next(){
         try { this.l.getPlayer().move(this.l);
         } catch (wallCollisionException E) {
             Looper.prepare();
             Toast.makeText(l.getContext(), "Bim, tu t'es cogné contre un mur", Toast.LENGTH_SHORT).show();
         }
-        return new Couple(this.id,new ListInstr());
+        return new Pair(this.id,new ListInstr());
     }
 
 

@@ -4,6 +4,7 @@ import android.os.Looper;
 import android.widget.Toast;
 
 import fr.upsud.sushi.laby.maze.Level;
+import fr.upsud.sushi.laby.utils.Pair;
 import fr.upsud.sushi.laby.utils.Sens;
 
 /**
@@ -20,7 +21,7 @@ public class EatChili implements Instr {
     }
 
 
-        public Couple next(){
+        public Pair<String, ListInstr> next(){
             if( this.l.getItem().playerOnCell()) l.getPlayer().setItem();
              else {
                 Looper.prepare();
@@ -28,6 +29,6 @@ public class EatChili implements Instr {
                         Toast.LENGTH_SHORT).show();
             }
 
-            return new Couple(this.id,new ListInstr());
+            return new Pair(this.id,new ListInstr());
         }
 }

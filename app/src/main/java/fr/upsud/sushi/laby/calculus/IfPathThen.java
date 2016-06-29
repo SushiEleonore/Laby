@@ -2,6 +2,8 @@ package fr.upsud.sushi.laby.calculus;
 
 import java.util.ArrayList;
 
+import fr.upsud.sushi.laby.utils.Pair;
+
 /**
  * Created by proval on 5/25/16.
  */
@@ -32,18 +34,18 @@ public class IfPathThen implements Instr {
         this.id=id;
     }
 
-    public Couple next(){
+    public Pair<String, ListInstr> next(){
         if(this.cond.eval()){
             ListInstr then = new ListInstr(lthen);
             then.reverse();
-            return new Couple(this.id, then);
+            return new Pair(this.id, then);
         }
         else if (this.lelse!=null){
             ListInstr lElse = new ListInstr(lelse);
             lElse.reverse();
-            return new Couple(this.id, lElse);
+            return new Pair(this.id, lElse);
         }
-        else return new Couple (this.id, new ListInstr());
+        else return new Pair (this.id, new ListInstr());
     }
 
    /* @Override

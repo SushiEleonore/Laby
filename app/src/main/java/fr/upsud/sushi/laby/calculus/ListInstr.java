@@ -2,6 +2,8 @@ package fr.upsud.sushi.laby.calculus;
 
 import java.util.ArrayList;
 
+import fr.upsud.sushi.laby.utils.Pair;
+
 /**
  * Created by proval on 5/25/16.
  */
@@ -41,19 +43,22 @@ public class ListInstr{ //extends ITerm{
 
         return this.instr.get(i);
     }
-    public Couple eval(){
 
-            Couple c = this.getHead().next();
+
+    public Pair<String, ListInstr> eval(){
+
+            Pair<String, ListInstr> c = this.getHead().next();
 
         if(instr.size()>=1) {
-            c.getListInstr().concat(this.getBody());
-            instr= c.getListInstr().getInstr();
+            c.getSecond().concat(this.getBody());
+            instr= c.getSecond().getInstr();
         }
 
        // this.concat(c.getListInstr().getInstr(), this.getBody());
-        c= new Couple (c.getId(),c.getListInstr());
+        c= new Pair (c.getFirst(),c.getSecond());
         return c;
     }
+
 
     public void clear(){
         this.instr.clear();

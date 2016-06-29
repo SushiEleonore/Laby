@@ -12,6 +12,7 @@ import java.util.Deque;
 import java.util.NoSuchElementException;
 
 import fr.upsud.sushi.laby.maze.Level;
+import fr.upsud.sushi.laby.utils.Pair;
 
 /**
  * Created by proval on 5/25/16.
@@ -178,12 +179,12 @@ public class TermBuilder {
                         if(!lins.isEmpty()) {
                             nStep++;
                             Player temp = new Player(l.getPlayer());
-                            Couple c = lins.eval();
-                            gameStates.add(new GameState(c.getId(), temp, new Player(l.getPlayer())));
+                            Pair<String, ListInstr> c = lins.eval();
+                            gameStates.add(new GameState(c.getFirst(), temp, new Player(l.getPlayer())));
                             if(gameStates.get(nStep).playerMoving())
-                                gui.notify(false, c.getId(), false, Constants.MVFWD , gameStates.get(nStep).playerDestroying());
-                            else gui.notify(false, c.getId(), false, Constants.NOMV, gameStates.get(nStep).playerDestroying());
-                            lins = c.getListInstr();
+                                gui.notify(false, c.getFirst(), false, Constants.MVFWD , gameStates.get(nStep).playerDestroying());
+                            else gui.notify(false, c.getFirst(), false, Constants.NOMV, gameStates.get(nStep).playerDestroying());
+                            lins = c.getSecond();
                         }
 
                         try{Thread.sleep(1000);} catch (InterruptedException e) { e.printStackTrace(); System.out.println("Exception");}

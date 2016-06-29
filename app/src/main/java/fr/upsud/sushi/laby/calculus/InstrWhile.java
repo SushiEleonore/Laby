@@ -1,7 +1,8 @@
 package fr.upsud.sushi.laby.calculus;
 
 import java.util.ArrayList;
-import fr.upsud.sushi.laby.calculus.Couple;
+import fr.upsud.sushi.laby.utils.Pair;
+
 /**
  * Created by proval on 5/23/16.
  */
@@ -16,15 +17,15 @@ public class InstrWhile implements Instr {
         this.instr = i;
         this.id=id;
     }
-    public Couple next(){
+    public Pair<String, ListInstr> next(){
         if (!this.isEnd.eval()){
             ListInstr body = new ListInstr(instr);
             body.reverse();
             body.concat(this);
-            return  new Couple(this.id,body);
+            return  new Pair(this.id,body);
         }
         else {
-            return new Couple(this.id, new ListInstr());
+            return new Pair(this.id, new ListInstr());
         }
 
     }

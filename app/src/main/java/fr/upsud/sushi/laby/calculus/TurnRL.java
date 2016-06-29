@@ -1,6 +1,7 @@
 package fr.upsud.sushi.laby.calculus;
 
 import fr.upsud.sushi.laby.maze.Level;
+import fr.upsud.sushi.laby.utils.Pair;
 import fr.upsud.sushi.laby.utils.Sens;
 
 /**
@@ -26,9 +27,9 @@ public class TurnRL implements Instr {
             this.s=Sens.L;
         }
     }
-    public Couple next(){
+    public Pair<String, ListInstr> next(){
         this.l.getPlayer().rotate(this.s);
-        return new Couple(this.id, new ListInstr());
+        return new Pair(this.id, new ListInstr());
     }
 
   /*  @Override
