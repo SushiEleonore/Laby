@@ -34,7 +34,8 @@
         android:text="Boutique"
         android:id="@+id/button11"
         android:layout_below="@+id/button10"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:onClick="toBoutique"/>
 
     <TextView
         android:layout_width="wrap_content"

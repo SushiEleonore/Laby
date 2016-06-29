@@ -1,30 +1,30 @@
 <resources>
-        <string name="app_name">Laby</string>
-        <string name="action_blocks">Blocks</string>
-        <string name="action_code">Code</string>
-        <string name="variable_name">Variable Name</string>
-        <string name="variable_name_title">Enter a name for the variable</string>
+    <string name="app_name">Laby</string>
+    <string name="action_blocks">Blocks</string>
+    <string name="action_code">Code</string>
+    <string name="variable_name">Variable Name</string>
+    <string name="variable_name_title">Enter a name for the variable</string>
 
-        <string name="play">&#10148;</string>
-        <string name="next">&#8677;</string>
-        <string name="prev">&#8676;</string>
-        <string name="reset">&#9632;</string>
-        <string name="stop">&#9646;</string>
+    <string name="play">&#10148;</string>
+    <string name="next">&#8677;</string>
+    <string name="prev">&#8676;</string>
+    <string name="reset">&#9632;</string>
+    <string name="stop">&#9646;</string>
 
-        <string name="tourner_a">Tourner à</string>
-        <string name="gauche">gauche</string>
-        <string name="droite">droite</string>
-        <string name="a_droite">à droite</string>
-        <string name="a_gauche">à gauche</string>
-        <string name="devant">devant</string>
-        <string name="avancer_case">avancer d\'une case</string>
-        <string name="tant_que_niv_pas_fini">Tant que le niveau n\'est pas fini,</string>
-        <string name="faire">faire</string>
-        <string name="si_chemin">S\'il y a un chemin</string>
-        <string name="sinon">sinon</string>
-        <string name="manger_piment">Manger le piment</string>
-        <string name="activer_pouvoir">Activer le pouvoir du piment</string>
+    <string name="tourner_a">Tourner à</string>
+    <string name="gauche">gauche</string>
+    <string name="droite">droite</string>
+    <string name="a_droite">à droite</string>
+    <string name="a_gauche">à gauche</string>
+    <string name="devant">devant</string>
+    <string name="avancer_case">avancer d\'une case</string>
+    <string name="tant_que_niv_pas_fini">Tant que le niveau n\'est pas fini,</string>
+    <string name="faire">faire</string>
+    <string name="si_chemin">S\'il y a un chemin</string>
+    <string name="sinon">sinon</string>
+    <string name="manger_piment">Manger le piment</string>
+    <string name="activer_pouvoir">Activer le pouvoir du piment</string>
 
-        <string name="toast_bravo">Bravo, tu as fini le jeu !</string>
-        <string name="essaie_encore">Tu n\'es pas allé jusqu\'au bout, réessaie !</string>
+    <string name="toast_bravo">Bravo, tu as fini le jeu !</string>
+    <string name="essaie_encore">Tu n\'es pas allé jusqu\'au bout, réessaie !</string>
 </resources>

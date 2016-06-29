@@ -146,6 +146,8 @@ public class Level {
             this.authorizedBlocks.add(tab[i]);
         }
         computeCellSize();
+
+
     }
 
     private void openFile   (int id){
@@ -193,8 +195,12 @@ public class Level {
             openFile( R.raw.level7);
          }
         computeCellSize();
-
     }
+
+
+
+
+
 
 
 
@@ -226,6 +232,8 @@ public class Level {
             this.cellSize = (int) (sizex);
         }
         Constants.setCellSize(cellSize);
+
+
     }
 
     public void setCellSize(int h, int w){

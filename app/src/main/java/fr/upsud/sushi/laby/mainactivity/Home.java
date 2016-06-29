@@ -30,4 +30,11 @@ public class Home extends AppCompatActivity {
         finish();
     }
 
+    public void toBoutique(View v){
+        setContentView(R.layout.activity_boutique);
+        Intent intent2 = new Intent(getApplicationContext(), BoutiqueActivity.class);
+        startActivityForResult(intent2, 0);
+        finish();
+    }
+
 }

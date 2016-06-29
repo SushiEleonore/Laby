@@ -20,6 +20,8 @@
         </activity>
         <activity android:name=".mainactivity.MenuActivity">
         </activity>
+        <activity android:name=".mainactivity.BoutiqueActivity">
+        </activity>
     </application>
 
 </manifest>
