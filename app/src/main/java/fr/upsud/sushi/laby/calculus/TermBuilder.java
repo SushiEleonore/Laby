@@ -133,10 +133,10 @@ public class TermBuilder {
                     //If the player doesn't stop the execution
                     if(play) {
                         if (!b.eval()) {
-                             gui.notify(false, null, true, Constants.NOMV, gameStates.get(nStep).playerDestroying());
+                             gui.notify(false, null, true, Constants.NOMV, false);
 
                         } else {
-                            gui.notify(true, null, false, Constants.NOMV, gameStates.get(nStep).playerDestroying());
+                            gui.notify(true, null, false, Constants.NOMV, false);
                         }
                     }
 
@@ -229,9 +229,9 @@ public class TermBuilder {
                     System.out.println(nStep);
                     l.setPlayer(gameStates.get(nStep + 1).getpDep());
                     if(gameStates.get(nStep+1).playerMoving()   ){
-                        gui.notify(false, gameStates.get(nStep+1).getId(), false, Constants.MVBWD,gameStates.get(nStep+1).playerDestroying());
+                        gui.notify(false, gameStates.get(nStep+1).getId(), false, Constants.MVBWD,false);
                     }
-                    else { gui.notify(false, gameStates.get(nStep+1).getId(), false, Constants.NOMV, gameStates.get(nStep+1).playerDestroying());}
+                    else { gui.notify(false, gameStates.get(nStep+1).getId(), false, Constants.NOMV, false);}
 
                 }
 

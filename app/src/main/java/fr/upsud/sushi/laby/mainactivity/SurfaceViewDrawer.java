@@ -17,6 +17,7 @@ import java.security.spec.ECField;
 import java.util.ArrayList;
 
 //import fr.upsud.sushi.laby.R;
+import fr.upsud.sushi.laby.graphics.GameView;
 import fr.upsud.sushi.laby.maze.Level;
 import fr.upsud.sushi.laby.utils.Constants;
 
@@ -30,53 +31,48 @@ public class SurfaceViewDrawer {
             Paint.DITHER_FLAG
              | Paint.ANTI_ALIAS_FLAG);
 
-    private ArrayList<SurfaceView> surfaceViews;
+    private ArrayList<GameView> GameViews;
+    private SurfaceView bg;
     float scale;
 
 
-    SurfaceViewDrawer(SurfaceView bg, SurfaceView player, LinearLayout l, Level lvl) {
-        surfaceViews = new ArrayList<SurfaceView>();
-        surfaceViews.add(bg);
-        surfaceViews.add(player);
-        this.scale = Constants.IMAGE_SIZE;
-    }
 
     SurfaceViewDrawer(SurfaceView bg, SurfaceView player, SurfaceView chili, SurfaceView wall, LinearLayout l, Level lvl) {
-        surfaceViews = new ArrayList<SurfaceView>();
-        surfaceViews.add(bg);
-        surfaceViews.add(player);
-        surfaceViews.add(chili);
-        surfaceViews.add(wall);
+        GameViews = new ArrayList<GameView>();
+        this.bg=bg;
+        GameViews.add(new GameView(player,lvl.getPlayer(),lvl, this ));
+            GameViews.add(new GameView(chili, lvl.getItem(), lvl, this));
+            GameViews.add(new GameView(wall, lvl.getbWall(), lvl, this));
+
         this.scale = Constants.IMAGE_SIZE;
     }
 
-    public ArrayList<SurfaceView> getSurfaceViews() {
-        return this.surfaceViews;
+    public ArrayList<GameView> getGameViews() {
+        return this.GameViews;
     }
+    public SurfaceView getBg(){return this.bg;}
 
 
-    public  void draw(int x, int y, Bitmap b, int id, Canvas canvas, int kx, int ky) {
+    public  void draw(int x, int y, Bitmap b, boolean erase, Canvas canvas, int kx, int ky) {
 
         Bitmap bm = getResizedBitmap(b);
-        int sizex = bm.getWidth() ;
-        int gap = (int) sizex/4;
-        int sizey=bm.getHeight();
+        int gap = (int) Constants.CELLSIZE/4;
+        float topx = x*Constants.CELLSIZE-kx*gap;
+        float topy = y*Constants.CELLSIZE+ky;
         RectF whereToDraw = new RectF(
-                x*sizex-kx*gap+ Constants.LSHIFT, y*sizey-ky*gap+Constants.HSHIFT,
-                (x+1)*sizex-kx*gap + Constants.LSHIFT,
-                (1+y) *sizey-ky*gap + Constants.HSHIFT);
-        if (id== 1)
-            canvas.drawColor(0, PorterDuff.Mode.CLEAR);
+                topx, topy,
+                topx + Constants.CELLSIZE ,
+                topy + Constants.CELLSIZE);
+        if (erase) {
+            canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+        }
         canvas.drawBitmap(bm, null, whereToDraw, paint);
     }
 
 
     public Bitmap getResizedBitmap(Bitmap bm) {
-        int width = bm.getWidth();
-        int height = bm.getHeight();
-        float newWidth = Constants.CELLSIZE/width;
-        float newHeight = Constants.CELLSIZE/ height;
-        Bitmap resizedBitmap =  Bitmap.createScaledBitmap(bm, (int)(newWidth*width), (int)(newHeight*height), false);
+
+        Bitmap resizedBitmap =  Bitmap.createScaledBitmap(bm, Constants.CELLSIZE, Constants.CELLSIZE, false);
         return resizedBitmap;
     }
 

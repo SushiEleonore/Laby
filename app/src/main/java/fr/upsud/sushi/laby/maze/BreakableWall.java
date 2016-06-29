@@ -5,11 +5,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import fr.upsud.sushi.laby.R;
+import fr.upsud.sushi.laby.utils.Dir;
 
 /**
  * Created by proval on 6/23/16.
  */
-public class BreakableWall {
+public class BreakableWall extends MovableElement{
     private int x;
     private int y;
     //state is true if wall is not broken
@@ -39,8 +40,18 @@ public class BreakableWall {
         this.state= true;
     }
 
-    public Bitmap getSkinItem(){ return this.skinBWall;}
-    public Bitmap getSkinBurning(){return this.skinBurnig;}
+    public Bitmap[] getStaticBmp(){
+        Bitmap[] bmp = new Bitmap[3];
+        bmp[0]=this.skinBWall;
+        bmp[1]=this.skinBWall;
+        bmp[2]=this.skinBWall;
+        return bmp;}
+
+    public Dir getDir(){
+        return Dir.F;
+    }
+
+    public Bitmap getMovingBmp(){return this.skinBurnig;}
 
     public Level getLevel(){ return this.l;}
 
@@ -56,4 +67,8 @@ public class BreakableWall {
         if(!b) l.getPlayer().setChili(false);
         this.state=b;}
     public boolean getState(){return this.state;}
+
+    public String toString() {
+        return"Breakable wall";
+    }
 }

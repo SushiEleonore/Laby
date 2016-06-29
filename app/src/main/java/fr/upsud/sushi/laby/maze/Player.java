@@ -10,7 +10,7 @@ import fr.upsud.sushi.laby.utils.Sens;
 import fr.upsud.sushi.laby.exceptions.wallCollisionException;
 
 
-public class Player {
+public class Player extends MovableElement{
 
     //Should be equal to the wall size
     //public final float step = 10;
@@ -57,10 +57,11 @@ public class Player {
         this.y = p.getY();
         this.l = p.getLevel();
         this.hasChili=p.hasChili();
-        this.skin_g = p.getSkin_g();
+       this.skin_g = p.getSkin_g();
         this.skin_d = p.getSkin_d();
         this.skin_dos = p.getSkin_dos();
         this.skin_face = p.getSkin_face();
+
     }
 
     public void setChili(Boolean b){this.hasChili=false;}
@@ -70,11 +71,21 @@ public class Player {
     public boolean hasChili(){return this.hasChili;}
     public Level getLevel(){ return this.l;}
 
+    public Bitmap[] getStaticBmp(){
+        Bitmap[] statBmp = new Bitmap[4];
+        statBmp[0]=this.skin_d;
+        statBmp[1]=this.skin_g;
+        statBmp[2]=this.skin_dos;
+        statBmp[3]=this.skin_face;
+        return statBmp;
+    }
     public Bitmap getSkin_g(){return this.skin_g;}
     public Bitmap getSkin_d(){return this.skin_d;}
     public Bitmap getSkin_dos(){return this.skin_dos;}
     public Bitmap getSkin_face(){return this.skin_face;}
-    public Bitmap getpDestroying(){return this.pDestroying;}
+
+
+   public Bitmap getpDestroying(){return this.pDestroying;}
 
     public void setItem(){
         this.hasChili=true;
@@ -183,6 +194,10 @@ public class Player {
 
     public boolean levelFinished(){
         return (this.x == this.l.getXend() && this.y == this.l.getYend());
+    }
+
+    public String toString() {
+        return "player";
     }
 
 }
