@@ -8,7 +8,7 @@ import fr.upsud.sushi.laby.maze.Level;
 /**
  * Created by proval on 6/7/16.
  */
-public class Constants {
+public class Values {
 
     //Agrandissement des images
     public static final int SCALE = 4;

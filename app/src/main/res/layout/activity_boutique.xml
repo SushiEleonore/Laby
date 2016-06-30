@@ -18,7 +18,8 @@
         android:layout_marginTop="62dp"
         android:layout_alignParentTop="true"
         android:layout_alignLeft="@+id/button13"
-        android:layout_alignStart="@+id/button13"/>
+        android:layout_alignStart="@+id/button13"
+        android:onClick="setDuck"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -26,7 +27,8 @@
         android:text="Bebezilla"
         android:id="@+id/button13"
         android:layout_below="@+id/button12"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:onClick="setBebezilla"/>
 
     <Button
         android:layout_width="wrap_content"

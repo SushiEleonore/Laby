@@ -27,4 +27,7 @@
 
     <string name="toast_bravo">Bravo, tu as fini le jeu !</string>
     <string name="essaie_encore">Tu n\'es pas allé jusqu\'au bout, réessaie !</string>
+
+    <string name="set_bebezilla">Bebezilla</string>
+    <string name="set_duck">Canard</string>
 </resources>

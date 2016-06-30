@@ -3,23 +3,18 @@ package fr.upsud.sushi.laby.mainactivity;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
-import android.graphics.Rect;
 import android.graphics.RectF;
-import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.LinearLayout;
 
-import java.security.spec.ECField;
 import java.util.ArrayList;
 
 //import fr.upsud.sushi.laby.R;
 import fr.upsud.sushi.laby.graphics.GameView;
 import fr.upsud.sushi.laby.maze.Level;
-import fr.upsud.sushi.laby.utils.Constants;
+import fr.upsud.sushi.laby.utils.Values;
 
 /**
  * Created by proval on 6/14/16.
@@ -44,7 +39,7 @@ public class SurfaceViewDrawer {
             GameViews.add(new GameView(chili, lvl.getItem(), lvl, this));
             GameViews.add(new GameView(wall, lvl.getbWall(), lvl, this));
 
-        this.scale = Constants.IMAGE_SIZE;
+        this.scale = Values.IMAGE_SIZE;
     }
 
     public ArrayList<GameView> getGameViews() {
@@ -56,13 +51,13 @@ public class SurfaceViewDrawer {
     public  void draw(int x, int y, Bitmap b, boolean erase, Canvas canvas, int kx, int ky) {
 
         Bitmap bm = getResizedBitmap(b);
-        int gap = (int) Constants.CELLSIZE/4;
-        float topx = x*Constants.CELLSIZE-kx*gap;
-        float topy = y*Constants.CELLSIZE+ky;
+        int gap = (int) Values.CELLSIZE/4;
+        float topx = x* Values.CELLSIZE-kx*gap;
+        float topy = y* Values.CELLSIZE+ky;
         RectF whereToDraw = new RectF(
                 topx, topy,
-                topx + Constants.CELLSIZE ,
-                topy + Constants.CELLSIZE);
+                topx + Values.CELLSIZE ,
+                topy + Values.CELLSIZE);
         if (erase) {
             canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
         }
@@ -72,7 +67,7 @@ public class SurfaceViewDrawer {
 
     public Bitmap getResizedBitmap(Bitmap bm) {
 
-        Bitmap resizedBitmap =  Bitmap.createScaledBitmap(bm, Constants.CELLSIZE, Constants.CELLSIZE, false);
+        Bitmap resizedBitmap =  Bitmap.createScaledBitmap(bm, Values.CELLSIZE, Values.CELLSIZE, false);
         return resizedBitmap;
     }
 

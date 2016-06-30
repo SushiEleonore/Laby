@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 
 import fr.upsud.sushi.laby.maze.MovableElement;
-import fr.upsud.sushi.laby.utils.Constants;
 
 
 public class Sprite {

@@ -5,9 +5,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import fr.upsud.sushi.laby.R;
+import fr.upsud.sushi.laby.utils.BitmapParser;
 import fr.upsud.sushi.laby.utils.Dir;
 import fr.upsud.sushi.laby.utils.Sens;
 import fr.upsud.sushi.laby.exceptions.wallCollisionException;
+import fr.upsud.sushi.laby.utils.Skins;
 
 
 public class Player extends MovableElement{
@@ -33,6 +35,7 @@ public class Player extends MovableElement{
     private Bitmap skin_dos;
     private Bitmap pDestroying;
     private boolean hasChili;
+    private BitmapParser bmp;
 
 
     public Player(int x, int y, Dir d, Level l) { //prend un level
@@ -43,11 +46,12 @@ public class Player extends MovableElement{
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inScaled = false;
         Resources res = l.getContext().getResources();
-        this.skin_g = BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_g, options);
-        this.skin_d = BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_d, options);
-        this.skin_dos = BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_dos, options);
-        this.skin_face = BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_face, options);
-        this.pDestroying= BitmapFactory.decodeResource(res, R.drawable.pdestroying, options);
+        this.bmp = new BitmapParser(res);
+        this.skin_g = bmp.getSkinMvG(); //BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_g, options);
+        this.skin_d = bmp.getSkinMvD();// BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_d, options);
+        this.skin_dos = bmp.getSkinMvDos(); //BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_dos, options);
+        this.skin_face = bmp.getSkinMvFace(); //BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_face, options);
+        this.pDestroying= bmp.getPDestroying();// BitmapFactory.decodeResource(res, R.drawable.pdestroying, options);
         this.hasChili=false;
     }
 

@@ -1,30 +1,17 @@
 package fr.upsud.sushi.laby.maze;
 
 import java.io.InputStream;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import fr.upsud.sushi.laby.R;
-import fr.upsud.sushi.laby.utils.Constants;
+import fr.upsud.sushi.laby.utils.Values;
 import fr.upsud.sushi.laby.utils.Dir;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.webkit.JavascriptInterface;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 public class Level {
 
@@ -168,7 +155,7 @@ public class Level {
     //Generates a maze and a player depending on the level.
     //Replaced the arraylist by an array
     public Level (int lvl, Context ctx) {
-        this.levelMax = Constants.maxLvl;
+        this.levelMax = Values.maxLvl;
         this.context = ctx;
         this.authorizedBlocks = new ArrayList<String>();
          if (lvl == 1) {
@@ -202,7 +189,6 @@ public class Level {
 
 
 
-
     public Context getContext(){
         return this.context;
     }
@@ -230,7 +216,7 @@ public class Level {
         } else {
             this.cellSize = (int) (sizey);
         }
-        Constants.setCellSize(cellSize);
+        Values.setCellSize(cellSize);
 
 
     }
@@ -250,14 +236,13 @@ public class Level {
         }
 
         this.hShift = (h - this.cells[0].length * this.cellSize)/2;
-        Constants.setHSHIFT(hShift);
+        Values.setHSHIFT(hShift);
         this.lShift= (w - this.cells.length * this.cellSize)/2;
-        Constants.setLSHIFT(lShift);
+        Values.setLSHIFT(lShift);
         System.out.println( "Eccess width :" + (w - this.cells.length * this.cellSize) );
         System.out.println( "Eccess height :" + (h - this.cells[0].length * this.cellSize) );
-        Constants.setCellSize(cellSize);
+        Values.setCellSize(cellSize);
     }
-
 
 
     public int getCellSize() { return this.cellSize;}
