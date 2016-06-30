@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 
 import fr.upsud.sushi.laby.maze.MovableElement;
+import fr.upsud.sushi.laby.utils.Values;
 
 
 public class Sprite {
@@ -65,7 +66,7 @@ public class Sprite {
 
     public void onDraw(Canvas canvas, String action) {
         update();
-        if((Math.abs(gapx)<=Constants.CELLSIZE) && (Math.abs(gapy)<=Constants.CELLSIZE)) {
+        if((Math.abs(gapx)<= Values.CELLSIZE) && (Math.abs(gapy)<=Values.CELLSIZE)) {
             gameView.getDrawer().draw(x,y,bmp[currentFrame],true,canvas, gapx*gapToDo,gapy*gapToDo);
         }
         else {
