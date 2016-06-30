@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 
 import fr.upsud.sushi.laby.R;
 import fr.upsud.sushi.laby.exceptions.wallCollisionException;
+import fr.upsud.sushi.laby.utils.BitmapParser;
 import fr.upsud.sushi.laby.utils.Dir;
 import fr.upsud.sushi.laby.utils.Sens;
 
@@ -27,7 +28,7 @@ public class Item extends MovableElement {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inScaled = false;
         Resources res=this.l.getContext().getResources();
-        this.skinItem = BitmapFactory.decodeResource(res, R.drawable.piment, options);
+        this.skinItem = BitmapParser.getChili(res);//BitmapFactory.decodeResource(res, R.drawable.piment, options);
     }
 
     public int getX() { return this.x;}

@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import fr.upsud.sushi.laby.R;
+import fr.upsud.sushi.laby.utils.BitmapParser;
 import fr.upsud.sushi.laby.utils.Dir;
 
 /**
@@ -29,8 +30,8 @@ public class BreakableWall extends MovableElement{
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inScaled = false;
         Resources res=this.l.getContext().getResources();
-        this.skinBWall = BitmapFactory.decodeResource(res, R.drawable.breakablewall, options);
-        this.skinBurnig = BitmapFactory.decodeResource(res, R.drawable.burningbwall, options);
+        this.skinBWall = BitmapParser.getStBreakableWall(res);//BitmapFactory.decodeResource(res, R.drawable.breakablewall, options);
+        this.skinBurnig = BitmapParser.getMvBreakableWall(res);//BitmapFactory.decodeResource(res, R.drawable.burningbwall, options);
     }
 
     public int getX() { return this.x;}

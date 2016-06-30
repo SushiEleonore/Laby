@@ -14,22 +14,21 @@ public class BitmapParser {
     private static int sizeImgx = 92;
     private static int sizeImgy = 192;
 
-    private int caseSize ;
+    private static int caseSize ;
     private static Skins skin = Skins.BEBEZILLA;
-    private Resources res;
-    private Bitmap mainBitmap;
+    public static  Bitmap mainBitmap;
+
 
 
     public BitmapParser(Resources r) {
-        this.res = r;
         switch(skin){
             case BEBEZILLA:
-                this.mainBitmap = BitmapFactory.decodeResource(res, R.drawable.bebezilla_player);
-                this.caseSize = 24;
+                mainBitmap = BitmapFactory.decodeResource(r, R.drawable.bebezilla_player);
+                caseSize = 24;
                 break;
             default:
-                this.mainBitmap = BitmapFactory.decodeResource(res, R.drawable.duck_player);
-                this.caseSize = 24;
+                mainBitmap = BitmapFactory.decodeResource(r, R.drawable.duck_player);
+                caseSize = 24;
                 break;
         }
 
@@ -44,56 +43,84 @@ public class BitmapParser {
         return this.mainBitmap;
     }
 
+    private static void setMainBitmap(Resources r){
+        switch(skin){
+            case BEBEZILLA:
+                mainBitmap = BitmapFactory.decodeResource(r, R.drawable.bebezilla_player);
+                caseSize = 24;
+                break;
+            default:
+                mainBitmap = BitmapFactory.decodeResource(r, R.drawable.duck_player);
+                caseSize = 24;
+                break;
+        }
+    }
+
 
     //Moving player
-    public Bitmap getSkinMvG() {
+    public static Bitmap getSkinMvG(Resources r) {
+        setMainBitmap(r);
         return Bitmap.createBitmap(mainBitmap, caseSize*2, 0, caseSize*6, caseSize*2);
     }
-    public Bitmap getSkinMvD() {
+    public static Bitmap getSkinMvD(Resources r) {
+        setMainBitmap(r);
         return Bitmap.createBitmap(mainBitmap, caseSize*2, caseSize*2, caseSize*6, caseSize*2);
     }
-    public Bitmap getSkinMvDos() {
+    public static Bitmap getSkinMvDos(Resources r) {
+        setMainBitmap(r);
         return Bitmap.createBitmap(mainBitmap, caseSize*2, caseSize*4, caseSize*6, caseSize*2);
     }
-    public Bitmap getSkinMvFace() {
+    public static Bitmap getSkinMvFace(Resources r) {
+        setMainBitmap(r);
         return Bitmap.createBitmap(mainBitmap, caseSize*2, caseSize*6, caseSize*6, caseSize*2);
     }
-    public Bitmap getPDestroying() {
+    public static Bitmap getPDestroying(Resources r) {
+        setMainBitmap(r);
         return Bitmap.createBitmap(mainBitmap, caseSize*2, caseSize*8, caseSize*6, caseSize*2);
     }
 
     //Static player
-    public Bitmap getSkinStG() {
+    public static Bitmap getSkinStG(Resources r) {
+        setMainBitmap(r);
         return Bitmap.createBitmap(mainBitmap, 0, 0, caseSize, caseSize);
     }
-    public Bitmap getSkinStD() {
+    public static Bitmap getSkinStD(Resources r) {
+        setMainBitmap(r);
         return Bitmap.createBitmap(mainBitmap, 0, caseSize, caseSize, caseSize);
     }
-    public Bitmap getSkinStDos() {
+    public static Bitmap getSkinStDos(Resources r) {
+        setMainBitmap(r);
         return Bitmap.createBitmap(mainBitmap, 0, caseSize*2, caseSize, caseSize);
     }
-    public Bitmap getSkinStFace() {
+    public static Bitmap getSkinStFace(Resources r) {
+        setMainBitmap(r);
         return Bitmap.createBitmap(mainBitmap, 0, caseSize*3, caseSize, caseSize);
     }
 
     //Other stuff
-    public Bitmap getStBreakableWall(){
-        return Bitmap.createBitmap(mainBitmap, 0, caseSize*5, caseSize, caseSize);
+    public static Bitmap getStBreakableWall(Resources r){
+        setMainBitmap(r);
+        return Bitmap.createBitmap(mainBitmap, 0, caseSize*10, caseSize*6, caseSize*2);
     }
-    public Bitmap getMvBreakableWall(){
-        return Bitmap.createBitmap(mainBitmap, caseSize, caseSize*5, caseSize*3, caseSize);
+    public static Bitmap getMvBreakableWall(Resources r){
+        setMainBitmap(r);
+        return Bitmap.createBitmap(mainBitmap, caseSize*2, caseSize*10, caseSize*6, caseSize*2);
     }
-    public Bitmap getWall(){
-        return Bitmap.createBitmap(mainBitmap, caseSize, caseSize*6, caseSize*3, caseSize);
+    public static Bitmap getWall(Resources r){
+        setMainBitmap(r);
+        return Bitmap.createBitmap(mainBitmap, caseSize*2, caseSize*12, caseSize*2, caseSize*2);
     }
-    public Bitmap getChili(){
-        return Bitmap.createBitmap(mainBitmap, 0, caseSize*6, caseSize, caseSize);
+    public static Bitmap getChili(Resources r){
+        setMainBitmap(r);
+        return Bitmap.createBitmap(mainBitmap, 0, caseSize*12, caseSize*6, caseSize*2);
     }
-    public Bitmap getPath(){
-        return Bitmap.createBitmap(mainBitmap, caseSize*2, caseSize*6, caseSize, caseSize);
+    public static Bitmap getPath(Resources r){
+        setMainBitmap(r);
+        return Bitmap.createBitmap(mainBitmap, caseSize*4, caseSize*12, caseSize*2, caseSize*2);
     }
-    public Bitmap getEnd(){
-        return Bitmap.createBitmap(mainBitmap, caseSize*3, caseSize*6, caseSize, caseSize);
+    public static Bitmap getEnd(Resources r){
+        setMainBitmap(r);
+        return Bitmap.createBitmap(mainBitmap, caseSize*6, caseSize*12, caseSize*2, caseSize*2);
     }
 
 }

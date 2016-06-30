@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import fr.upsud.sushi.laby.R;
 import fr.upsud.sushi.laby.maze.Cell;
 import fr.upsud.sushi.laby.maze.Level;
+import fr.upsud.sushi.laby.utils.BitmapParser;
 import fr.upsud.sushi.laby.utils.Observer;
 
 /**
@@ -43,13 +44,14 @@ public class GameRenderer {
         options.inScaled = false;
 
 
-        bitmapWall = BitmapFactory.decodeResource(res, R.drawable.mini_mur2, options);
+        bitmapWall = BitmapParser.getWall(res);
+                 //BitmapFactory.decodeResource(res, R.drawable.mini_mur2, options);
        /* bitmapPlayerN = BitmapFactory.decodeResource(res, R.drawable.mini_canard_dos, options);
         bitmapPlayerS = BitmapFactory.decodeResource(res, R.drawable.mini_canard_face, options);
         bitmapPlayerE = BitmapFactory.decodeResource(res, R.drawable.mini_canard_d, options);
         bitmapPlayerW = BitmapFactory.decodeResource(res, R.drawable.mini_canard_g, options);*/
-        bitmapEnd = BitmapFactory.decodeResource(res, R.drawable.arrivee, options);
-        bitmapPath = BitmapFactory.decodeResource(res, R.drawable.path, options);
+        bitmapEnd =BitmapParser.getEnd(res);// BitmapFactory.decodeResource(res, R.drawable.arrivee, options);
+        bitmapPath =BitmapParser.getPath(res);//BitmapFactory.decodeResource(res, R.drawable.path, options);
 /*
         bitmapPlayerMvN= BitmapFactory.decodeResource(res, R.drawable.mv_mini_canard_dos, options);
         bitmapPlayerMvS= BitmapFactory.decodeResource(res, R.drawable.mv_mini_canard_face, options);

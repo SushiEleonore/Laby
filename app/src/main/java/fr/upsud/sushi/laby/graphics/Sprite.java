@@ -45,10 +45,8 @@ public class Sprite {
         this.xSpeed=5;
         this.ySpeed=5;}
 
-
         this.x=el.getX()+kx;
         this.y=el.getY()+ky;
-
 
         this.gameLoop=new GameLoopThread(
                 gameView,

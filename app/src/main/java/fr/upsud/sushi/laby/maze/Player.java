@@ -36,7 +36,6 @@ public class Player extends MovableElement{
     private Bitmap pDestroying;
     private int motion;
     private boolean hasChili;
-    private BitmapParser bmp;
 
 
     public Player(int x, int y, Dir d, Level l) { //prend un level
@@ -48,12 +47,11 @@ public class Player extends MovableElement{
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inScaled = false;
         Resources res = l.getContext().getResources();
-        this.bmp = new BitmapParser(res);
-        this.skin_g = bmp.getSkinMvG(); //BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_g, options);
-        this.skin_d = bmp.getSkinMvD();// BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_d, options);
-        this.skin_dos = bmp.getSkinMvDos(); //BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_dos, options);
-        this.skin_face = bmp.getSkinMvFace(); //BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_face, options);
-        this.pDestroying= bmp.getPDestroying();// BitmapFactory.decodeResource(res, R.drawable.pdestroying, options);
+        this.skin_g = BitmapParser.getSkinMvG(res); //BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_g, options);
+        this.skin_d = BitmapParser.getSkinMvD(res);// BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_d, options);
+        this.skin_dos = BitmapParser.getSkinMvDos(res); //BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_dos, options);
+        this.skin_face = BitmapParser.getSkinMvFace(res); //BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_face, options);
+        this.pDestroying= BitmapParser.getPDestroying(res);// BitmapFactory.decodeResource(res, R.drawable.pdestroying, options);
         this.hasChili=false;
     }
 
@@ -91,6 +89,7 @@ public class Player extends MovableElement{
             return pDestroying;
 
     }
+
 
     public Bitmap getSkin_g(){return this.skin_g;}
     public Bitmap getSkin_d(){return this.skin_d;}
