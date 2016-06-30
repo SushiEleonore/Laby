@@ -241,12 +241,12 @@ public void erasebWall() {
 
     }
     public void drawMvingPlayer(int mv) {
-        listSurface.getGameViews().get(0).drawMving();
+        listSurface.getGameViews().get(0).drawMving( mv);
 
     }
     public void drawPDestroying(){
-        // TODO : DRAWDESTROYING
-       // listSurface.getGameViews().get(0).drawStatic();
+        listSurface.getGameViews().get(0).drawAction();
+        listSurface.getGameViews().get(2).drawAction();
     }
     public void drawChili(){
         listSurface.getGameViews().get(1).drawStatic();
@@ -255,8 +255,9 @@ public void erasebWall() {
         listSurface.getGameViews().get(2).drawStatic();
     }
     public void erasebWall() {
+        listSurface.getGameViews().get(2).erase();
     }
-    public void eraseChili() {}
+    public void eraseChili() { listSurface.getGameViews().get(1).erase();}
 
 /*
 
