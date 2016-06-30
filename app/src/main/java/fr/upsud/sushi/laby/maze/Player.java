@@ -32,6 +32,7 @@ public class Player extends MovableElement{
     private Bitmap skin_face;
     private Bitmap skin_dos;
     private Bitmap pDestroying;
+    private int motion;
     private boolean hasChili;
 
 
@@ -39,6 +40,7 @@ public class Player extends MovableElement{
         this.dir=d;
         this.x = x;
         this.y = y;
+        this.motion=0;
         this.l = l;
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inScaled = false;
@@ -57,7 +59,7 @@ public class Player extends MovableElement{
         this.y = p.getY();
         this.l = p.getLevel();
         this.hasChili=p.hasChili();
-       this.skin_g = p.getSkin_g();
+        this.skin_g = p.getSkin_g();
         this.skin_d = p.getSkin_d();
         this.skin_dos = p.getSkin_dos();
         this.skin_face = p.getSkin_face();
@@ -79,6 +81,13 @@ public class Player extends MovableElement{
         statBmp[3]=this.skin_face;
         return statBmp;
     }
+
+    public Bitmap getActionBmp(String s){
+        //if(s.equals("destroy"))
+            return pDestroying;
+
+    }
+
     public Bitmap getSkin_g(){return this.skin_g;}
     public Bitmap getSkin_d(){return this.skin_d;}
     public Bitmap getSkin_dos(){return this.skin_dos;}
@@ -196,6 +205,12 @@ public class Player extends MovableElement{
         return (this.x == this.l.getXend() && this.y == this.l.getYend());
     }
 
+    public int getMotion(){
+        return this.motion;
+    }
+    public void setMotion(int k){
+        this.motion=k;
+    }
     public String toString() {
         return "player";
     }

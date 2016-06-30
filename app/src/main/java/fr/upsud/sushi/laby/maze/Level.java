@@ -279,7 +279,9 @@ public class Level {
 
     public Cell[][] getCells() {return this.cells;}
 
-    public void setPlayer(Player pl) {this.p = pl;}
+    public void setPlayer(Player pl) {
+        this.p = pl;}
+
 
     //Checks if there's a wall at [i][j]
     public boolean isWall(int i, int j) {

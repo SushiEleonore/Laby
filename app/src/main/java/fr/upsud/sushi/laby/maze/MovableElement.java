@@ -15,6 +15,8 @@ public abstract class MovableElement {
     public abstract int getX();
     public abstract int getY();
     public abstract String toString();
+    public abstract int getMotion();
+    public abstract Bitmap getActionBmp(String s);
 
 
 }

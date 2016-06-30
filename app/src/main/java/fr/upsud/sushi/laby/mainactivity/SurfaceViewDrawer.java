@@ -56,8 +56,7 @@ public class SurfaceViewDrawer {
     public  void draw(int x, int y, Bitmap b, boolean erase, Canvas canvas, int kx, int ky) {
 
         Bitmap bm = getResizedBitmap(b);
-        int gap = (int) Constants.CELLSIZE/4;
-        float topx = x*Constants.CELLSIZE-kx*gap;
+        float topx = x*Constants.CELLSIZE+kx;
         float topy = y*Constants.CELLSIZE+ky;
         RectF whereToDraw = new RectF(
                 topx, topy,

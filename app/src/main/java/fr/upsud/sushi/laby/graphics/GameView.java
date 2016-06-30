@@ -19,12 +19,14 @@ import fr.upsud.sushi.laby.R;
 import fr.upsud.sushi.laby.mainactivity.SurfaceViewDrawer;
 import fr.upsud.sushi.laby.maze.Level;
 import fr.upsud.sushi.laby.maze.MovableElement;
+import fr.upsud.sushi.laby.maze.Player;
 import fr.upsud.sushi.laby.utils.Dir;
 
 
 public class GameView {
     private Bitmap[] staticBmp;
     private Bitmap[][] mvingBmp;
+    private Bitmap[] actionBmp;
     private SurfaceHolder holder;
 
     private Sprite sprite;
@@ -35,17 +37,17 @@ public class GameView {
     private final int DOS=2;
     private final int FACE=3;
     private SurfaceView sV;
-   // Level l;
+    Level l;
 
 
     public GameView(SurfaceView sV, MovableElement el,final Level l, SurfaceViewDrawer drawer) {
         this.el=el;
         this.sV=sV;
+        this.l=l;
         this.drawer=drawer;
         if(el!=null){
             Bitmap[] tempBmp=el.getStaticBmp();
             this.staticBmp= tempBmp.clone();
-
              this.mvingBmp=new Bitmap[4][3];
            //  this.mvingBmp= tempBmp;
             for(int i = 0; i<tempBmp.length;i++) {
@@ -53,43 +55,19 @@ public class GameView {
                 mvingBmp[i][0] =Bitmap.createBitmap(tempBmp[i], 0, 0, tempBmp[i].getWidth() / 3, tempBmp[i].getHeight());
                 mvingBmp[i][1] =Bitmap.createBitmap(tempBmp[i],tempBmp[i].getWidth() / 3, 0, tempBmp[i].getWidth() / 3, tempBmp[i].getHeight());
                 mvingBmp[i][2] =Bitmap.createBitmap(tempBmp[i],2*tempBmp[i].getWidth() / 3, 0, tempBmp[i].getWidth() / 3, tempBmp[i].getHeight());
-
+            }
+            Bitmap tmp = el.getActionBmp("");
+            this.actionBmp=new Bitmap[3];
+            if(tmp!=null) {
+                actionBmp[0] = Bitmap.createBitmap(tmp, 0, 0, tmp.getWidth() / 3, tmp.getHeight());
+                actionBmp[1] = Bitmap.createBitmap(tmp, tmp.getWidth() / 3, 0, tmp.getWidth() / 3, tmp.getHeight());
+                actionBmp[2] = Bitmap.createBitmap(tmp, 2 * tmp.getWidth() / 3, 0, tmp.getWidth() / 3, tmp.getHeight());
             }
         }
 
 
-
         holder = sV.getHolder();
         holder.addCallback(new SurfaceHolder.Callback() {
-           /* @Override
-            public void surfaceDestroyed(SurfaceHolder holder) {
-                boolean retry = true;
-                gameLoopThread.setRunning(false);
-                while (retry) {
-                    try {
-                        gameLoopThread.join();
-                        retry = false;
-                    } catch (InterruptedException e) {
-
-                    }
-
-                }
-
-            }
-
-            @Override
-            public void surfaceCreated(SurfaceHolder holder) {
-                gameLoopThread.setRunning(true);
-                gameLoopThread.start();
-
-            }
-
-            @Override
-            public void surfaceChanged(SurfaceHolder holder, int format,
-                    int width, int height) {
-            }
-        });
-        */
            public void surfaceCreated(SurfaceHolder holder) {
                l.setCellSize(holder.getSurfaceFrame().height(), holder.getSurfaceFrame().width());
                holder.setFormat(PixelFormat.TRANSPARENT);
@@ -99,10 +77,8 @@ public class GameView {
             @Override
             public void surfaceChanged(SurfaceHolder holder, int format, int width,
                     int height) {
-                //l.setCellSize(holder.getSurfaceFrame().height(), holder.getSurfaceFrame().width());
                 drawStatic();
             }
-
             @Override
             public void surfaceDestroyed(SurfaceHolder holder) {
                 holder.removeCallback(this);
@@ -164,31 +140,61 @@ public class GameView {
         }
 
     }
-    public void drawMving() {
-        if (el != null) {
+    public void erase(){
+        SurfaceHolder h = sV.getHolder();
+        if (h.getSurface().isValid()) {
+            Canvas canvas = h.lockCanvas();
+            canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+            h.unlockCanvasAndPost(canvas);
+        }
+    }
 
+    public void drawMving(int mv) {
+        if (el != null) {
+        if(el instanceof Player){
+            el=l.getPlayer();
+        }
             Dir d = el.getDir();
+            int kx, ky;
             Bitmap[] b= new Bitmap[3];
             switch (d) {
+                case F:
+                    b=mvingBmp[0];
+                    kx=0;
+                    ky=0;
+                    break;
                 case S:
                     b = mvingBmp[3];
-
+                    kx=0;
+                    ky=-1;
                     break;
                 case E:
                     b = mvingBmp[0];
-
+                    kx=-1;
+                    ky=0;
                     break;
                 case W:
                     b = mvingBmp[1];
-
+                    kx=1;
+                    ky=0;
                     break;
                 default:
                     b = mvingBmp[2];
+                    kx=0;
+                    ky=1;
                     break;
             }
-            new Sprite(this, this.el, b);
-
+            new Sprite(this, el, b, kx*mv, ky*mv);
         }
     }
+    public void drawAction() {
+        if (el != null) {
+            if(el instanceof Player){
+                el=l.getPlayer();
+            }
+            new Sprite(this, el, this.actionBmp, 0, 0);
+        }
+    }
+
 
 }

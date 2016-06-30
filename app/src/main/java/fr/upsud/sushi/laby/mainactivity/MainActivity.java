@@ -121,7 +121,6 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     private boolean firsTime;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -157,10 +156,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     }
 
     public void setmWebView () {
-
-
         mWebView = (WebView) findViewById(R.id.webView);
-
         mWebView.setWebChromeClient(new CustomWebChromeClient(this));
         mWebView.getSettings().setJavaScriptEnabled(true);
         String blocks = createToolBox(l.getAuthorizedBlocks());
@@ -168,9 +164,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         //createToolBox(l.getAuthorizedBlocks());
         mWebView.addJavascriptInterface(this.tbuilder , "JavaTermBuilder");
         mWebView.addJavascriptInterface(this , "JavaMainActivity");
-
     }
-
     public void setLevel (Level lv) {
         this.l = lv; firsTime=true;
         gameR.drawBG();
@@ -195,31 +189,27 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         startActivityForResult(intent, 0);
     }
 */
-    public void notify(boolean fin, String id, final boolean resetLevel, final int mv2, final boolean pDestroying) {
+    public void notify(boolean fin, String id, final boolean resetLevel, final int mv, final boolean pDestroying) {
         final String id2 = id;
-        final int mv=mv2;
         final boolean fin2 =fin;
         final boolean resetLevel2 = resetLevel;
-
-
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-
                     if (resetLevel2) {restartLevel(); }
                     if (fin2){backToMenu();}
                     else if (id2==null) {Toast.makeText(getApplicationContext(), R.string.essaie_encore, Toast.LENGTH_SHORT).show();}
                     else {
-                        mWebView.loadUrl("javascript:highlightBlockById('" + id2 +
-                                "')");
+                        mWebView.loadUrl("javascript:highlightBlockById('" + id2 + "')");
                         if(pDestroying) gameR.drawPDestroying();
                         else if(mv==0)gameR.drawPlayer();
-
-                        else gameR.drawMvingPlayer(mv);
+                        else {l.getPlayer().setMotion(mv);
+                            gameR.drawMvingPlayer(mv);
+                        }
                         if(l.getPlayer().hasChili())gameR.eraseChili();
-                        if(l.getbWall()!=null &&!l.getbWall().getState()){l.getbWall().setState(false); gameR.erasebWall();}
-
-
+                        else gameR.drawChili();
+                        if(l.getbWall()!=null &&!l.getbWall().getState()){ gameR.erasebWall();}
+                        if(l.getbWall()!=null &&!l.getbWall().getState()){ gameR.drawBreakableWall();}
                     }
                 }
             });
@@ -258,10 +248,10 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
     public void restartLevel () {
         l.restart();
-        gameR.drawBG();
-        gameR.drawPlayer();
+
         resetButtons();
-        tbuilder.reset();
+        tbuilder.reset();gameR.drawBG();
+        gameR.drawPlayer();
         firsTime =true;
     }
     public void restartLevel (View v) {

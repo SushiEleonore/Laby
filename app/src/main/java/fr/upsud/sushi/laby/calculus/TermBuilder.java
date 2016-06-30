@@ -153,13 +153,11 @@ public class TermBuilder {
     private ArrayList<Instr> initListInstr() {
         Instr t = getInstr();
         ArrayList<Instr> rInstrs = new ArrayList<Instr>();
-
         while (t != null) {
             rInstrs.add(t);
             t = getInstr();
         }
         return rInstrs;
-
     }
 
     @JavascriptInterface
@@ -168,14 +166,11 @@ public class TermBuilder {
             Thread t = new Thread() {
 
                 public void run() {
-
-
                         if (nStep==-1 && lins.isEmpty()) {
                             ArrayList<Instr> l = initListInstr();
                             lins = new ListInstr(l);
                             lins.reverse();
                         }
-
                         if(!lins.isEmpty()) {
                             nStep++;
                             Player temp = new Player(l.getPlayer());

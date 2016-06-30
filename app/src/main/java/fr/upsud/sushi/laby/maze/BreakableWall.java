@@ -36,6 +36,11 @@ public class BreakableWall extends MovableElement{
     public int getX() { return this.x;}
     public int getY() { return this.y;}
 
+    @Override
+    public int getMotion() {
+        return 0;
+    }
+
     public void restart(){
         this.state= true;
     }
@@ -51,7 +56,8 @@ public class BreakableWall extends MovableElement{
         return Dir.F;
     }
 
-    public Bitmap getMovingBmp(){return this.skinBurnig;}
+    public Bitmap getActionBmp(String s){return this.skinBurnig;}
+
 
     public Level getLevel(){ return this.l;}
 

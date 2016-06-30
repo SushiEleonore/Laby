@@ -49,6 +49,11 @@ public class Item extends MovableElement {
         return bmp;
     }
 
+    public Bitmap getActionBmp(String s){
+        return null;
+    }
+
+    public int getMotion(){return 0;}
 
     public Dir getDir(){return Dir.F;}
 
