@@ -168,11 +168,13 @@ public class ItemDrawer {
                     kx=1;
                     ky=0;
                     break;
-                default:
+                case N:
                     b = mvingBmp[2];
                     kx=0;
                     ky=1;
                     break;
+                default:
+                    throw  new RuntimeException("impossible");
             }
             new Sprite(this, el, b, kx*mv, ky*mv);
         }
