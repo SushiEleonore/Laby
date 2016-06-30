@@ -7,7 +7,6 @@ import fr.upsud.sushi.laby.maze.Player;
  */
 public class GameState {
     private String id;
-
     private Player pDep;
     private Player pArr;
 
@@ -20,7 +19,6 @@ public class GameState {
     public String getId(){
         return this.id;
     }
-
     public Player getpDep(){
         return this.pDep;
     }

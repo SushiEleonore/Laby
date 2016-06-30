@@ -1,23 +1,17 @@
-package fr.upsud.sushi.laby.mainactivity;
+package fr.upsud.sushi.laby.graphics;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
-import android.graphics.Rect;
 import android.graphics.RectF;
-import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.LinearLayout;
 
-import java.security.spec.ECField;
 import java.util.ArrayList;
 
 //import fr.upsud.sushi.laby.R;
-import fr.upsud.sushi.laby.graphics.GameView;
 import fr.upsud.sushi.laby.maze.Level;
 import fr.upsud.sushi.laby.utils.Values;
 
@@ -25,33 +19,27 @@ import fr.upsud.sushi.laby.utils.Values;
  * Created by proval on 6/14/16.
  */
 public class SurfaceViewDrawer {
-    public static final int BG_LAYER = 0;
-    public static final int PLAYER_LAYER = 1;
     Paint paint = new Paint(Paint.FILTER_BITMAP_FLAG |
             Paint.DITHER_FLAG
              | Paint.ANTI_ALIAS_FLAG);
 
-    private ArrayList<GameView> GameViews;
+    private ArrayList<ItemDrawer> itemDrawers;
     private SurfaceView bg;
     float scale;
 
-
-
-    SurfaceViewDrawer(SurfaceView bg, SurfaceView player, SurfaceView chili, SurfaceView wall, LinearLayout l, Level lvl) {
-        GameViews = new ArrayList<GameView>();
+    public SurfaceViewDrawer(SurfaceView bg, SurfaceView player, SurfaceView chili, SurfaceView wall, LinearLayout l, Level lvl) {
+        itemDrawers = new ArrayList<ItemDrawer>();
         this.bg=bg;
-        GameViews.add(new GameView(player,lvl.getPlayer(),lvl, this ));
-            GameViews.add(new GameView(chili, lvl.getItem(), lvl, this));
-            GameViews.add(new GameView(wall, lvl.getbWall(), lvl, this));
+        itemDrawers.add(new ItemDrawer(player,lvl.getPlayer(),lvl, this ));
+            itemDrawers.add(new ItemDrawer(chili, lvl.getItem(), lvl, this));
+            itemDrawers.add(new ItemDrawer(wall, lvl.getbWall(), lvl, this));
 
         this.scale = Values.IMAGE_SIZE;
     }
-
-    public ArrayList<GameView> getGameViews() {
-        return this.GameViews;
+    public ArrayList<ItemDrawer> getItemDrawers() {
+        return this.itemDrawers;
     }
     public SurfaceView getBg(){return this.bg;}
-
 
     public  void draw(int x, int y, Bitmap b, boolean erase, Canvas canvas, int kx, int ky) {
 

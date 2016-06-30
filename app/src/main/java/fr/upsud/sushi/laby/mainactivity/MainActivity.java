@@ -29,6 +29,8 @@ import java.util.ArrayList;
 
 import fr.upsud.sushi.laby.R;
 import fr.upsud.sushi.laby.calculus.TermBuilder;
+import fr.upsud.sushi.laby.graphics.GameRenderer;
+import fr.upsud.sushi.laby.graphics.SurfaceViewDrawer;
 import fr.upsud.sushi.laby.maze.Level;
 import fr.upsud.sushi.laby.utils.Observer;
 
@@ -126,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         SurfaceView sPlayer =(SurfaceView) findViewById(R.id.playerview);
         SurfaceView sChili = (SurfaceView) findViewById(R.id.chiliview);
         SurfaceView sBWall= (SurfaceView)findViewById(R.id.bwallview);
-        //GameView sBwall = new GameView(findViewById(R.id.bwallview), l.getbWall(), l, drawze)
+        //ItemDrawer sBwall = new ItemDrawer(findViewById(R.id.bwallview), l.getbWall(), l, drawze)
         sChili.setZOrderOnTop(true);
         sBWall.setZOrderOnTop(true);
         sPlayer.setZOrderOnTop(true);    // necessary
@@ -199,9 +201,8 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                             gameR.drawMvingPlayer(mv);
                         }
                         if(l.getPlayer().hasChili())gameR.eraseChili();
-                        else gameR.drawChili();
                         if(l.getbWall()!=null &&!l.getbWall().getState()){ gameR.erasebWall();}
-                        if(l.getbWall()!=null &&!l.getbWall().getState()){ gameR.drawBreakableWall();}
+                        if(l.getbWall()!=null &&l.getbWall().getState()){ gameR.drawBreakableWall();}
                     }
                 }
             });

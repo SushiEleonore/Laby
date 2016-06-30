@@ -3,27 +3,21 @@ package fr.upsud.sushi.laby.graphics;
 /**
  * Created by proval on 6/27/16.
  */
-import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
-import android.media.midi.MidiOutputPort;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
 
-import fr.upsud.sushi.laby.R;
-import fr.upsud.sushi.laby.mainactivity.SurfaceViewDrawer;
 import fr.upsud.sushi.laby.maze.Level;
 import fr.upsud.sushi.laby.maze.MovableElement;
 import fr.upsud.sushi.laby.maze.Player;
 import fr.upsud.sushi.laby.utils.Dir;
 
 
-public class GameView {
+public class ItemDrawer {
     private Bitmap[] staticBmp;
     private Bitmap[][] mvingBmp;
     private Bitmap[] actionBmp;
@@ -32,15 +26,11 @@ public class GameView {
     private Sprite sprite;
     private SurfaceViewDrawer drawer;
     private MovableElement el;
-    private final int D=0;
-    private final int G=1;
-    private final int DOS=2;
-    private final int FACE=3;
     private SurfaceView sV;
     Level l;
 
 
-    public GameView(SurfaceView sV, MovableElement el,final Level l, SurfaceViewDrawer drawer) {
+    public ItemDrawer(SurfaceView sV, MovableElement el,final Level l, SurfaceViewDrawer drawer) {
         this.el=el;
         this.sV=sV;
         this.l=l;
