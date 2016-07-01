@@ -52,4 +52,10 @@
         android:text="7"
         android:onClick="level7"
         android:id="@+id/button8"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Accueil"
+        android:onClick="backToHome"
+        android:id="@+id/button9"/>
 </LinearLayout>

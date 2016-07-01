@@ -10,7 +10,7 @@ import fr.upsud.sushi.laby.maze.Level;
  */
 public class Values {
 
-    public static final boolean DEBUG_MODE = true;
+    public static final boolean DEBUG_MODE = false  ;
 
     //Game rendering
     public static final int FPS = 60;

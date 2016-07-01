@@ -83,5 +83,11 @@ public class MenuActivity extends Activity {
         finish();
     }
 
+    public void backToHome(View v){
+        setContentView(R.layout.activity_home);
+        Intent intent2 = new Intent(getApplicationContext(), Home.class);
+        startActivityForResult(intent2, 0);
+        finish();
+    }
 
 }
