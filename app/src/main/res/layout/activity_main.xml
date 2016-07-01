@@ -68,30 +68,34 @@
             <Button
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:text="@string/reset"
+                android:text=""
                 android:onClick="restartLevel"
-                android:id="@+id/buttonRes" android:layout_gravity="bottom"/>
+                android:id="@+id/buttonRes" android:layout_gravity="bottom"
+                android:background="@drawable/stop"/>
             <Button
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:text="@string/prev"
+                android:text=""
                 android:id="@+id/prev"
                 android:onClick="prevStep"
-                android:layout_gravity="center_vertical"/>
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/previous"/>
             <Button
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:text="@string/play"
+                android:text=""
                 android:onClick="evalBlock"
-                android:id="@+id/button" android:layout_gravity="bottom"/>
+                android:id="@+id/button" android:layout_gravity="bottom"
+                android:background="@drawable/play"/>
 
 
             <Button
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:text="@string/next"
+                android:text=""
                 android:onClick="nextStep"
-                android:id="@+id/next"/>
+                android:id="@+id/next"
+                android:background="@drawable/next"/>
             <Button
                 android:layout_width="45dp"
                 android:layout_height="45dp"
@@ -108,7 +112,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:focusable="true"
-        android:layout_weight="0.5"
+        android:layout_weight="0.65"
         android:focusableInTouchMode="true"
         android:id="@+id/webView" />
 </LinearLayout>

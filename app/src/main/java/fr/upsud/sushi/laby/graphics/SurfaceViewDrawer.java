@@ -48,9 +48,9 @@ public class SurfaceViewDrawer {
         float topx = x* Values.CELLSIZE-kx*gap;
         float topy = y* Values.CELLSIZE+ky;
         RectF whereToDraw = new RectF(
-                topx, topy,
-                topx + Values.CELLSIZE ,
-                topy + Values.CELLSIZE);
+                topx + Values.LSHIFT, topy+ Values.HSHIFT,
+                topx + Values.CELLSIZE + Values.LSHIFT,
+                topy + Values.CELLSIZE+ Values.HSHIFT);
         if (erase) {
             canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
         }

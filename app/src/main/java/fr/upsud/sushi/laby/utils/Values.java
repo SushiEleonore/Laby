@@ -27,6 +27,8 @@ public class Values {
     public static final int XSPEED = 1;
     public static final int YSPEED = 1;
 
+    public static final boolean DEBUG_MODE = true;
+
     public static float getScale(LinearLayout lay, Level l) {
         int hauteur = lay.getHeight();
         int horizontalitude = lay.getWidth();

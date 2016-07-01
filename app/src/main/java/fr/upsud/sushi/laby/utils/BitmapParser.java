@@ -36,7 +36,6 @@ public class BitmapParser {
 
     public static void setSkin(Skins s){
         skin = s;
-        //if s = bebezilla then size = ...
     }
 
     public Bitmap getMainBitmap (){
@@ -79,6 +78,7 @@ public class BitmapParser {
         return Bitmap.createBitmap(mainBitmap, caseSize*2, caseSize*8, caseSize*6, caseSize*2);
     }
 
+    /*
     //Static player
     public static Bitmap getSkinStG(Resources r) {
         setMainBitmap(r);
@@ -95,7 +95,7 @@ public class BitmapParser {
     public static Bitmap getSkinStFace(Resources r) {
         setMainBitmap(r);
         return Bitmap.createBitmap(mainBitmap, 0, caseSize*3, caseSize, caseSize);
-    }
+    }*/
 
     //Other stuff
     public static Bitmap getStBreakableWall(Resources r){

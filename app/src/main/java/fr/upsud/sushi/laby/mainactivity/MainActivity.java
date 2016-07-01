@@ -235,7 +235,8 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
     public void resetButtons() {
         Button b = (Button) findViewById(R.id.button);
-        b.setText(getResources().getText(R.string.play));
+        b.setText("");
+        b.setBackground(getResources().getDrawable(R.drawable.play));
 
     }
 
@@ -312,7 +313,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     public void evalBlock(View v) {
         Button b = (Button)v;
         String buttonText = b.getText().toString();
-        if (buttonText.equals(getResources().getText(R.string.play))) {
+        if (buttonText.equals("")) {
             if (firsTime){
                 System.out.println("First Time");
                 mWebView.loadUrl("javascript:evalBlock()");
@@ -322,11 +323,13 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                 System.out.println("Rest");
                 mWebView.loadUrl("javascript:evalRestOfBlock()");
             }
-            b.setText(getResources().getText(R.string.stop));
+            b.setBackground(getResources().getDrawable(R.drawable.pause));
+            b.setText(" ");
 
         } else {
             this.tbuilder.stop();
-            b.setText(getResources().getText(R.string.play));
+            b.setBackground(getResources().getDrawable(R.drawable.play));
+            b.setText("");
         }
     }
 
