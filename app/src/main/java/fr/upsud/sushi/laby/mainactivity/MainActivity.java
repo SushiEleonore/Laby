@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                 public void run() {
                     if (resetLevel2) {restartLevel(); }
                     if (fin2){backToMenu();}
-                    else if (id2==null) {Toast.makeText(getApplicationContext(), R.string.essaie_encore, Toast.LENGTH_SHORT).show();}
+                    else if (id2==null) {restartLevel(); Toast.makeText(getApplicationContext(), R.string.essaie_encore, Toast.LENGTH_SHORT).show();}
                     else {
                         mWebView.loadUrl("javascript:highlightBlockById('" + id2 + "')");
                         if(pDestroying) gameR.drawPDestroying();
@@ -243,10 +243,13 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
     public void restartLevel () {
         l.restart();
-
-        resetButtons();
-        tbuilder.reset();gameR.drawBG();
+        gameR.drawBG();
         gameR.drawPlayer();
+        resetButtons();
+        if(l.getItem()!=null)gameR.drawChili();
+        if(l.getbWall()!=null)gameR.drawBreakableWall();
+
+        tbuilder.reset();
         firsTime =true;
     }
     public void restartLevel (View v) {
