@@ -222,7 +222,7 @@ public class TermBuilder {
 
                 if(nStep>-1) {
                     nStep--;
-                    System.out.println(nStep);
+                    if(Values.DEBUG_MODE) System.out.println(nStep);
                     l.setPlayer(gameStates.get(nStep + 1).getpDep());
                     if(gameStates.get(nStep+1).playerMoving()   ){
                         gui.notify(false, gameStates.get(nStep+1).getId(), false, Values.MVBWD,false);

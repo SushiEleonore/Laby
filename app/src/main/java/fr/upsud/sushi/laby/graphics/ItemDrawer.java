@@ -15,6 +15,7 @@ import fr.upsud.sushi.laby.maze.Level;
 import fr.upsud.sushi.laby.maze.MovableElement;
 import fr.upsud.sushi.laby.maze.Player;
 import fr.upsud.sushi.laby.utils.Dir;
+import fr.upsud.sushi.laby.utils.Values;
 
 
 public class ItemDrawer {
@@ -85,7 +86,7 @@ public class ItemDrawer {
     public void drawStatic() {
 
         if (el != null) {
-            System.out.println("drawing " +el.toString());
+            if(Values.DEBUG_MODE) System.out.println("drawing " +el.toString());
             Dir d = el.getDir();
             Bitmap b;
             switch (d) {
@@ -116,7 +117,7 @@ public class ItemDrawer {
                     drawer.draw(
                             el.getX(), el.getY(), b, true,
                             canvas, 0, 0);
-                    System.out.println("finished drawing ");
+                    if (Values.DEBUG_MODE) System.out.println("finished drawing ");
                     h.unlockCanvasAndPost(canvas);
                 }
             }

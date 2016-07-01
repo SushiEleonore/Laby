@@ -2,9 +2,11 @@ package fr.upsud.sushi.laby.graphics;
 
 import android.graphics.Canvas;
 
+import fr.upsud.sushi.laby.utils.Values;
+
 public class GameLoopThread extends Thread {
 
-    static final long FPS = 60;
+    static final long FPS = Values.FPS;
     private ItemDrawer view;
     private boolean running = false;
     private Sprite s;

@@ -33,6 +33,7 @@ import fr.upsud.sushi.laby.graphics.GameRenderer;
 import fr.upsud.sushi.laby.graphics.SurfaceViewDrawer;
 import fr.upsud.sushi.laby.maze.Level;
 import fr.upsud.sushi.laby.utils.Observer;
+import fr.upsud.sushi.laby.utils.Values;
 
 
 class CustomWebChromeClient extends WebChromeClient {
@@ -224,7 +225,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
             arg +=  blocks.get(blocks.size() - 1);
         }
 
-        System.out.println("tableau : "+arg);
+        if( Values.DEBUG_MODE) System.out.println("tableau : "+arg);
 
         return arg;
     }
@@ -315,12 +316,12 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         String buttonText = b.getText().toString();
         if (buttonText.equals("")) {
             if (firsTime){
-                System.out.println("First Time");
+                if(Values.DEBUG_MODE)System.out.println("First Time");
                 mWebView.loadUrl("javascript:evalBlock()");
                 firsTime=false;
             }
             else{
-                System.out.println("Rest");
+                if (Values.DEBUG_MODE) System.out.println("Rest");
                 mWebView.loadUrl("javascript:evalRestOfBlock()");
             }
             b.setBackground(getResources().getDrawable(R.drawable.pause));

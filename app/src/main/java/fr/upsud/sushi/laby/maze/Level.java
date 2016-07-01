@@ -73,7 +73,7 @@ public class Level {
     * */
 
     private void createLevel(String s){
-        System.out.println(s);
+        if( Values.DEBUG_MODE) System.out.println(s);
         String[] tab = s.split("\n");
         int sizeX = Integer.parseInt(tab[0]);
         int sizeY = Integer.parseInt(tab[1]);
@@ -96,7 +96,7 @@ public class Level {
         }
         this.startDir = d;
         this.nbBlocks = Integer.parseInt(tab[3]);
-        System.out.println("nombre de blocs a placer : " + this.nbBlocks);
+        if( Values.DEBUG_MODE) System.out.println("nombre de blocs a placer : " + this.nbBlocks);
         for (int i = 4; i<sizeY+4; i++){
             for (int j =0; j<sizeX; j++){
                 char c = tab[i].charAt(j);
@@ -201,15 +201,15 @@ public class Level {
 
         horizontalitude=lay.getMeasuredWidth();
         hauteur=lay.getMeasuredHeight();
-        System.out.println("hauteur : " + hauteur);
-        System.out.println("largeur :  " + horizontalitude);
+        if( Values.DEBUG_MODE) System.out.println("hauteur : " + hauteur);
+        if( Values.DEBUG_MODE) System.out.println("largeur :  " + horizontalitude);
 
-        System.out.println("taille du niveau en x : " + this.cells.length);
+        if( Values.DEBUG_MODE)System.out.println("taille du niveau en x : " + this.cells.length);
 
         float sizex = ((float)(horizontalitude)) / ((float)(this.cells.length));
-        System.out.println("TAILLE EN X : "+ sizex);
+        if( Values.DEBUG_MODE)System.out.println("TAILLE EN X : "+ sizex);
         float sizey = ((float)(hauteur) )/((float) (this.cells[0].length));
-        System.out.println("TAILLE EN Y : " + sizey);
+        if( Values.DEBUG_MODE)System.out.println("TAILLE EN Y : " + sizey);
         if (sizex<sizey) {
 
             this.cellSize =(int) (sizex);
@@ -222,12 +222,12 @@ public class Level {
     }
 
     public void setCellSize(int h, int w){
-        System.out.println("h : " + h + "\nw : " + w);
-        System.out.println("appel à setcellsize ");
+        if( Values.DEBUG_MODE)System.out.println("h : " + h + "\nw : " + w);
+        if( Values.DEBUG_MODE)System.out.println("appel à setcellsize ");
         float sizex = ((float)(w)) / ((float)(this.cells.length));
-        System.out.println("TAILLE EN X : "+ sizex);
+        if( Values.DEBUG_MODE)System.out.println("TAILLE EN X : "+ sizex);
         float sizey = ((float)(h) )/((float) (this.cells[0].length));
-        System.out.println("TAILLE EN Y : " + sizey);
+        if( Values.DEBUG_MODE)System.out.println("TAILLE EN Y : " + sizey);
         if (sizex<sizey) {
 
             this.cellSize =(int) (sizex);
@@ -239,8 +239,8 @@ public class Level {
         Values.setHSHIFT(hShift);
         this.lShift= (w - this.cells.length * this.cellSize)/2;
         Values.setLSHIFT(lShift);
-        System.out.println( "Eccess width :" + (w - this.cells.length * this.cellSize) );
-        System.out.println( "Eccess height :" + (h - this.cells[0].length * this.cellSize) );
+        if( Values.DEBUG_MODE) System.out.println( "Eccess width :" + (w - this.cells.length * this.cellSize) );
+        if( Values.DEBUG_MODE) System.out.println( "Eccess height :" + (h - this.cells[0].length * this.cellSize) );
         Values.setCellSize(cellSize);
     }
 

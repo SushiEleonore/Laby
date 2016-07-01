@@ -10,6 +10,7 @@ import fr.upsud.sushi.laby.utils.Dir;
 import fr.upsud.sushi.laby.utils.Sens;
 import fr.upsud.sushi.laby.exceptions.wallCollisionException;
 import fr.upsud.sushi.laby.utils.Skins;
+import fr.upsud.sushi.laby.utils.Values;
 
 
 public class Player extends MovableElement{
@@ -160,25 +161,25 @@ public class Player extends MovableElement{
 
     //Checks if the player is facing a wall.
     public boolean facingWall () {
-        System.out.println("Checking front");
+        if(Values.DEBUG_MODE) System.out.println("Checking front");
         if (this.dir == (Dir.E)) {
-            System.out.println("Facing east");
+            if(Values.DEBUG_MODE) System.out.println("Facing east");
             return (l.isWall(this.x+1, this.y));
         } else if (this.dir == (Dir.W)) {
-            System.out.println("Facing west");
+            if(Values.DEBUG_MODE) System.out.println("Facing west");
             return (l.isWall(this.x-1, this.y));
         } else if (this.dir == (Dir.S)){
-            System.out.println("Facing south");
+            if(Values.DEBUG_MODE) System.out.println("Facing south");
             return (l.isWall(this.x, this.y+1));
         } else {
-            System.out.println("Facing north");
+            if(Values.DEBUG_MODE) System.out.println("Facing north");
             return (l.isWall(this.x, this.y-1));
         }
     }
 
     //Checks if there is a wall on the right
     public boolean wallOnTheR () {
-        System.out.println("Checking right");
+        if(Values.DEBUG_MODE) System.out.println("Checking right");
         if (this.dir == (Dir.E)) {
             return (l.isWall(this.x, this.y+1));
         } else if (this.dir == (Dir.W)) {
@@ -192,7 +193,7 @@ public class Player extends MovableElement{
 
     //Checks if there is a wall on the left
     public boolean wallOnTheL () {
-        System.out.println("Checking left");
+        if(Values.DEBUG_MODE) System.out.println("Checking left");
         if (this.dir == (Dir.E)) {
             return (l.isWall(this.x, this.y-1));
         } else if (this.dir == (Dir.W)) {

@@ -3,6 +3,7 @@ package fr.upsud.sushi.laby.calculus;
 import android.os.Looper;
 import android.widget.Toast;
 
+import fr.upsud.sushi.laby.R;
 import fr.upsud.sushi.laby.maze.Level;
 import fr.upsud.sushi.laby.utils.Pair;
 
@@ -24,7 +25,7 @@ public class SplitFire  implements Instr {
         if( this.l.getbWall().playerFacing()) l.getbWall().setState(false);
         else {
             Looper.prepare();
-            Toast.makeText(l.getContext(), "Il n'y a rien à faire ici",
+            Toast.makeText(l.getContext(), l.getContext().getResources().getString(R.string.fail_spit),
                     Toast.LENGTH_SHORT).show();
         }
 
