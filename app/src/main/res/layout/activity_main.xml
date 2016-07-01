@@ -70,7 +70,8 @@
                 android:layout_height="35dp"
                 android:text=""
                 android:onClick="restartLevel"
-                android:id="@+id/buttonRes" android:layout_gravity="bottom"
+                android:id="@+id/buttonRes"
+                android:layout_gravity="center_vertical"
                 android:background="@drawable/stop"/>
             <Button
                 android:layout_width="35dp"
@@ -85,7 +86,8 @@
                 android:layout_height="35dp"
                 android:text=""
                 android:onClick="evalBlock"
-                android:id="@+id/button" android:layout_gravity="bottom"
+                android:id="@+id/button"
+                android:layout_gravity="center_vertical"
                 android:background="@drawable/play"/>
 
 
@@ -95,11 +97,13 @@
                 android:text=""
                 android:onClick="nextStep"
                 android:id="@+id/next"
+                android:layout_gravity="center_vertical"
                 android:background="@drawable/next"/>
             <Button
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:text="MENU"
+                android:layout_gravity="center_vertical"
                 android:onClick="backToMenu"
                 android:id="@+id/menu"/>
 
