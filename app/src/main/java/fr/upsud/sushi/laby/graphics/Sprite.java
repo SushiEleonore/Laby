@@ -2,6 +2,7 @@ package fr.upsud.sushi.laby.graphics;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.provider.SyncStateContract;
 
 import fr.upsud.sushi.laby.maze.MovableElement;
 import fr.upsud.sushi.laby.utils.Values;
@@ -32,14 +33,15 @@ public class Sprite {
     public Sprite(ItemDrawer itemDrawer, MovableElement el, Bitmap[] bmp, int kx, int ky) {
         this.itemDrawer = itemDrawer;
         this.bmp = bmp;
-        this.xSpeed = Values.XSPEED * -kx;
-        this.ySpeed = Values.YSPEED * -ky;
+        this.xSpeed = Values.CELLSIZE/Values.nStepSprite * -kx;
+        this.ySpeed = Values.CELLSIZE/Values.nStepSprite * -ky;
         if (kx == 0 && ky == 0) {
             this.gapToDo = 0;
-            this.xSpeed = Values.XSPEED;
-            this.ySpeed = Values.YSPEED;
+            this.xSpeed =Values.CELLSIZE/Values.nStepSprite;
+            this.ySpeed = Values.CELLSIZE/Values.nStepSprite;
         }
-
+        gapx=xSpeed;
+        gapy=ySpeed;
         this.x = el.getX() + kx;
         this.y = el.getY() + ky;
 
@@ -48,7 +50,7 @@ public class Sprite {
                 itemDrawer,
                 this);
         gameLoop.setRunning(true);
-        gameLoop.start();
+        gameLoop.run();
 
     }
 
@@ -61,11 +63,11 @@ public class Sprite {
 
     public void onDraw(Canvas canvas) {
         update();
-        if ((Math.abs(gapx) <= Values.CELLSIZE+this.xSpeed ) && (Math.abs(gapy) <= Values.CELLSIZE+this.ySpeed)) {
-            itemDrawer.getDrawer().draw(x, y, bmp[currentFrame], true, canvas, gapx * gapToDo, gapy * gapToDo);
-        } else {
-            gameLoop.setRunning(false);
-        }
+        //if ((Math.abs(gapx) <= Values.CELLSIZE+this.xSpeed ) && (Math.abs(gapy) <= Values.CELLSIZE+this.ySpeed)) {
+        itemDrawer.getDrawer().draw(x, y, bmp[currentFrame], true, canvas, gapx * gapToDo, gapy * gapToDo);
+        //} else {
+            //gameLoop.setRunning(false);
+
     }
 
 

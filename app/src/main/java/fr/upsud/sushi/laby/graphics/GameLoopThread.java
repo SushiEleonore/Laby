@@ -1,6 +1,7 @@
 package fr.upsud.sushi.laby.graphics;
 
 import android.graphics.Canvas;
+import android.provider.Settings;
 
 import fr.upsud.sushi.laby.utils.Values;
 
@@ -10,6 +11,7 @@ public class GameLoopThread extends Thread {
     private ItemDrawer view;
     private boolean running = false;
     private Sprite s;
+    private long animationTime=2000;
 
     public GameLoopThread(ItemDrawer view, Sprite s) {
         this.view = view;
@@ -25,6 +27,7 @@ public class GameLoopThread extends Thread {
         long ticksPS = 1000 / FPS;
         long startTime;
         long sleepTime;
+        long animationStart= System.currentTimeMillis();
         while (running) {
             Canvas c = null;
             startTime = System.currentTimeMillis();
@@ -36,15 +39,19 @@ public class GameLoopThread extends Thread {
 
             } finally {
                 if (c != null) {
-
                     view.getsV().getHolder().unlockCanvasAndPost(c);
                 }
             }
             sleepTime = (System.currentTimeMillis() - startTime);
             try {
-                if (sleepTime >ticksPS)
-                    sleep(sleepTime-ticksPS);
+                //if (sleepTime >ticksPS)
+                    //sleep(sleepTime-ticksPS);
+
+                    sleep(animationTime/Values.nStepSprite);
+
             } catch (Exception e) {}
+
+            if( System.currentTimeMillis()-animationStart>animationTime){ running=false;}
 
         }
 
