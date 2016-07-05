@@ -5,8 +5,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import fr.upsud.sushi.laby.R;
+import fr.upsud.sushi.laby.graphics.ItemDrawer;
+import fr.upsud.sushi.laby.graphics.Sprite;
 import fr.upsud.sushi.laby.utils.BitmapParser;
 import fr.upsud.sushi.laby.utils.Dir;
+import fr.upsud.sushi.laby.utils.Values;
 
 /**
  * Created by proval on 6/23/16.
@@ -20,7 +23,8 @@ public class BreakableWall extends MovableElement{
     Bitmap skinBurnig;
     //The direction faced by the player
     private Level l;
-
+    private Sprite sprite;
+    private boolean isActioning=false;
 
     public BreakableWall(int x, int y, Level l) {
         this.x = x;
@@ -32,7 +36,10 @@ public class BreakableWall extends MovableElement{
         Resources res=this.l.getContext().getResources();
         this.skinBWall = BitmapParser.getStBreakableWall(res);//BitmapFactory.decodeResource(res, R.drawable.breakablewall, options);
         this.skinBurnig = BitmapParser.getMvBreakableWall(res);//BitmapFactory.decodeResource(res, R.drawable.burningbwall, options);
+        this.sprite = new Sprite(this);
     }
+
+    public Sprite getSprite() { return this.sprite; }
 
     public int getX() { return this.x;}
     public int getY() { return this.y;}
@@ -78,4 +85,14 @@ public class BreakableWall extends MovableElement{
     public String toString() {
         return"Breakable wall";
     }
+
+    public void update(){
+        BreakableWall b = l.getbWall();
+        if(b!=null){
+            this.state=b.getState();
+        }
+    }
+    public boolean isActioning(){return this.isActioning;}
+    public boolean isMoving(){return false;}
+
 }

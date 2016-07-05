@@ -1,5 +1,6 @@
 package fr.upsud.sushi.laby.utils;
 
+import android.graphics.Paint;
 import android.widget.LinearLayout;
 
 import fr.upsud.sushi.laby.R;
@@ -22,12 +23,18 @@ public class Values {
     public static int LSHIFT = 0;
     public static int HSHIFT = 0;
 
+    public static Paint paint = new Paint(Paint.FILTER_BITMAP_FLAG |
+            Paint.DITHER_FLAG
+            | Paint.ANTI_ALIAS_FLAG);
 
     //Player movement
     public static final int MVFWD =1;
     public static final int MVBWD = -1;
     public static final int NOMV = 0;
 
+    public static final int PLAYERID =0;
+    public static final int BWALLID = 1;
+    public static final int CHILIID = 2;
 
 
     public static final int XSPEED = 1;

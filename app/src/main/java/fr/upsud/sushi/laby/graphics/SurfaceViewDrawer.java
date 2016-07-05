@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 //import fr.upsud.sushi.laby.R;
 import fr.upsud.sushi.laby.maze.Level;
+import fr.upsud.sushi.laby.maze.MovableElement;
 import fr.upsud.sushi.laby.utils.Values;
 
 /**
@@ -23,21 +24,21 @@ public class SurfaceViewDrawer {
             Paint.DITHER_FLAG
              | Paint.ANTI_ALIAS_FLAG);
 
-    private ArrayList<ItemDrawer> itemDrawers;
+    private ItemDrawer itemDrawer;
     private SurfaceView bg;
     float scale;
 
-    public SurfaceViewDrawer(SurfaceView bg, SurfaceView player, SurfaceView chili, SurfaceView wall, LinearLayout l, Level lvl) {
-        itemDrawers = new ArrayList<ItemDrawer>();
+    public SurfaceViewDrawer(SurfaceView bg, SurfaceView player, LinearLayout l, Level lvl) {
+        ArrayList<MovableElement> lEl = new ArrayList<MovableElement>();
+        lEl.add(lvl.getPlayer());
+        lEl.add(lvl.getbWall());
+        lEl.add(lvl.getItem());
         this.bg=bg;
-        itemDrawers.add(new ItemDrawer(player,lvl.getPlayer(),lvl, this ));
-            itemDrawers.add(new ItemDrawer(chili, lvl.getItem(), lvl, this));
-            itemDrawers.add(new ItemDrawer(wall, lvl.getbWall(), lvl, this));
-
+        itemDrawer= new ItemDrawer(player,lEl,lvl, this );
         this.scale = Values.IMAGE_SIZE;
     }
-    public ArrayList<ItemDrawer> getItemDrawers() {
-        return this.itemDrawers;
+    public ItemDrawer getItemDrawer() {
+        return this.itemDrawer;
     }
     public SurfaceView getBg(){return this.bg;}
 
@@ -51,15 +52,15 @@ public class SurfaceViewDrawer {
                 topx + Values.LSHIFT, topy+ Values.HSHIFT,
                 topx + Values.CELLSIZE + Values.LSHIFT,
                 topy + Values.CELLSIZE+ Values.HSHIFT);
-        if (erase) {
+        /*if (erase) {
             canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
         }
+        */
         canvas.drawBitmap(bm, null, whereToDraw, paint);
     }
 
 
     public Bitmap getResizedBitmap(Bitmap bm) {
-
         Bitmap resizedBitmap =  Bitmap.createScaledBitmap(bm, Values.CELLSIZE, Values.CELLSIZE, false);
         return resizedBitmap;
     }

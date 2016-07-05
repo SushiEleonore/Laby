@@ -127,13 +127,13 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
         SurfaceView sMaze= (SurfaceView) findViewById(R.id.mazeview);
         SurfaceView sPlayer =(SurfaceView) findViewById(R.id.playerview);
-        SurfaceView sChili = (SurfaceView) findViewById(R.id.chiliview);
+       /* SurfaceView sChili = (SurfaceView) findViewById(R.id.chiliview);
         SurfaceView sBWall= (SurfaceView)findViewById(R.id.bwallview);
         //ItemDrawer sBwall = new ItemDrawer(findViewById(R.id.bwallview), l.getbWall(), l, drawze)
         sChili.setZOrderOnTop(true);
-        sBWall.setZOrderOnTop(true);
+        sBWall.setZOrderOnTop(true);*/
         sPlayer.setZOrderOnTop(true);    // necessary
-        SurfaceViewDrawer drawer =new SurfaceViewDrawer(sMaze, sPlayer, sChili,sBWall, (LinearLayout) findViewById(R.id.layout1), l);
+        SurfaceViewDrawer drawer =new SurfaceViewDrawer(sMaze, sPlayer, (LinearLayout) findViewById(R.id.layout1), l);
 
         gameR= new GameRenderer(drawer, l, this.getResources());
 
@@ -163,7 +163,8 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     public void setLevel (Level lv) {
         this.l = lv; firsTime=true;
         gameR.drawBG();
-        gameR.drawChili();
+        //gameR.drawChili();
+
     }
 
 
@@ -196,14 +197,17 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                     else if (id2==null) {restartLevel(); Toast.makeText(getApplicationContext(), R.string.essaie_encore, Toast.LENGTH_SHORT).show();}
                     else {
                         mWebView.loadUrl("javascript:highlightBlockById('" + id2 + "')");
-                        if(pDestroying) gameR.drawPDestroying();
-                        else if(mv==0)gameR.drawPlayer();
+                        if(pDestroying) l.getPlayer().setActioning(true);
+                        //else if(mv==0) gameR.drawPlayer();
                         else {l.getPlayer().setMotion(mv);
-                            gameR.drawMvingPlayer(mv);
+                            l.getPlayer().setActioning(true);
+                            //gameR.drawMvingPlayer(mv);
                         }
-                        if(l.getPlayer().hasChili())gameR.eraseChili();
-                        if(l.getbWall()!=null &&!l.getbWall().getState()){ gameR.erasebWall();}
-                        if(l.getbWall()!=null &&l.getbWall().getState()){ gameR.drawBreakableWall();}
+                        if(l.getPlayer().hasChili())l.getItem().setVisible(false);
+                        if(l.getbWall()!=null &&!l.getbWall().getState()){ //gameR.erasebWall();
+                            l.getbWall().setState(false);
+                             }
+                        if(l.getbWall()!=null &&l.getbWall().getState()){ l.getbWall().setState(true);}
                     }
                 }
             });
@@ -244,20 +248,21 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     public void restartLevel () {
         l.restart();
         gameR.drawBG();
-        gameR.drawPlayer();
+       // gameR.drawPlayer();
         resetButtons();
-        if(l.getItem()!=null)gameR.drawChili();
+       /* if(l.getItem()!=null)gameR.drawChili();
         if(l.getbWall()!=null)gameR.drawBreakableWall();
-
+*/
         tbuilder.reset();
         firsTime =true;
     }
     public void restartLevel (View v) {
         l.restart();
         gameR.drawBG();
-        gameR.drawPlayer();
+       /* gameR.drawPlayer();
         if(l.getItem()!=null)gameR.drawChili();
         if(l.getbWall()!=null)gameR.drawBreakableWall();
+        */
         resetButtons();
         tbuilder.reset();
         firsTime =true;

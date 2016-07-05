@@ -84,15 +84,12 @@ public class GameRenderer {
                                     break;
                                 case PATH:
                                     listSurface.draw(i, j, bitmapPath, false, canvas, 0, 0);
-
                                     break;
                                 case END:
                                     listSurface.draw(i, j, bitmapEnd, false, canvas, 0, 0);
-
                                     break;
                                 default:
                                     break;
-
                             }
                         }
                     }
@@ -101,7 +98,7 @@ public class GameRenderer {
             }
         }
     }
-
+/*
     public void drawPlayer() {
         listSurface.getItemDrawers().get(0).drawStatic();
 
@@ -124,7 +121,7 @@ public class GameRenderer {
         listSurface.getItemDrawers().get(2).erase();
     }
     public void eraseChili() { listSurface.getItemDrawers().get(1).erase();}
-
+*/
 }
 
 

@@ -2,6 +2,7 @@ package fr.upsud.sushi.laby.maze;
 
 import android.graphics.Bitmap;
 
+import fr.upsud.sushi.laby.graphics.Sprite;
 import fr.upsud.sushi.laby.utils.Dir;
 
 /**
@@ -10,6 +11,7 @@ import fr.upsud.sushi.laby.utils.Dir;
 public abstract class MovableElement {
     Bitmap bmp;
     //public abstract Bitmap[] getMovingBmp(String action);
+
     public abstract Bitmap[] getStaticBmp();
     public abstract Dir getDir();
     public abstract int getX();
@@ -17,6 +19,11 @@ public abstract class MovableElement {
     public abstract String toString();
     public abstract int getMotion();
     public abstract Bitmap getActionBmp(String s);
+    public abstract void update();
+    public abstract boolean isMoving();
+    public abstract boolean isActioning();
+    public abstract boolean getState();
+    public abstract Sprite getSprite();
 
 
 }

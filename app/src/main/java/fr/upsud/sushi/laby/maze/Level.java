@@ -184,10 +184,18 @@ public class Level {
         computeCellSize();
     }
 
+/*
+    public MovableElement updateElement(int i){
+        switch (i){
+            case Values.PLAYERID: return this.getPlayer();
+            case Values.BWALLID: return this.getbWall();
+            default: return this.getItem();
+        }
 
 
+    }
 
-
+*/
 
     public Context getContext(){
         return this.context;

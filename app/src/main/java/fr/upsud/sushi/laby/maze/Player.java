@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import fr.upsud.sushi.laby.R;
+import fr.upsud.sushi.laby.graphics.Sprite;
+import fr.upsud.sushi.laby.graphics.SpriteLoopThread;
 import fr.upsud.sushi.laby.utils.BitmapParser;
 import fr.upsud.sushi.laby.utils.Dir;
 import fr.upsud.sushi.laby.utils.Sens;
@@ -37,6 +39,9 @@ public class Player extends MovableElement{
     private Bitmap pDestroying;
     private int motion;
     private boolean hasChili;
+    private boolean isMoving;
+    private boolean isActioning;
+    private Sprite sprite;
 
 
     public Player(int x, int y, Dir d, Level l) { //prend un level
@@ -54,6 +59,9 @@ public class Player extends MovableElement{
         this.skin_face = BitmapParser.getSkinMvFace(res); //BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_face, options);
         this.pDestroying= BitmapParser.getPDestroying(res);// BitmapFactory.decodeResource(res, R.drawable.pdestroying, options);
         this.hasChili=false;
+        this.isMoving=false;
+        this.isActioning=false;
+        this.sprite = new Sprite(this);
     }
 
     public Player(Player p) {
@@ -66,7 +74,12 @@ public class Player extends MovableElement{
         this.skin_d = p.getSkin_d();
         this.skin_dos = p.getSkin_dos();
         this.skin_face = p.getSkin_face();
+        this.isMoving=p.isMoving();
 
+    }
+
+    public Sprite getSprite() {
+        return this.sprite;
     }
 
     public void setChili(Boolean b){this.hasChili=false;}
@@ -218,5 +231,24 @@ public class Player extends MovableElement{
     public String toString() {
         return "player";
     }
+
+
+    public void update(){
+        Player p = l.getPlayer();
+        this.x=p.getX();
+        this.y=p.getY();
+        this.motion=p.getMotion();
+        this.hasChili=p.hasChili();
+    }
+    public boolean getState(){return true;}
+
+    public void setMoving(boolean b){this.isMoving=b;}
+
+    public boolean isMoving(){
+        return this.isMoving;
+    }
+
+    public void setActioning(boolean b){this.isActioning=b;}
+    public boolean isActioning(){return this.isActioning;}
 
 }

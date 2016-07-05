@@ -1,60 +1,77 @@
 package fr.upsud.sushi.laby.graphics;
 
 import android.graphics.Canvas;
-import android.provider.Settings;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.view.SurfaceView;
 
+import java.util.ArrayList;
+
+import fr.upsud.sushi.laby.maze.MovableElement;
 import fr.upsud.sushi.laby.utils.Values;
 
 public class GameLoopThread extends Thread {
-
     static final long FPS = Values.FPS;
     private ItemDrawer view;
-    private boolean running = false;
-    private Sprite s;
-    private long animationTime=2000;
-
-    public GameLoopThread(ItemDrawer view, Sprite s) {
+    private boolean running = true;
+    private ArrayList<ItemDrawer> lSViews;
+    private long animationTime=1000;
+    public GameLoopThread(ItemDrawer view) {
         this.view = view;
-        this.s=s;
-    }
 
+    }
     public void setRunning(boolean run) {
         running = run;
     }
 
     @Override
-    public void run() {
+    public void start() {
         long ticksPS = 1000 / FPS;
         long startTime;
         long sleepTime;
-        long animationStart= System.currentTimeMillis();
+        long animationStart = System.currentTimeMillis();
         while (running) {
             Canvas c = null;
             startTime = System.currentTimeMillis();
+
+            // for (ImteDrawer itD : lSViews) {
             try {
-                c = view.getsV().getHolder().lockCanvas();
+
+                c = view.getsV().getHolder().lockCanvas();c.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
                 synchronized (view.getsV().getHolder()) {
-                   s.onDraw(c);
+                    //erase
+
+                    //c.drawColor(Color.TRANSPARENT, PorterDuff.Mode.MULTIPLY);
+                    for (MovableElement el : view.getElements()) {
+                        if(el!=null) {
+                            el.getSprite().update();
+                            el.getSprite().draw(c);
+                            //view.draw(el);
+                            if(Values.DEBUG_MODE) System.out.println("try to draw");
+
+                        }
+                    }
                 }
 
             } finally {
                 if (c != null) {
+                    //c.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
                     view.getsV().getHolder().unlockCanvasAndPost(c);
                 }
             }
-            sleepTime = (System.currentTimeMillis() - startTime);
+            //sleepTime = (System.currentTimeMillis() - startTime);
             try {
                 //if (sleepTime >ticksPS)
-                    //sleep(sleepTime-ticksPS);
+                //sleep(sleepTime-ticksPS);
+                sleep(300);
+                //sleep(200);
 
-                    sleep(animationTime/Values.nStepSprite);
+            } catch (Exception e) {
+            }
 
-            } catch (Exception e) {}
-
-            if( System.currentTimeMillis()-animationStart>animationTime){ running=false;}
 
         }
 
-    }
 
-}
+        }
+    }
