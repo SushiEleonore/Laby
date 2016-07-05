@@ -6,17 +6,19 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import fr.upsud.sushi.laby.R;
 import fr.upsud.sushi.laby.maze.Level;
 import fr.upsud.sushi.laby.utils.BitmapParser;
+import fr.upsud.sushi.laby.utils.Values;
 
 /**
  * Created by proval on 6/14/16.
  */
-public class GameRenderer {
+public class BackgroundDrawer {
     SurfaceViewDrawer listSurface;
     Level l;
     Resources res;
@@ -28,27 +30,22 @@ public class GameRenderer {
             Paint.DITHER_FLAG
     );
 
-    public GameRenderer(SurfaceViewDrawer list, Level le, Resources res) {
+    public BackgroundDrawer(SurfaceViewDrawer list, Level le, Resources res) {
         listSurface = list;
         this.l = le;
         this.res = res;
-
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inScaled = false;
-
-
-
         bitmapWall = BitmapParser.getWall(res);
-
-        bitmapEnd =BitmapParser.getEnd(res);// BitmapFactory.decodeResource(res, R.drawable.arrivee, options);
-        bitmapPath =BitmapParser.getPath(res);//BitmapFactory.decodeResource(res, R.drawable.path, options);
-
+        bitmapEnd = BitmapParser
+                .getEnd(res);// BitmapFactory.decodeResource(res, R.drawable.arrivee, options);
+        bitmapPath = BitmapParser
+                .getPath(res);//BitmapFactory.decodeResource(res, R.drawable.path, options);
         listSurface.getBg().getHolder().addCallback(new SurfaceHolder.Callback() {
 
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
                 l.setCellSize(holder.getSurfaceFrame().height(), holder.getSurfaceFrame().width());
-
                 drawBG();
             }
 
@@ -67,7 +64,6 @@ public class GameRenderer {
     }
 
     public void drawBG() {
-        int id = 0;
         SurfaceView bg = listSurface.getBg();
         SurfaceHolder h = bg.getHolder();
         if (h.getSurface().isValid()) {
@@ -80,13 +76,13 @@ public class GameRenderer {
                         if (l.getCells()[i][j] != null) {
                             switch (l.getCells()[i][j].getType()) {
                                 case WALL:
-                                    listSurface.draw(i, j, bitmapWall, false, canvas, 0, 0);
+                                    draw(i, j, bitmapWall, canvas);
                                     break;
                                 case PATH:
-                                    listSurface.draw(i, j, bitmapPath, false, canvas, 0, 0);
+                                    draw(i, j, bitmapPath, canvas);
                                     break;
                                 case END:
-                                    listSurface.draw(i, j, bitmapEnd, false, canvas, 0, 0);
+                                    draw(i, j, bitmapEnd, canvas);
                                     break;
                                 default:
                                     break;
@@ -98,32 +94,22 @@ public class GameRenderer {
             }
         }
     }
-/*
-    public void drawPlayer() {
-        listSurface.getItemDrawers().get(0).drawStatic();
+    public  void draw(int x, int y, Bitmap b, Canvas canvas) {
+        Bitmap bm = getResizedBitmap(b);
+        float topx = x* Values.CELLSIZE;
+        float topy = y* Values.CELLSIZE;
+        RectF whereToDraw = new RectF(
+                topx + Values.LSHIFT, topy+ Values.HSHIFT,
+                topx + Values.CELLSIZE + Values.LSHIFT,
+                topy + Values.CELLSIZE+ Values.HSHIFT);
+        canvas.drawBitmap(bm, null, whereToDraw, paint);
+    }
+    public Bitmap getResizedBitmap(Bitmap bm) {
+        Bitmap resizedBitmap =  Bitmap.createScaledBitmap(bm, Values.CELLSIZE, Values.CELLSIZE, false);
+        return resizedBitmap;
+    }
 
-    }
-    public void drawMvingPlayer(int mv) {
-        listSurface.getItemDrawers().get(0).drawMving( mv);
-
-    }
-    public void drawPDestroying(){
-        listSurface.getItemDrawers().get(0).drawAction();
-        listSurface.getItemDrawers().get(2).drawAction();
-    }
-    public void drawChili(){
-        listSurface.getItemDrawers().get(1).drawStatic();
-    }
-    public void drawBreakableWall(){
-        listSurface.getItemDrawers().get(2).drawStatic();
-    }
-    public void erasebWall() {
-        listSurface.getItemDrawers().get(2).erase();
-    }
-    public void eraseChili() { listSurface.getItemDrawers().get(1).erase();}
-*/
 }
-
 
 
 

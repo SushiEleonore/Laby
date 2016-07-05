@@ -42,28 +42,7 @@ public class SurfaceViewDrawer {
     }
     public SurfaceView getBg(){return this.bg;}
 
-    public  void draw(int x, int y, Bitmap b, boolean erase, Canvas canvas, int kx, int ky) {
 
-        Bitmap bm = getResizedBitmap(b);
-        int gap = (int) Values.CELLSIZE/4;
-        float topx = x* Values.CELLSIZE-kx*gap;
-        float topy = y* Values.CELLSIZE+ky;
-        RectF whereToDraw = new RectF(
-                topx + Values.LSHIFT, topy+ Values.HSHIFT,
-                topx + Values.CELLSIZE + Values.LSHIFT,
-                topy + Values.CELLSIZE+ Values.HSHIFT);
-        /*if (erase) {
-            canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-        }
-        */
-        canvas.drawBitmap(bm, null, whereToDraw, paint);
-    }
-
-
-    public Bitmap getResizedBitmap(Bitmap bm) {
-        Bitmap resizedBitmap =  Bitmap.createScaledBitmap(bm, Values.CELLSIZE, Values.CELLSIZE, false);
-        return resizedBitmap;
-    }
 
 }
 

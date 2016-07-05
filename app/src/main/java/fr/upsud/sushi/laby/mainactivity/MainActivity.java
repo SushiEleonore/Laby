@@ -29,7 +29,7 @@ import java.util.ArrayList;
 
 import fr.upsud.sushi.laby.R;
 import fr.upsud.sushi.laby.calculus.TermBuilder;
-import fr.upsud.sushi.laby.graphics.GameRenderer;
+import fr.upsud.sushi.laby.graphics.BackgroundDrawer;
 import fr.upsud.sushi.laby.graphics.SurfaceViewDrawer;
 import fr.upsud.sushi.laby.maze.Level;
 import fr.upsud.sushi.laby.utils.Observer;
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     private WebView mWebView;
     private View mCodeView;
     private Level l;
-    private GameRenderer gameR;
+    private BackgroundDrawer gameR;
     private Handler mHandler;
     private TermBuilder tbuilder;
     private boolean firsTime;
@@ -127,24 +127,11 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
         SurfaceView sMaze= (SurfaceView) findViewById(R.id.mazeview);
         SurfaceView sPlayer =(SurfaceView) findViewById(R.id.playerview);
-       /* SurfaceView sChili = (SurfaceView) findViewById(R.id.chiliview);
-        SurfaceView sBWall= (SurfaceView)findViewById(R.id.bwallview);
-        //ItemDrawer sBwall = new ItemDrawer(findViewById(R.id.bwallview), l.getbWall(), l, drawze)
-        sChili.setZOrderOnTop(true);
-        sBWall.setZOrderOnTop(true);*/
         sPlayer.setZOrderOnTop(true);    // necessary
         SurfaceViewDrawer drawer =new SurfaceViewDrawer(sMaze, sPlayer, (LinearLayout) findViewById(R.id.layout1), l);
-
-        gameR= new GameRenderer(drawer, l, this.getResources());
-
-        //linlay.addView(gameView);
+        gameR= new BackgroundDrawer(drawer, l, this.getResources());
         this.mHandler = new Handler(Looper.getMainLooper());
-        //this.addContentView(gameView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT) );
-        //LinearLayout lay =(LinearLayout)findViewById(R.id.layout1);
-        //gameView.draw();
         this.tbuilder = new TermBuilder(this, l);
-       // gameR.drawBG();
-        //gameR.drawPlayer();
         setmWebView();
 
 
@@ -288,7 +275,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
             SurfaceViewDrawer drawer =
                     new SurfaceViewDrawer(sMaze, sPlayer, (LinearLayout) findViewById(R.id.layout1),
                             l);
-            gameR = new GameRenderer(drawer, l, this.getResources());
+            gameR = new BackgroundDrawer(drawer, l, this.getResources());
             */
             //gameR.update(this.l);
 

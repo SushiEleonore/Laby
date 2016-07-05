@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 
 import fr.upsud.sushi.laby.R;
 import fr.upsud.sushi.laby.graphics.Sprite;
-import fr.upsud.sushi.laby.graphics.SpriteLoopThread;
 import fr.upsud.sushi.laby.utils.BitmapParser;
 import fr.upsud.sushi.laby.utils.Dir;
 import fr.upsud.sushi.laby.utils.Sens;
