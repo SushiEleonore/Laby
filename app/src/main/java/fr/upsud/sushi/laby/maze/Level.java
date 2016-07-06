@@ -1,6 +1,7 @@
 package fr.upsud.sushi.laby.maze;
 
 import java.io.InputStream;
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 import fr.upsud.sushi.laby.R;
@@ -133,8 +134,10 @@ public class Level {
             this.authorizedBlocks.add(tab[i]);
         }
         computeCellSize();
-
     }
+
+    
+
 
 
 
@@ -185,10 +188,6 @@ public class Level {
          }
         computeCellSize();
     }
-
-
-
-
 
 
     public Context getContext(){

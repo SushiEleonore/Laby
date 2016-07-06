@@ -11,8 +11,8 @@ import fr.upsud.sushi.laby.R;
  */
 public class BitmapParser {
 
-    private static int sizeImgx = 92;
-    private static int sizeImgy = 192;
+    private static int sizeImgx = 768;
+    private static int sizeImgy = 24;
 
     private static int caseSize ;
     private static Skins skin = Skins.BEBEZILLA;
@@ -23,7 +23,7 @@ public class BitmapParser {
     public BitmapParser(Resources r) {
         switch(skin){
             case BEBEZILLA:
-                mainBitmap = BitmapFactory.decodeResource(r, R.drawable.bebezilla_player);
+                mainBitmap = BitmapFactory.decodeResource(r, R.drawable.bebezillaplayer);
                 caseSize = 24;
                 break;
             default:
@@ -45,7 +45,7 @@ public class BitmapParser {
     private static void setMainBitmap(Resources r){
         switch(skin){
             case BEBEZILLA:
-                mainBitmap = BitmapFactory.decodeResource(r, R.drawable.bebezilla_player);
+                mainBitmap = BitmapFactory.decodeResource(r, R.drawable.bebezillaplayer);
                 caseSize = 24;
                 break;
             default:
@@ -63,19 +63,19 @@ public class BitmapParser {
     }
     public static Bitmap getSkinMvD(Resources r) {
         setMainBitmap(r);
-        return Bitmap.createBitmap(mainBitmap, caseSize*2, caseSize*2, caseSize*6, caseSize*2);
+        return Bitmap.createBitmap(mainBitmap, caseSize*2*5, 0, caseSize*6, caseSize*2);
     }
     public static Bitmap getSkinMvDos(Resources r) {
         setMainBitmap(r);
-        return Bitmap.createBitmap(mainBitmap, caseSize*2, caseSize*4, caseSize*6, caseSize*2);
+        return Bitmap.createBitmap(mainBitmap, caseSize*2*9, 0, caseSize*6, caseSize*2);
     }
     public static Bitmap getSkinMvFace(Resources r) {
         setMainBitmap(r);
-        return Bitmap.createBitmap(mainBitmap, caseSize*2, caseSize*6, caseSize*6, caseSize*2);
+        return Bitmap.createBitmap(mainBitmap, caseSize*2*13, 0, caseSize*6, caseSize*2);
     }
     public static Bitmap getPDestroying(Resources r) {
         setMainBitmap(r);
-        return Bitmap.createBitmap(mainBitmap, caseSize*2, caseSize*8, caseSize*6, caseSize*2);
+        return Bitmap.createBitmap(mainBitmap, caseSize*2*17, 0, caseSize*6, caseSize*2);
     }
 
     /*
@@ -100,27 +100,27 @@ public class BitmapParser {
     //Other stuff
     public static Bitmap getStBreakableWall(Resources r){
         setMainBitmap(r);
-        return Bitmap.createBitmap(mainBitmap, 0, caseSize*10, caseSize*6, caseSize*2);
+        return Bitmap.createBitmap(mainBitmap, caseSize*2*20, 0, caseSize*6, caseSize*2);
     }
     public static Bitmap getMvBreakableWall(Resources r){
         setMainBitmap(r);
-        return Bitmap.createBitmap(mainBitmap, caseSize*2, caseSize*10, caseSize*6, caseSize*2);
+        return Bitmap.createBitmap(mainBitmap, caseSize*2*21, 0, caseSize*6, caseSize*2);
     }
     public static Bitmap getWall(Resources r){
         setMainBitmap(r);
-        return Bitmap.createBitmap(mainBitmap, caseSize*2, caseSize*12, caseSize*2, caseSize*2);
+        return Bitmap.createBitmap(mainBitmap, caseSize*2*25, 0, caseSize*2, caseSize*2);
     }
     public static Bitmap getChili(Resources r){
         setMainBitmap(r);
-        return Bitmap.createBitmap(mainBitmap, 0, caseSize*12, caseSize*6, caseSize*2);
+        return Bitmap.createBitmap(mainBitmap, caseSize*2*24, 0, caseSize*6, caseSize*2);
     }
     public static Bitmap getPath(Resources r){
         setMainBitmap(r);
-        return Bitmap.createBitmap(mainBitmap, caseSize*4, caseSize*12, caseSize*2, caseSize*2);
+        return Bitmap.createBitmap(mainBitmap, caseSize*2*26, 0, caseSize*2, caseSize*2);
     }
     public static Bitmap getEnd(Resources r){
         setMainBitmap(r);
-        return Bitmap.createBitmap(mainBitmap, caseSize*6, caseSize*12, caseSize*2, caseSize*2);
+        return Bitmap.createBitmap(mainBitmap, caseSize*2*27, 0, caseSize*2, caseSize*2);
     }
 
 }

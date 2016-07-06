@@ -102,10 +102,11 @@
             <Button
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:text="MENU"
+                android:text=""
                 android:layout_gravity="center_vertical"
                 android:onClick="backToMenu"
-                android:id="@+id/menu"/>
+                android:id="@+id/menu"
+                android:background="@drawable/menu"/>
 
 
         </LinearLayout>
