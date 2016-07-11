@@ -134,8 +134,11 @@ public class Level {
         }
         computeCellSize();
 
-
     }
+
+
+
+
 
     private void openFile   (int id){
         InputStream iS =  this.context.getResources().openRawResource(id);
@@ -146,9 +149,8 @@ public class Level {
             oS.write(buffer);
             oS.close();
             iS.close();
-
             createLevel(oS.toString());
-        } catch (Exception e) {System.out.println("File problem");}
+        } catch (Exception e) {e.printStackTrace();System.out.println("File problem");}
     }
 
 

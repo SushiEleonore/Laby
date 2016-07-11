@@ -55,9 +55,9 @@
             <Button
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:text="S"
+                android:text=""
                 android:onClick="restartLevel"
-                android:id="@+id/buttonRes"
+                android:id="@+id/buttonRes" android:layout_gravity="bottom"
                 android:background="@drawable/stop"/>
             <Button
                 android:layout_width="35dp"
@@ -72,7 +72,7 @@
                 android:layout_height="35dp"
                 android:text=""
                 android:onClick="evalBlock"
-                android:id="@+id/button"
+                android:id="@+id/button" android:layout_gravity="bottom"
                 android:background="@drawable/play"/>
 
 
