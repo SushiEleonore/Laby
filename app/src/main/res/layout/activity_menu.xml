@@ -55,7 +55,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Accueil"
+        android:text=""
         android:onClick="backToHome"
-        android:id="@+id/button9"/>
+        android:id="@+id/button9"
+        android:background="@drawable/home"/>
 </LinearLayout>
