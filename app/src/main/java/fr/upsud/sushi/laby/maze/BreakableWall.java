@@ -51,6 +51,7 @@ public class BreakableWall extends MovableElement{
 
     public void restart(){
         this.state= true;
+        this.isActioning=false;
     }
 
     public Bitmap[] getStaticBmp(){
@@ -65,7 +66,6 @@ public class BreakableWall extends MovableElement{
     }
 
     public Bitmap getActionBmp(String s){return this.skinBurnig;}
-
 
     public Level getLevel(){ return this.l;}
 
@@ -94,5 +94,6 @@ public class BreakableWall extends MovableElement{
     }
     public boolean isActioning(){return this.isActioning;}
     public boolean isMoving(){return false;}
+    public void setActioning(boolean b){this.isActioning=b;}
 
 }

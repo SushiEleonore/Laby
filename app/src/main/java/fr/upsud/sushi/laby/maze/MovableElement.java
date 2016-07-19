@@ -24,6 +24,7 @@ public abstract class MovableElement {
     public abstract boolean isActioning();
     public abstract boolean getState();
     public abstract Sprite getSprite();
+    public abstract void setActioning(boolean b);
 
 
 }

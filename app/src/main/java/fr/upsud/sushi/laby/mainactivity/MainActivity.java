@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
@@ -30,7 +28,8 @@ import java.util.ArrayList;
 import fr.upsud.sushi.laby.R;
 import fr.upsud.sushi.laby.calculus.TermBuilder;
 import fr.upsud.sushi.laby.graphics.BackgroundDrawer;
-import fr.upsud.sushi.laby.graphics.SurfaceViewDrawer;
+//import fr.upsud.sushi.laby.graphics.SurfaceViewDrawer;
+import fr.upsud.sushi.laby.graphics.ItemDrawer;
 import fr.upsud.sushi.laby.maze.Level;
 import fr.upsud.sushi.laby.utils.Observer;
 import fr.upsud.sushi.laby.utils.Values;
@@ -108,12 +107,13 @@ class CustomWebChromeClient extends WebChromeClient {
 public class MainActivity extends AppCompatActivity implements Observer<String> {
 
     private WebView mWebView;
-    private View mCodeView;
+    //private View mCodeView;
     private Level l;
     private BackgroundDrawer gameR;
-    private Handler mHandler;
+    //private Handler mHandler;
     private TermBuilder tbuilder;
     private boolean firsTime;
+    private ItemDrawer drawer;
 
 
     @Override
@@ -128,9 +128,9 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         SurfaceView sMaze= (SurfaceView) findViewById(R.id.mazeview);
         SurfaceView sPlayer =(SurfaceView) findViewById(R.id.playerview);
         sPlayer.setZOrderOnTop(true);    // necessary
-        SurfaceViewDrawer drawer =new SurfaceViewDrawer(sMaze, sPlayer, (LinearLayout) findViewById(R.id.layout1), l);
-        gameR= new BackgroundDrawer(drawer, l, this.getResources());
-        this.mHandler = new Handler(Looper.getMainLooper());
+        drawer =new ItemDrawer(sMaze, sPlayer, (LinearLayout) findViewById(R.id.layout1), l);
+        gameR= new BackgroundDrawer(l, this.getResources(), drawer.getBg());
+        //this.mHandler = new Handler(Looper.getMainLooper());
         this.tbuilder = new TermBuilder(this, l);
         setmWebView();
 
@@ -143,38 +143,30 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         mWebView.getSettings().setJavaScriptEnabled(true);
         String blocks = createToolBox(l.getAuthorizedBlocks());
         mWebView.loadUrl("file:///android_asset/blockly/index.html?blocks=" + blocks + "=" + l.getNbBlocks());
-        //createToolBox(l.getAuthorizedBlocks());
         mWebView.addJavascriptInterface(this.tbuilder , "JavaTermBuilder");
         mWebView.addJavascriptInterface(this , "JavaMainActivity");
     }
+
     public void setLevel (Level lv) {
         this.l = lv; firsTime=true;
         gameR.drawBG();
-        //gameR.drawChili();
-
     }
-
 
     @Override
     protected void onResume() {
          super.onResume();
     }
 
-
     @Override
     protected void onPause() {
         super.onPause();
     }
 
-    /*public void winWindow(){
-        firsTime=true;
-        Intent intent = new Intent(getApplicationContext(), WinActivity.class);
-        startActivityForResult(intent, 0);
-    }
-*/
-    public void notify(boolean fin, String id, final boolean resetLevel, final int mv, final boolean pDestroying) {
+
+    public void notify(boolean fin, String id, final boolean resetLevel,  int mv, final boolean pDestroying) {
         final String id2 = id;
         final boolean fin2 =fin;
+        l.getPlayer().setMotion(mv);
         final boolean resetLevel2 = resetLevel;
             runOnUiThread(new Runnable() {
                 @Override
@@ -184,20 +176,16 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                     else if (id2==null) {restartLevel(); Toast.makeText(getApplicationContext(), R.string.essaie_encore, Toast.LENGTH_SHORT).show();}
                     else {
                         mWebView.loadUrl("javascript:highlightBlockById('" + id2 + "')");
-                        if(pDestroying) l.getPlayer().setActioning(true);
-                        //else if(mv==0) gameR.drawPlayer();
-                        else {l.getPlayer().setMotion(mv);
-                            l.getPlayer().setActioning(true);
-                            //gameR.drawMvingPlayer(mv);
+                        if(pDestroying){ l.getPlayer().setActioning(true); l.getbWall().setActioning(true);}
+                        else {
+                            if(l.getPlayer().getMotion()!=0) l.getPlayer().setMoving(true);
                         }
                         if(l.getPlayer().hasChili())l.getItem().setVisible(false);
-                        if(l.getbWall()!=null &&!l.getbWall().getState()){ //gameR.erasebWall();
-                            l.getbWall().setState(false);
-                             }
                         if(l.getbWall()!=null &&l.getbWall().getState()){ l.getbWall().setState(true);}
                     }
                 }
             });
+
     }
 
 
@@ -205,19 +193,14 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
 
     public String createToolBox(ArrayList<String> blocks) {
-
         String arg = "";
-
         for (int i = 0; i < blocks.size() - 1; i++) {
             arg +=   blocks.get(i) + ",";
         }
-
         if (blocks.size() != 0) {
             arg +=  blocks.get(blocks.size() - 1);
         }
-
         if( Values.DEBUG_MODE) System.out.println("tableau : "+arg);
-
         return arg;
     }
 
@@ -235,21 +218,13 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     public void restartLevel () {
         l.restart();
         gameR.drawBG();
-       // gameR.drawPlayer();
         resetButtons();
-       /* if(l.getItem()!=null)gameR.drawChili();
-        if(l.getbWall()!=null)gameR.drawBreakableWall();
-*/
         tbuilder.reset();
         firsTime =true;
     }
     public void restartLevel (View v) {
         l.restart();
         gameR.drawBG();
-       /* gameR.drawPlayer();
-        if(l.getItem()!=null)gameR.drawChili();
-        if(l.getbWall()!=null)gameR.drawBreakableWall();
-        */
         resetButtons();
         tbuilder.reset();
         firsTime =true;
@@ -269,32 +244,19 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
             resetButtons();
             this.tbuilder = new TermBuilder(this, l);
             mWebView.addJavascriptInterface(tbuilder, "JavaTermBuilder");
-            /*SurfaceView sMaze = (SurfaceView) findViewById(R.id.mazeview);
-            SurfaceView sPlayer = (SurfaceView) findViewById(R.id.playerview);
-            sPlayer.setZOrderOnTop(true);
-            SurfaceViewDrawer drawer =
-                    new SurfaceViewDrawer(sMaze, sPlayer, (LinearLayout) findViewById(R.id.layout1),
-                            l);
-            gameR = new BackgroundDrawer(drawer, l, this.getResources());
-            */
-            //gameR.update(this.l);
-
-          // gameR.drawPlayer();
-            //gameR.drawBG();
-            //gameR.drawChili();
         }
     }
 
     public void actionBlocks(MenuItem m) {
 
-        mCodeView.setVisibility(View.GONE);
+        //mCodeView.setVisibility(View.GONE);
         mWebView.setVisibility(View.VISIBLE);
     }
 
     public void actionCode(MenuItem m) {
 
         mWebView.setVisibility(View.GONE);
-        mCodeView.setVisibility(View.VISIBLE);
+        //mCodeView.setVisibility(View.VISIBLE);
     }
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -314,8 +276,7 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                 if(Values.DEBUG_MODE)System.out.println("First Time");
                 mWebView.loadUrl("javascript:evalBlock()");
                 firsTime=false;
-            }
-            else{
+            } else {
                 if (Values.DEBUG_MODE) System.out.println("Rest");
                 mWebView.loadUrl("javascript:evalRestOfBlock()");
             }
@@ -344,19 +305,17 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     }
 
     public void backToMenu(View v) {
+        drawer.getGameLoop().setRunning(false);
         setContentView(R.layout.activity_menu);
         Intent intent2 = new Intent(getApplicationContext(), MenuActivity.class);
-        //intent2.putExtra("level", level);
         startActivityForResult(intent2, 0);
         finish();
-
-
     }
 
     public void backToMenu() {
+        drawer.getGameLoop().setRunning(false);
         setContentView(R.layout.activity_menu);
         Intent intent2 = new Intent(getApplicationContext(), MenuActivity.class);
-        //intent2.putExtra("level", level);
         startActivityForResult(intent2, 0);
         finish();
 

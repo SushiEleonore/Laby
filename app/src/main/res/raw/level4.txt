@@ -15,3 +15,4 @@ move
 turn
 while
 ifelse
+500

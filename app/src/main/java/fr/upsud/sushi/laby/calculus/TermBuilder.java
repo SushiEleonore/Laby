@@ -76,6 +76,20 @@ public class TermBuilder {
         stack.push(new InstrWhile( cond, whileDo, id));
     }
 
+
+
+    @JavascriptInterface
+    public void pushWhilePath(String v, String id) {
+        ArrayList<Instr> whileDo = new ArrayList<Instr>();
+        ITerm t = null;
+
+        while((!((t=stack.pop()) instanceof Flag))){
+            whileDo.add((Instr)t);
+        }
+        CheckIfPath cond = (new CheckIfPath(l,v));
+        stack.push(new InstrWhilePath( cond, whileDo, id));
+    }
+
     @JavascriptInterface
     public void pushIfThenElse(String v, String id) {
         ArrayList<Instr> elseBlock = new ArrayList<Instr>();
@@ -127,7 +141,7 @@ public class TermBuilder {
 
                     while (!lins.isEmpty()&&play) {
                         nextStep();
-                        try { Thread.sleep(1000); } catch (Exception e){}
+                        try { Thread.sleep(l.getTimePerInst()); } catch (Exception e){}
                     }
 
                     CheckIfEnd b = new CheckIfEnd(l);
@@ -181,14 +195,11 @@ public class TermBuilder {
                             else gui.notify(false, c.getFirst(), false, Values.NOMV, gameStates.get(nStep).playerDestroying());
                             lins = c.getSecond();
                         }
-
-                        try{Thread.sleep(1000);} catch (InterruptedException e) { e.printStackTrace(); System.out.println("Exception");}
-
                 }
             };
 
             t.start();
-
+            try{t.sleep(l.getTimePerInst());} catch (InterruptedException e) { e.printStackTrace(); System.out.println("Exception");}
         } else {
 
             Thread t = new Thread() {
@@ -202,20 +213,19 @@ public class TermBuilder {
 
                     else
                         gui.notify(false, gameStates.get(nStep).getId(), false, Values.NOMV,gameStates.get(nStep).playerDestroying());
-                    try { Thread.sleep(1000); } catch (Exception e) {e.printStackTrace(); System.out.println("Exception");}
+
 
 
                 }
             };
 
             t.start();
+            try { Thread.sleep(l.getTimePerInst()); } catch (Exception e) {e.printStackTrace(); System.out.println("Exception");}
 
         }
     }
 
-
     public void prevStep(){
-
         Thread t = new Thread() {
 
             public void run() {
@@ -231,18 +241,13 @@ public class TermBuilder {
 
                 }
 
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-
             }
         };
         t.start();
+        try {
+            Thread.sleep(l.getTimePerInst());}
+        catch (InterruptedException e) { e.printStackTrace();}
     }
 
     public int getnStep() {return this.nStep;}
 }
-

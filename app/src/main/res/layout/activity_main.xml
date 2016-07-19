@@ -42,20 +42,7 @@
                 android:layout_alignParentLeft="true"
                 android:orientation="horizontal"
                />
-            <SurfaceView
-                android:id="@+id/chiliview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
-                android:orientation="horizontal"
-            />
-            <SurfaceView
-                android:id="@+id/bwallview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:orientation="horizontal"
-            />
+
         </RelativeLayout>
 
 
@@ -100,11 +87,11 @@
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/next"/>
             <Button
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:text=""
-                android:layout_gravity="center_vertical"
                 android:onClick="backToMenu"
+                android:layout_gravity="center_vertical"
                 android:id="@+id/menu"
                 android:background="@drawable/menu"/>
 

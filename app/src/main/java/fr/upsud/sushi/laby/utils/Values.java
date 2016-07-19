@@ -11,10 +11,17 @@ import fr.upsud.sushi.laby.maze.Level;
  */
 public class Values {
 
-    public static final boolean DEBUG_MODE = false  ;
+    public static final boolean DEBUG_MODE = false;
+
+    public static final boolean TESTSPRITE = true;
+    public static final int frameTime = 3;
+
+    //public static int MVPLAYERTEST =0;
 
     //Game rendering
     public static final int FPS = 60;
+
+    //public static int stepTime = 1000;
 
     //Images resizing
     public static final int SCALE = 4;
@@ -23,9 +30,9 @@ public class Values {
     public static int LSHIFT = 0;
     public static int HSHIFT = 0;
 
-    public static Paint paint = new Paint(Paint.FILTER_BITMAP_FLAG |
+    public static Paint paint = new Paint( 0 /*Paint.FILTER_BITMAP_FLAG |
             Paint.DITHER_FLAG
-            | Paint.ANTI_ALIAS_FLAG);
+            | Paint.ANTI_ALIAS_FLAG*/);
 
     //Player movement
     public static final int MVFWD =1;
@@ -42,15 +49,8 @@ public class Values {
 
     public static final int nStepSprite=20;
 
-    public static final int maxLvl = 7;
+    public static final int maxLvl = 8;
 
-    public static float getScale(LinearLayout lay, Level l) {
-        int hauteur = lay.getHeight();
-        int horizontalitude = lay.getWidth();
-
-        return 2;
-
-    }
     public static void setCellSize(int cellSize){
        CELLSIZE=cellSize;
     }

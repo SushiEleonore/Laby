@@ -68,6 +68,24 @@ Blockly.Blocks['while'] = {
 };
 
 
+
+Blockly.Blocks['whilepath'] = {
+  init: function() {
+    var dev = JavaMainActivity.get_devant();
+      var ad = JavaMainActivity.get_a_droite();
+      var ag = JavaMainActivity.get_a_gauche();
+    this.appendDummyInput()
+        .appendField("Tant qu'il y a un chemin")
+        .appendField(new Blockly.FieldDropdown([[dev, "F"], [ag, "L"], [ad, "R"]]), "DIR");
+    this.appendStatementInput("NAME")
+        .setCheck(null);
+    this.setColour(260);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+
 Blockly.Blocks['ifelse'] = {
   init: function() {
     var chemin = JavaMainActivity.get_si_chemin();
@@ -121,7 +139,7 @@ Blockly.Blocks['splitfire'] = {
 //Term Builders
 Blockly.JavaScript['turn'] = function(block) {
 
-    console.log("Creating :" + block.id);
+    //console.log("Creating :" + block.id);
   var dropdown_name = block.getFieldValue('NAME');
    var code = 'JavaTermBuilder.pushTurnRL("' + dropdown_name + '", "'+ block.id +'" );\n';
   return code;
@@ -129,36 +147,45 @@ Blockly.JavaScript['turn'] = function(block) {
 
 
 Blockly.JavaScript['eatchili'] = function(block) {
-   console.log("Creating :" + block.id);
+  // console.log("Creating :" + block.id);
    var code = 'JavaTermBuilder.pushEatChili("'+ block.id +'");\n';
    return code;
 };
 
 Blockly.JavaScript['splitfire'] = function(block) {
-   console.log("Creating :" + block.id);
+   //console.log("Creating :" + block.id);
        var code = 'JavaTermBuilder.pushSplitFire("'+ block.id +'");\n';
        return code;
 };
 
 Blockly.JavaScript['move'] = function(block) {
 
-  console.log("Creating :" + block.id);
+ // console.log("Creating :" + block.id);
      var code = 'JavaTermBuilder.pushMove("'+ block.id +'");\n';
      return code;
 };
 
 Blockly.JavaScript['ifpath'] = function(block) {
 
-    console.log("Creating :" + block.id);
+    //console.log("Creating :" + block.id);
   var dropdown_name = block.getFieldValue('DIR');
   var statements_name = Blockly.JavaScript.statementToCode(block, 'THEN');
   var code ='JavaTermBuilder.pushBegin();' + statements_name + 'JavaTermBuilder.pushIfThen("'+dropdown_name+ '","'+ block.id +'");\n';
   return code;
 };
 
+
+Blockly.JavaScript['whilepath'] = function(block) {
+    console.log("Creating :" + block.id);
+  var dropdown_dir = block.getFieldValue('DIR');
+  var statements_name = Blockly.JavaScript.statementToCode(block, 'NAME');
+  var code ='JavaTermBuilder.pushBegin();' + statements_name + 'JavaTermBuilder.pushWhilePath("'+dropdown_dir+ '","'+ block.id +'");\n';
+  return code;
+};
+
 Blockly.JavaScript['while'] = function(block) {
 
-    console.log("Creating :" + block.id);
+    //console.log("Creating :" + block.id);
   var statements_name = Blockly.JavaScript.statementToCode(block, 'NAME');
   var code = 'JavaTermBuilder.pushBegin();' + statements_name + 'JavaTermBuilder.pushWhile("'+ block.id +'");\n';
   return code;
@@ -166,7 +193,7 @@ Blockly.JavaScript['while'] = function(block) {
 
 Blockly.JavaScript['ifelse'] = function(block) {
 
-  console.log("Creating :" + block.id);
+  //console.log("Creating :" + block.id);
   var dropdown_name = block.getFieldValue('NAME');
   var statements_then = Blockly.JavaScript.statementToCode(block, 'then');
   var statements_else = Blockly.JavaScript.statementToCode(block, 'else');
@@ -178,7 +205,7 @@ Blockly.JavaScript['ifelse'] = function(block) {
 function evalBlock () {
    var code = Blockly.JavaScript.workspaceToCode(Blockly.mainWorkspace);
     //JavaTermBuilder.reset();
-   console.log(code);
+   //console.log(code);
    eval(code);
    JavaTermBuilder.eval();
 };
@@ -190,7 +217,7 @@ function evalRestOfBlock () {
 function nextStep () {
    var code = Blockly.JavaScript.workspaceToCode(Blockly.mainWorkspace);
   //JavaTermBuilder.reset();
-   console.log(code);
+   //console.log(code);
    eval(code);
    JavaTermBuilder.nextStep();
 };
@@ -215,11 +242,11 @@ function initBlockly() {
     var blocksURL = document.location.href.toString().split("=");
     var blocks = blocksURL[1].split(",");
     var nmax = parseInt(blocksURL[2]);
-    console.log(blocks);
+    //console.log(blocks);
     for ( var i = 0; i < blocks.length; i++) {
         content += "<block type=\"" + blocks[i] + "\"></block>\n";
     };
-    console.log(content);
+    //console.log(content);
     toolbox.innerHTML = content;
 
 

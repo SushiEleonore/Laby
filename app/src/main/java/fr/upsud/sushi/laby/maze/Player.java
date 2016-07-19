@@ -28,6 +28,10 @@ public class Player extends MovableElement{
     private int x;
     private int y;
 
+
+    private int prevX;
+    private int prevY;
+
     //The direction faced by the player
     private Dir dir;
     private Level l;
@@ -234,9 +238,13 @@ public class Player extends MovableElement{
 
     public void update(){
         Player p = l.getPlayer();
+        if(!(this.x==p.getX()&&this.y==p.getY())) this.isMoving=p.isMoving();
         this.x=p.getX();
         this.y=p.getY();
+
         this.motion=p.getMotion();
+        this.dir=p.getDir();
+
         this.hasChili=p.hasChili();
     }
     public boolean getState(){return true;}
@@ -244,6 +252,7 @@ public class Player extends MovableElement{
     public void setMoving(boolean b){this.isMoving=b;}
 
     public boolean isMoving(){
+        //return Values.MVPLAYERTEST!=0;
         return this.isMoving;
     }
 

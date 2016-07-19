@@ -15,3 +15,4 @@ wwwww
 move
 turn
 while
+1000

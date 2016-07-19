@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -19,9 +20,11 @@ import fr.upsud.sushi.laby.utils.Values;
  * Created by proval on 6/14/16.
  */
 public class BackgroundDrawer {
-    SurfaceViewDrawer listSurface;
+    SurfaceView bgSurface;
     Level l;
     Resources res;
+    int h;
+    int w;
 
     Bitmap bitmapWall;
     Bitmap bitmapEnd;
@@ -30,29 +33,29 @@ public class BackgroundDrawer {
             Paint.DITHER_FLAG
     );
 
-    public BackgroundDrawer(SurfaceViewDrawer list, Level le, Resources res) {
-        listSurface = list;
+    public BackgroundDrawer( Level le, Resources res, SurfaceView bg) {
+
+        bgSurface= bg;
         this.l = le;
         this.res = res;
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inScaled = false;
         bitmapWall = BitmapParser.getWall(res);
-        bitmapEnd = BitmapParser
-                .getEnd(res);// BitmapFactory.decodeResource(res, R.drawable.arrivee, options);
-        bitmapPath = BitmapParser
-                .getPath(res);//BitmapFactory.decodeResource(res, R.drawable.path, options);
-        listSurface.getBg().getHolder().addCallback(new SurfaceHolder.Callback() {
+        bitmapEnd = BitmapParser.getEnd(res);
+        bitmapPath = BitmapParser.getPath(res);
+        bg.getHolder().addCallback(new SurfaceHolder.Callback() {
 
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
-                l.setCellSize(holder.getSurfaceFrame().height(), holder.getSurfaceFrame().width());
+                h = holder.getSurfaceFrame().height();
+                w = holder.getSurfaceFrame().width();
+                l.setCellSize(h, w);
                 drawBG();
             }
 
             @Override
             public void surfaceChanged(SurfaceHolder holder, int format, int width,
                     int height) {
-                //l.setCellSize(holder.getSurfaceFrame().height(), holder.getSurfaceFrame().width());
                 drawBG();
             }
 
@@ -64,13 +67,15 @@ public class BackgroundDrawer {
     }
 
     public void drawBG() {
-        SurfaceView bg = listSurface.getBg();
+        SurfaceView bg = bgSurface;
         SurfaceHolder h = bg.getHolder();
         if (h.getSurface().isValid()) {
             synchronized (h) {
                 Canvas canvas = h.lockCanvas();
-                Rect r = new Rect(0, 0, 200, 200);
-                canvas.drawRect(r, paint);
+                Paint p = new Paint();
+                p.setColor(Color.WHITE);
+                Rect r = new Rect(0, 0, this.w, this.h);
+                canvas.drawRect(r, p);
                 for (int i = 0; i < l.getCells().length; i++) {
                     for (int j = 0; j < l.getCells()[i].length; j++) {
                         if (l.getCells()[i][j] != null) {
@@ -104,6 +109,7 @@ public class BackgroundDrawer {
                 topy + Values.CELLSIZE+ Values.HSHIFT);
         canvas.drawBitmap(bm, null, whereToDraw, paint);
     }
+
     public Bitmap getResizedBitmap(Bitmap bm) {
         Bitmap resizedBitmap =  Bitmap.createScaledBitmap(bm, Values.CELLSIZE, Values.CELLSIZE, false);
         return resizedBitmap;

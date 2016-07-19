@@ -37,6 +37,10 @@ public class Item extends MovableElement {
         this.sprite = new Sprite(this);
     }
 
+    public void restart(){
+        this.visible=true;
+
+    }
     public Sprite getSprite() {
         return this.sprite;
     }
@@ -86,5 +90,5 @@ public class Item extends MovableElement {
     }
     public boolean isActioning(){return false;}
     public boolean isMoving(){return false;}
-
+    public void setActioning(boolean b){}
 }

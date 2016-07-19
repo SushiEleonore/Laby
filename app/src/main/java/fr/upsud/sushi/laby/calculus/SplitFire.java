@@ -22,7 +22,7 @@ public class SplitFire  implements Instr {
 
 
     public Pair<String, ListInstr> next(){
-        if( this.l.getbWall().playerFacing()) l.getbWall().setState(false);
+        if( this.l.getbWall().playerFacing() && this.l.getPlayer().hasChili()) l.getbWall().setState(false);
         else {
             Looper.prepare();
             Toast.makeText(l.getContext(), l.getContext().getResources().getString(R.string.fail_spit),

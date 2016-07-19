@@ -7,6 +7,7 @@ import fr.upsud.sushi.laby.R;
 import fr.upsud.sushi.laby.utils.Values;
 import fr.upsud.sushi.laby.utils.Dir;
 import java.io.ByteArrayOutputStream;
+import java.util.HashMap;
 
 import android.app.Activity;
 import android.content.Context;
@@ -44,6 +45,8 @@ public class Level {
 
     private int nbBlocks;
 
+    private int timePerInst;
+
 
     /*
     * format of the maze :
@@ -67,7 +70,7 @@ public class Level {
     *
     *
     *
-    * finally, the authorized blocks
+    * finally, the authorized blocks, and the time per instruction
     *
     *
     * */
@@ -129,10 +132,12 @@ public class Level {
             }
         }
         this.p = new Player(this.xStart, this.yStart, d, this);
-        for (int i = sizeY+4; i<tab.length; i++) {
+        for (int i = sizeY+4; i<tab.length-1; i++) {
             this.authorizedBlocks.add(tab[i]);
         }
-        computeCellSize();
+        this.timePerInst = Integer.parseInt(tab[tab.length-1]);
+        //Values.stepTime = this.timePerInst;
+       // computeCellSize();
 
     }
 
@@ -160,44 +165,38 @@ public class Level {
         this.levelMax = Values.maxLvl;
         this.context = ctx;
         this.authorizedBlocks = new ArrayList<String>();
-         if (lvl == 1) {
+        if (lvl == 1) {
             this.lvl = lvl;
-             openFile( R.raw.level1);
-         } else if (lvl == 2) {
-             this.lvl = lvl;
-             openFile( R.raw.level2);
-         } else if (lvl == 3) {
-             this.lvl = lvl;
-             openFile( R.raw.level3);
-         } else if (lvl == 4) {
-             this.lvl = lvl;
-             openFile( R.raw.level4);
-         } else if (lvl == 5) {
-             this.lvl = lvl;
-             openFile( R.raw.level5);
-         } else if (lvl == 6) {
-             this.lvl = lvl;
-             openFile( R.raw.level6);
+            openFile(R.raw.level1);
+        } else if (lvl == 2) {
+            this.lvl = lvl;
+            openFile(R.raw.level2);
+        } else if (lvl == 3) {
+            this.lvl = lvl;
+            openFile(R.raw.level3);
+        } else if (lvl == 4) {
+            this.lvl = lvl;
+            openFile(R.raw.level4);
+        } else if (lvl == 5) {
+            this.lvl = lvl;
+            openFile(R.raw.level5);
+        } else if (lvl == 6) {
+            this.lvl = lvl;
+            openFile(R.raw.level6);
 
-         } else if (lvl == 7) {
-             this.lvl = lvl;
-            openFile( R.raw.level7);
-         }
-        computeCellSize();
-    }
+        } else if (lvl == 7) {
+            this.lvl = lvl;
+            openFile(R.raw.level7);
 
-/*
-    public MovableElement updateElement(int i){
-        switch (i){
-            case Values.PLAYERID: return this.getPlayer();
-            case Values.BWALLID: return this.getbWall();
-            default: return this.getItem();
+        } else if (lvl == 8) {
+            this.lvl = lvl;
+            openFile(R.raw.level8);
         }
-
-
+        //computeCellSize();
     }
 
-*/
+
+
 
     public Context getContext(){
         return this.context;
@@ -255,14 +254,16 @@ public class Level {
     }
 
 
-    public int getCellSize() { return this.cellSize;}
+    public int getTimePerInst() { return this.timePerInst;}
+
+   // public int getCellSize() { return this.cellSize;}
 
     public int getNbBlocks() {return this.nbBlocks;}
 
-    public Dir getStartDir() {return this.startDir;}
+    //public Dir getStartDir() {return this.startDir;}
 
-    public int getXstart()  {return this.xStart;}
-    public int getYstart()  {return this.yStart;}
+    //public int getXstart()  {return this.xStart;}
+    //public int getYstart()  {return this.yStart;}
 
     public int getLevelMax() { return this.levelMax;}
 
@@ -293,6 +294,9 @@ public class Level {
         this.p.setY(this.yStart);
         this.p.setDir(this.startDir);
         this.p.setChili(false);
+        this.p.setActioning(false);
+        this.p.setMoving(false);
+        if(item!=null){item.restart();}
         if(bWall!=null)bWall.restart();
 
     }
@@ -300,6 +304,8 @@ public class Level {
     public Item getItem(){return this.item;}
 
     public BreakableWall getbWall(){return this.bWall;}
+
+
     /**********Tests************/
 
   /*  public String printMaze () {

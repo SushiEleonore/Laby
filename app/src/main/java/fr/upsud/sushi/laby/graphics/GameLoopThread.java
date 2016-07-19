@@ -3,42 +3,38 @@ package fr.upsud.sushi.laby.graphics;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.view.SurfaceView;
-
-import java.util.ArrayList;
 
 import fr.upsud.sushi.laby.maze.MovableElement;
 import fr.upsud.sushi.laby.utils.Values;
 
 public class GameLoopThread extends Thread {
     private ItemDrawer view;
-    private boolean running = true;
+    private boolean running ;
+    private long animationTime;
     public GameLoopThread(ItemDrawer view) {
+        this.animationTime = view.getL().getTimePerInst();
         this.view = view;
-
+        this.running=true;
     }
     public void setRunning(boolean run) {
-        running = run;
+        this.running = run;
     }
 
     @Override
     public void run() {
 
-        while (running) {
+        while (this.running) {
             Canvas c = null;
             try {
 
                 c = view.getsV().getHolder().lockCanvas();
 
                 synchronized (view.getsV().getHolder()) {
-                    //erase
-                    //c.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+                    c.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
                     for (MovableElement el : view.getElements()) {
                         if(el!=null) {
                             el.getSprite().update();
-
-                            el.getSprite().draw(c);
-                            if(Values.DEBUG_MODE) System.out.println("try to draw " + el.getSprite().toString());
+                            if(view.getsV().getHolder().getSurface().isValid()) el.getSprite().draw(c);
                         }
                     }
                 }
@@ -48,11 +44,8 @@ public class GameLoopThread extends Thread {
                 }
             }
             try {
-                sleep(300);
+                sleep(animationTime/Values.nStepSprite);
             } catch (Exception e) {e.printStackTrace();}
-
         }
-
-
     }
 }
