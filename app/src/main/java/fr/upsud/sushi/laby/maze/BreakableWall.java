@@ -71,12 +71,14 @@ public class BreakableWall extends MovableElement{
 
     public void setX(int pX) { this.x = pX;}
     public void setY(int pY) { this.y = pY;}
+
     public boolean playerFacing(){
         return (state==true)&&((this.x+1==this.l.getPlayer().getX())||
                 (this.x-1==this.l.getPlayer().getX())||
                 (this.y-1==this.l.getPlayer().getY())||
                 (this.y+1==this.l.getPlayer().getY()));
     }
+
     public void setState(Boolean b){
         if(!b) l.getPlayer().setChili(false);
         this.state=b;}

@@ -46,13 +46,15 @@ public class InstrWhilePath implements Instr {
         if(Values.DEBUG_MODE)
             System.out.println("fait");
         while (this.condPath.eval()) {
-            cpt++;
+
             for(int i =instr.size()-1 ; i>=0; i--) {
                 instr.get(i).next();
                 //A DEPLACER DANS LE MVFORWARD
-                if (this.condPath.eval()){
+              /* if (this.condPath.eval()){
                     if (Values.DEBUG_MODE) System.out.println("break");
                     break;}
+            }
+            */
             }
             if (Values.DEBUG_MODE)
                 System.out.println("fait");
@@ -60,4 +62,6 @@ public class InstrWhilePath implements Instr {
         }
 
     }
+
+
 }

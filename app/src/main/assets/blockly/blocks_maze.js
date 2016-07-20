@@ -79,6 +79,8 @@ Blockly.Blocks['whilepath'] = {
         .appendField(new Blockly.FieldDropdown([[dev, "F"], [ag, "L"], [ad, "R"]]), "DIR");
     this.appendStatementInput("NAME")
         .setCheck(null);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
     this.setColour(260);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');

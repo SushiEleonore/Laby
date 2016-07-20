@@ -35,4 +35,9 @@ public class BoutiqueActivity extends AppCompatActivity {
         BitmapParser.setSkin(Skins.BEBEZILLA);
         Toast.makeText(getApplicationContext(), R.string.set_bebezilla, Toast.LENGTH_SHORT).show();
     }
+
+    public void setPoulpe(View v){
+        BitmapParser.setSkin(Skins.POULPE);
+        Toast.makeText(getApplicationContext(), R.string.set_poulpe, Toast.LENGTH_SHORT).show();
+    }
 }

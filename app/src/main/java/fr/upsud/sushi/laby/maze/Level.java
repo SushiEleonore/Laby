@@ -54,9 +54,6 @@ public class Level {
     * First 2 lines, size of the maze :
     * x\n
     * y\n
-    * then position and direction of the player :
-    * px\n
-    * py\n
     * Direction\n
     * then the number of blocks you can place :
     *
@@ -67,7 +64,8 @@ public class Level {
     * u : empty
     * s : start
     * e : end
-    *
+    * p : chilli
+    * b : breakable wall
     *
     *
     * finally, the authorized blocks, and the time per instruction
@@ -183,11 +181,9 @@ public class Level {
         } else if (lvl == 6) {
             this.lvl = lvl;
             openFile(R.raw.level6);
-
         } else if (lvl == 7) {
             this.lvl = lvl;
             openFile(R.raw.level7);
-
         } else if (lvl == 8) {
             this.lvl = lvl;
             openFile(R.raw.level8);
@@ -283,7 +279,9 @@ public class Level {
     public boolean isWall(int i, int j) {
         if (cells[i][j] == null) {return false;}
         if (cells[i][j].getType() == (Cell.Type.WALL)) { return true;}
-        else {return false;}
+        else if (this.getbWall() != null && this.getbWall().getY()==j && this.getbWall().getX()==i) return true;
+        else return false;
+
     }
 
     public int getXend() { return this.xEnd;}

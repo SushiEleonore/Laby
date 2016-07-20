@@ -19,8 +19,8 @@ public class MenuActivity extends Activity {
         setContentView(R.layout.activity_menu);
     }
 
-    public void level1(View v){
-        level = 1;
+    public void levelX(View v){
+        level = Integer.parseInt(v.getTag().toString());
         setContentView(R.layout.activity_main);
         Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);
         intent2.putExtra("level", level);
@@ -29,68 +29,6 @@ public class MenuActivity extends Activity {
         finish();
     }
 
-    public void level2(View v){
-        level = 2;
-        setContentView(R.layout.activity_main);
-        Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);
-        intent2.putExtra("level", level);
-        startActivityForResult(intent2, 0);
-        finish();
-    }
-
-    public void level3(View v){
-        level = 3;
-        setContentView(R.layout.activity_main);
-        Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);
-        intent2.putExtra("level", level);
-        startActivityForResult(intent2, 0);
-        finish();
-    }
-
-    public void level4(View v){
-        level = 4;
-        setContentView(R.layout.activity_main);
-        Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);
-        intent2.putExtra("level", level);
-        startActivityForResult(intent2, 0);
-        finish();
-    }
-
-    public void level5(View v){
-        level = 5;
-        setContentView(R.layout.activity_main);
-        Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);
-        intent2.putExtra("level", level);
-        startActivityForResult(intent2, 0);
-        finish();
-    }
-
-    public void level6(View v){
-        level = 6;
-        setContentView(R.layout.activity_main);
-        Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);
-        intent2.putExtra("level", level);
-        startActivityForResult(intent2, 0);
-        finish();
-    }
-
-    public void level7(View v){
-        level = 7;
-        setContentView(R.layout.activity_main);
-        Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);
-        intent2.putExtra("level", level);
-        startActivityForResult(intent2, 0);
-        finish();
-    }
-
-    public void level8(View v){
-        level = 8;
-        setContentView(R.layout.activity_main);
-        Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);
-        intent2.putExtra("level", level);
-        startActivityForResult(intent2, 0);
-        finish();
-    }
     public void backToHome(View v){
         setContentView(R.layout.activity_home);
         Intent intent2 = new Intent(getApplicationContext(), Home.class);

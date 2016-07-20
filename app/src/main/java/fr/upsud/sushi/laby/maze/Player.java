@@ -144,8 +144,6 @@ public class Player extends MovableElement{
     //The player moves forward by one step.  checks
     //if there's a wall
     public void move (Level l) throws wallCollisionException{
-        BreakableWall b = l.getbWall();
-        if(!(b!=null&&b.playerFacing())) {
 
             if (this.dir == (Dir.E)) {
                 if (l.isWall(this.x + 1, this.y)) {
@@ -173,7 +171,7 @@ public class Player extends MovableElement{
                 }
             }
         }
-    }
+
 
     //Checks if the player is facing a wall.
     public boolean facingWall () {

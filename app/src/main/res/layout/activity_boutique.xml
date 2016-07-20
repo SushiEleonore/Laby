@@ -33,6 +33,15 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Poulpe"
+        android:id="@+id/button15"
+        android:layout_below="@+id/button13"
+        android:layout_centerHorizontal="true"
+        android:onClick="setPoulpe"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Accueil"
         android:id="@+id/button14"
         android:layout_alignParentBottom="true"

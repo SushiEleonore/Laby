@@ -15,4 +15,5 @@ move
 turn
 while
 ifelse
+whilepath
 500

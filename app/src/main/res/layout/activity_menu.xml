@@ -20,21 +20,24 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="1"
-            android:onClick="level1"
+            android:tag = "1"
+            android:onClick="levelX"
             android:id="@+id/button2"
             android:layout_weight="0.33"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="2"
-            android:onClick="level2"
+            android:tag = "2"
+            android:onClick="levelX"
             android:id="@+id/button3"
             android:layout_weight="0.33"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="3"
-            android:onClick="level3"
+            android:tag = "3"
+            android:onClick="levelX"
             android:id="@+id/button4"
             android:layout_weight="0.33"/>
     </LinearLayout>
@@ -46,21 +49,24 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="4"
-            android:onClick="level4"
+            android:tag = "4"
+            android:onClick="levelX"
             android:id="@+id/button5"
             android:layout_weight="0.33"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="5"
-            android:onClick="level5"
+            android:tag = "5"
+            android:onClick="levelX"
             android:id="@+id/button6"
             android:layout_weight="0.33"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="6"
-            android:onClick="level6"
+            android:tag = "6"
+            android:onClick="levelX"
             android:id="@+id/button7"
             android:layout_weight="0.33"/>
     </LinearLayout>
@@ -72,10 +78,13 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="7"
-            android:onClick="level7"
+            android:tag = "7"
+            android:onClick="levelX"
             android:id="@+id/button8" android:layout_weight="0.5"/>
         <Button android:layout_width="wrap_content" android:layout_height="match_parent"
-                android:text="8" android:onClick="level8" android:id="@+id/button15"
+                android:text="8" android:onClick="levelX"
+                android:tag = "8"
+                android:id="@+id/button15"
                 android:layout_weight="0.5"/>
     </LinearLayout>
 </LinearLayout>

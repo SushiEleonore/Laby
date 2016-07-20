@@ -15,7 +15,7 @@ public class BitmapParser {
     private static int sizeImgy = 24;
 
     private static int caseSize ;
-    private static Skins skin = Skins.BEBEZILLA;
+    private static Skins skin = Skins.POULPE;
     public static  Bitmap mainBitmap;
 
 
@@ -24,6 +24,10 @@ public class BitmapParser {
         switch(skin){
             case BEBEZILLA:
                 mainBitmap = BitmapFactory.decodeResource(r, R.drawable.bebezillaplayer);
+                caseSize = 24;
+                break;
+            case POULPE:
+                mainBitmap = BitmapFactory.decodeResource(r, R.drawable.poulpeplayer);
                 caseSize = 24;
                 break;
             default:
@@ -49,6 +53,10 @@ public class BitmapParser {
         switch(skin){
             case BEBEZILLA:
                 mainBitmap = BitmapFactory.decodeResource(r, R.drawable.bebezillaplayer, opts);
+                caseSize = 24;
+                break;
+            case POULPE:
+                mainBitmap = BitmapFactory.decodeResource(r, R.drawable.poulpeplayer, opts);
                 caseSize = 24;
                 break;
             default:
