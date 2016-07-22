@@ -2,9 +2,6 @@ package fr.upsud.sushi.laby.calculus;
 
 import fr.upsud.sushi.laby.maze.Player;
 
-/**
- * Created by proval on 6/7/16.
- */
 public class GameState {
     private String id;
     private Player pDep;
@@ -27,8 +24,7 @@ public class GameState {
     }
 
     public boolean playerMoving(){
-        if(this.pDep.getX()!=this.pArr.getX()
-           || this.pDep.getY()!=this.pArr.getY()     ) return true;
+        if(this.pDep.getX()!=this.pArr.getX() || this.pDep.getY()!=this.pArr.getY()) return true;
         else return false;
     }
 

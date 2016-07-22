@@ -1,8 +1,5 @@
 package fr.upsud.sushi.laby.utils;
 
-/**
- * Created by proval on 6/9/16.
- */
 public class Pair<F, S> {
     private F first;
     private S second;

@@ -4,13 +4,11 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import fr.upsud.sushi.laby.R;
 import fr.upsud.sushi.laby.graphics.Sprite;
 import fr.upsud.sushi.laby.utils.BitmapParser;
 import fr.upsud.sushi.laby.utils.Dir;
 import fr.upsud.sushi.laby.utils.Sens;
 import fr.upsud.sushi.laby.exceptions.wallCollisionException;
-import fr.upsud.sushi.laby.utils.Skins;
 import fr.upsud.sushi.laby.utils.Values;
 
 
@@ -28,10 +26,6 @@ public class Player extends MovableElement{
     private int x;
     private int y;
 
-
-    private int prevX;
-    private int prevY;
-
     //The direction faced by the player
     private Dir dir;
     private Level l;
@@ -47,7 +41,7 @@ public class Player extends MovableElement{
     private Sprite sprite;
 
 
-    public Player(int x, int y, Dir d, Level l) { //prend un level
+    public Player(int x, int y, Dir d, Level l) {
         this.dir=d;
         this.x = x;
         this.y = y;
@@ -56,11 +50,11 @@ public class Player extends MovableElement{
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inScaled = false;
         Resources res = l.getContext().getResources();
-        this.skin_g = BitmapParser.getSkinMvG(res); //BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_g, options);
-        this.skin_d = BitmapParser.getSkinMvD(res);// BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_d, options);
-        this.skin_dos = BitmapParser.getSkinMvDos(res); //BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_dos, options);
-        this.skin_face = BitmapParser.getSkinMvFace(res); //BitmapFactory.decodeResource(res, R.drawable.mv_bebezilla_face, options);
-        this.pDestroying= BitmapParser.getPDestroying(res);// BitmapFactory.decodeResource(res, R.drawable.pdestroying, options);
+        this.skin_g = BitmapParser.getSkinMvG(res);
+        this.skin_d = BitmapParser.getSkinMvD(res);
+        this.skin_dos = BitmapParser.getSkinMvDos(res);
+        this.skin_face = BitmapParser.getSkinMvFace(res);
+        this.pDestroying= BitmapParser.getPDestroying(res);
         this.hasChili=false;
         this.isMoving=false;
         this.isActioning=false;
@@ -102,9 +96,7 @@ public class Player extends MovableElement{
     }
 
     public Bitmap getActionBmp(String s){
-        //if(s.equals("destroy"))
             return pDestroying;
-
     }
 
 
@@ -113,8 +105,6 @@ public class Player extends MovableElement{
     public Bitmap getSkin_dos(){return this.skin_dos;}
     public Bitmap getSkin_face(){return this.skin_face;}
 
-
-   public Bitmap getpDestroying(){return this.pDestroying;}
 
     public void setItem(){
         this.hasChili=true;
@@ -129,7 +119,6 @@ public class Player extends MovableElement{
     }
 
     //Changes the direction of the player
-    //!!!!!!!changed it
     public void rotate(Sens s){
         if (s == (Sens.L) && this.dir == (Dir.E)
                 || s == (Sens.R) && this.dir == (Dir.W)) { this.dir = Dir.N;}
@@ -250,7 +239,6 @@ public class Player extends MovableElement{
     public void setMoving(boolean b){this.isMoving=b;}
 
     public boolean isMoving(){
-        //return Values.MVPLAYERTEST!=0;
         return this.isMoving;
     }
 

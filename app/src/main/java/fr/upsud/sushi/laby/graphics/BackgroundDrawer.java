@@ -10,28 +10,20 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-
-import fr.upsud.sushi.laby.R;
 import fr.upsud.sushi.laby.maze.Level;
 import fr.upsud.sushi.laby.utils.BitmapParser;
 import fr.upsud.sushi.laby.utils.Values;
 
-/**
- * Created by proval on 6/14/16.
- */
 public class BackgroundDrawer {
     SurfaceView bgSurface;
     Level l;
     Resources res;
     int h;
     int w;
-
     Bitmap bitmapWall;
     Bitmap bitmapEnd;
     Bitmap bitmapPath;
-    Paint paint = new Paint(Paint.FILTER_BITMAP_FLAG |
-            Paint.DITHER_FLAG
-    );
+    Paint paint = new Paint(Paint.FILTER_BITMAP_FLAG | Paint.DITHER_FLAG);
 
     public BackgroundDrawer( Level le, Resources res, SurfaceView bg) {
 
@@ -114,7 +106,6 @@ public class BackgroundDrawer {
         Bitmap resizedBitmap =  Bitmap.createScaledBitmap(bm, Values.CELLSIZE, Values.CELLSIZE, false);
         return resizedBitmap;
     }
-
 }
 
 

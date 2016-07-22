@@ -9,8 +9,6 @@ import fr.upsud.sushi.laby.utils.Dir;
  * Created by proval on 6/27/16.
  */
 public abstract class MovableElement {
-    Bitmap bmp;
-    //public abstract Bitmap[] getMovingBmp(String action);
 
     public abstract Bitmap[] getStaticBmp();
     public abstract Dir getDir();

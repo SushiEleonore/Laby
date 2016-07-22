@@ -8,5 +8,4 @@ wuw
 wew
 www
 move
-whilepath
 1000

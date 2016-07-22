@@ -3,7 +3,6 @@ package fr.upsud.sushi.laby.calculus;
 import fr.upsud.sushi.laby.maze.Level;
 import fr.upsud.sushi.laby.utils.Values;
 
-
 public class CheckIfEnd extends Bool {
     Level l;
     public CheckIfEnd(Level l){

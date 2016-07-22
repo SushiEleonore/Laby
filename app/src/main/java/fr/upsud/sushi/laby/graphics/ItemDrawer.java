@@ -1,14 +1,7 @@
 package fr.upsud.sushi.laby.graphics;
 
-/**
- * Created by proval on 6/27/16.
- */
-import android.app.Activity;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.PixelFormat;
-import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -16,11 +9,8 @@ import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
-import fr.upsud.sushi.laby.R;
 import fr.upsud.sushi.laby.maze.Level;
 import fr.upsud.sushi.laby.maze.MovableElement;
-import fr.upsud.sushi.laby.maze.Player;
-import fr.upsud.sushi.laby.utils.Dir;
 import fr.upsud.sushi.laby.utils.Values;
 
 
@@ -34,7 +24,6 @@ public class ItemDrawer {
 
 
     public ItemDrawer(SurfaceView bg, SurfaceView surfacePlayer, LinearLayout l, Level lvl) {
-       // this.listEl=listEl;
         this.sV=surfacePlayer;
         listEl = new ArrayList<MovableElement>();
         listEl.add(lvl.getPlayer());

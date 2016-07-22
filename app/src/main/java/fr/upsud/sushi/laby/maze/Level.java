@@ -121,7 +121,7 @@ public class Level {
                         cells[j][i-4] = new Cell(Cell.Type.PATH);
                         this.bWall=new BreakableWall(j, i-4, this);
                         break;
-                    default : //=end
+                    default :
                         cells[j][i-4] = new Cell(Cell.Type.END);
                         this.xEnd = j;
                         this.yEnd = i-4;
@@ -134,9 +134,6 @@ public class Level {
             this.authorizedBlocks.add(tab[i]);
         }
         this.timePerInst = Integer.parseInt(tab[tab.length-1]);
-        //Values.stepTime = this.timePerInst;
-       // computeCellSize();
-
     }
 
 
@@ -188,7 +185,6 @@ public class Level {
             this.lvl = lvl;
             openFile(R.raw.level8);
         }
-        //computeCellSize();
     }
 
 
@@ -198,33 +194,6 @@ public class Level {
         return this.context;
     }
 
-    private void computeCellSize() {
-        int hauteur = 0;
-        int horizontalitude = 0;
-        LinearLayout lay = (LinearLayout)((Activity)this.context).findViewById(R.id.layout1);
-        lay.measure(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-
-        horizontalitude=lay.getMeasuredWidth();
-        hauteur=lay.getMeasuredHeight();
-        if( Values.DEBUG_MODE) System.out.println("hauteur : " + hauteur);
-        if( Values.DEBUG_MODE) System.out.println("largeur :  " + horizontalitude);
-
-        if( Values.DEBUG_MODE)System.out.println("taille du niveau en x : " + this.cells.length);
-
-        float sizex = ((float)(horizontalitude)) / ((float)(this.cells.length));
-        if( Values.DEBUG_MODE)System.out.println("TAILLE EN X : "+ sizex);
-        float sizey = ((float)(hauteur) )/((float) (this.cells[0].length));
-        if( Values.DEBUG_MODE)System.out.println("TAILLE EN Y : " + sizey);
-        if (sizex<sizey) {
-
-            this.cellSize =(int) (sizex);
-        } else {
-            this.cellSize = (int) (sizey);
-        }
-        Values.setCellSize(cellSize);
-
-
-    }
 
     public void setCellSize(int h, int w){
         if( Values.DEBUG_MODE)System.out.println("h : " + h + "\nw : " + w);
@@ -252,14 +221,7 @@ public class Level {
 
     public int getTimePerInst() { return this.timePerInst;}
 
-   // public int getCellSize() { return this.cellSize;}
-
     public int getNbBlocks() {return this.nbBlocks;}
-
-    //public Dir getStartDir() {return this.startDir;}
-
-    //public int getXstart()  {return this.xStart;}
-    //public int getYstart()  {return this.yStart;}
 
     public int getLevelMax() { return this.levelMax;}
 
@@ -302,25 +264,4 @@ public class Level {
     public Item getItem(){return this.item;}
 
     public BreakableWall getbWall(){return this.bWall;}
-
-
-    /**********Tests************/
-
-  /*  public String printMaze () {
-        String s = "";
-        for (int i = 0; i<cells[0].length; i++) {
-            for (int j = 0; j<cells.length; j++) {
-                if (j == this.p.getX() && i == this.p.getY()) {s = s + "p";}
-                else if (cells[j][i] == null) {s = s + "+";}
-                else if (cells[j][i].getType() == (Cell.Type.WALL)) { s= s+"o"; }
-                else if (cells[j][i].getType() == (Cell.Type.START)) {s = s + "s";}
-                else if (cells[j][i].getType() == (Cell.Type.END)) {s = s + "e";}
-                else s = s + "-";
-            }
-            s = s + "\n";
-        }
-        return s;
-    }*/
-
-
 }

@@ -10,7 +10,6 @@ import fr.upsud.sushi.laby.utils.Values;
 public class InstrWhile implements Instr {
     Bool isEnd;
     String id;
-    //remplacer par listinstr
     ArrayList<Instr> instr;
 
     InstrWhile (CheckIfEnd c,ArrayList<Instr> i, String id) {
@@ -33,21 +32,13 @@ public class InstrWhile implements Instr {
 
 
     public void  eval(){
-         int cpt=0;
-        if(Values.DEBUG_MODE)
-        System.out.println("fait");
         while (!this.isEnd.eval()) {
-            cpt++;
             for(int i =instr.size()-1 ; i>=0; i--) {
                 instr.get(i).next();
-                //A DEPLACER DANS LE MVFORWARD
                 if (this.isEnd.eval()){
-                    if (Values.DEBUG_MODE) System.out.println("break");
+                    if (Values.DEBUG_MODE) System.out.println("break de eval du while");
                     break;}
             }
-            if (Values.DEBUG_MODE)
-            System.out.println("fait");
-            //if (cpt>20) break;
         }
 
     }

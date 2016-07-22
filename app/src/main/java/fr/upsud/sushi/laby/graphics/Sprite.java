@@ -2,8 +2,6 @@ package fr.upsud.sushi.laby.graphics;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.RectF;
 
 import fr.upsud.sushi.laby.maze.BreakableWall;
@@ -197,8 +195,6 @@ public class Sprite {
     public String toString() {
         return "<x:" + this.x + ", y:" + this.y + ">";
     }
-
-
 
     public void updateStatic() {
         this.kx = 0;

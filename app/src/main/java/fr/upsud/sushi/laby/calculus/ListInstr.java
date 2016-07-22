@@ -4,10 +4,7 @@ import java.util.ArrayList;
 
 import fr.upsud.sushi.laby.utils.Pair;
 
-/**
- * Created by proval on 5/25/16.
- */
-public class ListInstr{ //extends ITerm{
+public class ListInstr{
 
     private ArrayList<Instr> instr;
 
@@ -22,39 +19,33 @@ public class ListInstr{ //extends ITerm{
     public void add(Instr i){
         instr.add(i);
     }
-    public Instr getLastInstr(){
-        return instr.get(instr.size()-1);
-    }
+
     public Instr getHead(){
         return this.instr.get(0);
     }
+
     public ArrayList<Instr> getBody(){
        ArrayList<Instr> body = new ArrayList<Instr>();
         for(int i = 1; i<instr.size(); i++)
         body.add(instr.get(i));
-        // this.instr.remove(0);
         return body;
     }
-    public ArrayList<Instr> getInstr(){
 
+    public ArrayList<Instr> getInstr(){
         return this.instr;
     }
-    public Instr get(int i){
 
+    public Instr get(int i){
         return this.instr.get(i);
     }
 
 
     public Pair<String, ListInstr> eval(){
-
             Pair<String, ListInstr> c = this.getHead().next();
-
         if(instr.size()>=1) {
             c.getSecond().concat(this.getBody());
             instr= c.getSecond().getInstr();
         }
-
-       // this.concat(c.getListInstr().getInstr(), this.getBody());
         c= new Pair (c.getFirst(),c.getSecond());
         return c;
     }
@@ -63,25 +54,9 @@ public class ListInstr{ //extends ITerm{
     public void clear(){
         this.instr.clear();
     }
-    //Evaluates the instructions one by one
-  /*  public void eval(){
-        for (int i = 0; i<instr.size(); i++) {
 
-                // thread to sleep for 1000 milliseconds
-
-            instr.get(i).eval();
-        }
-    }
-*/
-    //ajouter conxcaténation
     public void concat(ArrayList<Instr> sndPart){
         this.instr.addAll(sndPart);
-    }
-    public void concat(ArrayList<Instr> sndPart, ArrayList<Instr> frstPart){
-        this.instr = new ArrayList<Instr>();
-        instr.addAll(frstPart);
-        instr.addAll(sndPart);
-
     }
 
     public void reverse(){
@@ -94,7 +69,6 @@ public class ListInstr{ //extends ITerm{
     public void concat(Instr sndPart){
         this.instr.add(sndPart);
     }
-
 
     public boolean isEmpty(){
         return this.instr.isEmpty();

@@ -134,6 +134,7 @@ public class TermBuilder {
 
             public void run() {
 
+
                 if(!stack.isEmpty()&&lins.isEmpty()) {
                     ArrayList<Instr> l = initListInstr();
                     lins = new ListInstr(l); lins.reverse();
@@ -145,7 +146,6 @@ public class TermBuilder {
                     }
 
                     CheckIfEnd b = new CheckIfEnd(l);
-                    //If the player doesn't stop the execution
                     if(play) {
                         if (!b.eval()) {
                              gui.notify(false, null, true, Values.NOMV, false);
@@ -249,5 +249,4 @@ public class TermBuilder {
         catch (InterruptedException e) { e.printStackTrace();}
     }
 
-    public int getnStep() {return this.nStep;}
 }

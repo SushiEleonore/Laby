@@ -4,22 +4,12 @@ import java.util.ArrayList;
 
 import fr.upsud.sushi.laby.utils.Pair;
 
-/**
- * Created by proval on 5/25/16.
- */
 public class IfPathThen implements Instr {
     private Bool cond;
     private  ArrayList<Instr> lthen;
     private  ArrayList<Instr> lelse;
     private String id;
 
-    /*
-    public IfPathThen(Bool c, ListInstr l) {
-        this.cond = c;
-        this.lthen = l;
-        this.lelse = null;
-    }
-*/
     public IfPathThen(CheckIfPath c, ArrayList<Instr> l, String id) {
         this.cond = c;
         this.lthen = l;
@@ -47,28 +37,4 @@ public class IfPathThen implements Instr {
         }
         else return new Pair (this.id, new ListInstr());
     }
-
-   /* @Override
-    public void eval(){
-        boolean b = cond.eval();
-        if (b) {
-
-            //remplacer par listinstr.eval !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            for(int i =(lthen.size()-1); i>=0;i--){
-                lthen.get(i).eval();
-            }
-
-
-        } else if (this.lelse != null) {
-           /* for(Instr i : lelse){
-                i.eval();
-            }
-
-            for(int i = lelse.size()-1; i>=0;i--){
-                lelse.get(i).eval();
-            }
-        }
-
-    }
-            */
 }

@@ -19,7 +19,6 @@ import fr.upsud.sushi.laby.utils.Values;
 public class InstrWhilePath implements Instr {
     Bool condPath;
     String id;
-    //remplacer par listinstr
     ArrayList<Instr> instr;
 
     InstrWhilePath (CheckIfPath c,ArrayList<Instr> i, String id) {
@@ -28,37 +27,18 @@ public class InstrWhilePath implements Instr {
         this.id=id;
     }
     public Pair<String, ListInstr> next(){
-        if (this.condPath.eval()){
             ListInstr body = new ListInstr(instr);
             body.reverse();
             body.concat(this);
             return  new Pair(this.id,body);
-        }
-        else {
-            return new Pair(this.id, new ListInstr());
-        }
-
     }
 
 
     public void  eval(){
-        int cpt=0;
-        if(Values.DEBUG_MODE)
-            System.out.println("fait");
         while (this.condPath.eval()) {
-
             for(int i =instr.size()-1 ; i>=0; i--) {
                 instr.get(i).next();
-                //A DEPLACER DANS LE MVFORWARD
-              /* if (this.condPath.eval()){
-                    if (Values.DEBUG_MODE) System.out.println("break");
-                    break;}
             }
-            */
-            }
-            if (Values.DEBUG_MODE)
-                System.out.println("fait");
-            //if (cpt>20) break;
         }
 
     }

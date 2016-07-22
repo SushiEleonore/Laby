@@ -6,53 +6,22 @@ import android.graphics.BitmapFactory;
 
 import fr.upsud.sushi.laby.R;
 
-/**
- * Created by proval on 6/29/16.
- */
+
 public class BitmapParser {
-
-    private static int sizeImgx = 768;
-    private static int sizeImgy = 24;
-
     private static int caseSize ;
-    private static Skins skin = Skins.POULPE;
+    private static Skins skin = Skins.BEBEZILLA;
     public static  Bitmap mainBitmap;
-
-
-
-    public BitmapParser(Resources r) {
-        switch(skin){
-            case BEBEZILLA:
-                mainBitmap = BitmapFactory.decodeResource(r, R.drawable.bebezillaplayer);
-                caseSize = 24;
-                break;
-            case POULPE:
-                mainBitmap = BitmapFactory.decodeResource(r, R.drawable.poulpeplayer);
-                caseSize = 24;
-                break;
-            default:
-                mainBitmap = BitmapFactory.decodeResource(r, R.drawable.duck_player);
-                caseSize = 24;
-                break;
-        }
-
-    }
 
     public static void setSkin(Skins s){
         skin = s;
     }
 
-    public Bitmap getMainBitmap (){
-        return this.mainBitmap;
-    }
-
     private static void setMainBitmap(Resources r){
-        ////////////Ajouter ça
         BitmapFactory.Options opts = new BitmapFactory.Options();
         opts.inScaled = false;
         switch(skin){
-            case BEBEZILLA:
-                mainBitmap = BitmapFactory.decodeResource(r, R.drawable.bebezillaplayer, opts);
+            case DUCK:
+                mainBitmap = BitmapFactory.decodeResource(r, R.drawable.duckplayer, opts);
                 caseSize = 24;
                 break;
             case POULPE:
@@ -60,14 +29,13 @@ public class BitmapParser {
                 caseSize = 24;
                 break;
             default:
-                mainBitmap = BitmapFactory.decodeResource(r, R.drawable.duckplayer, opts);
+                mainBitmap = BitmapFactory.decodeResource(r, R.drawable.bebezillaplayer, opts);
                 caseSize = 24;
                 break;
         }
     }
 
 
-    //Moving player
     public static Bitmap getSkinMvG(Resources r) {
         setMainBitmap(r);
         return Bitmap.createBitmap(mainBitmap, caseSize, 0, caseSize*3, caseSize);
@@ -90,7 +58,6 @@ public class BitmapParser {
     }
 
 
-    //Other stuff
     public static Bitmap getStBreakableWall(Resources r){
         setMainBitmap(r);
         return Bitmap.createBitmap(mainBitmap, caseSize*20, 0, caseSize*3, caseSize);

@@ -12,34 +12,34 @@
         android:id="@+id/button9"
         android:background="@drawable/home" android:layout_gravity="center_horizontal"
         android:layout_weight="0.11"/>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
+     <LinearLayout
+         android:orientation="horizontal"
+         android:layout_width="match_parent"
         android:layout_height="wrap_content" android:layout_weight="0.2">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="1"
-            android:tag = "1"
-            android:onClick="levelX"
-            android:id="@+id/button2"
-            android:layout_weight="0.33"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="2"
-            android:tag = "2"
-            android:onClick="levelX"
-            android:id="@+id/button3"
-            android:layout_weight="0.33"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="3"
-            android:tag = "3"
-            android:onClick="levelX"
-            android:id="@+id/button4"
-            android:layout_weight="0.33"/>
+         <Button
+             android:layout_width="wrap_content"
+             android:layout_height="match_parent"
+             android:text="Niveau 1"
+             android:tag = "1"
+             android:onClick="levelX"
+             android:id="@+id/button2"
+             android:layout_weight="0.33"/>
+         <Button
+             android:layout_width="wrap_content"
+             android:layout_height="match_parent"
+             android:text="Niveau 2"
+             android:tag = "2"
+             android:onClick="levelX"
+             android:id="@+id/button3"
+             android:layout_weight="0.33"/>
+         <Button
+             android:layout_width="wrap_content"
+             android:layout_height="match_parent"
+             android:text="Niveau 3"
+             android:tag = "3"
+             android:onClick="levelX"
+             android:id="@+id/button4"
+             android:layout_weight="0.33"/>
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -48,7 +48,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="4"
+            android:text="Niveau 4"
             android:tag = "4"
             android:onClick="levelX"
             android:id="@+id/button5"
@@ -56,7 +56,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="5"
+            android:text="Niveau 5"
             android:tag = "5"
             android:onClick="levelX"
             android:id="@+id/button6"
@@ -64,7 +64,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="6"
+            android:text="Niveau 6"
             android:tag = "6"
             android:onClick="levelX"
             android:id="@+id/button7"
@@ -77,14 +77,12 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="7"
+            android:text="Niveau 7"
             android:tag = "7"
             android:onClick="levelX"
             android:id="@+id/button8" android:layout_weight="0.5"/>
         <Button android:layout_width="wrap_content" android:layout_height="match_parent"
-                android:text="8" android:onClick="levelX"
-                android:tag = "8"
-                android:id="@+id/button15"
+                android:text="Niveau 8" android:onClick="level8" android:id="@+id/button15"
                 android:layout_weight="0.5"/>
     </LinearLayout>
 </LinearLayout>

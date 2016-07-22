@@ -21,7 +21,6 @@ public class BreakableWall extends MovableElement{
     private boolean state;
     Bitmap skinBWall;
     Bitmap skinBurnig;
-    //The direction faced by the player
     private Level l;
     private Sprite sprite;
     private boolean isActioning=false;
@@ -34,8 +33,8 @@ public class BreakableWall extends MovableElement{
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inScaled = false;
         Resources res=this.l.getContext().getResources();
-        this.skinBWall = BitmapParser.getStBreakableWall(res);//BitmapFactory.decodeResource(res, R.drawable.breakablewall, options);
-        this.skinBurnig = BitmapParser.getMvBreakableWall(res);//BitmapFactory.decodeResource(res, R.drawable.burningbwall, options);
+        this.skinBWall = BitmapParser.getStBreakableWall(res);
+        this.skinBurnig = BitmapParser.getMvBreakableWall(res);
         this.sprite = new Sprite(this);
     }
 

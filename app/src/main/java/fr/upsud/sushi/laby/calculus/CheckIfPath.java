@@ -3,7 +3,6 @@ package fr.upsud.sushi.laby.calculus;
 import fr.upsud.sushi.laby.maze.Level;
 import fr.upsud.sushi.laby.utils.Sens;
 
-
 public class CheckIfPath extends Bool {
     private Level l;
     private Sens s;
@@ -25,7 +24,7 @@ public class CheckIfPath extends Bool {
             return !this.l.getPlayer().wallOnTheL();
         }
         if(l.getbWall()!=null) {
-            return !this.l.getPlayer().facingWall();
+            return !this.l.getPlayer().facingWall() && !this.l.getbWall().playerFacing();
         }
         else return true;
     }

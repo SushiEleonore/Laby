@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import fr.upsud.sushi.laby.R;
 import fr.upsud.sushi.laby.calculus.TermBuilder;
 import fr.upsud.sushi.laby.graphics.BackgroundDrawer;
-//import fr.upsud.sushi.laby.graphics.SurfaceViewDrawer;
 import fr.upsud.sushi.laby.graphics.ItemDrawer;
 import fr.upsud.sushi.laby.maze.Level;
 import fr.upsud.sushi.laby.utils.Observer;
@@ -107,10 +106,8 @@ class CustomWebChromeClient extends WebChromeClient {
 public class MainActivity extends AppCompatActivity implements Observer<String> {
 
     private WebView mWebView;
-    //private View mCodeView;
     private Level l;
     private BackgroundDrawer gameR;
-    //private Handler mHandler;
     private TermBuilder tbuilder;
     private boolean firsTime;
     private ItemDrawer drawer;
@@ -130,7 +127,6 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
         sPlayer.setZOrderOnTop(true);    // necessary
         drawer =new ItemDrawer(sMaze, sPlayer, (LinearLayout) findViewById(R.id.layout1), l);
         gameR= new BackgroundDrawer(l, this.getResources(), drawer.getBg());
-        //this.mHandler = new Handler(Looper.getMainLooper());
         this.tbuilder = new TermBuilder(this, l);
         setmWebView();
 
@@ -172,7 +168,9 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
                 @Override
                 public void run() {
                     if (resetLevel2) {restartLevel(); }
-                    if (fin2){backToMenu();}
+                    if (fin2){
+                        backToMenu();
+                    }
                     else if (id2==null) {restartLevel(); Toast.makeText(getApplicationContext(), R.string.essaie_encore, Toast.LENGTH_SHORT).show();}
                     else {
                         mWebView.loadUrl("javascript:highlightBlockById('" + id2 + "')");
@@ -190,7 +188,6 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
 
 
     /**** Blocks operations ****/
-
 
     public String createToolBox(ArrayList<String> blocks) {
         String arg = "";
@@ -248,15 +245,11 @@ public class MainActivity extends AppCompatActivity implements Observer<String> 
     }
 
     public void actionBlocks(MenuItem m) {
-
-        //mCodeView.setVisibility(View.GONE);
         mWebView.setVisibility(View.VISIBLE);
     }
 
     public void actionCode(MenuItem m) {
-
         mWebView.setVisibility(View.GONE);
-        //mCodeView.setVisibility(View.VISIBLE);
     }
     public boolean onCreateOptionsMenu(Menu menu) {
 

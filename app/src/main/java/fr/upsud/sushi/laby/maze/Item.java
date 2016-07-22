@@ -4,22 +4,14 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import fr.upsud.sushi.laby.R;
-import fr.upsud.sushi.laby.exceptions.wallCollisionException;
 import fr.upsud.sushi.laby.graphics.Sprite;
 import fr.upsud.sushi.laby.utils.BitmapParser;
 import fr.upsud.sushi.laby.utils.Dir;
-import fr.upsud.sushi.laby.utils.Sens;
-import fr.upsud.sushi.laby.utils.Values;
 
-/**
- * Created by proval on 6/23/16.
- */
 public class Item extends MovableElement {
     private int x;
     private int y;
     Bitmap skinItem;
-    //The direction faced by the player
     private Level l;
     private boolean visible;
 
@@ -33,7 +25,7 @@ public class Item extends MovableElement {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inScaled = false;
         Resources res=this.l.getContext().getResources();
-        this.skinItem = BitmapParser.getChili(res);//BitmapFactory.decodeResource(res, R.drawable.piment, options);
+        this.skinItem = BitmapParser.getChili(res);
         this.sprite = new Sprite(this);
     }
 
@@ -48,7 +40,6 @@ public class Item extends MovableElement {
     public int getX() { return this.x;}
     public int getY() { return this.y;}
 
-    public Bitmap getSkinItem(){ return this.skinItem;}
 
     public Level getLevel(){ return this.l;}
 
