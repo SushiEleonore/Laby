@@ -2,7 +2,7 @@
 Jeu de programmation par bloc
 
 Cette application est un jeu où l'utilisateur fait évoluer un personnage dans un labyrinthe, le but étant de le mener jusqu'à l'arrivée.
-Pour ce faire, il peut commender ses actions à l'aide de blocs d'instructions simples.
+Pour ce faire, il peut commander ses actions à l'aide de blocs d'instructions simples.
 
 La toute dernière version du code est celle de la branche "finalVersion". Le programme nécessite d'être exécuté sous Android Studio, et de préférence sur une tablette, un écran de smartphone étant trop petit pour le rendu de l'application soit optimal.
 
